@@ -1,0 +1,52 @@
+{
+  "name": "@twodogwang/unocss-preset-tailwind3",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Pure Tailwind CSS 3.x preset for UnoCSS",
+  "author": "twodogwang <a381097999@qq.com>",
+  "license": "MIT",
+  "sideEffects": false,
+  "packageManager": "pnpm@10.33.0",
+  "keywords": [
+    "unocss",
+    "unocss-preset",
+    "tailwindcss",
+    "tailwind3"
+  ],
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.mts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "typecheck": "oxlint . --type-aware --type-check -A all",
+    "typecheck:tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@unocss/core": "^66.6.0",
+    "@unocss/extractor-arbitrary-variants": "^66.6.0",
+    "@unocss/rule-utils": "^66.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@unocss/autocomplete": "^66.6.0",
+    "oxlint": "^1.60.0",
+    "oxlint-tsgolint": "^0.20.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "3.4.17",
+    "tsdown": "^0.21.7",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.3"
+  }
+}
