@@ -41,7 +41,17 @@ jobs:
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
           test "$TAG_VERSION" = "$PACKAGE_VERSION"
 
+      - name: Resolve last published version
+        id: last-published
+        run: |
+          PACKAGE_NAME="$(node -p "require('./package.json').name")"
+          LAST_PUBLISHED_VERSION="$(npm view "$PACKAGE_NAME" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
+          echo "last_published_version=$LAST_PUBLISHED_VERSION" >> "$GITHUB_OUTPUT"
+          echo "Last published version: ${LAST_PUBLISHED_VERSION:-<none>}"
+
       - name: Extract release notes
+        env:
+          LAST_PUBLISHED_VERSION: ${{ steps.last-published.outputs.last_published_version }}
         run: pnpm run release:notes -- "$GITHUB_REF_NAME" .release-notes.md
 
       - name: Print publish environment

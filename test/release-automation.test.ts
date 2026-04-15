@@ -32,7 +32,7 @@ describe('release automation', () => {
     expect(existsSync(releaseNotesScriptPath)).toBe(true)
 
     const mod = await import(pathToFileURL(releaseNotesScriptPath).href) as {
-      extractReleaseNotes: (input: string, version: string) => string
+      extractReleaseNotes: (input: string, version: string, lastPublishedVersion?: string) => string
       normalizeTagVersion: (tag: string) => string
     }
 
@@ -41,6 +41,14 @@ describe('release automation', () => {
 
     const sample = [
       '# Changelog',
+      '',
+      '## 0.1.3',
+      '',
+      '- Keep verbose publish diagnostics.',
+      '',
+      '## 0.1.2',
+      '',
+      '- Refresh the npm CLI before publishing.',
       '',
       '## 0.1.1',
       '',
@@ -53,6 +61,10 @@ describe('release automation', () => {
     ].join('\n')
 
     expect(mod.extractReleaseNotes(sample, '0.1.1')).toContain('Add tag-driven release workflow.')
+    expect(mod.extractReleaseNotes(sample, '0.1.3', '0.1.0')).toContain('Keep verbose publish diagnostics.')
+    expect(mod.extractReleaseNotes(sample, '0.1.3', '0.1.0')).toContain('Refresh the npm CLI before publishing.')
+    expect(mod.extractReleaseNotes(sample, '0.1.3', '0.1.0')).toContain('Add tag-driven release workflow.')
+    expect(mod.extractReleaseNotes(sample, '0.1.3', '0.1.0')).not.toContain('Initial release.')
     expect(() => mod.extractReleaseNotes(sample, '9.9.9')).toThrow(/9\.9\.9/)
   })
 
@@ -65,6 +77,22 @@ describe('release automation', () => {
     expect(output).toContain('legacy utility aliases')
   })
 
+  it('aggregates unreleased changelog sections after the last published version', () => {
+    const output = execFileSync('node', [releaseNotesScriptPath, '--', 'v0.1.3'], {
+      cwd: root,
+      encoding: 'utf8',
+      env: {
+        ...process.env,
+        LAST_PUBLISHED_VERSION: '0.1.0',
+      },
+    })
+
+    expect(output).toContain('## 0.1.3')
+    expect(output).toContain('## 0.1.2')
+    expect(output).toContain('## 0.1.1')
+    expect(output).not.toContain('## 0.1.0')
+  })
+
   it('keeps tag-driven release and publishes GitHub release notes from the changelog', () => {
     const workflow = readFileSync(releaseWorkflowPath, 'utf8')
 
@@ -73,6 +101,8 @@ describe('release automation', () => {
     expect(workflow).toContain('contents: write')
     expect(workflow).toContain('node-version: 24')
     expect(workflow).toContain('pnpm run ci')
+    expect(workflow).toContain('npm view "$PACKAGE_NAME" version')
+    expect(workflow).toContain('LAST_PUBLISHED_VERSION')
     expect(workflow).toContain('pnpm run release:notes')
     expect(workflow).toContain('node -v')
     expect(workflow).toContain('npm -v')
@@ -81,11 +111,13 @@ describe('release automation', () => {
     expect(workflow).toContain('gh release create')
   })
 
-  it('documents the changeset-driven tag release flow', () => {
+  it('documents package purpose, usage, and key features', () => {
     const readme = readFileSync(readmePath, 'utf8')
 
-    expect(readme).toContain('pnpm changeset')
-    expect(readme).toContain('pnpm version:release')
-    expect(readme).toContain('git tag v')
+    expect(readme).toContain('A strict UnoCSS preset')
+    expect(readme).toContain('## Basic usage')
+    expect(readme).toContain("presetTailwind3()")
+    expect(readme).toContain('## What it includes')
+    expect(readme).toContain('migration hints')
   })
 })
