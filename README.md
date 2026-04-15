@@ -1,48 +1,25 @@
 # @twodogwang/unocss-preset-tailwind3
 
-一个独立仓库中的 UnoCSS preset，目标是把 utility 和 variant 的语法边界收紧到 Tailwind CSS v3.4.17。
+A strict UnoCSS preset that narrows the utility and variant surface to match Tailwind CSS 3.x semantics.
 
-## 目标
+## Why this package exists
 
-- 不依赖 `preset-mini`
-- 不依赖 `preset-wind3`
-- 保留 Tailwind 3 正反例测试
-- 使用 Tailwind 3 黑盒差分保证语法边界
+UnoCSS is intentionally flexible, but that flexibility also allows many shortcuts and aliases that are not valid Tailwind syntax. This preset is for projects that want UnoCSS as the engine while keeping authoring rules much closer to Tailwind CSS 3.
 
-## 开发
+In practice, it helps you:
 
-```bash
-pnpm install
-pnpm build
-pnpm test
-```
+- accept Tailwind-style utilities and variants
+- reject many UnoCSS / Windi-style aliases that Tailwind 3 does not support
+- keep arbitrary values and arbitrary variants that are compatible with Tailwind 3
+- provide migration hints for a curated set of legacy shortcuts
 
-## 发布
-
-这个仓库保留 `v*` tag 驱动发布。
-
-日常改动完成后，先补一条 changeset：
+## Installation
 
 ```bash
-pnpm changeset
+pnpm add -D unocss @twodogwang/unocss-preset-tailwind3
 ```
 
-准备发版时，生成版本号和更新日志：
-
-```bash
-pnpm version:release
-```
-
-检查 `package.json` 与 `CHANGELOG.md` 后提交版本变更，然后创建并推送 tag：
-
-```bash
-git tag v0.1.1
-git push origin main --tags
-```
-
-GitHub Actions 会在 tag 推送后自动执行校验、发布 npm 包并创建 GitHub Release。
-
-## 使用
+## Basic usage
 
 ```ts
 import { defineConfig } from 'unocss'
@@ -54,3 +31,79 @@ export default defineConfig({
   ],
 })
 ```
+
+## What it includes
+
+- Tailwind 3 style utility coverage for spacing, sizing, layout, effects, color, transform, typography, and more
+- Tailwind-style variants such as `hover:`, `focus:`, `dark:`, `sm:`, `max-md:`, `supports-[...]`, and arbitrary selector variants like `[&>*]:...`
+- a blocklist that rejects many non-Tailwind aliases and loose shorthand forms
+- migration messages for selected legacy patterns, for example `c-#fff` -> `text-[#fff]` and `bg-op50` -> `bg-opacity-50`
+- optional preflight generation with support for `on-demand`
+
+## Example behavior
+
+Accepted examples:
+
+```txt
+w-4
+px-6
+text-red-500
+dark:text-white
+max-md:hidden
+[&>*]:p-4
+w-[123px]
+supports-[display:grid]:grid
+```
+
+Rejected examples:
+
+```txt
+w4
+p4
+c-#fff
+bg-op50
+lt-md:w-4
+filter-blur-sm
+transform-rotate-45
+```
+
+## Configuration
+
+`presetTailwind3()` accepts the following options:
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `dark` | `'class'` | Dark mode strategy. Use `'class'`, `'media'`, or custom selectors like `{ dark: '.dark', light: '.light' }`. |
+| `preflight` | `false` | Enables generated CSS variable preflights. Use `'on-demand'` to emit only activated entries. |
+| `arbitraryVariants` | `true` | Enables the arbitrary variant extractor used for selectors such as `[&>*]:...`. |
+| `variablePrefix` | `'un-'` | Rewrites generated CSS custom property names, for example `--un-...` to a custom prefix. |
+| `important` | `false` | Adds `!important` to declarations or scopes selectors under a container when set to a selector string. |
+| `prefix` | `undefined` | Applies UnoCSS utility prefixes if your project needs prefixed class names. |
+| `attributifyPseudo` | `false` | Passes through UnoCSS preset options for pseudo handling in attributify-style workflows. |
+
+Example with options:
+
+```ts
+import { defineConfig } from 'unocss'
+import presetTailwind3 from '@twodogwang/unocss-preset-tailwind3'
+
+export default defineConfig({
+  presets: [
+    presetTailwind3({
+      dark: 'media',
+      preflight: 'on-demand',
+      important: '#app',
+    }),
+  ],
+})
+```
+
+## Exports
+
+The package default export is `presetTailwind3`. It also exposes named exports such as `rules`, `variants`, `shortcuts`, `shorthands`, `theme`, `colors`, and `preflights` for advanced composition.
+
+## Notes
+
+- This package is designed for teams that want Tailwind-like authoring constraints on top of UnoCSS.
+- Preflight is disabled by default.
+- The blocklist is intentionally opinionated. It focuses on patterns that are high-confidence mismatches for Tailwind 3.
