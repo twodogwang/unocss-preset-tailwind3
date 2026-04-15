@@ -44,8 +44,16 @@ jobs:
       - name: Extract release notes
         run: pnpm run release:notes -- "$GITHUB_REF_NAME" .release-notes.md
 
+      - name: Refresh npm CLI
+        run: npm install -g npm@latest
+
+      - name: Print publish environment
+        run: |
+          node -v
+          npm -v
+
       - name: Publish package
-        run: npm publish --access public --provenance
+        run: npm publish --access public --provenance --loglevel verbose
 
       - name: Create GitHub release
         env:

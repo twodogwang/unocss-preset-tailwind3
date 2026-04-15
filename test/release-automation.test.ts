@@ -73,7 +73,10 @@ describe('release automation', () => {
     expect(workflow).toContain('contents: write')
     expect(workflow).toContain('pnpm run ci')
     expect(workflow).toContain('pnpm run release:notes')
-    expect(workflow).toContain('npm publish --access public --provenance')
+    expect(workflow).toContain('npm install -g npm@latest')
+    expect(workflow).toContain('node -v')
+    expect(workflow).toContain('npm -v')
+    expect(workflow).toContain('npm publish --access public --provenance --loglevel verbose')
     expect(workflow).toContain('gh release create')
   })
 
