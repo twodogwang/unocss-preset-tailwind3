@@ -1,0 +1,16 @@
+{
+  "name": "ide-eslint-fixture",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint src/demo.jsx"
+  },
+  "dependencies": {
+    "@twodogwang/unocss-preset-tailwind3": "workspace:*",
+    "unocss": "^66.6.0"
+  },
+  "devDependencies": {
+    "@unocss/eslint-config": "^66.6.0",
+    "eslint": "^9.0.0"
+  }
+}
