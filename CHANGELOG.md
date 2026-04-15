@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.3
+
+### Patch Changes
+
+- Run the release workflow on Node.js 24 and keep verbose publish diagnostics to avoid npm CLI upgrade failures in GitHub Actions.
+
 ## 0.1.2
 
 ### Patch Changes
