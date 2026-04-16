@@ -1,0 +1,68 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":maintainLockFilesWeekly"
+  ],
+  "timezone": "Asia/Shanghai",
+  "prConcurrentLimit": 2,
+  "branchConcurrentLimit": 2,
+  "rangeStrategy": "replace",
+  "schedule": [
+    "before 6am on monday"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "packageRules": [
+    {
+      "groupName": "UnoCSS packages",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "/^@unocss\\//"
+      ]
+    },
+    {
+      "groupName": "TypeScript toolchain",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "@types/node",
+        "oxlint",
+        "oxlint-tsgolint",
+        "tsdown",
+        "tsx",
+        "typescript",
+        "vitest"
+      ]
+    },
+    {
+      "groupName": "CSS tooling",
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "postcss",
+        "tailwindcss"
+      ]
+    },
+    {
+      "groupName": "GitHub Actions",
+      "matchManagers": [
+        "github-actions"
+      ]
+    },
+    {
+      "description": "Keep major upgrades isolated for safer review.",
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "addLabels": [
+        "major"
+      ]
+    }
+  ]
+}
