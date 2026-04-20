@@ -9,7 +9,7 @@
   "branchConcurrentLimit": 2,
   "rangeStrategy": "replace",
   "schedule": [
-    "before 6am on monday"
+    "* 0-5 * * *"
   ],
   "labels": [
     "dependencies"
