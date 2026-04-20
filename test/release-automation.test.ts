@@ -142,4 +142,13 @@ describe('release automation', () => {
     expect(agents).toContain('must not include repository maintenance details')
     expect(agents).toContain('.changeset/README.md')
   })
+
+  it('requires feature work to happen on branches instead of direct commits to main', () => {
+    const agents = readFileSync(agentsPath, 'utf8')
+
+    expect(agents).toContain('Do not commit directly to `main`.')
+    expect(agents).toContain('Do not perform feature work on `main`.')
+    expect(agents).toContain('Changes must reach `main` through pull requests only.')
+    expect(agents).toContain('restore local `main` before continuing')
+  })
 })

@@ -4,6 +4,14 @@
 
 - These instructions apply to the whole repository.
 
+## Branching Rules
+
+- Do not commit directly to `main`.
+- Do not perform feature work on `main`.
+- Create or switch to a non-`main` branch before making changes.
+- Changes must reach `main` through pull requests only.
+- If work is accidentally committed on `main`, move the commit to a feature branch and restore local `main` before continuing.
+
 ## Public Documentation Boundaries
 
 - `README.md` is public, end-user facing package documentation.
