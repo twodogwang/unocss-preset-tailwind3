@@ -107,9 +107,3 @@ The package default export is `presetTailwind3`. It also exposes named exports s
 - This package is designed for teams that want Tailwind-like authoring constraints on top of UnoCSS.
 - Preflight is disabled by default.
 - The blocklist is intentionally opinionated. It focuses on patterns that are high-confidence mismatches for Tailwind 3.
-
-## Repository maintenance
-
-- This repository includes a conservative Renovate baseline in `renovate.json`.
-- Updates are grouped around UnoCSS packages, the TypeScript toolchain, CSS tooling, and GitHub Actions to reduce PR noise.
-- To activate Renovate, install the Renovate GitHub App for this repository or the parent organization.

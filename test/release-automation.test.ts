@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 const root = resolve(import.meta.dirname, '..')
 const packageJsonPath = join(root, 'package.json')
 const readmePath = join(root, 'README.md')
+const agentsPath = join(root, 'AGENTS.md')
 const releaseWorkflowPath = join(root, '.github', 'workflows', 'release.yml')
 const changelogPath = join(root, 'CHANGELOG.md')
 const changesetConfigPath = join(root, '.changeset', 'config.json')
@@ -25,6 +26,7 @@ describe('release automation', () => {
     expect(packageJson.devDependencies?.['@changesets/cli']).toBeTruthy()
     expect(packageJson.scripts?.changeset).toBe('changeset')
     expect(packageJson.scripts?.['version:release']).toBe('changeset version')
+    expect(packageJson.scripts?.['release:publish']).toBe('changeset publish')
     expect(packageJson.scripts?.['release:notes']).toBe('node scripts/release-notes.mjs')
   })
 
@@ -93,22 +95,28 @@ describe('release automation', () => {
     expect(output).not.toContain('## 0.1.0')
   })
 
-  it('keeps tag-driven release and publishes GitHub release notes from the changelog', () => {
+  it('uses changesets release PRs and publishes merged versions from the changelog', () => {
     const workflow = readFileSync(releaseWorkflowPath, 'utf8')
 
-    expect(workflow).toContain("tags:")
-    expect(workflow).toContain("- 'v*'")
+    expect(workflow).toContain('branches:')
+    expect(workflow).toContain('- main')
     expect(workflow).toContain('contents: write')
+    expect(workflow).toContain('pull-requests: write')
     expect(workflow).toContain('node-version: 24')
+    expect(workflow).toContain('changesets/action@v1')
+    expect(workflow).toContain("version: pnpm version:release")
+    expect(workflow).toContain("steps.changesets.outputs.hasChangesets == 'false'")
     expect(workflow).toContain('pnpm run ci')
+    expect(workflow).toContain('pnpm run release:publish')
     expect(workflow).toContain('npm view "$PACKAGE_NAME" version')
+    expect(workflow).toContain('PACKAGE_VERSION="$(node -p "require(\'./package.json\').version")"')
     expect(workflow).toContain('LAST_PUBLISHED_VERSION')
     expect(workflow).toContain('pnpm run release:notes')
-    expect(workflow).toContain('node -v')
-    expect(workflow).toContain('npm -v')
-    expect(workflow).toContain('npm publish --access public --provenance --loglevel verbose')
-    expect(workflow).not.toContain('npm install -g npm@latest')
+    expect(workflow).toContain('NPM_CONFIG_PROVENANCE: true')
+    expect(workflow).toContain('git tag')
     expect(workflow).toContain('gh release create')
+    expect(workflow).not.toContain("tags:")
+    expect(workflow).not.toContain('Verify tag matches package version')
   })
 
   it('documents package purpose, usage, and key features', () => {
@@ -119,5 +127,28 @@ describe('release automation', () => {
     expect(readme).toContain("presetTailwind3()")
     expect(readme).toContain('## What it includes')
     expect(readme).toContain('migration hints')
+    expect(readme).not.toContain('## Repository maintenance')
+    expect(readme).not.toContain('Renovate baseline')
+    expect(readme).not.toContain('Changesets drives releases')
+  })
+
+  it('keeps repository documentation boundaries in AGENTS.md instead of the public README', () => {
+    expect(existsSync(agentsPath)).toBe(true)
+
+    const agents = readFileSync(agentsPath, 'utf8')
+
+    expect(agents).toContain('README.md')
+    expect(agents).toContain('only contain end-user package documentation')
+    expect(agents).toContain('must not include repository maintenance details')
+    expect(agents).toContain('.changeset/README.md')
+  })
+
+  it('requires feature work to happen on branches instead of direct commits to main', () => {
+    const agents = readFileSync(agentsPath, 'utf8')
+
+    expect(agents).toContain('Do not commit directly to `main`.')
+    expect(agents).toContain('Do not perform feature work on `main`.')
+    expect(agents).toContain('Changes must reach `main` through pull requests only.')
+    expect(agents).toContain('restore local `main` before continuing')
   })
 })

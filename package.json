@@ -39,6 +39,7 @@
     "dev": "tsdown --watch",
     "lint:fixture:ide": "pnpm --filter ide-eslint-fixture lint",
     "prepublishOnly": "pnpm run ci",
+    "release:publish": "changeset publish",
     "release:notes": "node scripts/release-notes.mjs",
     "test": "vitest --run",
     "test:fixtures": "pnpm run lint:fixture:ide",
