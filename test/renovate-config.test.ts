@@ -32,7 +32,7 @@ describe('renovate configuration', () => {
     expect(config.timezone).toBe('Asia/Shanghai')
     expect(config.prConcurrentLimit).toBe(2)
     expect(config.branchConcurrentLimit).toBe(2)
-    expect(config.schedule).toContain('before 6am on monday')
+    expect(config.schedule).toContain('* 0-5 * * *')
   })
 
   it('groups upstream dependencies around the project maintenance hotspots', () => {
