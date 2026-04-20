@@ -3,19 +3,24 @@ name: Release
 on:
   workflow_dispatch:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
       id-token: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -35,34 +40,54 @@ jobs:
       - name: Run CI checks
         run: pnpm run ci
 
-      - name: Verify tag matches package version
-        run: |
-          TAG_VERSION="${GITHUB_REF_NAME#v}"
-          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
-          test "$TAG_VERSION" = "$PACKAGE_VERSION"
+      - name: Create release pull request or prepare publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: pnpm version:release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Resolve last published version
-        id: last-published
+      - name: Resolve release state
+        if: steps.changesets.outputs.hasChangesets == 'false'
+        id: release-state
         run: |
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
           PACKAGE_NAME="$(node -p "require('./package.json').name")"
           LAST_PUBLISHED_VERSION="$(npm view "$PACKAGE_NAME" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
+          SHOULD_PUBLISH=false
+          if [ "$PACKAGE_VERSION" != "$LAST_PUBLISHED_VERSION" ]; then
+            SHOULD_PUBLISH=true
+          fi
+          echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
           echo "last_published_version=$LAST_PUBLISHED_VERSION" >> "$GITHUB_OUTPUT"
+          echo "should_publish=$SHOULD_PUBLISH" >> "$GITHUB_OUTPUT"
           echo "Last published version: ${LAST_PUBLISHED_VERSION:-<none>}"
 
       - name: Extract release notes
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
         env:
-          LAST_PUBLISHED_VERSION: ${{ steps.last-published.outputs.last_published_version }}
-        run: pnpm run release:notes -- "$GITHUB_REF_NAME" .release-notes.md
-
-      - name: Print publish environment
-        run: |
-          node -v
-          npm -v
+          LAST_PUBLISHED_VERSION: ${{ steps.release-state.outputs.last_published_version }}
+        run: pnpm run release:notes -- "v${{ steps.release-state.outputs.package_version }}" .release-notes.md
 
       - name: Publish package
-        run: npm publish --access public --provenance --loglevel verbose
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
+        env:
+          NPM_CONFIG_PROVENANCE: true
+        run: pnpm run release:publish
+
+      - name: Create release tag
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
+        env:
+          TAG_NAME: v${{ steps.release-state.outputs.package_version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
 
       - name: Create GitHub release
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME" --notes-file .release-notes.md
+        run: gh release create "v${{ steps.release-state.outputs.package_version }}" --title "v${{ steps.release-state.outputs.package_version }}" --notes-file .release-notes.md --verify-tag
