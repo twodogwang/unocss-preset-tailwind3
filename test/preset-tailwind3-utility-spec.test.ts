@@ -9,11 +9,21 @@ describe('tailwind utility spec', () => {
   })
 
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
+    expect(tailwindUtilitySpecs).toHaveLength(2)
+
     const borderWidthSpec = tailwindUtilitySpecs.find(spec => spec.id === 'border-width')
     const borderRadiusSpec = tailwindUtilitySpecs.find(spec => spec.id === 'border-radius')
 
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
+    expect(tailwindUtilitySpecs.map(spec => spec.id)).toEqual(['border-width', 'border-radius'])
+
+    expect(borderWidthSpec?.invalid).toContain('border-10px')
+    expect(borderRadiusSpec?.invalid).toContain('rounded-lt-lg')
+    expect(borderWidthSpec?.supportsPrefix).toBe(true)
+    expect(borderWidthSpec?.supportsVariants).toBe(true)
+    expect(borderRadiusSpec?.supportsPrefix).toBe(true)
+    expect(borderRadiusSpec?.supportsVariants).toBe(true)
 
     expect(borderWidthSpec?.canonical).toEqual([...borderWidthFixtures.canonical])
     expect(borderWidthSpec?.invalid).toEqual([...borderWidthFixtures.invalid])
