@@ -37,7 +37,7 @@ describe('preset-tailwind3', () => {
       const ac = createAutocomplete(uno, { throwErrors: false })
 
       expect(ac.errorCache.size).toBe(0)
-      expect(await ac.suggest('position-')).toContain('position-relative')
+      expect(await ac.suggest('overflow-')).toContain('overflow-hidden')
       expect(await ac.suggest('static')).toContain('static')
     })
   })

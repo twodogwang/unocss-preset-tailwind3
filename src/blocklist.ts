@@ -1,4 +1,5 @@
 import type { BlocklistRule } from '@unocss/core'
+import { escapeRegExp } from '@unocss/core'
 
 const rawLengthUnit = String.raw`(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)`
 const rawLengthValue = String.raw`(?:\d+\.?\d*|\d*\.\d+)${rawLengthUnit}`
@@ -6,45 +7,96 @@ const rawCssFunctionValue = String.raw`(?:var|calc|min|max|clamp)\(.+\)`
 const rawArbitraryValue = String.raw`(?:${rawLengthValue}|${rawCssFunctionValue})`
 const rawHexColor = String.raw`#(?:[\da-fA-F]{3,4}|[\da-fA-F]{6}|[\da-fA-F]{8})`
 
-function legacyMessage(selector: string, replacement: string) {
+export type BlocklistLocale = 'zh-CN' | 'en'
+
+export interface CreateBlocklistOptions {
+  locale?: BlocklistLocale
+}
+
+function legacyMessage(selector: string, replacement: string, locale: BlocklistLocale = 'zh-CN') {
+  if (locale === 'en')
+    return `Legacy class "${selector}" is disabled. Use "${replacement}" instead.`
   return `旧写法 "${selector}" 已禁用，请改为 "${replacement}"`
+}
+
+type MigrationReplacement = (selector: string, match: RegExpMatchArray) => string
+
+interface MigrationDescriptor {
+  matcher: RegExp
+  replacement: MigrationReplacement
 }
 
 function migrationRule(
   matcher: RegExp,
-  replacement: (selector: string, match: RegExpMatchArray) => string,
+  replacement: MigrationReplacement,
+  locale: BlocklistLocale,
 ): BlocklistRule {
   return [
     matcher,
     {
       message: (selector) => {
         const match = selector.match(matcher)
-        return legacyMessage(selector, match ? replacement(selector, match) : selector)
+        return legacyMessage(selector, match ? replacement(selector, match) : selector, locale)
       },
     },
   ]
 }
 
-export const blocklist: BlocklistRule[] = [
-  migrationRule(new RegExp(`^color-(${rawHexColor})$`), (_, match) => `[color:${match[1]}]`),
-  migrationRule(new RegExp(`^c-(${rawHexColor})$`), (_, match) => `text-[${match[1]}]`),
-  migrationRule(new RegExp(`^(text|bg|fill|stroke|accent|caret)-(${rawHexColor})$`), (_, match) => `${match[1]}-[${match[2]}]`),
-  migrationRule(/^b-(.+)$/, selector => selector.replace(/^b-/, 'border-')),
-  migrationRule(/^rd-(.+)$/, selector => selector.replace(/^rd-/, 'rounded-')),
-  migrationRule(/^fw-(.+)$/, selector => selector.replace(/^fw-/, 'font-')),
-  migrationRule(/^pos-(.+)$/, (_, match) => match[1]),
-  migrationRule(/^op(\d+)$/, (_, match) => `opacity-${match[1]}`),
-  migrationRule(/^bg-op-?(\d+)$/, (_, match) => `bg-opacity-${match[1]}`),
-  migrationRule(/^border-op(\d+)$/, (_, match) => `border-opacity-${match[1]}`),
-  migrationRule(/^ring-op(\d+)$/, (_, match) => `ring-opacity-${match[1]}`),
-  migrationRule(/^ring-(?:width|size)-(.+)$/, (_, match) => `ring-${match[1]}`),
-  migrationRule(/^border((?:-[a-z]{1,2})?)-color-(.+)$/, (_, match) => `border${match[1]}-${match[2]}`),
-  migrationRule(/^outline-color-(.+)$/, (_, match) => `outline-${match[1]}`),
-  migrationRule(/^outline-width-(.+)$/, (_, match) => `outline-${match[1]}`),
-  migrationRule(/^outline-style-(.+)$/, (_, match) => `outline-${match[1]}`),
-  migrationRule(/^(?:property|transition-property)-(.+)$/, (_, match) => `transition-${match[1]}`),
-  migrationRule(/^transition-delay-(.+)$/, (_, match) => `delay-${match[1]}`),
-  migrationRule(/^transition-ease-(.+)$/, (_, match) => `ease-${match[1]}`),
+function prefixedMigrationRule(
+  matcher: RegExp,
+  replacement: MigrationReplacement,
+  prefix: string,
+  locale: BlocklistLocale,
+): BlocklistRule {
+  const prefixedMatcher = new RegExp(`^${escapeRegExp(prefix)}${matcher.source.replace(/^\^/, '')}`, matcher.flags)
+
+  return [
+    prefixedMatcher,
+    {
+      message: (selector) => {
+        const unprefixedSelector = selector.startsWith(prefix)
+          ? selector.slice(prefix.length)
+          : selector
+        const match = unprefixedSelector.match(matcher)
+        const suggested = match
+          ? replacement(unprefixedSelector, match)
+          : unprefixedSelector
+        return legacyMessage(selector, `${prefix}${suggested}`, locale)
+      },
+    },
+  ]
+}
+
+function prefixedRawRule(
+  matcher: RegExp,
+  prefix: string,
+): BlocklistRule {
+  return new RegExp(`^${escapeRegExp(prefix)}${matcher.source.replace(/^\^/, '')}`, matcher.flags)
+}
+
+const migrationDescriptors: MigrationDescriptor[] = [
+  { matcher: new RegExp(`^color-(${rawHexColor})$`), replacement: (_, match) => `[color:${match[1]}]` },
+  { matcher: new RegExp(`^c-(${rawHexColor})$`), replacement: (_, match) => `text-[${match[1]}]` },
+  { matcher: new RegExp(`^(text|bg|fill|stroke|accent|caret)-(${rawHexColor})$`), replacement: (_, match) => `${match[1]}-[${match[2]}]` },
+  { matcher: /^b-(.+)$/, replacement: selector => selector.replace(/^b-/, 'border-') },
+  { matcher: /^rd-(.+)$/, replacement: selector => selector.replace(/^rd-/, 'rounded-') },
+  { matcher: /^fw-(.+)$/, replacement: selector => selector.replace(/^fw-/, 'font-') },
+  { matcher: /^pos-(relative|absolute|fixed|sticky|static)$/, replacement: (_, match) => match[1] },
+  { matcher: /^op(\d+)$/, replacement: (_, match) => `opacity-${match[1]}` },
+  { matcher: /^bg-op-?(\d+)$/, replacement: (_, match) => `bg-opacity-${match[1]}` },
+  { matcher: /^border-op(\d+)$/, replacement: (_, match) => `border-opacity-${match[1]}` },
+  { matcher: /^ring-op(\d+)$/, replacement: (_, match) => `ring-opacity-${match[1]}` },
+  { matcher: /^ring-(?:width|size)-(.+)$/, replacement: (_, match) => `ring-${match[1]}` },
+  { matcher: /^border((?:-[a-z]{1,2})?)-color-(.+)$/, replacement: (_, match) => `border${match[1]}-${match[2]}` },
+  { matcher: /^outline-color-(.+)$/, replacement: (_, match) => `outline-${match[1]}` },
+  { matcher: /^outline-width-(.+)$/, replacement: (_, match) => `outline-${match[1]}` },
+  { matcher: /^outline-style-(.+)$/, replacement: (_, match) => `outline-${match[1]}` },
+  { matcher: /^(?:property|transition-property)-(none|all|colors|opacity|shadow|transform)$/, replacement: (_, match) => `transition-${match[1]}` },
+  { matcher: /^transition-delay-(.+)$/, replacement: (_, match) => `delay-${match[1]}` },
+  { matcher: /^transition-ease-(.+)$/, replacement: (_, match) => `ease-${match[1]}` },
+]
+
+const rawBlocklist: RegExp[] = [
   /^(?:w|h)\d\S*$/,
   /^(?:min|max)[wh]\S*$/,
   /^size-[wh]-\S+$/,
@@ -90,3 +142,17 @@ export const blocklist: BlocklistRule[] = [
   new RegExp(`^-?translate-(?:[xyz]-)?${rawArbitraryValue}$`),
   new RegExp(`^scroll-[mp](?:[trblxy]|[se]|[bi][se])?-${rawArbitraryValue}$`),
 ]
+
+export function createBlocklist(prefix?: string | string[], options: CreateBlocklistOptions = {}): BlocklistRule[] {
+  const prefixes = (Array.isArray(prefix) ? prefix : [prefix]).filter((item): item is string => Boolean(item))
+  const locale = options.locale ?? 'zh-CN'
+
+  return [
+    ...migrationDescriptors.map(({ matcher, replacement }) => migrationRule(matcher, replacement, locale)),
+    ...prefixes.flatMap(prefix => migrationDescriptors.map(({ matcher, replacement }) => prefixedMigrationRule(matcher, replacement, prefix, locale))),
+    ...rawBlocklist,
+    ...prefixes.flatMap(prefix => rawBlocklist.map(matcher => prefixedRawRule(matcher, prefix))),
+  ]
+}
+
+export const blocklist: BlocklistRule[] = createBlocklist()

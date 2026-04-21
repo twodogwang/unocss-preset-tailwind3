@@ -1,6 +1,6 @@
 import type { CSSValues, Rule, RuleContext } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h, makeGlobalStaticRules, positionMap, transformXYZ } from '../utils'
+import { h, makeGlobalStaticRules, positionMap, resolveTailwindSpacing, transformXYZ } from '../utils'
 
 const transformValues = [
   'translate',
@@ -71,52 +71,19 @@ const preflightKeys = Object.keys(transformBase)
 export const transforms: Rule[] = [
   // origins
   [
-    /^(?:transform-)?origin-(.+)$/,
+    /^origin-(.+)$/,
     ([, s]) => ({ 'transform-origin': positionMap[s] ?? h.bracket.cssvar(s) }),
-    { autocomplete: [`transform-origin-(${Object.keys(positionMap).join('|')})`, `origin-(${Object.keys(positionMap).join('|')})`] },
+    { autocomplete: `origin-(${Object.keys(positionMap).join('|')})` },
   ],
-
-  // perspectives
-  [/^(transform-)?perspect(?:ive)?-(.+)$/, ([, t, s]) => {
-    const v = h.bracket.cssvar.px.numberWithUnit(s)
-    if (v != null) {
-      if (t) {
-        return {
-          '--un-perspective': `perspective(${v})`,
-          'transform': `var(--un-perspective) ${transform}`,
-        }
-      }
-
-      return {
-        '-webkit-perspective': v,
-        'perspective': v,
-      }
-    }
-  }],
-
-  // skip 1 & 2 letters shortcut
-  [/^perspect(?:ive)?-origin-(.+)$/, ([, s]) => {
-    const v = h.bracket.cssvar(s) ?? (s.length >= 3 ? positionMap[s] : undefined)
-    if (v != null) {
-      return {
-        '-webkit-perspective-origin': v,
-        'perspective-origin': v,
-      }
-    }
-  }],
 
   // modifiers
   [/^translate-([xy])-(.+)$/, handleTranslate, { custom: { preflightKeys } }],
-  [/^(?:transform-)?rotate-()(.+)$/, handleRotate, { custom: { preflightKeys } }],
-  [/^(?:transform-)?rotate-([xyz])-(.+)$/, handleRotate, { custom: { preflightKeys } }],
-  [/^(?:transform-)?skew-()(.+)$/, handleSkew, { custom: { preflightKeys } }],
-  [/^(?:transform-)?skew-([xy])-(.+)$/, handleSkew, { custom: { preflightKeys }, autocomplete: ['transform-skew-(x|y)-<percent>', 'skew-(x|y)-<percent>'] }],
-  [/^(?:transform-)?scale-()(.+)$/, handleScale, { custom: { preflightKeys } }],
-  [/^(?:transform-)?scale-([xyz])-(.+)$/, handleScale, { custom: { preflightKeys }, autocomplete: [`transform-(${transformValues.join('|')})-<percent>`, `transform-(${transformValues.join('|')})-(x|y|z)-<percent>`, `(${transformValues.join('|')})-<percent>`, `(${transformValues.join('|')})-(x|y|z)-<percent>`] }],
-
-  // style
-  [/^(?:transform-)?preserve-3d$/, () => ({ 'transform-style': 'preserve-3d' })],
-  [/^(?:transform-)?preserve-flat$/, () => ({ 'transform-style': 'flat' })],
+  [/^rotate-()(.+)$/, handleRotate, { custom: { preflightKeys } }],
+  [/^rotate-([xyz])-(.+)$/, handleRotate, { custom: { preflightKeys } }],
+  [/^skew-()(.+)$/, handleSkew, { custom: { preflightKeys } }],
+  [/^skew-([xy])-(.+)$/, handleSkew, { custom: { preflightKeys }, autocomplete: ['skew-(x|y)-<percent>'] }],
+  [/^scale-()(.+)$/, handleScale, { custom: { preflightKeys } }],
+  [/^scale-([xyz])-(.+)$/, handleScale, { custom: { preflightKeys }, autocomplete: [`(${transformValues.join('|')})-<percent>`, `(${transformValues.join('|')})-(x|y|z)-<percent>`] }],
 
   // base
   ['transform', { transform }, { custom: { preflightKeys } }],
@@ -129,7 +96,7 @@ export const transforms: Rule[] = [
 ]
 
 function handleTranslate([, d, b]: string[], { theme }: RuleContext<Theme>): CSSValues | undefined {
-  const v = theme.spacing?.[b] ?? h.bracket.cssvar.fraction.rem(b)
+  const v = resolveTailwindSpacing(theme, b, { allowFraction: true })
   if (v != null) {
     return [
       ...transformXYZ(d, v, 'translate'),

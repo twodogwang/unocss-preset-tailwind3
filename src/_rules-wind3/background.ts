@@ -70,19 +70,17 @@ function bgGradientPositionResolver() {
 
 export const backgroundStyles: Rule[] = [
   // gradients
-  [/^bg-gradient-(.+)$/, ([, d]) => ({ '--un-gradient': h.bracket(d) }), {
+  [/^bg-gradient-(.+)$/, ([, d]) => {
+    const value = h.bracket(d)
+    if (value != null)
+      return { '--un-gradient': value }
+  }, {
     autocomplete: ['bg-gradient', 'bg-gradient-(from|to|via)', 'bg-gradient-(from|to|via)-$colors', 'bg-gradient-(from|to|via)-(op|opacity)', 'bg-gradient-(from|to|via)-(op|opacity)-<percent>'],
   }],
-  [/^(?:bg-gradient-)?stops-(\[.+\])$/, ([, s]) => ({ '--un-gradient-stops': h.bracket(s) })],
-  [/^(?:bg-gradient-)?(from)-(.+)$/, bgGradientColorResolver()],
-  [/^(?:bg-gradient-)?(via)-(.+)$/, bgGradientColorResolver()],
-  [/^(?:bg-gradient-)?(to)-(.+)$/, bgGradientColorResolver()],
-  [/^(?:bg-gradient-)?(from|via|to)-op(?:acity)?-?(.+)$/, ([, position, opacity]) => ({ [`--un-${position}-opacity`]: h.bracket.percent(opacity) })],
+  [/^(from)-(.+)$/, bgGradientColorResolver()],
+  [/^(via)-(.+)$/, bgGradientColorResolver()],
+  [/^(to)-(.+)$/, bgGradientColorResolver()],
   [/^(from|via|to)-([\d.]+)%$/, bgGradientPositionResolver()],
-  // images
-  [/^bg-gradient-((?:repeating-)?(?:linear|radial|conic))$/, ([, s]) => ({
-    'background-image': `${s}-gradient(var(--un-gradient, var(--un-gradient-stops, rgb(255 255 255 / 0))))`,
-  }), { autocomplete: ['bg-gradient-repeating', 'bg-gradient-(linear|radial|conic)', 'bg-gradient-repeating-(linear|radial|conic)'] }],
   // ignore any center position
   [/^bg-gradient-to-([rltb]{1,2})$/, ([, d]) => {
     if (d in positionMap) {
@@ -93,15 +91,6 @@ export const backgroundStyles: Rule[] = [
       }
     }
   }, { autocomplete: `bg-gradient-to-(${Object.keys(positionMap).filter(k => k.length <= 2 && Array.from(k).every(c => 'rltb'.includes(c))).join('|')})` }],
-  [/^(?:bg-gradient-)?shape-(.+)$/, ([, d]) => {
-    const v = d in positionMap ? `to ${positionMap[d]}` : h.bracket(d)
-    if (v != null) {
-      return {
-        '--un-gradient-shape': `${v} in oklch`,
-        '--un-gradient': 'var(--un-gradient-shape), var(--un-gradient-stops)',
-      }
-    }
-  }, { autocomplete: ['bg-gradient-shape', `bg-gradient-shape-(${Object.keys(positionMap).join('|')})`, `shape-(${Object.keys(positionMap).join('|')})`] }],
   ['bg-none', { 'background-image': 'none' }],
 
   ['box-decoration-slice', { 'box-decoration-break': 'slice' }],

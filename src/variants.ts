@@ -119,7 +119,7 @@ export function variants(options: PresetTailwind3Options): Variant<Theme>[] {
   return [
     variantAria,
     variantDataAttribute,
-    variantNegative,
+    variantNegative(options),
     variantImportant(),
     variantSupports,
     variantPrint,

@@ -1,0 +1,433 @@
+import type { BlocklistRule } from '@unocss/core'
+import { createGenerator } from '@unocss/core'
+import { createBlocklist } from '../src/blocklist'
+import presetTailwind3 from '../src/index'
+import { describe, expect, it } from 'vitest'
+
+type PresetOptions = Parameters<typeof presetTailwind3>[0]
+
+type MigrationFixture = {
+  label: string
+  matcher: RegExp
+  input: string
+  prefixed: string
+  replacement: string
+}
+
+type RawFixture = {
+  label: string
+  matcher: RegExp
+  input: string
+  prefixed: string
+}
+
+type AllowFixture = {
+  label: string
+  input: string
+  prefixed: string
+}
+
+function zhMessage(selector: string, replacement: string) {
+  return `旧写法 "${selector}" 已禁用，请改为 "${replacement}"`
+}
+
+function enMessage(selector: string, replacement: string) {
+  return `Legacy class "${selector}" is disabled. Use "${replacement}" instead.`
+}
+
+function ruleKey(matcher: RegExp) {
+  return `${matcher.source}::${matcher.flags}`
+}
+
+function fixtureKey(rule: BlocklistRule) {
+  const matcher = Array.isArray(rule) ? rule[0] : rule
+  if (typeof matcher === 'string')
+    return `${matcher}::string`
+  if (matcher instanceof RegExp)
+    return ruleKey(matcher)
+  return `fn:${matcher.toString()}`
+}
+
+async function createUno(options: PresetOptions = {}) {
+  return createGenerator({
+    presets: [presetTailwind3(options)],
+  })
+}
+
+async function readBlockedState(
+  input: string,
+  options: PresetOptions = {},
+) {
+  const uno = await createUno(options)
+  const blocked = uno.getBlocked(input)
+  const { css, matched } = await uno.generate(new Set([input]), { preflights: false })
+
+  return {
+    blocked,
+    css,
+    matched: Array.from(matched),
+  }
+}
+
+async function expectBlocked(
+  input: string,
+  options: PresetOptions = {},
+) {
+  const { blocked, css, matched } = await readBlockedState(input, options)
+
+  expect(blocked, `${input} should be blocked`).toBeTruthy()
+  expect(matched, `${input} should not be matched`).toEqual([])
+  expect(css, `${input} should not generate CSS`).toBe('')
+
+  return blocked!
+}
+
+async function expectBlockedMessage(
+  input: string,
+  expected: string,
+  options: PresetOptions = {},
+) {
+  const blocked = await expectBlocked(input, options)
+  const [, meta] = blocked
+  const actual = typeof meta?.message === 'function'
+    ? meta.message(input)
+    : meta?.message
+
+  expect(actual).toBe(expected)
+}
+
+async function expectNotBlocked(
+  input: string,
+  options: PresetOptions = {},
+) {
+  const uno = await createUno(options)
+  expect(uno.getBlocked(input), `${input} should not be blocked`).toBeFalsy()
+}
+
+const migrationFixtures: MigrationFixture[] = [
+  {
+    label: 'color hex alias',
+    matcher: new RegExp('^color-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
+    input: 'color-#fff',
+    prefixed: 'tw-color-#fff',
+    replacement: '[color:#fff]',
+  },
+  {
+    label: 'text shorthand hex alias',
+    matcher: new RegExp('^c-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
+    input: 'c-#fff',
+    prefixed: 'tw-c-#fff',
+    replacement: 'text-[#fff]',
+  },
+  {
+    label: 'text hex alias',
+    matcher: new RegExp('^(text|bg|fill|stroke|accent|caret)-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
+    input: 'text-#fff',
+    prefixed: 'tw-text-#fff',
+    replacement: 'text-[#fff]',
+  },
+  {
+    label: 'bg hex alias',
+    matcher: new RegExp('^(text|bg|fill|stroke|accent|caret)-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
+    input: 'bg-#fff',
+    prefixed: 'tw-bg-#fff',
+    replacement: 'bg-[#fff]',
+  },
+  {
+    label: 'border shorthand width alias',
+    matcher: /^b-(.+)$/,
+    input: 'b-2',
+    prefixed: 'tw-b-2',
+    replacement: 'border-2',
+  },
+  {
+    label: 'border shorthand color alias',
+    matcher: /^b-(.+)$/,
+    input: 'b-red-500',
+    prefixed: 'tw-b-red-500',
+    replacement: 'border-red-500',
+  },
+  {
+    label: 'rounded shorthand alias',
+    matcher: /^rd-(.+)$/,
+    input: 'rd-md',
+    prefixed: 'tw-rd-md',
+    replacement: 'rounded-md',
+  },
+  {
+    label: 'font weight shorthand alias',
+    matcher: /^fw-(.+)$/,
+    input: 'fw-bold',
+    prefixed: 'tw-fw-bold',
+    replacement: 'font-bold',
+  },
+  {
+    label: 'position alias',
+    matcher: /^pos-(relative|absolute|fixed|sticky|static)$/,
+    input: 'pos-absolute',
+    prefixed: 'tw-pos-absolute',
+    replacement: 'absolute',
+  },
+  {
+    label: 'opacity shorthand alias',
+    matcher: /^op(\d+)$/,
+    input: 'op50',
+    prefixed: 'tw-op50',
+    replacement: 'opacity-50',
+  },
+  {
+    label: 'background opacity alias',
+    matcher: /^bg-op-?(\d+)$/,
+    input: 'bg-op50',
+    prefixed: 'tw-bg-op50',
+    replacement: 'bg-opacity-50',
+  },
+  {
+    label: 'background opacity alias with dash',
+    matcher: /^bg-op-?(\d+)$/,
+    input: 'bg-op-50',
+    prefixed: 'tw-bg-op-50',
+    replacement: 'bg-opacity-50',
+  },
+  {
+    label: 'border opacity alias',
+    matcher: /^border-op(\d+)$/,
+    input: 'border-op50',
+    prefixed: 'tw-border-op50',
+    replacement: 'border-opacity-50',
+  },
+  {
+    label: 'ring opacity alias',
+    matcher: /^ring-op(\d+)$/,
+    input: 'ring-op50',
+    prefixed: 'tw-ring-op50',
+    replacement: 'ring-opacity-50',
+  },
+  {
+    label: 'ring width alias',
+    matcher: /^ring-(?:width|size)-(.+)$/,
+    input: 'ring-width-2',
+    prefixed: 'tw-ring-width-2',
+    replacement: 'ring-2',
+  },
+  {
+    label: 'ring size alias',
+    matcher: /^ring-(?:width|size)-(.+)$/,
+    input: 'ring-size-2',
+    prefixed: 'tw-ring-size-2',
+    replacement: 'ring-2',
+  },
+  {
+    label: 'border color legacy prefix',
+    matcher: /^border((?:-[a-z]{1,2})?)-color-(.+)$/,
+    input: 'border-color-red-500',
+    prefixed: 'tw-border-color-red-500',
+    replacement: 'border-red-500',
+  },
+  {
+    label: 'border side color legacy prefix',
+    matcher: /^border((?:-[a-z]{1,2})?)-color-(.+)$/,
+    input: 'border-s-color-red-500',
+    prefixed: 'tw-border-s-color-red-500',
+    replacement: 'border-s-red-500',
+  },
+  {
+    label: 'outline color legacy prefix',
+    matcher: /^outline-color-(.+)$/,
+    input: 'outline-color-red-500',
+    prefixed: 'tw-outline-color-red-500',
+    replacement: 'outline-red-500',
+  },
+  {
+    label: 'outline width legacy prefix',
+    matcher: /^outline-width-(.+)$/,
+    input: 'outline-width-2',
+    prefixed: 'tw-outline-width-2',
+    replacement: 'outline-2',
+  },
+  {
+    label: 'outline style legacy prefix',
+    matcher: /^outline-style-(.+)$/,
+    input: 'outline-style-dashed',
+    prefixed: 'tw-outline-style-dashed',
+    replacement: 'outline-dashed',
+  },
+  {
+    label: 'transition property alias',
+    matcher: /^(?:property|transition-property)-(none|all|colors|opacity|shadow|transform)$/,
+    input: 'property-opacity',
+    prefixed: 'tw-property-opacity',
+    replacement: 'transition-opacity',
+  },
+  {
+    label: 'transition property long alias',
+    matcher: /^(?:property|transition-property)-(none|all|colors|opacity|shadow|transform)$/,
+    input: 'transition-property-shadow',
+    prefixed: 'tw-transition-property-shadow',
+    replacement: 'transition-shadow',
+  },
+  {
+    label: 'transition delay legacy prefix',
+    matcher: /^transition-delay-(.+)$/,
+    input: 'transition-delay-75',
+    prefixed: 'tw-transition-delay-75',
+    replacement: 'delay-75',
+  },
+  {
+    label: 'transition delay arbitrary legacy prefix',
+    matcher: /^transition-delay-(.+)$/,
+    input: 'transition-delay-[120ms]',
+    prefixed: 'tw-transition-delay-[120ms]',
+    replacement: 'delay-[120ms]',
+  },
+  {
+    label: 'transition ease legacy prefix',
+    matcher: /^transition-ease-(.+)$/,
+    input: 'transition-ease-linear',
+    prefixed: 'tw-transition-ease-linear',
+    replacement: 'ease-linear',
+  },
+  {
+    label: 'transition ease alternative legacy prefix',
+    matcher: /^transition-ease-(.+)$/,
+    input: 'transition-ease-in-out',
+    prefixed: 'tw-transition-ease-in-out',
+    replacement: 'ease-in-out',
+  },
+]
+
+const rawFixtures: RawFixture[] = [
+  { label: 'compact width shorthand', matcher: /^(?:w|h)\d\S*$/, input: 'w4', prefixed: 'tw-w4' },
+  { label: 'compact height shorthand', matcher: /^(?:w|h)\d\S*$/, input: 'h10', prefixed: 'tw-h10' },
+  { label: 'compact min width shorthand', matcher: /^(?:min|max)[wh]\S*$/, input: 'minw0', prefixed: 'tw-minw0' },
+  { label: 'compact max height shorthand', matcher: /^(?:min|max)[wh]\S*$/, input: 'maxhfull', prefixed: 'tw-maxhfull' },
+  { label: 'legacy size axis shorthand', matcher: /^size-[wh]-\S+$/, input: 'size-w-4', prefixed: 'tw-size-w-4' },
+  { label: 'compact padding shorthand', matcher: /^-?(?:m|p)[trblxy]?\d\S*$/, input: 'p4', prefixed: 'tw-p4' },
+  { label: 'compact negative margin shorthand', matcher: /^-?(?:m|p)[trblxy]?\d\S*$/, input: '-mx4', prefixed: 'tw--mx4' },
+  { label: 'legacy spacing directional shorthand', matcher: /^-?(?:m|p)-[trblxy]-\S+$/, input: 'p-x-4', prefixed: 'tw-p-x-4' },
+  { label: 'legacy negative spacing directional shorthand', matcher: /^-?(?:m|p)-[trblxy]-\S+$/, input: '-m-y-2', prefixed: 'tw--m-y-2' },
+  { label: 'compact gap shorthand', matcher: /^gap\d\S*$/, input: 'gap4', prefixed: 'tw-gap4' },
+  { label: 'compact gap axis shorthand', matcher: /^gap[xy]\d\S*$/, input: 'gapx2', prefixed: 'tw-gapx2' },
+  { label: 'legacy gap axis shorthand', matcher: /^gap[xy]-\S+$/, input: 'gapx-2', prefixed: 'tw-gapx-2' },
+  { label: 'compact divide shorthand', matcher: /^divide[xy]\S*$/, input: 'dividex', prefixed: 'tw-dividex' },
+  { label: 'compact scroll spacing shorthand', matcher: /^scroll[mp]\S*$/, input: 'scrollm4', prefixed: 'tw-scrollm4' },
+  { label: 'legacy keyframes alias', matcher: /^keyframes-\S+$/, input: 'keyframes-spin', prefixed: 'tw-keyframes-spin' },
+  { label: 'legacy animate name alias', matcher: /^animate-name-\S+$/, input: 'animate-name-wiggle', prefixed: 'tw-animate-name-wiggle' },
+  { label: 'legacy animate duration alias', matcher: /^animate-(?:duration|delay|ease)-\S+$/, input: 'animate-duration-500', prefixed: 'tw-animate-duration-500' },
+  { label: 'legacy animate delay alias', matcher: /^animate-(?:duration|delay|ease)-\S+$/, input: 'animate-delay-75', prefixed: 'tw-animate-delay-75' },
+  { label: 'legacy animate ease alias', matcher: /^animate-(?:duration|delay|ease)-\S+$/, input: 'animate-ease-linear', prefixed: 'tw-animate-ease-linear' },
+  { label: 'legacy animate fill alias', matcher: /^animate-(?:fill(?:-mode)?|mode)-\S+$/, input: 'animate-fill-forwards', prefixed: 'tw-animate-fill-forwards' },
+  { label: 'legacy animate mode alias', matcher: /^animate-(?:fill(?:-mode)?|mode)-\S+$/, input: 'animate-mode-both', prefixed: 'tw-animate-mode-both' },
+  { label: 'legacy animate direction alias', matcher: /^animate-direction-\S+$/, input: 'animate-direction-reverse', prefixed: 'tw-animate-direction-reverse' },
+  { label: 'legacy animate iteration alias', matcher: /^animate-(?:iteration-count|iteration|count)-\S+$/, input: 'animate-iteration-count-infinite', prefixed: 'tw-animate-iteration-count-infinite' },
+  { label: 'legacy animate count alias', matcher: /^animate-(?:iteration-count|iteration|count)-\S+$/, input: 'animate-count-infinite', prefixed: 'tw-animate-count-infinite' },
+  { label: 'legacy animate play alias', matcher: /^animate-(?:play-state|play|state)-\S+$/, input: 'animate-play-paused', prefixed: 'tw-animate-play-paused' },
+  { label: 'legacy animate state alias', matcher: /^animate-(?:play-state|play|state)-\S+$/, input: 'animate-state-paused', prefixed: 'tw-animate-state-paused' },
+  { label: 'legacy gradient shape', matcher: /^bg-gradient-(?:repeating-)?(?:linear|radial|conic)$/, input: 'bg-gradient-linear', prefixed: 'tw-bg-gradient-linear' },
+  { label: 'legacy repeating gradient shape', matcher: /^bg-gradient-(?:repeating-)?(?:linear|radial|conic)$/, input: 'bg-gradient-repeating-radial', prefixed: 'tw-bg-gradient-repeating-radial' },
+  { label: 'legacy gradient from alias', matcher: /^bg-gradient-(?:from|via)-.+$/, input: 'bg-gradient-from-red-500', prefixed: 'tw-bg-gradient-from-red-500' },
+  { label: 'legacy gradient via alias', matcher: /^bg-gradient-(?:from|via)-.+$/, input: 'bg-gradient-via-cyan-500', prefixed: 'tw-bg-gradient-via-cyan-500' },
+  { label: 'legacy invalid gradient direction alias', matcher: /^bg-gradient-to-(?![rltb]{1,2}$).+$/, input: 'bg-gradient-to-emerald-500', prefixed: 'tw-bg-gradient-to-emerald-500' },
+  { label: 'legacy gradient shape modifier', matcher: /^bg-gradient-shape-.+$/, input: 'bg-gradient-shape-r', prefixed: 'tw-bg-gradient-shape-r' },
+  { label: 'legacy gradient stops modifier', matcher: /^bg-gradient-stops-.+$/, input: 'bg-gradient-stops-3', prefixed: 'tw-bg-gradient-stops-3' },
+  { label: 'legacy shape alias', matcher: /^shape-.+$/, input: 'shape-r', prefixed: 'tw-shape-r' },
+  { label: 'compact font shorthand', matcher: /^font(?!-|\[)\S+$/, input: 'fontbold', prefixed: 'tw-fontbold' },
+  { label: 'legacy overflow alias', matcher: /^of-.+$/, input: 'of-hidden', prefixed: 'tw-of-hidden' },
+  { label: 'compact z-index shorthand', matcher: /^z\d\S*$/, input: 'z10', prefixed: 'tw-z10' },
+  { label: 'legacy inline flex alias', matcher: /^flex-inline$/, input: 'flex-inline', prefixed: 'tw-flex-inline' },
+  { label: 'legacy basis alias', matcher: /^flex-basis-.+$/, input: 'flex-basis-10px', prefixed: 'tw-flex-basis-10px' },
+  { label: 'legacy flex grow alias', matcher: /^flex-grow-(?!0$).+$/, input: 'flex-grow-2', prefixed: 'tw-flex-grow-2' },
+  { label: 'legacy flex shrink alias', matcher: /^flex-shrink-(?!0$).+$/, input: 'flex-shrink-2', prefixed: 'tw-flex-shrink-2' },
+  { label: 'legacy grid flow alias', matcher: /^auto-flow-.+$/, input: 'auto-flow-row', prefixed: 'tw-auto-flow-row' },
+  { label: 'legacy grid rows alias', matcher: /^(?:cols|rows)-.+$/, input: 'rows-2', prefixed: 'tw-rows-2' },
+  { label: 'legacy grid cols alias', matcher: /^(?:cols|rows)-.+$/, input: 'cols-2', prefixed: 'tw-cols-2' },
+  { label: 'legacy filter alias', matcher: /^filter-(?:blur|brightness|contrast|drop-shadow|grayscale|hue-rotate|invert|saturate|sepia)(?:-.+)?$/, input: 'filter-blur-sm', prefixed: 'tw-filter-blur-sm' },
+  { label: 'legacy filter alias variant', matcher: /^filter-(?:blur|brightness|contrast|drop-shadow|grayscale|hue-rotate|invert|saturate|sepia)(?:-.+)?$/, input: 'filter-drop-shadow', prefixed: 'tw-filter-drop-shadow' },
+  { label: 'legacy drop shadow color alias', matcher: /^drop-shadow-color(?:-.+)?$/, input: 'drop-shadow-color-red-500', prefixed: 'tw-drop-shadow-color-red-500' },
+  { label: 'legacy transform rotate alias', matcher: /^transform-rotate-.+$/, input: 'transform-rotate-45', prefixed: 'tw-transform-rotate-45' },
+  { label: 'legacy transform origin alias', matcher: /^transform-origin-.+$/, input: 'transform-origin-top-right', prefixed: 'tw-transform-origin-top-right' },
+  { label: 'legacy perspective alias', matcher: /^perspective(?:-origin)?-.+$/, input: 'perspective-1000px', prefixed: 'tw-perspective-1000px' },
+  { label: 'legacy perspective origin alias', matcher: /^perspective(?:-origin)?-.+$/, input: 'perspective-origin-center', prefixed: 'tw-perspective-origin-center' },
+  { label: 'legacy preserve alias', matcher: /^preserve-(?:3d|flat)$/, input: 'preserve-3d', prefixed: 'tw-preserve-3d' },
+  { label: 'raw arbitrary size value', matcher: new RegExp('^(?:size|(?:min|max)-[wh]|[wh])-(?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'), input: 'w-100px', prefixed: 'tw-w-100px' },
+  { label: 'raw arbitrary spacing value', matcher: new RegExp('^-?(?:m|p)(?:[trblxy]|[se]|[bi][se]|block|inline)?-(?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'), input: 'p-2rem', prefixed: 'tw-p-2rem' },
+  { label: 'raw arbitrary gap value', matcher: new RegExp('^(?:flex-|grid-)?gap(?:-[xy]|-(?:col|row))?-(?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'), input: 'gap-3px', prefixed: 'tw-gap-3px' },
+  { label: 'raw arbitrary inset value', matcher: new RegExp('^-?(?:inset(?:-[xy]|-(?:block|inline)|-[rltbse]|-[bi][se])?|(?:top|right|bottom|left|start|end))-(?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'), input: 'inset-5px', prefixed: 'tw-inset-5px' },
+  { label: 'raw arbitrary translate value', matcher: new RegExp('^-?translate-(?:[xyz]-)?(?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'), input: 'translate-x-12px', prefixed: 'tw-translate-x-12px' },
+  { label: 'raw arbitrary scroll spacing value', matcher: new RegExp('^scroll-[mp](?:[trblxy]|[se]|[bi][se])?-(?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'), input: 'scroll-m-2rem', prefixed: 'tw-scroll-m-2rem' },
+]
+
+const allowFixtures: AllowFixture[] = [
+  { label: 'border canonical', input: 'border-2', prefixed: 'tw-border-2' },
+  { label: 'rounded canonical', input: 'rounded-md', prefixed: 'tw-rounded-md' },
+  { label: 'position canonical', input: 'absolute', prefixed: 'tw-absolute' },
+  { label: 'opacity canonical', input: 'opacity-50', prefixed: 'tw-opacity-50' },
+  { label: 'bg opacity canonical', input: 'bg-opacity-50', prefixed: 'tw-bg-opacity-50' },
+  { label: 'delay canonical', input: 'delay-75', prefixed: 'tw-delay-75' },
+  { label: 'ease canonical', input: 'ease-linear', prefixed: 'tw-ease-linear' },
+  { label: 'width canonical', input: 'w-4', prefixed: 'tw-w-4' },
+  { label: 'padding canonical', input: 'p-4', prefixed: 'tw-p-4' },
+  { label: 'divide canonical', input: 'divide-x', prefixed: 'tw-divide-x' },
+  { label: 'animation canonical', input: 'animate-spin', prefixed: 'tw-animate-spin' },
+  { label: 'gradient canonical', input: 'bg-gradient-to-r', prefixed: 'tw-bg-gradient-to-r' },
+]
+
+describe('preset-tailwind3 blocklist prefix audit', () => {
+  it('covers every base migration and raw blocklist rule with fixtures', () => {
+    const baseRules = createBlocklist()
+    const baseMigrationKeys = new Set(baseRules.filter(Array.isArray).map(fixtureKey))
+    const baseRawKeys = new Set(baseRules.filter(rule => !Array.isArray(rule)).map(fixtureKey))
+
+    const migrationFixtureKeys = new Set(migrationFixtures.map(({ matcher }) => ruleKey(matcher)))
+    const rawFixtureKeys = new Set(rawFixtures.map(({ matcher }) => ruleKey(matcher)))
+
+    expect(migrationFixtureKeys).toEqual(baseMigrationKeys)
+    expect(rawFixtureKeys).toEqual(baseRawKeys)
+  })
+
+  it('blocks every migration fixture in zh-CN with and without prefix', async () => {
+    for (const fixture of migrationFixtures) {
+      await expectBlockedMessage(fixture.input, zhMessage(fixture.input, fixture.replacement))
+      await expectBlockedMessage(
+        fixture.prefixed,
+        zhMessage(fixture.prefixed, `tw-${fixture.replacement}`),
+        { prefix: 'tw-' },
+      )
+    }
+  })
+
+  it('supports english messages for representative prefixed and unprefixed migration fixtures', async () => {
+    const samples = [
+      migrationFixtures.find(({ input }) => input === 'b-2')!,
+      migrationFixtures.find(({ input }) => input === 'color-#fff')!,
+      migrationFixtures.find(({ input }) => input === 'transition-delay-[120ms]')!,
+    ]
+
+    for (const fixture of samples) {
+      await expectBlockedMessage(
+        fixture.input,
+        enMessage(fixture.input, fixture.replacement),
+        { locale: 'en' },
+      )
+      await expectBlockedMessage(
+        fixture.prefixed,
+        enMessage(fixture.prefixed, `tw-${fixture.replacement}`),
+        { prefix: 'tw-', locale: 'en' },
+      )
+    }
+  })
+
+  it('blocks every raw blocklist fixture with and without prefix', async () => {
+    for (const fixture of rawFixtures) {
+      await expectBlocked(fixture.input)
+      await expectBlocked(fixture.prefixed, { prefix: 'tw-' })
+    }
+  })
+
+  it('does not block canonical allow-list samples with and without prefix', async () => {
+    for (const fixture of allowFixtures) {
+      await expectNotBlocked(fixture.input)
+      await expectNotBlocked(fixture.prefixed, { prefix: 'tw-' })
+    }
+  })
+})

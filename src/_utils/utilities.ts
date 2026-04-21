@@ -31,7 +31,7 @@ export function directionSize(propertyPrefix: string): DynamicMatcher {
   }
 }
 
-export function resolveTailwindSpacing(theme: Theme, size: string | undefined, options: { allowAuto?: boolean } = {}) {
+export function resolveTailwindSpacing(theme: Theme, size: string | undefined, options: { allowAuto?: boolean, allowFraction?: boolean } = {}) {
   if (!size)
     return
 
@@ -41,6 +41,12 @@ export function resolveTailwindSpacing(theme: Theme, size: string | undefined, o
 
   if (options.allowAuto && size === 'auto')
     return 'auto'
+
+  if (options.allowFraction) {
+    const fraction = h.fraction(size)
+    if (fraction != null)
+      return fraction
+  }
 
   if (size.startsWith('['))
     return h.bracket.cssvar.global.auto.fraction.rem(size)
