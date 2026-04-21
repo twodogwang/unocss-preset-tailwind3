@@ -9,7 +9,7 @@ describe('tailwind utility spec', () => {
   })
 
   it('starts with border rewrite templates', () => {
-    expect(tailwindUtilitySpecs.length).toBeGreaterThan(0)
+    expect(tailwindUtilitySpecs).toHaveLength(1)
     const borderWidthSpec = tailwindUtilitySpecs.find(spec => spec.id === 'border-width')
 
     expect(borderWidthSpec).toBeTruthy()

@@ -386,6 +386,20 @@ describe('preset-tailwind3', () => {
   })
 
   describe('border / divide', () => {
+    it('expands border width values and directions correctly', async () => {
+      const css = await expectTargets([
+        'border',
+        'border-2',
+        'border-x',
+        'border-s-2',
+      ])
+
+      expect(css).toContain('.border{border-width:1px;}')
+      expect(css).toContain('.border-2{border-width:2px;}')
+      expect(css).toContain('.border-x{border-left-width:1px;border-right-width:1px;}')
+      expect(css).toContain('.border-s-2{border-inline-start-width:2px;}')
+    })
+
     it('matches strict border width fixtures', async () => {
       await expectTargets(borderWidthFixtures.canonical)
     })
@@ -445,8 +459,7 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind border aliases and shortcuts', async () => {
       await expectNonTargets([
-        'border-10px',
-        'border-x-10px',
+        ...borderWidthFixtures.invalid,
         'b-2',
         'b-red-500',
         'rd-md',

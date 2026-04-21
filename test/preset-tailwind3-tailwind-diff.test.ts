@@ -270,8 +270,7 @@ describe('preset-tailwind3 tailwind parity', () => {
   it('rejects non-tailwind border / ring / decoration aliases and extensions', async () => {
     await expectTailwindParity([
       'ring-offset',
-      'border-10px',
-      'border-x-10px',
+      ...borderWidthFixtures.invalid,
       'border-color-red-500',
       'border-s-color-red-500',
       'border-op50',
