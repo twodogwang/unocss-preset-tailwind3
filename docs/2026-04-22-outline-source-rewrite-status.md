@@ -1,11 +1,11 @@
 # Outline Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
+  - Task 1: initialize fixtures, logs, and failing tests
+  - Task 2: tighten outline width and offset syntax
 - in_progress:
-  - initialize fixtures, logs, and failing tests
+  - none
 - pending:
-  - strict width/offset
-  - strict style/color
-  - final verification
+  - Task 3: strict style/color/none/spec/blocklist

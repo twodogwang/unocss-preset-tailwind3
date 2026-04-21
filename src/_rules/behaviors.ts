@@ -7,7 +7,14 @@ export const outline: Rule<Theme>[] = [
   [/^outline-(.+)$/, handleOutlineValue, { autocomplete: 'outline-$colors' }],
 
   // offset
-  [/^outline-offset-(.+)$/, ([, d], { theme }) => ({ 'outline-offset': theme.lineWidth?.[d] ?? h.bracket.cssvar.global.px(d) }), { autocomplete: 'outline-(offset)-<num>' }],
+  [/^outline-offset-(.+)$/, ([, d], { theme }) => {
+    if (d === 'none')
+      return
+
+    const offset = resolveOutlineSize(d, theme)
+    if (offset)
+      return { 'outline-offset': offset }
+  }, { autocomplete: 'outline-(offset)-<num>' }],
 
   // style
   ['outline', { 'outline-style': 'solid' }],
@@ -24,9 +31,7 @@ function handleOutlineValue([, value]: string[], ctx: RuleContext<Theme>): CSSOb
   if (nonTailwindOutlineKeywords.has(value))
     return
 
-  const width = ctx.theme.lineWidth?.[value]
-    ?? (/^\d+$/.test(value) ? `${value}px` : undefined)
-    ?? h.bracket.cssvar.global.px(value)
+  const width = resolveOutlineSize(value, ctx.theme)
   if (width)
     return { 'outline-width': width }
 
@@ -34,6 +39,14 @@ function handleOutlineValue([, value]: string[], ctx: RuleContext<Theme>): CSSOb
   if (color)
     return color
 }
+
+function resolveOutlineSize(value: string, theme: Theme): string | undefined {
+  return theme.lineWidth?.[value]
+    ?? (outlineSizeDefaults.has(value) ? `${value}px` : undefined)
+    ?? (value.startsWith('[') && value.endsWith(']') ? h.bracket.cssvar.global.px(value) : undefined)
+}
+
+const outlineSizeDefaults = new Set(['0', '1', '2', '4', '8'])
 
 export const appearance: Rule[] = [
   ['appearance-auto', { '-webkit-appearance': 'auto', 'appearance': 'auto' }],

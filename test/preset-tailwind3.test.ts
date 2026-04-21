@@ -629,6 +629,13 @@ describe('preset-tailwind3', () => {
       await expectNonTargets(outlineFixtures.invalid)
     })
 
+    it('emits the expected outline width and offset CSS for semantic cases', async () => {
+      const css = await expectTargets(outlineFixtures.semantic)
+
+      expect(css).toContain('.outline-2{outline-width:2px;}')
+      expect(css).toContain('.outline-offset-2{outline-offset:2px;}')
+    })
+
     it('matches official Tailwind 3 transition utilities', async () => {
       await expectTargets([
         'transition',
