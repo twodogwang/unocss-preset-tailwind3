@@ -54,3 +54,17 @@ export const outlineStrictFixtures = {
     'outline-width-2',
   ],
 } as const
+
+export const outlineSupportedFixtures = {
+  canonical: [
+    'outline',
+    'outline-none',
+    'outline-red-500',
+    'outline-[#fff]',
+    'outline-transparent',
+    'outline-dashed',
+    'outline-dotted',
+    'outline-double',
+    'outline-inherit',
+  ],
+} as const

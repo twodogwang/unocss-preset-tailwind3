@@ -5,6 +5,7 @@
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - shared outline fixture baseline restored
+  - outline support coverage restored for base/style/color/inherit variants
   - Task 2: tighten outline width and offset syntax
 - in_progress:
   - none
