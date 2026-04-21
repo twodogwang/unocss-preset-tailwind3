@@ -7,7 +7,8 @@
   - shared outline fixture baseline restored
   - outline support coverage restored for base/style/color/inherit variants
   - Task 2: tighten outline width and offset syntax
+  - Task 3: lock outline style, color, none, and utility spec template
 - in_progress:
   - none
 - pending:
-  - Task 3: strict style/color/none/spec/blocklist
+  - Task 4: blocklist fixture/test rewrite

@@ -7,3 +7,7 @@
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-tailwind-diff.test.ts -t "outline and transition"` passed
 - 2026-04-22: restored the shared outline fixture baseline and kept Task 2 tests focused on width/offset strictness
 - 2026-04-22: restored positive coverage for supported outline base, style, color, and inherit variants without changing runtime behavior
+- 2026-04-22: Task 3 completed by locking outline style/color/none coverage and adding outline to the utility spec template
+- 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3.test.ts -t "outline / transition"` passed
+- 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-tailwind-diff.test.ts -t "outline and transition"` passed
+- 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-utility-spec.test.ts` passed

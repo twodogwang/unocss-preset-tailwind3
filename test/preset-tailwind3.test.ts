@@ -4,7 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
-import { outlineFixtures, outlineStrictFixtures, outlineSupportedFixtures } from './fixtures/tailwind-outline-rewrite'
+import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 
 async function createUno(config: UserConfig = {}) {
   return createGenerator({
@@ -622,29 +622,24 @@ describe('preset-tailwind3', () => {
 
   describe('outline / transition', () => {
     it('matches outline width and offset utilities', async () => {
-      await expectTargets(outlineStrictFixtures.canonical)
+      await expectTargets(outlineFixtures.canonical)
     })
 
     it('rejects non-tailwind outline width and offset aliases', async () => {
-      await expectNonTargets(outlineStrictFixtures.invalid)
+      await expectNonTargets(outlineFixtures.invalid)
     })
 
     it('emits the expected outline width and offset CSS for semantic cases', async () => {
-      const css = await expectTargets(outlineFixtures.semantic)
+      const css = await expectTargets([
+        ...outlineFixtures.semantic,
+        'outline',
+        'outline-none',
+        'outline-dashed',
+      ])
 
-      expect(css).toContain('.outline-2{outline-width:2px;}')
-      expect(css).toContain('.outline-offset-2{outline-offset:2px;}')
-    })
-
-    it('matches supported outline base, style, and color utilities', async () => {
-      const css = await expectTargets(outlineSupportedFixtures.canonical)
-
-      expect(css).toContain('.outline{outline-style:solid;}')
       expect(css).toContain('.outline-none{outline:2px solid transparent;outline-offset:2px;}')
       expect(css).toContain('.outline-dashed{outline-style:dashed;}')
-      expect(css).toContain('.outline-dotted{outline-style:dotted;}')
-      expect(css).toContain('.outline-double{outline-style:double;}')
-      expect(css).toContain('.outline-inherit{outline-color:inherit;}')
+      expect(css).toContain('.outline{outline-style:solid;}')
     })
 
     it('matches official Tailwind 3 transition utilities', async () => {

@@ -1,4 +1,5 @@
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 
 export interface TailwindUtilitySpec {
   id: string
@@ -32,5 +33,15 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于建立“圆角别名收敛到 Tailwind 3 语义”的重写模板。'],
+  },
+  {
+    id: 'outline',
+    sourceFiles: ['src/_rules/behaviors.ts'],
+    category: 'behavior',
+    canonical: [...outlineFixtures.canonical],
+    invalid: [...outlineFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于建立“outline 语义锁定为 Tailwind 3 规则”的重写模板。'],
   },
 ]
