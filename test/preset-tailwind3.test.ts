@@ -12,7 +12,7 @@ async function createUno(config: UserConfig = {}) {
   })
 }
 
-async function expectTargets(input: string[], config: UserConfig = {}) {
+async function expectTargets(input: readonly string[], config: UserConfig = {}) {
   const uno = await createUno(config)
   const { css, matched } = await uno.generate(new Set(input), { preflights: false })
 
@@ -23,7 +23,7 @@ async function expectTargets(input: string[], config: UserConfig = {}) {
   return css
 }
 
-async function expectNonTargets(input: string[], config: UserConfig = {}) {
+async function expectNonTargets(input: readonly string[], config: UserConfig = {}) {
   const uno = await createUno(config)
   const { css, matched } = await uno.generate(new Set(input), { preflights: false })
 

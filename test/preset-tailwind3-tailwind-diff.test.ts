@@ -41,7 +41,7 @@ async function getTailwindMatchedSingle(
 }
 
 async function getTailwindMatched(
-  input: string[],
+  input: readonly string[],
   tailwindConfig: Record<string, any> = {},
   tailwindEntry = '@tailwind utilities;',
 ) {
@@ -49,7 +49,7 @@ async function getTailwindMatched(
   return new Set(matched.filter(Boolean) as string[])
 }
 
-async function getUnoMatched(input: string[], unoConfig: UserConfig = {}) {
+async function getUnoMatched(input: readonly string[], unoConfig: UserConfig = {}) {
   const uno = await createGenerator({
     presets: [presetTailwind3()],
     ...unoConfig,
@@ -59,7 +59,7 @@ async function getUnoMatched(input: string[], unoConfig: UserConfig = {}) {
 }
 
 async function expectTailwindParity(
-  input: string[],
+  input: readonly string[],
   options: {
     tailwindConfig?: Record<string, any>
     tailwindEntry?: string
