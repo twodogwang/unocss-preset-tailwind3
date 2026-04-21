@@ -1,7 +1,7 @@
 import { createGenerator } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
-import { blocklistMigrationFixtures } from './fixtures/tailwind-border-rewrite'
+import { blocklistMigrationFixtures } from './fixtures/blocklist-migration'
 
 async function createUno(options: Parameters<typeof presetTailwind3>[0] = {}) {
   return createGenerator({

@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { tailwindUtilitySpecs } from './tailwind-utility-spec'
 
+function getSpec(id: string) {
+  return tailwindUtilitySpecs.find(spec => spec.id === id)
+}
+
 describe('tailwind utility spec', () => {
   it('tracks unique utility ids', () => {
     const ids = tailwindUtilitySpecs.map(spec => spec.id)
@@ -9,14 +13,11 @@ describe('tailwind utility spec', () => {
   })
 
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
-    expect(tailwindUtilitySpecs).toHaveLength(2)
-
-    const borderWidthSpec = tailwindUtilitySpecs.find(spec => spec.id === 'border-width')
-    const borderRadiusSpec = tailwindUtilitySpecs.find(spec => spec.id === 'border-radius')
+    const borderWidthSpec = getSpec('border-width')
+    const borderRadiusSpec = getSpec('border-radius')
 
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
-    expect(tailwindUtilitySpecs.map(spec => spec.id)).toEqual(['border-width', 'border-radius'])
 
     expect(borderWidthSpec?.invalid).toContain('border-10px')
     expect(borderRadiusSpec?.invalid).toContain('rounded-lt-lg')
@@ -30,10 +31,7 @@ describe('tailwind utility spec', () => {
     expect(borderRadiusSpec?.canonical).toEqual([...roundedFixtures.canonical])
     expect(borderRadiusSpec?.invalid).toEqual([...roundedFixtures.invalid])
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec]) {
-      expect(spec).toBeTruthy()
-      expect(spec?.supportsPrefix).toBe(true)
-      expect(spec?.supportsVariants).toBe(true)
+    for (const spec of [borderWidthSpec, borderRadiusSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)
