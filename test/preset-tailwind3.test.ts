@@ -408,6 +408,7 @@ describe('preset-tailwind3', () => {
       await expectTargets([
         'border',
         'border-2',
+        'border-none',
         'border-s-2',
         'border-x',
         'border-y-4',
@@ -419,6 +420,7 @@ describe('preset-tailwind3', () => {
         'rounded',
         'rounded-md',
         'rounded-s-lg',
+        'rounded-e-lg',
         'rounded-ss-lg',
         'rounded-t-lg',
         'rounded-br-xl',
@@ -427,6 +429,22 @@ describe('preset-tailwind3', () => {
         'divide-dashed',
         'divide-red-500',
       ])
+    })
+
+    it('keeps border-none as a border style utility', async () => {
+      const css = await expectTargets(['border-none'])
+
+      expect(css).toContain('.border-none{border-style:none;}')
+    })
+
+    it('maps logical rounded corners correctly', async () => {
+      const css = await expectTargets([
+        'rounded-s-lg',
+        'rounded-e-lg',
+      ])
+
+      expect(css).toContain('.rounded-s-lg{border-start-start-radius:0.5rem;border-end-start-radius:0.5rem;}')
+      expect(css).toContain('.rounded-e-lg{border-start-end-radius:0.5rem;border-end-end-radius:0.5rem;}')
     })
 
     it('matches strict Tailwind 3 rounded direction tokens', async () => {
@@ -473,6 +491,9 @@ describe('preset-tailwind3', () => {
         'border-inline-2',
         'border-block-2',
         'border-is-2',
+        'border-s-none',
+        'border-x-none',
+        'border-t-none',
         'border-x-dashed',
         'border-t-dashed',
         'border-style-dashed',

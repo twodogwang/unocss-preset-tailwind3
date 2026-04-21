@@ -234,6 +234,7 @@ describe('preset-tailwind3 tailwind parity', () => {
     await expectTailwindParity([
       'border',
       'border-2',
+      'border-none',
       'border-s-2',
       'border-[#fff]',
       'border-opacity-50',
@@ -275,6 +276,9 @@ describe('preset-tailwind3 tailwind parity', () => {
       'border-color-red-500',
       'border-s-color-red-500',
       'border-op50',
+      'border-s-none',
+      'border-x-none',
+      'border-t-none',
       'border-inline-2',
       'border-block-2',
       'border-is-2',

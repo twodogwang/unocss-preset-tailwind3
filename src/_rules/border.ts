@@ -12,8 +12,8 @@ const roundedDirectionMap = {
   'r': ['-top-right', '-bottom-right'],
   'b': ['-bottom-left', '-bottom-right'],
   'l': ['-top-left', '-bottom-left'],
-  's': ['-start-start', '-start-end'],
-  'e': ['-end-start', '-end-end'],
+  's': ['-start-start', '-end-start'],
+  'e': ['-start-end', '-end-end'],
   'tl': ['-top-left'],
   'tr': ['-top-right'],
   'br': ['-bottom-right'],
@@ -100,6 +100,9 @@ function borderColorResolver(direction: string) {
 }
 
 function handlerBorderSize([, a = '', b]: string[], { theme }: RuleContext<Theme>): CSSEntries | undefined {
+  if (b === 'none')
+    return
+
   const lineWidth = theme.lineWidth ?? {}
   const v = !b
     ? lineWidth.DEFAULT ?? '1px'
