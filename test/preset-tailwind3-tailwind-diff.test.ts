@@ -5,7 +5,7 @@ import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
-import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { outlineFixtures, outlineStrictFixtures } from './fixtures/tailwind-outline-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -326,7 +326,7 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches Tailwind 3 support for outline and transition utilities', async () => {
     await expectTailwindParity([
-      ...outlineFixtures.canonical,
+      ...outlineStrictFixtures.canonical,
       'transition',
       'transition-all',
       'transition-colors',
@@ -348,7 +348,7 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind outline and transition aliases', async () => {
     await expectTailwindParity([
-      ...outlineFixtures.invalid,
+      ...outlineStrictFixtures.invalid,
       'property-opacity',
       'transition-property-opacity',
       'transition-200',

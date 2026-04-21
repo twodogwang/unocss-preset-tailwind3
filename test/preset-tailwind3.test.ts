@@ -4,7 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
-import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { outlineFixtures, outlineStrictFixtures } from './fixtures/tailwind-outline-rewrite'
 
 async function createUno(config: UserConfig = {}) {
   return createGenerator({
@@ -621,12 +621,12 @@ describe('preset-tailwind3', () => {
   })
 
   describe('outline / transition', () => {
-    it('matches official Tailwind 3 outline utilities', async () => {
-      await expectTargets(outlineFixtures.canonical)
+    it('matches outline width and offset utilities', async () => {
+      await expectTargets(outlineStrictFixtures.canonical)
     })
 
-    it('rejects non-tailwind outline aliases and extensions', async () => {
-      await expectNonTargets(outlineFixtures.invalid)
+    it('rejects non-tailwind outline width and offset aliases', async () => {
+      await expectNonTargets(outlineStrictFixtures.invalid)
     })
 
     it('emits the expected outline width and offset CSS for semantic cases', async () => {

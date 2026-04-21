@@ -5,3 +5,4 @@
 - 2026-04-22: added semantic CSS assertions for `outline-2` and `outline-offset-2`
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3.test.ts -t "outline / transition"` passed
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-tailwind-diff.test.ts -t "outline and transition"` passed
+- 2026-04-22: restored the shared outline fixture baseline and kept Task 2 tests focused on width/offset strictness

@@ -4,6 +4,7 @@
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
+  - shared outline fixture baseline restored
   - Task 2: tighten outline width and offset syntax
 - in_progress:
   - none

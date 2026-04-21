@@ -1,5 +1,43 @@
 export const outlineFixtures = {
   canonical: [
+    'outline',
+    'outline-none',
+    'outline-0',
+    'outline-2',
+    'outline-[3px]',
+    'outline-[calc(100%-1px)]',
+    'outline-red-500',
+    'outline-[#fff]',
+    'outline-transparent',
+    'outline-dashed',
+    'outline-dotted',
+    'outline-double',
+    'outline-inherit',
+    'outline-offset-0',
+    'outline-offset-2',
+    'outline-offset-[3px]',
+    'outline-offset-[calc(100%-1px)]',
+  ],
+  invalid: [
+    'outline-3px',
+    'outline-offset-3px',
+    'outline-offset-none',
+    'outline-hidden',
+    'outline-initial',
+    'outline-color-red-500',
+    'outline-width-2',
+    'outline-style-dashed',
+    'outline-op50',
+    'outline-opacity-50',
+  ],
+  semantic: [
+    'outline-2',
+    'outline-offset-2',
+  ],
+} as const
+
+export const outlineStrictFixtures = {
+  canonical: [
     'outline-0',
     'outline-2',
     'outline-[3px]',
@@ -14,9 +52,5 @@ export const outlineFixtures = {
     'outline-offset-3px',
     'outline-offset-none',
     'outline-width-2',
-  ],
-  semantic: [
-    'outline-2',
-    'outline-offset-2',
   ],
 } as const
