@@ -1,12 +1,11 @@
 import type { Rule } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h } from '../utils'
+import { h, resolveTailwindSpacing } from '../utils'
 
 export const flex: Rule<Theme>[] = [
   // display
   ['flex', { display: 'flex' }],
   ['inline-flex', { display: 'inline-flex' }],
-  ['flex-inline', { display: 'inline-flex' }],
 
   // flex
   [/^flex-(\[.+\])$/, ([, d]) => {
@@ -23,7 +22,11 @@ export const flex: Rule<Theme>[] = [
   // shrink/grow/basis
   [/^(?:flex-)?shrink(?:-(0))?$/, ([, d]) => ({ 'flex-shrink': d === '0' ? 0 : 1 }), { autocomplete: ['flex-shrink', 'flex-shrink-0', 'shrink', 'shrink-0'] }],
   [/^(?:flex-)?grow(?:-(0))?$/, ([, d]) => ({ 'flex-grow': d === '0' ? 0 : 1 }), { autocomplete: ['flex-grow', 'flex-grow-0', 'grow', 'grow-0'] }],
-  [/^(?:flex-)?basis-(.+)$/, ([, d], { theme }) => ({ 'flex-basis': theme.spacing?.[d] ?? h.bracket.cssvar.auto.fraction.rem(d) }), { autocomplete: ['flex-basis-$spacing', 'basis-$spacing'] }],
+  [/^basis-(.+)$/, ([, d], { theme }) => {
+    const value = resolveTailwindSpacing(theme, d, { allowAuto: true, allowFraction: true })
+    if (value != null)
+      return { 'flex-basis': value }
+  }, { autocomplete: ['basis-$spacing'] }],
 
   // directions
   ['flex-row', { 'flex-direction': 'row' }],

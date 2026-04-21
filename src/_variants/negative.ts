@@ -1,4 +1,5 @@
-import type { Variant } from '@unocss/core'
+import type { CSSEntries, Variant } from '@unocss/core'
+import type { PresetTailwind3Options } from '..'
 import { getStringComponent } from '@unocss/rule-utils'
 import { CONTROL_MINI_NO_NEGATIVE, cssMathFnRE, cssVarFnRE } from '../utils'
 
@@ -32,45 +33,62 @@ function negateFunctionBody(value: string) {
   }
 }
 
-export const variantNegative: Variant = {
-  name: 'negative',
-  match(matcher) {
-    if (!matcher.startsWith('-'))
+function createNegativeBodyHandler() {
+  return (body: CSSEntries) => {
+    if (body.some(v => v[0] === CONTROL_MINI_NO_NEGATIVE))
       return
+    let changed = false
+    body.forEach((v) => {
+      const value = v[1]?.toString()
+      if (!value || value === '0')
+        return
+      if (ignoreProps.some(i => i.test(v[0])))
+        return
+      const negatedFn = negateMathFunction(value)
+      if (negatedFn) {
+        v[1] = negatedFn
+        changed = true
+        return
+      }
+      const negatedBody = negateFunctionBody(value)
+      if (negatedBody) {
+        v[1] = negatedBody
+        changed = true
+        return
+      }
+      if (anchoredNumberRE.test(value)) {
+        v[1] = value.replace(numberRE, (i: string) => i.startsWith('-') ? i.slice(1) : `-${i}`)
+        changed = true
+      }
+    })
+    if (changed)
+      return body
+    return []
+  }
+}
 
-    return {
-      matcher: matcher.slice(1),
-      body: (body) => {
-        if (body.some(v => v[0] === CONTROL_MINI_NO_NEGATIVE))
-          return
-        let changed = false
-        body.forEach((v) => {
-          const value = v[1]?.toString()
-          if (!value || value === '0')
-            return
-          if (ignoreProps.some(i => i.test(v[0])))
-            return
-          const negatedFn = negateMathFunction(value)
-          if (negatedFn) {
-            v[1] = negatedFn
-            changed = true
-            return
+export function variantNegative(options: PresetTailwind3Options = {}): Variant {
+  const prefixes = (Array.isArray(options.prefix) ? options.prefix : [options.prefix]).filter((prefix): prefix is string => Boolean(prefix))
+  const body = createNegativeBodyHandler()
+
+  return {
+    name: 'negative',
+    match(matcher) {
+      if (matcher.startsWith('-')) {
+        return {
+          matcher: matcher.slice(1),
+          body,
+        }
+      }
+
+      for (const prefix of prefixes) {
+        if (matcher.startsWith(prefix) && matcher.slice(prefix.length).startsWith('-')) {
+          return {
+            matcher: `${prefix}${matcher.slice(prefix.length + 1)}`,
+            body,
           }
-          const negatedBody = negateFunctionBody(value)
-          if (negatedBody) {
-            v[1] = negatedBody
-            changed = true
-            return
-          }
-          if (anchoredNumberRE.test(value)) {
-            v[1] = value.replace(numberRE, i => i.startsWith('-') ? i.slice(1) : `-${i}`)
-            changed = true
-          }
-        })
-        if (changed)
-          return body
-        return []
-      },
-    }
-  },
+        }
+      }
+    },
+  }
 }

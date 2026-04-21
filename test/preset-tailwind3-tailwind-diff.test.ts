@@ -171,6 +171,64 @@ describe('preset-tailwind3 tailwind parity', () => {
     })
   })
 
+  it('matches Tailwind 3 prefix behavior for high-risk strictness cases', async () => {
+    await expectTailwindParity([
+      'tw-w-[10px]',
+      'tw-w-100px',
+      'tw-gap-[3px]',
+      'tw-gap-3px',
+      'tw-inset-[5px]',
+      'tw-inset-5px',
+      'tw-translate-x-[12px]',
+      'tw-translate-x-12px',
+      'tw-font-bold',
+      'tw-fontbold',
+      'tw-fw-bold',
+      'tw-overflow-hidden',
+      'tw-of-hidden',
+      'tw-z-10',
+      'tw-z10',
+      'tw-inline-flex',
+      'tw-flex-inline',
+      'tw-basis-[10px]',
+      'tw-flex-basis-10px',
+      'tw-grid-flow-row',
+      'tw-auto-flow-row',
+      'tw-grid-rows-2',
+      'tw-rows-2',
+      'tw-grid-cols-2',
+      'tw-cols-2',
+      'tw-blur-sm',
+      'tw-filter-blur-sm',
+      'tw-drop-shadow',
+      'tw-filter-drop-shadow',
+      'tw-origin-top-right',
+      'tw-transform-origin-top-right',
+      'tw-animate-spin',
+      'tw-keyframes-spin',
+      'tw-animate-duration-500',
+      'tw-bg-gradient-to-r',
+      'tw-bg-gradient-linear',
+      'tw-from-red-500',
+      'tw-bg-gradient-from-red-500',
+      'tw-opacity-50',
+      'tw-op50',
+      'tw-divide-x',
+      'tw-dividex',
+      'tw-divide-y-2',
+      'tw-dividey2',
+      'tw-divide-opacity-50',
+      'tw-divide-op50',
+    ], {
+      tailwindConfig: {
+        prefix: 'tw-',
+      },
+      unoConfig: {
+        presets: [presetTailwind3({ prefix: 'tw-' })],
+      },
+    })
+  })
+
   it('matches Tailwind 3 support for border / ring / decoration utilities', async () => {
     await expectTailwindParity([
       'border',

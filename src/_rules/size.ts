@@ -1,6 +1,6 @@
 import type { Rule, RuleContext } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h, resolveBreakpoints } from '../utils'
+import { h, resolveBreakpoints, resolveTailwindSpacing } from '../utils'
 
 const sizeMapping: Record<string, string> = {
   h: 'height',
@@ -21,6 +21,10 @@ function getSizeValue(minmax: string, hw: string, theme: Theme, prop: string) {
   if (v != null)
     return v
 
+  const spacingValue = resolveTailwindSpacing(theme, prop, { allowFraction: true })
+  if (spacingValue != null)
+    return spacingValue
+
   switch (prop) {
     case 'fit':
     case 'max':
@@ -29,8 +33,6 @@ function getSizeValue(minmax: string, hw: string, theme: Theme, prop: string) {
     case 'stretch':
       return 'stretch'
   }
-
-  return h.bracket.cssvar.global.auto.fraction.rem(prop)
 }
 
 export const sizes: Rule<Theme>[] = [

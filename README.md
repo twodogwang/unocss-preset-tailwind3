@@ -79,6 +79,7 @@ transform-rotate-45
 | `variablePrefix` | `'un-'` | Rewrites generated CSS custom property names, for example `--un-...` to a custom prefix. |
 | `important` | `false` | Adds `!important` to declarations or scopes selectors under a container when set to a selector string. |
 | `prefix` | `undefined` | Applies UnoCSS utility prefixes if your project needs prefixed class names. |
+| `locale` | `'zh-CN'` | Controls built-in blocklist migration messages. Currently supports `'zh-CN'` and `'en'`. |
 | `attributifyPseudo` | `false` | Passes through UnoCSS preset options for pseudo handling in attributify-style workflows. |
 
 Example with options:
@@ -91,6 +92,7 @@ export default defineConfig({
   presets: [
     presetTailwind3({
       dark: 'media',
+      locale: 'en',
       preflight: 'on-demand',
       important: '#app',
     }),

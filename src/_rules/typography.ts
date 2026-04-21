@@ -18,12 +18,16 @@ export const fonts: Rule<Theme>[] = [
 
   // weights
   [
-    /^(?:font|fw)-?([^-]+)$/,
-    ([, s], { theme }) => ({ 'font-weight': theme.fontWeight?.[s] || h.bracket.global.number(s) }),
+    /^font-([^-]+)$/,
+    ([, s], { theme }) => {
+      const value = theme.fontWeight?.[s] || h.bracket.global.number(s)
+      if (value != null)
+        return { 'font-weight': value }
+    },
     {
       autocomplete: [
-        '(font|fw)-(100|200|300|400|500|600|700|800|900)',
-        '(font|fw)-$fontWeight',
+        'font-(100|200|300|400|500|600|700|800|900)',
+        'font-$fontWeight',
       ],
     },
   ],

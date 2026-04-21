@@ -5,7 +5,7 @@ import { colorResolver, h, isSize } from '../utils'
  * @example op10 op-30 opacity-100
  */
 export const opacity: Rule[] = [
-  [/^op(?:acity)?-?(.+)$/, ([, d]) => ({ opacity: h.bracket.percent.cssvar(d) })],
+  [/^opacity-(.+)$/, ([, d]) => ({ opacity: h.bracket.percent.cssvar(d) })],
 ]
 
 const bgUrlRE = /^\[url\(.+\)\]$/
