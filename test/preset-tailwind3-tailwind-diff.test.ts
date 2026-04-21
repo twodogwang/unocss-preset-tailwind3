@@ -4,7 +4,7 @@ import postcss from 'postcss'
 import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
-import { borderWidthFixtures } from './fixtures/tailwind-border-rewrite'
+import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -238,9 +238,9 @@ describe('preset-tailwind3 tailwind parity', () => {
       'border-[#fff]',
       'border-opacity-50',
       'border-red-500/50',
-      'rounded-md',
-      'rounded-s-lg',
-      'rounded-ss-lg',
+      ...roundedFixtures.canonical,
+      'rounded-lt-lg',
+      'rounded-rt-lg',
       'ring',
       'ring-2',
       'ring-[3px]',
@@ -281,6 +281,8 @@ describe('preset-tailwind3 tailwind parity', () => {
       'border-t-dashed',
       'border-style-dashed',
       'border-rounded-md',
+      'rounded-lt-lg',
+      'rounded-rt-lg',
       'ring-op50',
       'ring-width-2',
       'ring-size-2',

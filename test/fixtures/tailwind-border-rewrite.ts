@@ -16,3 +16,24 @@ export const borderWidthFixtures = {
     'borderx',
   ],
 } as const
+
+export const roundedFixtures = {
+  canonical: [
+    'rounded',
+    'rounded-md',
+    'rounded-t-lg',
+    'rounded-s-xl',
+    'rounded-se-2xl',
+    'rounded-ss-lg',
+    'rounded-es-lg',
+    'rounded-[10px]',
+  ],
+  invalid: [
+    'rd-md',
+    'rounded-10px',
+    'roundedt-lg',
+    'rounded-lt-lg',
+    'rounded-rt-lg',
+    'border-rounded-md',
+  ],
+} as const

@@ -3,7 +3,7 @@ import { createAutocomplete } from '@unocss/autocomplete'
 import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
-import { borderWidthFixtures } from './fixtures/tailwind-border-rewrite'
+import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 
 async function createUno(config: UserConfig = {}) {
   return createGenerator({
@@ -429,6 +429,10 @@ describe('preset-tailwind3', () => {
       ])
     })
 
+    it('matches strict Tailwind 3 rounded direction tokens', async () => {
+      await expectTargets(roundedFixtures.canonical)
+    })
+
     it('matches arbitrary and theme-driven border utilities', async () => {
       const css = await expectTargets([
         'border-[3px]',
@@ -464,6 +468,8 @@ describe('preset-tailwind3', () => {
         'b-red-500',
         'rd-md',
         'roundedt-lg',
+        'rounded-lt-lg',
+        'rounded-rt-lg',
         'border-color-red-500',
         'border-s-color-red-500',
         'border-op50',

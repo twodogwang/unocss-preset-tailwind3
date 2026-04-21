@@ -24,8 +24,7 @@ export const borders: Rule[] = [
   // radius
   [/^rounded()(?:-(.+))?$/, handlerRounded, { autocomplete: ['rounded', 'rounded-$borderRadius'] }],
   [/^rounded-([trblse])(?:-(.+))?$/, handlerRounded],
-  [/^rounded-([trbl]{2})(?:-(.+))?$/, handlerRounded],
-  [/^rounded-([se][se])(?:-(.+))?$/, handlerRounded],
+  [/^rounded-((?:tl|tr|br|bl|ss|se|ee|es))(?:-(.+))?$/, handlerRounded],
 
   // style
   [/^border-(.+)$/, handlerBorderStyle, { autocomplete: [`border-(${borderStyles.join('|')})`] }],
@@ -113,7 +112,9 @@ function handlerBorderOpacity([, opacity]: string[]): CSSEntries | undefined {
 }
 
 function handlerRounded([, a = '', s]: string[], { theme }: RuleContext<Theme>): CSSEntries | undefined {
-  const v = theme.borderRadius?.[s || 'DEFAULT'] || h.bracket.cssvar.global.fraction.rem(s || '1')
+  const v = s == null
+    ? theme.borderRadius?.DEFAULT ?? h.bracket.cssvar.global.fraction.rem('1')
+    : theme.borderRadius?.[s] ?? (s.startsWith('[') && s.endsWith(']') ? h.bracket.cssvar.global.fraction.rem(s) : undefined)
   if (a in cornerMap && v != null)
     return cornerMap[a].map(i => [`border${i}-radius`, v])
 }
