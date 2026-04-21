@@ -2,10 +2,30 @@ import type { CSSEntries, CSSObject, Rule, RuleContext } from '@unocss/core'
 import type { CSSColorValue } from '@unocss/rule-utils'
 import type { Theme } from '../theme'
 import { colorOpacityToString, colorToString } from '@unocss/rule-utils'
-import { cornerMap, directionMap, h, parseColor } from '../utils'
+import { directionMap, h, parseColor } from '../utils'
 
 export const borderStyles = ['solid', 'dashed', 'dotted', 'double', 'hidden', 'none']
 const borderWidthDefaults = new Set(['0', '2', '4', '8', 'px'])
+const roundedDirectionMap = {
+  '': [''],
+  't': ['-top-left', '-top-right'],
+  'r': ['-top-right', '-bottom-right'],
+  'b': ['-bottom-left', '-bottom-right'],
+  'l': ['-top-left', '-bottom-left'],
+  's': ['-start-start', '-start-end'],
+  'e': ['-end-start', '-end-end'],
+  'tl': ['-top-left'],
+  'tr': ['-top-right'],
+  'br': ['-bottom-right'],
+  'bl': ['-bottom-left'],
+  'ss': ['-start-start'],
+  'se': ['-start-end'],
+  'es': ['-end-start'],
+  'ee': ['-end-end'],
+} as const
+
+const roundedDirectionTokens = Object.keys(roundedDirectionMap).filter(token => token) as Exclude<keyof typeof roundedDirectionMap, ''>[]
+const roundedDirectionPattern = roundedDirectionTokens.join('|')
 
 export const borders: Rule[] = [
   // size
@@ -24,7 +44,7 @@ export const borders: Rule[] = [
   // radius
   [/^rounded()(?:-(.+))?$/, handlerRounded, { autocomplete: ['rounded', 'rounded-$borderRadius'] }],
   [/^rounded-([trblse])(?:-(.+))?$/, handlerRounded],
-  [/^rounded-((?:tl|tr|br|bl|ss|se|ee|es))(?:-(.+))?$/, handlerRounded],
+  [new RegExp(`^rounded-(${roundedDirectionPattern})(?:-(.+))?$`), handlerRounded],
 
   // style
   [/^border-(.+)$/, handlerBorderStyle, { autocomplete: [`border-(${borderStyles.join('|')})`] }],
@@ -115,8 +135,8 @@ function handlerRounded([, a = '', s]: string[], { theme }: RuleContext<Theme>):
   const v = s == null
     ? theme.borderRadius?.DEFAULT ?? h.bracket.cssvar.global.fraction.rem('1')
     : theme.borderRadius?.[s] ?? (s.startsWith('[') && s.endsWith(']') ? h.bracket.cssvar.global.fraction.rem(s) : undefined)
-  if (a in cornerMap && v != null)
-    return cornerMap[a].map(i => [`border${i}-radius`, v])
+  if (a in roundedDirectionMap && v != null)
+    return roundedDirectionMap[a as keyof typeof roundedDirectionMap].map(i => [`border${i}-radius`, v])
 }
 
 export function handlerBorderStyle([, s]: string[]): CSSEntries | undefined {

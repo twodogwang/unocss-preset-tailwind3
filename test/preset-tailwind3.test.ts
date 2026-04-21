@@ -464,12 +464,9 @@ describe('preset-tailwind3', () => {
     it('rejects non-tailwind border aliases and shortcuts', async () => {
       await expectNonTargets([
         ...borderWidthFixtures.invalid,
+        ...roundedFixtures.invalid,
         'b-2',
         'b-red-500',
-        'rd-md',
-        'roundedt-lg',
-        'rounded-lt-lg',
-        'rounded-rt-lg',
         'border-color-red-500',
         'border-s-color-red-500',
         'border-op50',

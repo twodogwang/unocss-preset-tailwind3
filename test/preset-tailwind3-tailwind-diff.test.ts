@@ -271,6 +271,7 @@ describe('preset-tailwind3 tailwind parity', () => {
     await expectTailwindParity([
       'ring-offset',
       ...borderWidthFixtures.invalid,
+      ...roundedFixtures.invalid,
       'border-color-red-500',
       'border-s-color-red-500',
       'border-op50',
@@ -281,8 +282,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'border-t-dashed',
       'border-style-dashed',
       'border-rounded-md',
-      'rounded-lt-lg',
-      'rounded-rt-lg',
       'ring-op50',
       'ring-width-2',
       'ring-size-2',

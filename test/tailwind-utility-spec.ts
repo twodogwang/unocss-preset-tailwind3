@@ -1,4 +1,4 @@
-import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { borderWidthFixtures } from './fixtures/tailwind-border-rewrite'
 
 export interface TailwindUtilitySpec {
   id: string
@@ -24,8 +24,3 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     notes: ['用于建立“数字刻度合法、裸单位值非法”的重写模板。'],
   },
 ]
-
-export const tailwindRewriteFixtures = {
-  borderWidthFixtures,
-  roundedFixtures,
-} as const
