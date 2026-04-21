@@ -5,6 +5,7 @@ import { colorOpacityToString, colorToString } from '@unocss/rule-utils'
 import { cornerMap, directionMap, h, parseColor } from '../utils'
 
 export const borderStyles = ['solid', 'dashed', 'dotted', 'double', 'hidden', 'none']
+const borderWidthDefaults = new Set(['0', '2', '4', '8', 'px'])
 
 export const borders: Rule[] = [
   // size
@@ -80,7 +81,16 @@ function borderColorResolver(direction: string) {
 }
 
 function handlerBorderSize([, a = '', b]: string[], { theme }: RuleContext<Theme>): CSSEntries | undefined {
-  const v = theme.lineWidth?.[b || 'DEFAULT'] ?? h.bracket.cssvar.global.px(b || '1')
+  const lineWidth = theme.lineWidth ?? {}
+  const v = !b
+    ? lineWidth.DEFAULT ?? '1px'
+    : b in lineWidth
+      ? lineWidth[b]
+      : borderWidthDefaults.has(b)
+        ? h.bracket.cssvar.global.px(b)
+      : b.startsWith('[') && b.endsWith(']')
+        ? h.bracket.cssvar.global.px(b)
+        : undefined
   if (a in directionMap && v != null)
     return directionMap[a].map(i => [`border${i}-width`, v])
 }

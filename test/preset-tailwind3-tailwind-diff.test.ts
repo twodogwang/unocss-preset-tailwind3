@@ -4,6 +4,7 @@ import postcss from 'postcss'
 import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
+import { borderWidthFixtures } from './fixtures/tailwind-border-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -262,9 +263,15 @@ describe('preset-tailwind3 tailwind parity', () => {
     ])
   })
 
+  it('matches strict border width fixtures', async () => {
+    await expectTailwindParity(borderWidthFixtures.canonical)
+  })
+
   it('rejects non-tailwind border / ring / decoration aliases and extensions', async () => {
     await expectTailwindParity([
       'ring-offset',
+      'border-10px',
+      'border-x-10px',
       'border-color-red-500',
       'border-s-color-red-500',
       'border-op50',
