@@ -5,6 +5,7 @@ import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -325,18 +326,7 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches Tailwind 3 support for outline and transition utilities', async () => {
     await expectTailwindParity([
-      'outline-none',
-      'outline',
-      'outline-2',
-      'outline-[3px]',
-      'outline-offset-2',
-      'outline-offset-[3px]',
-      'outline-red-500',
-      'outline-[#fff]',
-      'outline-dashed',
-      'outline-dotted',
-      'outline-double',
-      'outline-inherit',
+      ...outlineFixtures.canonical,
       'transition',
       'transition-all',
       'transition-colors',
@@ -358,13 +348,7 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind outline and transition aliases', async () => {
     await expectTailwindParity([
-      'outline-hidden',
-      'outline-initial',
-      'outline-color-red-500',
-      'outline-width-2',
-      'outline-style-dashed',
-      'outline-op50',
-      'outline-opacity-50',
+      ...outlineFixtures.invalid,
       'property-opacity',
       'transition-property-opacity',
       'transition-200',

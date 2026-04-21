@@ -1,0 +1,11 @@
+# Outline Source Rewrite Status
+- phase: red
+- completed:
+  - design approved
+  - implementation plan approved
+- in_progress:
+  - initialize fixtures, logs, and failing tests
+- pending:
+  - strict width/offset
+  - strict style/color
+  - final verification

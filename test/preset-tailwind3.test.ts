@@ -4,6 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 
 async function createUno(config: UserConfig = {}) {
   return createGenerator({
@@ -621,32 +622,11 @@ describe('preset-tailwind3', () => {
 
   describe('outline / transition', () => {
     it('matches official Tailwind 3 outline utilities', async () => {
-      await expectTargets([
-        'outline-none',
-        'outline',
-        'outline-2',
-        'outline-[3px]',
-        'outline-offset-2',
-        'outline-offset-[3px]',
-        'outline-red-500',
-        'outline-[#fff]',
-        'outline-dashed',
-        'outline-dotted',
-        'outline-double',
-        'outline-inherit',
-      ])
+      await expectTargets(outlineFixtures.canonical)
     })
 
     it('rejects non-tailwind outline aliases and extensions', async () => {
-      await expectNonTargets([
-        'outline-hidden',
-        'outline-initial',
-        'outline-color-red-500',
-        'outline-width-2',
-        'outline-style-dashed',
-        'outline-op50',
-        'outline-opacity-50',
-      ])
+      await expectNonTargets(outlineFixtures.invalid)
     })
 
     it('matches official Tailwind 3 transition utilities', async () => {
