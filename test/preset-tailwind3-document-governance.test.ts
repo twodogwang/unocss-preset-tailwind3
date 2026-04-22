@@ -171,4 +171,12 @@ describe('source rewrite document governance', () => {
     expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline'])
     expect(taskStatusDoc).not.toContain('test/tailwind-rule-family-inventory.ts')
   })
+
+  it('keeps the baseline doc as background context instead of the live source of truth', () => {
+    const baselineDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-baseline.md')
+
+    expect(baselineDoc).toContain('背景文档')
+    expect(baselineDoc).toContain('实时状态入口')
+    expect(baselineDoc).not.toContain('test/tailwind-grammar-debt.ts')
+  })
 })
