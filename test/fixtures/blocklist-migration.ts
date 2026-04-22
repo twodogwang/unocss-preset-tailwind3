@@ -25,15 +25,21 @@ export const trackingBlocklistMigrationFixtures = [
   { input: 'tracking-0.2em', replacement: 'tracking-[0.2em]' },
 ] as const
 
+export const strokeBlocklistMigrationFixtures = [
+  { input: 'stroke-width-2', replacement: 'stroke-2' },
+  { input: 'stroke-size-2', replacement: 'stroke-2' },
+  { input: 'stroke-#fff', replacement: 'stroke-[#fff]' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,
+  ...strokeBlocklistMigrationFixtures,
   { input: 'bg-#fff', replacement: 'bg-[#fff]' },
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
-  { input: 'stroke-#fff', replacement: 'stroke-[#fff]' },
   { input: 'accent-#fff', replacement: 'accent-[#fff]' },
   { input: 'caret-#fff', replacement: 'caret-[#fff]' },
   { input: 'b-2', replacement: 'border-2' },

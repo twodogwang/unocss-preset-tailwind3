@@ -1,12 +1,13 @@
 # Stroke Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: tighten stroke syntax
   - Task 3: lock stroke semantics and register utility spec
-- in_progress:
   - Task 4: lock stroke blocklist migration and final verification
+- in_progress:
+  - none
 - pending:
   - none

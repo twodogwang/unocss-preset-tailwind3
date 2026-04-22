@@ -24,9 +24,6 @@
 - `text`
 - `leading`
 - `tracking`
-
-### 进行中 utility
-
 - `stroke`
 
 ### 待处理 utility
@@ -45,9 +42,8 @@
 
 按当前总入口的顺序，下一步优先继续：
 
-1. `stroke`
-2. `spacing`
-3. `behavior`
+1. `spacing`
+2. `behavior`
 
 ## 文档职责
 
