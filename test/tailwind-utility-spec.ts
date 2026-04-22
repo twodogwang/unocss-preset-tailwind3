@@ -1,6 +1,7 @@
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 export interface TailwindUtilitySpec {
@@ -65,5 +66,15 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 leading 主规则族只接受 leading-* 的语义边界。'],
+  },
+  {
+    id: 'tracking',
+    sourceFiles: ['src/_rules/typography.ts'],
+    category: 'typography',
+    canonical: [...trackingFixtures.canonical],
+    invalid: [...trackingFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 tracking 主规则族只接受 tracking-* 的语义边界。'],
   },
 ]

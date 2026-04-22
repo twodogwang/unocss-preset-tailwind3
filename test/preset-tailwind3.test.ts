@@ -805,6 +805,15 @@ describe('preset-tailwind3', () => {
     it('rejects non-tailwind tracking aliases and bare length shortcuts', async () => {
       await expectNonTargets(trackingFixtures.invalid)
     })
+
+    it('emits the expected tracking CSS for semantic cases', async () => {
+      const css = await expectTargets(trackingFixtures.semantic)
+
+      expect(css).toContain('.tracking-tight{letter-spacing:-0.025em;}')
+      expect(css).toContain('.tracking-wide{letter-spacing:0.025em;}')
+      expect(css).toContain('.tracking-\\[0\\.2em\\]{letter-spacing:0.2em;}')
+      expect(css).toContain('.tracking-\\[calc\\(1em-1px\\)\\]{letter-spacing:calc(1em - 1px);}')
+    })
   })
 
   describe('typography / columns / tables / behaviors', () => {

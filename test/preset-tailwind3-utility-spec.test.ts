@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 import { tailwindUtilitySpecs } from './tailwind-utility-spec'
 
@@ -20,12 +21,14 @@ describe('tailwind utility spec', () => {
     const borderRadiusSpec = getSpec('border-radius')
     const leadingSpec = getSpec('leading')
     const outlineSpec = getSpec('outline')
+    const trackingSpec = getSpec('tracking')
     const textSpec = getSpec('text')
 
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
     expect(leadingSpec).toBeTruthy()
     expect(outlineSpec).toBeTruthy()
+    expect(trackingSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
     expect(borderWidthSpec?.invalid).toContain('border-10px')
@@ -47,6 +50,14 @@ describe('tailwind utility spec', () => {
     expect(leadingSpec?.supportsVariants).toBe(true)
     expect(leadingSpec?.invalid).toContain('lh-6')
     expect(leadingSpec?.invalid).toContain('leading-20px')
+    expect(trackingSpec?.canonical).toEqual([...trackingFixtures.canonical])
+    expect(trackingSpec?.invalid).toEqual([...trackingFixtures.invalid])
+    expect(trackingSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
+    expect(trackingSpec?.category).toBe('typography')
+    expect(trackingSpec?.supportsPrefix).toBe(true)
+    expect(trackingSpec?.supportsVariants).toBe(true)
+    expect(trackingSpec?.invalid).toContain('font-tracking-wide')
+    expect(trackingSpec?.invalid).toContain('tracking-0.2em')
 
     expect(outlineSpec?.canonical).toEqual([...outlineFixtures.canonical])
     expect(outlineSpec?.invalid).toEqual([...outlineFixtures.invalid])
@@ -63,7 +74,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, outlineSpec, textSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, outlineSpec, trackingSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)
