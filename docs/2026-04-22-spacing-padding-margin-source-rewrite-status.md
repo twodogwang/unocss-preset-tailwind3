@@ -1,12 +1,13 @@
 # Spacing Padding Margin Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: add high-confidence padding margin migration hints
   - Task 3: lock padding margin semantics and register utility spec
-- in_progress:
   - Task 4: sync spacing governance and final verification
+- in_progress:
+  - none
 - pending:
   - none

@@ -4,3 +4,4 @@
 - 2026-04-22: red tests confirmed padding / margin governance gaps in compact and legacy migration coverage
 - 2026-04-22: Task 2 completed, padding / margin high-confidence migration hints are now enforced in blocklist coverage
 - 2026-04-22: Task 3 completed, padding / margin semantics are now locked in utility spec and runtime assertions
+- 2026-04-22: Task 4 completed, spacing governance is synced and the next slice remains gap / inset / scroll-*

@@ -100,6 +100,10 @@ describe('source rewrite document governance', () => {
     expect(isTracked('docs/superpowers/plans/2026-04-22-stroke-source-rewrite.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-stroke-source-rewrite-log.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-stroke-source-rewrite-status.md')).toBe(true)
+    expect(isTracked('docs/superpowers/specs/2026-04-22-spacing-padding-margin-source-rewrite-design.md')).toBe(true)
+    expect(isTracked('docs/superpowers/plans/2026-04-22-spacing-padding-margin-source-rewrite.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-spacing-padding-margin-source-rewrite-log.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-spacing-padding-margin-source-rewrite-status.md')).toBe(true)
   })
 
   it('marks the original source rewrite plan as a requirements doc and points to the live entry', () => {
@@ -163,11 +167,11 @@ describe('source rewrite document governance', () => {
       },
       {
         utility: 'spacing',
-        status: 'pending',
-        spec: '-',
-        plan: '-',
-        log: '-',
-        statusDoc: '-',
+        status: 'in_progress',
+        spec: 'docs/superpowers/specs/2026-04-22-spacing-padding-margin-source-rewrite-design.md',
+        plan: 'docs/superpowers/plans/2026-04-22-spacing-padding-margin-source-rewrite.md',
+        log: 'docs/2026-04-22-spacing-padding-margin-source-rewrite-log.md',
+        statusDoc: 'docs/2026-04-22-spacing-padding-margin-source-rewrite-status.md',
       },
       {
         utility: 'behavior',
