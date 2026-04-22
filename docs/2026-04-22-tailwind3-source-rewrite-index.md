@@ -8,7 +8,8 @@
 
 - 目标：把各个 utility 收敛到 Tailwind CSS 3 正式语法
 - 已完成：`border`、`outline`、`text`、`leading`、`tracking`、`stroke`
-- 待处理：`spacing`、`behavior`
+- 进行中：`spacing`
+- 待处理：`behavior`
 
 ## Utility Manifest
 
@@ -22,7 +23,7 @@
 | leading | completed | docs/superpowers/specs/2026-04-22-leading-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-leading-source-rewrite.md | docs/2026-04-22-leading-source-rewrite-log.md | docs/2026-04-22-leading-source-rewrite-status.md |
 | tracking | completed | docs/superpowers/specs/2026-04-22-tracking-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-tracking-source-rewrite.md | docs/2026-04-22-tracking-source-rewrite-log.md | docs/2026-04-22-tracking-source-rewrite-status.md |
 | stroke | completed | docs/superpowers/specs/2026-04-22-stroke-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-stroke-source-rewrite.md | docs/2026-04-22-stroke-source-rewrite-log.md | docs/2026-04-22-stroke-source-rewrite-status.md |
-| spacing | pending | - | - | - | - |
+| spacing | in_progress | docs/superpowers/specs/2026-04-22-spacing-padding-margin-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-spacing-padding-margin-source-rewrite.md | docs/2026-04-22-spacing-padding-margin-source-rewrite-log.md | docs/2026-04-22-spacing-padding-margin-source-rewrite-status.md |
 | behavior | pending | - | - | - | - |
 
 ## 相关文档

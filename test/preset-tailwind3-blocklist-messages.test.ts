@@ -5,6 +5,7 @@ import {
   blocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
+  paddingMarginBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   textBlocklistMigrationFixtures,
@@ -137,6 +138,29 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of strokeBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks padding margin migration hints through the shared fixture subset', async () => {
+    expect(paddingMarginBlocklistMigrationFixtures).toHaveLength(13)
+    expect(paddingMarginBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'p4',
+      'px2',
+      'pt1',
+      'm4',
+      'mx2',
+      '-mt1',
+      'p-x-4',
+      '-m-y-2',
+      'p-s-4',
+      'm-e-4',
+      'p-5px',
+      'm-2rem',
+      'mx-var(--gap)',
+    ])
+
+    for (const fixture of paddingMarginBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

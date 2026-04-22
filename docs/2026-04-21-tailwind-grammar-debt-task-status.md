@@ -26,15 +26,18 @@
 - `tracking`
 - `stroke`
 
-### 待处理 utility
+### 进行中 utility
 
 - `spacing`
+
+### 待处理 utility
+
 - `behavior`
 
 ## 已完成的配套治理
 
 - 总需求文档已进入 git
-- `outline`、`text`、`leading`、`tracking` 与 `stroke` 的 spec / plan / log / status 已进入 git
+- `outline`、`text`、`leading`、`tracking`、`stroke` 与 `spacing` 当前子阶段的 spec / plan / log / status 已进入 git
 - `border` 当前已有的计划文档已进入 git
 - 已建立整体任务总入口，用统一 manifest 表维护 utility 状态与文档链接
 

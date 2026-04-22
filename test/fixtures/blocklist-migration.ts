@@ -31,6 +31,22 @@ export const strokeBlocklistMigrationFixtures = [
   { input: 'stroke-#fff', replacement: 'stroke-[#fff]' },
 ] as const
 
+export const paddingMarginBlocklistMigrationFixtures = [
+  { input: 'p4', replacement: 'p-4' },
+  { input: 'px2', replacement: 'px-2' },
+  { input: 'pt1', replacement: 'pt-1' },
+  { input: 'm4', replacement: 'm-4' },
+  { input: 'mx2', replacement: 'mx-2' },
+  { input: '-mt1', replacement: '-mt-1' },
+  { input: 'p-x-4', replacement: 'px-4' },
+  { input: '-m-y-2', replacement: '-my-2' },
+  { input: 'p-s-4', replacement: 'ps-4' },
+  { input: 'm-e-4', replacement: 'me-4' },
+  { input: 'p-5px', replacement: 'p-[5px]' },
+  { input: 'm-2rem', replacement: 'm-[2rem]' },
+  { input: 'mx-var(--gap)', replacement: 'mx-[var(--gap)]' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
@@ -38,6 +54,7 @@ export const blocklistMigrationFixtures = [
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,
   ...strokeBlocklistMigrationFixtures,
+  ...paddingMarginBlocklistMigrationFixtures,
   { input: 'bg-#fff', replacement: 'bg-[#fff]' },
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'accent-#fff', replacement: 'accent-[#fff]' },

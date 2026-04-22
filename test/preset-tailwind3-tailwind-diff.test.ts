@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -84,12 +85,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'w-[100px]',
       'min-w-0',
       'max-h-[400px]',
-      'p-4',
-      'ps-4',
-      'pe-6',
-      'ms-4',
-      'me-6',
-      'px-[2rem]',
       'gap-x-2',
       'start-4',
       'end-6',
@@ -109,15 +104,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'size-w-4',
       'size-h-8',
       'size-max-w-full',
-      'p-1/2',
-      'm-1/2',
-      'p-auto',
-      'p-block-4',
-      'm-inline-4',
-      'p-bs-4',
-      'm-ie-4',
-      'p-s-4',
-      'm-e-4',
       'block-4',
       'inline-4',
       'min-block-4',
@@ -146,6 +132,28 @@ describe('preset-tailwind3 tailwind parity', () => {
       'scroll-pa-4',
       'scroll-m-s-4',
       'scroll-p-e-4',
+    ])
+  })
+
+  it('matches Tailwind 3 support for padding / margin utilities', async () => {
+    await expectTailwindParity([
+      ...paddingMarginFixtures.canonical,
+      'ms-4',
+      'me-6',
+      'px-[2rem]',
+    ])
+  })
+
+  it('rejects non-tailwind padding / margin aliases and raw shorthand syntax', async () => {
+    await expectTailwindParity([
+      ...paddingMarginFixtures.invalid,
+      'p-1/2',
+      'm-1/2',
+      'p-auto',
+      'p-block-4',
+      'm-inline-4',
+      'p-bs-4',
+      'm-ie-4',
     ])
   })
 

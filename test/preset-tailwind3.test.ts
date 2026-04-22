@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -129,40 +130,16 @@ describe('preset-tailwind3', () => {
 
   describe('padding / margin', () => {
     it('matches official Tailwind 3 padding utilities', async () => {
-      await expectTargets([
-        'p-4',
-        'px-2',
-        'py-8',
-        'pt-1',
-        'pr-px',
-        'pb-3',
-        'pl-5',
-        'ps-4',
-        'pe-6',
-      ])
+      await expectTargets(paddingMarginFixtures.canonical.filter(item => item.startsWith('p')))
     })
 
     it('matches official Tailwind 3 margin utilities', async () => {
-      await expectTargets([
-        'm-4',
-        'mx-auto',
-        'my-6',
-        'mt-1',
-        'mr-2',
-        'mb-3',
-        'ml-5',
-        'ms-4',
-        'me-6',
-        '-m-4',
-        '-mx-2',
-        '-mt-1',
-      ])
+      await expectTargets(paddingMarginFixtures.canonical.filter(item => item.startsWith('m') || item.startsWith('-m')))
     })
 
     it('matches arbitrary and theme-driven spacing utilities', async () => {
       const css = await expectTargets([
         'p-[5px]',
-        'px-[2rem]',
         'm-[2rem]',
         'mx-[var(--gap)]',
         'p-128',
@@ -185,28 +162,18 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind spacing syntax', async () => {
       await expectNonTargets([
-        'p4',
+        ...paddingMarginFixtures.invalid,
         'p-1/2',
         'p-auto',
-        'p-5px',
-        'px2',
         'px-2rem',
         'py8',
-        'pt1',
-        'm4',
         'm-1/2',
-        'm-2rem',
-        'mx2',
-        'mx-var(--gap)',
-        '-mt1',
         '-mt-1rem',
         'm-x-4',
         'p-block-4',
         'm-inline-4',
         'p-bs-4',
         'm-ie-4',
-        'p-s-4',
-        'm-e-4',
       ])
     })
   })
