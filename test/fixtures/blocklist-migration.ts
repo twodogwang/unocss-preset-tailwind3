@@ -10,6 +10,12 @@ export const backgroundColorBlocklistMigrationFixtures = [
   { input: 'bg-op-50', replacement: 'bg-opacity-50' },
 ] as const
 
+export const ringBlocklistMigrationFixtures = [
+  { input: 'ring-op50', replacement: 'ring-opacity-50' },
+  { input: 'ring-width-2', replacement: 'ring-2' },
+  { input: 'ring-size-2', replacement: 'ring-2' },
+] as const
+
 export const textBlocklistMigrationFixtures = [
   { input: 'text-#fff', replacement: 'text-[#fff]' },
   { input: 'text-size-sm', replacement: 'text-sm' },
@@ -117,9 +123,7 @@ export const blocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
-  { input: 'ring-op50', replacement: 'ring-opacity-50' },
-  { input: 'ring-width-2', replacement: 'ring-2' },
-  { input: 'ring-size-2', replacement: 'ring-2' },
+  ...ringBlocklistMigrationFixtures,
   { input: 'border-color-red-500', replacement: 'border-red-500' },
   { input: 'border-s-color-red-500', replacement: 'border-s-red-500' },
   ...outlineBlocklistMigrationFixtures,

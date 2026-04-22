@@ -9,6 +9,7 @@ import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-re
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -352,6 +353,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind transition aliases', async () => {
     await expectTailwindParity(transitionFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for ring utilities', async () => {
+    await expectTailwindParity(ringFixtures.canonical)
+  })
+
+  it('rejects non-tailwind ring aliases', async () => {
+    await expectTailwindParity(ringFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for text utilities', async () => {

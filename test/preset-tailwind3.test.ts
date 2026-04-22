@@ -8,6 +8,7 @@ import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-re
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -543,6 +544,28 @@ describe('preset-tailwind3', () => {
         'underline-dashed',
         'underline-wavy',
       ])
+    })
+
+    it('matches Tailwind 3 ring utilities through the shared fixtures', async () => {
+      await expectTargets(ringFixtures.canonical)
+    })
+
+    it('rejects non-tailwind ring aliases through the shared fixtures', async () => {
+      await expectNonTargets(ringFixtures.invalid)
+    })
+
+    it('emits the expected ring CSS for semantic cases', async () => {
+      const css = await expectTargets(ringFixtures.semantic)
+
+      expect(css).toContain('.ring,')
+      expect(css).toContain('--un-ring-width:3px')
+      expect(css).toContain('--un-ring-width:2px')
+      expect(css).toContain('--un-ring-color')
+      expect(css).toContain('--un-ring-opacity')
+      expect(css).toContain('--un-ring-offset-width:2px')
+      expect(css).toContain('--un-ring-offset-color')
+      expect(css).toContain('--un-ring-inset:inset')
+      expect(css).toContain('box-shadow')
     })
   })
 

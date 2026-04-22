@@ -3,6 +3,7 @@ import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-re
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -73,6 +74,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于建立“outline 语义锁定为 Tailwind 3 规则”的重写模板。'],
+  },
+  {
+    id: 'ring',
+    sourceFiles: ['src/_rules/ring.ts'],
+    category: 'behavior',
+    canonical: [...ringFixtures.canonical],
+    invalid: [...ringFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 ring 主规则族的 width、color、offset、inset 与 opacity 语义边界。'],
   },
   {
     id: 'border-spacing-space',

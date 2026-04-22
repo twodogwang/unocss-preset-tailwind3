@@ -10,6 +10,7 @@ import {
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
   paddingMarginBlocklistMigrationFixtures,
+  ringBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
@@ -134,6 +135,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
 
     for (const input of backgroundStyleFixtures.blocklisted)
       await expectBlocked(input)
+  })
+
+  it('locks ring migration hints through the shared fixture subset', async () => {
+    expect(ringBlocklistMigrationFixtures).toHaveLength(3)
+    expect(ringBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'ring-op50',
+      'ring-width-2',
+      'ring-size-2',
+    ])
+
+    for (const fixture of ringBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
   })
 
   it('locks leading migration hints through the shared fixture subset', async () => {

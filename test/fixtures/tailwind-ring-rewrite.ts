@@ -1,0 +1,33 @@
+export const ringFixtures = {
+  canonical: [
+    'ring',
+    'ring-2',
+    'ring-[3px]',
+    'ring-[#fff]',
+    'ring-blue-500/50',
+    'ring-opacity-50',
+    'ring-offset-2',
+    'ring-offset-[3px]',
+    'ring-offset-red-500',
+    'ring-inset',
+  ],
+  invalid: [
+    'ring-offset',
+    'ring-op50',
+    'ring-width-2',
+    'ring-size-2',
+    'ring-offset-op50',
+    'ring-offset-opacity-50',
+  ],
+  semantic: [
+    'ring',
+    'ring-2',
+    'ring-[3px]',
+    'ring-[#fff]',
+    'ring-blue-500/50',
+    'ring-opacity-50',
+    'ring-offset-2',
+    'ring-offset-red-500',
+    'ring-inset',
+  ],
+} as const
