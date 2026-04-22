@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -188,69 +189,34 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('gap / inset / translate / scroll-*', () => {
+  describe('gap / inset / scroll', () => {
     it('matches official Tailwind 3 gap utilities', async () => {
-      await expectTargets([
-        'gap-4',
-        'gap-px',
-        'gap-x-2',
-        'gap-y-8',
-      ])
+      await expectTargets(gapInsetScrollFixtures.canonical.filter(item => item.startsWith('gap')))
     })
 
     it('matches official Tailwind 3 inset utilities', async () => {
-      await expectTargets([
-        'inset-0',
-        'inset-x-4',
-        'inset-y-2',
-        'top-1',
-        'right-2',
-        'bottom-3',
-        'left-auto',
-        'start-4',
-        'end-6',
-        '-inset-4',
-        '-top-1',
-      ])
-    })
-
-    it('matches official Tailwind 3 translate utilities', async () => {
-      await expectTargets([
-        'translate-x-4',
-        'translate-y-8',
-        'translate-x-full',
-        '-translate-y-1',
-      ])
+      await expectTargets(gapInsetScrollFixtures.canonical.filter(item =>
+        item.startsWith('inset')
+        || item.startsWith('-inset')
+        || item.startsWith('start')
+        || item.startsWith('end')
+        || item.startsWith('top')
+      ))
     })
 
     it('matches official Tailwind 3 scroll margin and scroll padding utilities', async () => {
-      await expectTargets([
-        'scroll-m-4',
-        'scroll-mx-2',
-        'scroll-my-8',
-        'scroll-mt-1',
-        'scroll-ms-4',
-        'scroll-me-6',
-        'scroll-p-4',
-        'scroll-px-2',
-        'scroll-py-8',
-        'scroll-pt-1',
-        'scroll-ps-4',
-        'scroll-pe-6',
-      ])
+      await expectTargets(gapInsetScrollFixtures.canonical.filter(item => item.startsWith('scroll')))
     })
 
-    it('matches arbitrary and theme-driven gap / inset / translate / scroll utilities', async () => {
+    it('matches arbitrary and theme-driven gap / inset / scroll utilities', async () => {
       const css = await expectTargets([
         'gap-[3px]',
         'inset-[5px]',
         'inset-x-[2rem]',
-        'translate-x-[12px]',
         'scroll-m-[2rem]',
         'scroll-px-[var(--gap)]',
         'gap-128',
         'inset-gutter',
-        'translate-x-gutter',
         'scroll-mx-gutter',
       ], {
         theme: {
@@ -264,31 +230,52 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('3px')
       expect(css).toContain('5px')
       expect(css).toContain('2rem')
-      expect(css).toContain('12px')
       expect(css).toContain('var(--gap)')
       expect(css).toContain('32rem')
       expect(css).toContain('3.25rem')
     })
 
-    it('rejects non-tailwind gap / inset / translate / scroll syntax', async () => {
+    it('rejects non-tailwind gap / inset / scroll syntax', async () => {
       await expectNonTargets([
-        'gap4',
-        'gap-3px',
-        'gapx-2',
+        ...gapInsetScrollFixtures.invalid,
         'gapy8',
-        'gap-x2',
-        'gap-row-4',
-        'gap-col-4',
-        'insetx-4',
         'inset-5px',
-        'insety2',
-        'inset-inline-4',
-        'inset-bs-4',
-        'inset-r-4',
-        'top1',
         'top-5px',
-        'right2',
         '-bottom3',
+        'scroll-m-1/2',
+        'scroll-p-1/2',
+      ])
+    })
+  })
+
+  describe('translate', () => {
+    it('matches official Tailwind 3 translate utilities', async () => {
+      await expectTargets([
+        'translate-x-4',
+        'translate-y-8',
+        'translate-x-full',
+        '-translate-y-1',
+      ])
+    })
+
+    it('matches arbitrary and theme-driven translate utilities', async () => {
+      const css = await expectTargets([
+        'translate-x-[12px]',
+        'translate-x-gutter',
+      ], {
+        theme: {
+          spacing: {
+            gutter: '3.25rem',
+          },
+        },
+      })
+
+      expect(css).toContain('12px')
+      expect(css).toContain('3.25rem')
+    })
+
+    it('rejects non-tailwind translate syntax', async () => {
+      await expectNonTargets([
         'translatex-4',
         'translate-4',
         'translate-[12px]',
@@ -296,20 +283,6 @@ describe('preset-tailwind3', () => {
         'translate-z-4',
         'translatey8',
         '-translatey-1',
-        'scrollm-4',
-        'scroll-m4',
-        'scroll-m-1/2',
-        'scroll-m-auto',
-        'scroll-m-2rem',
-        'scrollmx-2',
-        'scroll-mx2',
-        'scroll-ma-4',
-        'scrollpy8',
-        'scroll-p4',
-        'scroll-p-1/2',
-        'scroll-p-auto',
-        'scroll-px2',
-        'scroll-p-e-4',
       ])
     })
   })

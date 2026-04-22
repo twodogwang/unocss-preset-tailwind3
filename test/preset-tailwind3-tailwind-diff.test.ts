@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -85,15 +86,7 @@ describe('preset-tailwind3 tailwind parity', () => {
       'w-[100px]',
       'min-w-0',
       'max-h-[400px]',
-      'gap-x-2',
-      'start-4',
-      'end-6',
       'translate-x-[12px]',
-      'scroll-ms-4',
-      'scroll-me-6',
-      'scroll-ps-4',
-      'scroll-pe-6',
-      'scroll-px-[var(--gap)]',
     ])
   })
 
@@ -107,31 +100,28 @@ describe('preset-tailwind3 tailwind parity', () => {
       'block-4',
       'inline-4',
       'min-block-4',
-      'gap-x2',
-      'gap-row-4',
-      'gap-col-4',
       'flex-gap-4',
       'grid-gap-4',
-      'inset-inline-4',
-      'inset-bs-4',
-      'inset-r-4',
-      'inset-s-4',
       'translate-4',
       'translate-[12px]',
       'transform-translate-x-4',
       'translate-z-4',
-      'scroll-m4',
-      'scroll-p4',
-      'scroll-mx2',
-      'scroll-px2',
+    ])
+  })
+
+  it('matches Tailwind 3 support for gap / inset / scroll utilities', async () => {
+    await expectTailwindParity(gapInsetScrollFixtures.canonical)
+  })
+
+  it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {
+    await expectTailwindParity([
+      ...gapInsetScrollFixtures.invalid,
+      'gapy8',
+      'inset-5px',
+      'top-5px',
+      '-bottom3',
       'scroll-m-1/2',
       'scroll-p-1/2',
-      'scroll-m-auto',
-      'scroll-p-auto',
-      'scroll-ma-4',
-      'scroll-pa-4',
-      'scroll-m-s-4',
-      'scroll-p-e-4',
     ])
   })
 

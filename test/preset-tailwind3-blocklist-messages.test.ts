@@ -3,6 +3,7 @@ import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import {
   blocklistMigrationFixtures,
+  gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
   paddingMarginBlocklistMigrationFixtures,
@@ -161,6 +162,38 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of paddingMarginBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks gap inset scroll migration hints through the shared fixture subset', async () => {
+    expect(gapInsetScrollBlocklistMigrationFixtures).toHaveLength(22)
+    expect(gapInsetScrollBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'gap4',
+      'gapx2',
+      'gapx-2',
+      'gap-row-4',
+      'gap-col-4',
+      'gap-3px',
+      'insetx-4',
+      'insety2',
+      'inset-r-4',
+      'inset-s-4',
+      'top1',
+      'right2',
+      'scrollm-4',
+      'scroll-m4',
+      'scrollmx-2',
+      'scrollpy8',
+      'scroll-p4',
+      'scroll-ma-4',
+      'scroll-pa-4',
+      'scroll-m-s-4',
+      'scroll-p-e-4',
+      'scroll-m-2rem',
+    ])
+
+    for (const fixture of gapInsetScrollBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

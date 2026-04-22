@@ -47,6 +47,31 @@ export const paddingMarginBlocklistMigrationFixtures = [
   { input: 'mx-var(--gap)', replacement: 'mx-[var(--gap)]' },
 ] as const
 
+export const gapInsetScrollBlocklistMigrationFixtures = [
+  { input: 'gap4', replacement: 'gap-4' },
+  { input: 'gapx2', replacement: 'gap-x-2' },
+  { input: 'gapx-2', replacement: 'gap-x-2' },
+  { input: 'gap-row-4', replacement: 'gap-y-4' },
+  { input: 'gap-col-4', replacement: 'gap-x-4' },
+  { input: 'gap-3px', replacement: 'gap-[3px]' },
+  { input: 'insetx-4', replacement: 'inset-x-4' },
+  { input: 'insety2', replacement: 'inset-y-2' },
+  { input: 'inset-r-4', replacement: 'right-4' },
+  { input: 'inset-s-4', replacement: 'start-4' },
+  { input: 'top1', replacement: 'top-1' },
+  { input: 'right2', replacement: 'right-2' },
+  { input: 'scrollm-4', replacement: 'scroll-m-4' },
+  { input: 'scroll-m4', replacement: 'scroll-m-4' },
+  { input: 'scrollmx-2', replacement: 'scroll-mx-2' },
+  { input: 'scrollpy8', replacement: 'scroll-py-8' },
+  { input: 'scroll-p4', replacement: 'scroll-p-4' },
+  { input: 'scroll-ma-4', replacement: 'scroll-m-4' },
+  { input: 'scroll-pa-4', replacement: 'scroll-p-4' },
+  { input: 'scroll-m-s-4', replacement: 'scroll-ms-4' },
+  { input: 'scroll-p-e-4', replacement: 'scroll-pe-4' },
+  { input: 'scroll-m-2rem', replacement: 'scroll-m-[2rem]' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
@@ -55,6 +80,7 @@ export const blocklistMigrationFixtures = [
   ...trackingBlocklistMigrationFixtures,
   ...strokeBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
+  ...gapInsetScrollBlocklistMigrationFixtures,
   { input: 'bg-#fff', replacement: 'bg-[#fff]' },
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'accent-#fff', replacement: 'accent-[#fff]' },
