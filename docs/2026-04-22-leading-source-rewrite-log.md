@@ -4,3 +4,4 @@
 - 2026-04-22: red tests confirmed current leading gaps in lh / line-height / font-leading aliases and bare length syntax
 - 2026-04-22: Task 2 completed, runtime leading syntax now accepts only leading-* and bracket arbitrary values
 - 2026-04-22: Task 3 completed, leading semantics and text shorthand regressions are now locked in utility spec and runtime assertions
+- 2026-04-22: Task 4 completed, leading blocklist migration coverage and overall source rewrite status are now in sync

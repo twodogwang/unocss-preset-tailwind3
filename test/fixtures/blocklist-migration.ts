@@ -13,10 +13,18 @@ export const textBlocklistMigrationFixtures = [
   { input: 'text-color-red-500', replacement: 'text-red-500' },
 ] as const
 
+export const leadingBlocklistMigrationFixtures = [
+  { input: 'lh-6', replacement: 'leading-6' },
+  { input: 'line-height-6', replacement: 'leading-6' },
+  { input: 'font-leading-6', replacement: 'leading-6' },
+  { input: 'leading-20px', replacement: 'leading-[20px]' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
+  ...leadingBlocklistMigrationFixtures,
   { input: 'bg-#fff', replacement: 'bg-[#fff]' },
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'stroke-#fff', replacement: 'stroke-[#fff]' },

@@ -3,6 +3,7 @@ import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import {
   blocklistMigrationFixtures,
+  leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
   textBlocklistMigrationFixtures,
 } from './fixtures/blocklist-migration'
@@ -95,6 +96,20 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks leading migration hints through the shared fixture subset', async () => {
+    expect(leadingBlocklistMigrationFixtures).toHaveLength(4)
+    expect(leadingBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'lh-6',
+      'line-height-6',
+      'font-leading-6',
+      'leading-20px',
+    ])
+
+    for (const fixture of leadingBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

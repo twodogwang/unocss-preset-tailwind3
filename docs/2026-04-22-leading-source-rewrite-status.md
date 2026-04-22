@@ -1,12 +1,13 @@
 # Leading Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: tighten leading syntax
   - Task 3: lock leading semantics and register utility spec
+  - Task 4: lock leading blocklist migration and final verification
 - in_progress:
-  - blocklist migration and final verification
+  - none
 - pending:
   - none
