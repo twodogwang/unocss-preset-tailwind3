@@ -179,4 +179,17 @@ describe('source rewrite document governance', () => {
     expect(baselineDoc).toContain('实时状态入口')
     expect(baselineDoc).not.toContain('test/tailwind-grammar-debt.ts')
   })
+
+  it('tracks the remaining source rewrite governance docs and keeps cross-doc links stable', () => {
+    const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
+    const baselineDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-baseline.md')
+
+    expect(isTracked('docs/2026-04-21-blocklist-prefix-audit-plan.md')).toBe(true)
+    expect(isTracked('docs/2026-04-21-prefix-tailwind3-strictness-status.md')).toBe(true)
+    expect(isTracked('docs/2026-04-21-tailwind-grammar-debt-task-status.md')).toBe(true)
+    expect(isTracked('docs/2026-04-21-tailwind-grammar-debt-baseline.md')).toBe(true)
+
+    expect(taskStatusDoc).toContain('docs/2026-04-22-tailwind3-source-rewrite-index.md')
+    expect(baselineDoc).toContain('docs/2026-04-22-tailwind3-source-rewrite-index.md')
+  })
 })
