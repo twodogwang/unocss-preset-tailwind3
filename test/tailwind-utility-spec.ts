@@ -1,6 +1,7 @@
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
@@ -46,6 +47,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于建立“outline 语义锁定为 Tailwind 3 规则”的重写模板。'],
+  },
+  {
+    id: 'stroke',
+    sourceFiles: ['src/_rules/svg.ts'],
+    category: 'color',
+    canonical: [...strokeFixtures.canonical],
+    invalid: [...strokeFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 stroke 主规则族只接受 stroke-* 的颜色与宽度语义边界。'],
   },
   {
     id: 'text',

@@ -774,6 +774,16 @@ describe('preset-tailwind3', () => {
     it('rejects non-tailwind stroke aliases and bare color shortcuts', async () => {
       await expectNonTargets(strokeFixtures.invalid)
     })
+
+    it('emits the expected stroke CSS for semantic cases', async () => {
+      const css = await expectTargets(strokeFixtures.semantic)
+
+      expect(css).toContain('.stroke-2{stroke-width:2;}')
+      expect(css).toContain('.stroke-red-500{--un-stroke-opacity:1;stroke:rgb(239 68 68 / var(--un-stroke-opacity));}')
+      expect(css).toContain('.stroke-\\[\\#fff\\]{--un-stroke-opacity:1;stroke:rgb(255 255 255 / var(--un-stroke-opacity));}')
+      expect(css).toContain('.stroke-\\[3px\\]{stroke-width:3px;}')
+      expect(css).toContain('.stroke-none{stroke:none;}')
+    })
   })
 
   describe('leading', () => {
