@@ -6,6 +6,7 @@ import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -360,12 +361,16 @@ describe('preset-tailwind3 tailwind parity', () => {
     ])
   })
 
-  it('matches Tailwind 3 support for text / background / svg / accent / caret color utilities', async () => {
+  it('matches Tailwind 3 support for text utilities', async () => {
+    await expectTailwindParity(textFixtures.canonical)
+  })
+
+  it('rejects non-tailwind text aliases and legacy size shortcuts', async () => {
+    await expectTailwindParity(textFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for background / svg / accent / caret color utilities', async () => {
     await expectTailwindParity([
-      'text-white',
-      'text-red-500/50',
-      'text-[#fff]',
-      'text-opacity-50',
       '[color:#fff]',
       'bg-red-500',
       'bg-[#fff]',
@@ -384,9 +389,6 @@ describe('preset-tailwind3 tailwind parity', () => {
     await expectTailwindParity([
       'color-#fff',
       'c-#fff',
-      'text-#fff',
-      'text-red500',
-      'text-color-red-500',
       'bg-#fff',
       'bg-red500',
       'bg-op50',

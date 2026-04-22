@@ -8,7 +8,8 @@
 
 - 目标：把各个 utility 收敛到 Tailwind CSS 3 正式语法
 - 已完成：`border`、`outline`
-- 待处理：`text`、`leading`、`tracking`、`stroke`、`spacing`、`behavior`
+- 进行中：`text`
+- 待处理：`leading`、`tracking`、`stroke`、`spacing`、`behavior`
 
 ## Utility Manifest
 
@@ -18,7 +19,7 @@
 | --- | --- | --- | --- | --- | --- |
 | border | completed | - | docs/superpowers/plans/2026-04-21-tailwind3-border-source-rewrite.md | - | - |
 | outline | completed | docs/superpowers/specs/2026-04-22-outline-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-outline-source-rewrite.md | docs/2026-04-22-outline-source-rewrite-log.md | docs/2026-04-22-outline-source-rewrite-status.md |
-| text | pending | - | - | - | - |
+| text | in_progress | docs/superpowers/specs/2026-04-22-text-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-text-source-rewrite.md | docs/2026-04-22-text-source-rewrite-log.md | docs/2026-04-22-text-source-rewrite-status.md |
 | leading | pending | - | - | - | - |
 | tracking | pending | - | - | - | - |
 | stroke | pending | - | - | - | - |

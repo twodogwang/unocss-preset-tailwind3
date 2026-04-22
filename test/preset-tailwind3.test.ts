@@ -5,6 +5,7 @@ import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 async function createUno(config: UserConfig = {}) {
   return createGenerator({
@@ -685,23 +686,24 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('text / svg / accent / caret colors', () => {
-    it('matches official Tailwind 3 color utilities', async () => {
-      await expectTargets([
-        'text-white',
-        'text-red-500/50',
-        'text-[#fff]',
-        'text-opacity-50',
-        '[color:#fff]',
-        'fill-red-500',
-        'fill-[#fff]',
-        'stroke-red-500',
-        'stroke-[#fff]',
-        'accent-red-500',
-        'accent-[#fff]',
-        'caret-blue-500',
-        'caret-[#fff]',
-      ])
+  describe('text', () => {
+    it('matches official Tailwind 3 text utilities', async () => {
+      await expectTargets(textFixtures.canonical)
+    })
+
+    it('rejects non-tailwind text aliases and legacy size shortcuts', async () => {
+      await expectNonTargets(textFixtures.invalid)
+    })
+
+    it('emits the expected text size, color, and opacity CSS for semantic cases', async () => {
+      const css = await expectTargets(textFixtures.semantic)
+
+      expect(css).toContain('.text-sm{font-size:0.875rem;line-height:1.25rem;}')
+      expect(css).toContain('.text-lg\\/7{font-size:1.125rem;line-height:1.75rem;}')
+      expect(css).toContain('.text-\\[14px\\]{font-size:14px;}')
+      expect(css).toContain('.text-\\[14px\\]\\/\\[20px\\]{font-size:14px;line-height:20px;}')
+      expect(css).toContain('.text-white{--un-text-opacity:1;color:rgb(255 255 255 / var(--un-text-opacity));}')
+      expect(css).toContain('.text-opacity-50{--un-text-opacity:0.5;}')
     })
 
     it('matches theme-driven color utilities', async () => {
@@ -721,6 +723,22 @@ describe('preset-tailwind3', () => {
       })
 
       expect(css).toContain('255 136 0')
+    })
+  })
+
+  describe('svg / accent / caret colors', () => {
+    it('matches official Tailwind 3 color utilities', async () => {
+      await expectTargets([
+        '[color:#fff]',
+        'fill-red-500',
+        'fill-[#fff]',
+        'stroke-red-500',
+        'stroke-[#fff]',
+        'accent-red-500',
+        'accent-[#fff]',
+        'caret-blue-500',
+        'caret-[#fff]',
+      ])
     })
 
     it('rejects non-tailwind color aliases and bare color shortcuts', async () => {
@@ -753,7 +771,6 @@ describe('preset-tailwind3', () => {
   describe('typography / columns / tables / behaviors', () => {
     it('matches official Tailwind 3 typography and behavior utilities', async () => {
       await expectTargets([
-        'text-sm',
         'font-bold',
         'leading-6',
         'tracking-wide',
@@ -778,7 +795,6 @@ describe('preset-tailwind3', () => {
 
     it('matches arbitrary and theme-driven typography-related utilities', async () => {
       const css = await expectTargets([
-        'text-[14px]',
         'font-[650]',
         'columns-sm',
         'border-spacing-[3px]',
