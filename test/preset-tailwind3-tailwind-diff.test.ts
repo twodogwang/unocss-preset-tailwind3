@@ -4,6 +4,7 @@ import postcss from 'postcss'
 import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
+import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -378,6 +379,37 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind tracking aliases and bare length shortcuts', async () => {
     await expectTailwindParity(trackingFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for background color and bg-opacity utilities', async () => {
+    await expectTailwindParity(backgroundColorFixtures.canonical)
+  })
+
+  it('rejects non-tailwind background color aliases', async () => {
+    await expectTailwindParity(backgroundColorFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 for theme-driven background color extensions', async () => {
+    await expectTailwindParity([
+      'bg-brand',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            colors: {
+              brand: '#1da1f2',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          colors: {
+            brand: '#1da1f2',
+          },
+        },
+      },
+    })
   })
 
   it('matches Tailwind 3 support for background / svg / accent / caret color utilities', async () => {

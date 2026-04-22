@@ -3,6 +3,7 @@ import { createAutocomplete } from '@unocss/autocomplete'
 import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
+import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -545,6 +546,28 @@ describe('preset-tailwind3', () => {
   })
 
   describe('background', () => {
+    it('matches Tailwind 3 background color and bg-opacity utilities through the shared fixtures', async () => {
+      await expectTargets(backgroundColorFixtures.canonical)
+    })
+
+    it('rejects non-tailwind background color aliases through the shared fixtures', async () => {
+      await expectNonTargets(backgroundColorFixtures.invalid)
+    })
+
+    it('emits the expected background color CSS for semantic cases', async () => {
+      const css = await expectTargets(backgroundColorFixtures.semantic, {
+        theme: {
+          colors: {
+            brand: '#1da1f2',
+          },
+        },
+      })
+
+      expect(css).toContain('background-color')
+      expect(css).toContain('--un-bg-opacity')
+      expect(css).toContain('29 161 242')
+    })
+
     it('matches official Tailwind 3 background utilities', async () => {
       await expectTargets([
         'bg-red-500',

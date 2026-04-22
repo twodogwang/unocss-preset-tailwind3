@@ -1,0 +1,13 @@
+# Background Color And Bg Opacity Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: background color fixtures and dedicated tests
+  - Task 2: utility spec and blocklist migration subset
+  - Task 3: docs and overall tracking sync
+  - verification: runtime, parity, utility spec, blocklist messages, and typecheck
+- in_progress:
+  - none
+- pending:
+  - none

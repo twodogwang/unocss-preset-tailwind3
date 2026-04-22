@@ -4,6 +4,12 @@ export const outlineBlocklistMigrationFixtures = [
   { input: 'outline-style-dashed', replacement: 'outline-dashed' },
 ] as const
 
+export const backgroundColorBlocklistMigrationFixtures = [
+  { input: 'bg-#fff', replacement: 'bg-[#fff]' },
+  { input: 'bg-op50', replacement: 'bg-opacity-50' },
+  { input: 'bg-op-50', replacement: 'bg-opacity-50' },
+] as const
+
 export const textBlocklistMigrationFixtures = [
   { input: 'text-#fff', replacement: 'text-[#fff]' },
   { input: 'text-size-sm', replacement: 'text-sm' },
@@ -100,7 +106,7 @@ export const blocklistMigrationFixtures = [
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,
-  { input: 'bg-#fff', replacement: 'bg-[#fff]' },
+  ...backgroundColorBlocklistMigrationFixtures,
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'accent-#fff', replacement: 'accent-[#fff]' },
   { input: 'caret-#fff', replacement: 'caret-[#fff]' },
@@ -110,8 +116,6 @@ export const blocklistMigrationFixtures = [
   { input: 'fw-bold', replacement: 'font-bold' },
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'op50', replacement: 'opacity-50' },
-  { input: 'bg-op50', replacement: 'bg-opacity-50' },
-  { input: 'bg-op-50', replacement: 'bg-opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
   { input: 'ring-op50', replacement: 'ring-opacity-50' },
   { input: 'ring-width-2', replacement: 'ring-2' },

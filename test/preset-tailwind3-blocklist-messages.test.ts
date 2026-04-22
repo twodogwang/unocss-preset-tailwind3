@@ -2,6 +2,7 @@ import { createGenerator } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import {
+  backgroundColorBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
@@ -102,6 +103,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks background color migration hints through the shared fixture subset', async () => {
+    expect(backgroundColorBlocklistMigrationFixtures).toHaveLength(3)
+    expect(backgroundColorBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'bg-#fff',
+      'bg-op50',
+      'bg-op-50',
+    ])
+
+    for (const fixture of backgroundColorBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

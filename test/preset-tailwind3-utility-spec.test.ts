@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -22,6 +23,7 @@ describe('tailwind utility spec', () => {
   })
 
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
+    const backgroundColorSpec = getSpec('background-color')
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
     const borderSpacingSpaceSpec = getSpec('border-spacing-space')
@@ -34,6 +36,7 @@ describe('tailwind utility spec', () => {
     const transitionSpec = getSpec('transition')
     const textSpec = getSpec('text')
 
+    expect(backgroundColorSpec).toBeTruthy()
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
     expect(borderSpacingSpaceSpec).toBeTruthy()
@@ -46,6 +49,14 @@ describe('tailwind utility spec', () => {
     expect(transitionSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
+    expect(backgroundColorSpec?.canonical).toEqual([...backgroundColorFixtures.canonical])
+    expect(backgroundColorSpec?.invalid).toEqual([...backgroundColorFixtures.invalid])
+    expect(backgroundColorSpec?.sourceFiles).toEqual(['src/_rules/color.ts'])
+    expect(backgroundColorSpec?.category).toBe('color')
+    expect(backgroundColorSpec?.supportsPrefix).toBe(true)
+    expect(backgroundColorSpec?.supportsVariants).toBe(true)
+    expect(backgroundColorSpec?.invalid).toContain('bg-#fff')
+    expect(backgroundColorSpec?.invalid).toContain('bg-op50')
     expect(borderWidthSpec?.invalid).toContain('border-10px')
     expect(borderRadiusSpec?.invalid).toContain('rounded-lt-lg')
     expect(borderWidthSpec?.supportsPrefix).toBe(true)
@@ -131,7 +142,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
+    for (const spec of [backgroundColorSpec, borderWidthSpec, borderRadiusSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)
