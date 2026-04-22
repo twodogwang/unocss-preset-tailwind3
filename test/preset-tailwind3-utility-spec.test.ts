@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
@@ -22,6 +23,7 @@ describe('tailwind utility spec', () => {
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
+    const borderSpacingSpaceSpec = getSpec('border-spacing-space')
     const leadingSpec = getSpec('leading')
     const gapInsetScrollSpec = getSpec('gap-inset-scroll')
     const outlineSpec = getSpec('outline')
@@ -32,6 +34,7 @@ describe('tailwind utility spec', () => {
 
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
+    expect(borderSpacingSpaceSpec).toBeTruthy()
     expect(leadingSpec).toBeTruthy()
     expect(gapInsetScrollSpec).toBeTruthy()
     expect(outlineSpec).toBeTruthy()
@@ -51,6 +54,14 @@ describe('tailwind utility spec', () => {
     expect(borderWidthSpec?.invalid).toEqual([...borderWidthFixtures.invalid])
     expect(borderRadiusSpec?.canonical).toEqual([...roundedFixtures.canonical])
     expect(borderRadiusSpec?.invalid).toEqual([...roundedFixtures.invalid])
+    expect(borderSpacingSpaceSpec?.canonical).toEqual([...borderSpacingSpaceFixtures.canonical])
+    expect(borderSpacingSpaceSpec?.invalid).toEqual([...borderSpacingSpaceFixtures.invalid])
+    expect(borderSpacingSpaceSpec?.sourceFiles).toEqual(['src/_rules-wind3/table.ts', 'src/_rules-wind3/spacing.ts', 'src/rules.ts'])
+    expect(borderSpacingSpaceSpec?.category).toBe('layout')
+    expect(borderSpacingSpaceSpec?.supportsPrefix).toBe(true)
+    expect(borderSpacingSpaceSpec?.supportsVariants).toBe(true)
+    expect(borderSpacingSpaceSpec?.invalid).toContain('borderspacing-2')
+    expect(borderSpacingSpaceSpec?.invalid).toContain('space-inline-4')
     expect(leadingSpec?.canonical).toEqual([...leadingFixtures.canonical])
     expect(leadingSpec?.invalid).toEqual([...leadingFixtures.invalid])
     expect(leadingSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
@@ -109,7 +120,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

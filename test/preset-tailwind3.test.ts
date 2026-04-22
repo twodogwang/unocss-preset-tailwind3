@@ -272,6 +272,16 @@ describe('preset-tailwind3', () => {
     it('rejects non-tailwind border-spacing and space aliases', async () => {
       await expectNonTargets(borderSpacingSpaceFixtures.invalid)
     })
+
+    it('emits the expected border-spacing and space CSS for semantic cases', async () => {
+      const css = await expectTargets(borderSpacingSpaceFixtures.semantic)
+
+      expect(css).toContain('.border-spacing-2{--un-border-spacing-x:0.5rem;--un-border-spacing-y:0.5rem;border-spacing:var(--un-border-spacing-x) var(--un-border-spacing-y);}')
+      expect(css).toContain('.border-spacing-x-4{--un-border-spacing-x:1rem;border-spacing:var(--un-border-spacing-x) var(--un-border-spacing-y);}')
+      expect(css).toContain('.space-x-4 > :not([hidden]) ~ :not([hidden]){--un-space-x-reverse:0;margin-right:calc(1rem * var(--un-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--un-space-x-reverse)));}')
+      expect(css).toContain('.space-y-2 > :not([hidden]) ~ :not([hidden]){--un-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--un-space-y-reverse)));margin-bottom:calc(0.5rem * var(--un-space-y-reverse));}')
+      expect(css).toContain('.space-x-reverse > :not([hidden]) ~ :not([hidden]){--un-space-x-reverse:1;}')
+    })
   })
 
   describe('translate', () => {

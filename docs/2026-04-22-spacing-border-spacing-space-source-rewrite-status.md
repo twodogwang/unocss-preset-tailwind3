@@ -5,7 +5,7 @@
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: add border-spacing / space runtime support and migration hints
-- in_progress:
   - Task 3: lock border-spacing / space semantics and register utility spec
-- pending:
+- in_progress:
   - Task 4: finalize spacing governance and mark spacing complete
+- pending:
