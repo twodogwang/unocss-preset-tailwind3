@@ -1,16 +1,14 @@
 import type { CSSEntries, Rule, RuleContext } from '@unocss/core'
 import type { Theme } from '../theme'
-import { directionMap, h } from '../utils'
+import { directionMap, resolveTailwindSpacing } from '../utils'
 
 export const spaces: Rule[] = [
-  [/^space-([xy])-(.+)$/, handlerSpace, { autocomplete: ['space-(x|y|block|inline)', 'space-(x|y|block|inline)-reverse', 'space-(x|y|block|inline)-$spacing'] }],
+  [/^space-([xy])-(.+)$/, handlerSpace, { autocomplete: ['space-(x|y)', 'space-(x|y)-reverse', 'space-(x|y)-$spacing'] }],
   [/^space-([xy])-reverse$/, ([, d]) => ({ [`--un-space-${d}-reverse`]: 1 })],
-  [/^space-(block|inline)-(.+)$/, handlerSpace],
-  [/^space-(block|inline)-reverse$/, ([, d]) => ({ [`--un-space-${d}-reverse`]: 1 })],
 ]
 
 function handlerSpace([, d, s]: string[], { theme }: RuleContext<Theme>): CSSEntries | undefined {
-  let v = theme.spacing?.[s || 'DEFAULT'] ?? h.bracket.cssvar.auto.fraction.rem(s || '1')
+  let v = resolveTailwindSpacing(theme, s)
   if (v != null) {
     if (v === '0')
       v = '0px'

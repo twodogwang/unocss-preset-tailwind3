@@ -107,6 +107,12 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: /^scroll-([mp])a-(.+)$/, replacement: (_, match) => `scroll-${match[1]}-${match[2]}` },
   { matcher: /^scroll-([mp])-([se])-(.+)$/, replacement: (_, match) => `scroll-${match[1]}${match[2]}-${match[3]}` },
   { matcher: new RegExp(`^scroll-([mp])-(${rawLengthValue}|${rawCssFunctionValue})$`), replacement: (_, match) => `scroll-${match[1]}-[${match[2]}]` },
+  { matcher: /^borderspacing-(.+)$/, replacement: (_, match) => `border-spacing-${match[1]}` },
+  { matcher: /^border-spacing([xy])-?(.+)$/, replacement: (_, match) => `border-spacing-${match[1]}-${match[2]}` },
+  { matcher: new RegExp(`^border-spacing-(${rawLengthValue}|${rawCssFunctionValue})$`), replacement: (_, match) => `border-spacing-[${match[1]}]` },
+  { matcher: /^space([xy])-(.+)$/, replacement: (_, match) => `space-${match[1]}-${match[2]}` },
+  { matcher: /^space([xy])(\d+(?:\.\d+)?)$/, replacement: (_, match) => `space-${match[1]}-${match[2]}` },
+  { matcher: new RegExp(`^space-([xy])-(${rawLengthValue}|${rawCssFunctionValue})$`), replacement: (_, match) => `space-${match[1]}-[${match[2]}]` },
   {
     matcher: /^(-?)([mp])([trblxyse]?)(\d+(?:\.\d+)?)$/,
     replacement: (_, match) => formatCompactSpacingReplacement(match[1], match[2], match[3], match[4]),

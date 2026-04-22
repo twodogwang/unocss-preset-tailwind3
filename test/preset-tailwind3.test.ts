@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
@@ -256,6 +257,20 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.start-4{inset-inline-start:1rem;}')
       expect(css).toContain('.scroll-mx-2{scroll-margin-left:0.5rem;scroll-margin-right:0.5rem;}')
       expect(css).toContain('.scroll-px-\\[var\\(--gap\\)\\]{scroll-padding-left:var(--gap);scroll-padding-right:var(--gap);}')
+    })
+  })
+
+  describe('border-spacing / space', () => {
+    it('matches official Tailwind 3 border-spacing utilities', async () => {
+      await expectTargets(borderSpacingSpaceFixtures.canonical.filter(item => item.startsWith('border-spacing')))
+    })
+
+    it('matches official Tailwind 3 space utilities', async () => {
+      await expectTargets(borderSpacingSpaceFixtures.canonical.filter(item => item.startsWith('space-')))
+    })
+
+    it('rejects non-tailwind border-spacing and space aliases', async () => {
+      await expectNonTargets(borderSpacingSpaceFixtures.invalid)
     })
   })
 

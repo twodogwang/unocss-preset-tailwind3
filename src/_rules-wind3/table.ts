@@ -1,6 +1,6 @@
 import type { Rule } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h } from '../utils'
+import { resolveTailwindSpacing } from '../utils'
 
 export const borderSpacingBase = {
   '--un-border-spacing-x': 0,
@@ -27,7 +27,7 @@ export const tables: Rule<Theme>[] = [
   ['border-separate', { 'border-collapse': 'separate' }],
 
   [/^border-spacing-(.+)$/, ([, s], { theme }) => {
-    const v = theme.spacing?.[s] ?? h.bracket.cssvar.global.auto.fraction.rem(s)
+    const v = resolveTailwindSpacing(theme, s)
     if (v != null) {
       return {
         '--un-border-spacing-x': v,
@@ -38,7 +38,7 @@ export const tables: Rule<Theme>[] = [
   }, { custom, autocomplete: ['border-spacing', 'border-spacing-$spacing'] }],
 
   [/^border-spacing-([xy])-(.+)$/, ([, d, s], { theme }) => {
-    const v = theme.spacing?.[s] ?? h.bracket.cssvar.global.auto.fraction.rem(s)
+    const v = resolveTailwindSpacing(theme, s)
     if (v != null) {
       return {
         [`--un-border-spacing-${d}`]: v,

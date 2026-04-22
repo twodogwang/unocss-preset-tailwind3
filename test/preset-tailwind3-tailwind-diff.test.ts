@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
@@ -123,6 +124,14 @@ describe('preset-tailwind3 tailwind parity', () => {
       'scroll-m-1/2',
       'scroll-p-1/2',
     ])
+  })
+
+  it('matches Tailwind 3 support for border-spacing and space utilities', async () => {
+    await expectTailwindParity(borderSpacingSpaceFixtures.canonical)
+  })
+
+  it('rejects non-tailwind border-spacing and space aliases', async () => {
+    await expectTailwindParity(borderSpacingSpaceFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for padding / margin utilities', async () => {
