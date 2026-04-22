@@ -127,6 +127,27 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'text-[#fff]',
   },
   {
+    label: 'compact padding shorthand alias',
+    matcher: /^(-?)([mp])([trblxyse]?)(\d+(?:\.\d+)?)$/,
+    input: 'p4',
+    prefixed: 'tw-p4',
+    replacement: 'p-4',
+  },
+  {
+    label: 'legacy padding directional alias',
+    matcher: /^(-?)([mp])-([trblxyse])-([\da-z.]+)$/,
+    input: 'p-x-4',
+    prefixed: 'tw-p-x-4',
+    replacement: 'px-4',
+  },
+  {
+    label: 'raw padding arbitrary alias',
+    matcher: new RegExp('^(-?)([mp])([trblxyse]?)-((?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\))$'),
+    input: 'mx-var(--gap)',
+    prefixed: 'tw-mx-var(--gap)',
+    replacement: 'mx-[var(--gap)]',
+  },
+  {
     label: 'bg hex alias',
     matcher: new RegExp('^(text|bg|fill|stroke|accent|caret)-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
     input: 'bg-#fff',

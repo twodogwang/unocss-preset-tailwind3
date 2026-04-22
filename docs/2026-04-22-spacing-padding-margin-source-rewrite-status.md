@@ -4,8 +4,8 @@
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
-- in_progress:
   - Task 2: add high-confidence padding margin migration hints
-- pending:
+- in_progress:
   - Task 3: lock padding margin semantics and register utility spec
+- pending:
   - Task 4: sync spacing governance and final verification

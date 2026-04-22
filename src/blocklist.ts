@@ -78,6 +78,18 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: new RegExp(`^color-(${rawHexColor})$`), replacement: (_, match) => `[color:${match[1]}]` },
   { matcher: new RegExp(`^c-(${rawHexColor})$`), replacement: (_, match) => `text-[${match[1]}]` },
   { matcher: new RegExp(`^(text|bg|fill|stroke|accent|caret)-(${rawHexColor})$`), replacement: (_, match) => `${match[1]}-[${match[2]}]` },
+  {
+    matcher: /^(-?)([mp])([trblxyse]?)(\d+(?:\.\d+)?)$/,
+    replacement: (_, match) => formatCompactSpacingReplacement(match[1], match[2], match[3], match[4]),
+  },
+  {
+    matcher: /^(-?)([mp])-([trblxyse])-([\da-z.]+)$/,
+    replacement: (_, match) => formatCompactSpacingReplacement(match[1], match[2], match[3], match[4]),
+  },
+  {
+    matcher: new RegExp(`^(-?)([mp])([trblxyse]?)-(${rawLengthValue}|${rawCssFunctionValue})$`),
+    replacement: (_, match) => formatArbitrarySpacingReplacement(match[1], match[2], match[3], match[4]),
+  },
   { matcher: /^text-size-(.+)$/, replacement: (_, match) => `text-${match[1]}` },
   { matcher: /^font-size-(.+)$/, replacement: (_, match) => `text-${match[1]}` },
   { matcher: new RegExp(`^text-(${rawLengthValue})$`), replacement: (_, match) => `text-[${match[1]}]` },
@@ -167,3 +179,13 @@ export function createBlocklist(prefix?: string | string[], options: CreateBlock
 }
 
 export const blocklist: BlocklistRule[] = createBlocklist()
+
+function formatCompactSpacingReplacement(sign: string, utility: string, direction: string, value: string) {
+  const prefix = `${utility}${direction}`
+  return `${sign}${prefix}-${value}`
+}
+
+function formatArbitrarySpacingReplacement(sign: string, utility: string, direction: string, value: string) {
+  const prefix = `${utility}${direction}`
+  return `${sign}${prefix}-[${value}]`
+}
