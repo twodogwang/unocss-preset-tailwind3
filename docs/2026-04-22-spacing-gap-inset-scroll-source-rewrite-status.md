@@ -1,11 +1,13 @@
 # Spacing Gap Inset Scroll Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: add high-confidence gap inset scroll migration hints
   - Task 3: lock gap inset scroll semantics and register utility spec
-- in_progress:
   - Task 4: sync spacing governance and final verification
+- in_progress:
+  - none
 - pending:
+  - spacing overall follow-up: border-spacing / space-* subphase

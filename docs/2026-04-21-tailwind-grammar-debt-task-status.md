@@ -45,7 +45,7 @@
 
 按当前总入口的顺序，下一步优先继续：
 
-1. `spacing` 的 `gap / inset / scroll-*` 子阶段
+1. `spacing` 的 `border-spacing / space-*` 子阶段
 2. `behavior`
 
 ## 文档职责
