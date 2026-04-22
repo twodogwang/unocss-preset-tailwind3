@@ -782,6 +782,18 @@ describe('preset-tailwind3', () => {
     it('preserves text shorthand regression cases while leading is rewritten', async () => {
       await expectTargets(leadingTextShorthandRegressionFixtures)
     })
+
+    it('emits the expected leading CSS and preserves text shorthand semantics', async () => {
+      const css = await expectTargets(leadingFixtures.semantic)
+      const textCss = await expectTargets(leadingTextShorthandRegressionFixtures)
+
+      expect(css).toContain('.leading-none{line-height:1;}')
+      expect(css).toContain('.leading-6{line-height:1.5rem;}')
+      expect(css).toContain('.leading-\\[20px\\]{line-height:20px;}')
+      expect(css).toContain('.leading-\\[calc\\(100\\%-1px\\)\\]{line-height:calc(100% - 1px);}')
+      expect(textCss).toContain('.text-lg\\/7{font-size:1.125rem;line-height:1.75rem;}')
+      expect(textCss).toContain('.text-\\[14px\\]\\/\\[20px\\]{font-size:14px;line-height:20px;}')
+    })
   })
 
   describe('typography / columns / tables / behaviors', () => {

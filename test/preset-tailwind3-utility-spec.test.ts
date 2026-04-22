@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 import { tailwindUtilitySpecs } from './tailwind-utility-spec'
@@ -17,11 +18,13 @@ describe('tailwind utility spec', () => {
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
+    const leadingSpec = getSpec('leading')
     const outlineSpec = getSpec('outline')
     const textSpec = getSpec('text')
 
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
+    expect(leadingSpec).toBeTruthy()
     expect(outlineSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
@@ -36,6 +39,15 @@ describe('tailwind utility spec', () => {
     expect(borderWidthSpec?.invalid).toEqual([...borderWidthFixtures.invalid])
     expect(borderRadiusSpec?.canonical).toEqual([...roundedFixtures.canonical])
     expect(borderRadiusSpec?.invalid).toEqual([...roundedFixtures.invalid])
+    expect(leadingSpec?.canonical).toEqual([...leadingFixtures.canonical])
+    expect(leadingSpec?.invalid).toEqual([...leadingFixtures.invalid])
+    expect(leadingSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
+    expect(leadingSpec?.category).toBe('typography')
+    expect(leadingSpec?.supportsPrefix).toBe(true)
+    expect(leadingSpec?.supportsVariants).toBe(true)
+    expect(leadingSpec?.invalid).toContain('lh-6')
+    expect(leadingSpec?.invalid).toContain('leading-20px')
+
     expect(outlineSpec?.canonical).toEqual([...outlineFixtures.canonical])
     expect(outlineSpec?.invalid).toEqual([...outlineFixtures.invalid])
     expect(outlineSpec?.sourceFiles).toEqual(['src/_rules/behaviors.ts'])
@@ -51,7 +63,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, outlineSpec, textSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, outlineSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

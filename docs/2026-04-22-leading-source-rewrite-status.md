@@ -5,7 +5,8 @@
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: tighten leading syntax
+  - Task 3: lock leading semantics and register utility spec
 - in_progress:
-  - lock leading semantics and register utility spec
-- pending:
   - blocklist migration and final verification
+- pending:
+  - none

@@ -1,4 +1,5 @@
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
@@ -54,5 +55,15 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 text 主规则族的 size、color 与 opacity 语义边界。'],
+  },
+  {
+    id: 'leading',
+    sourceFiles: ['src/_rules/typography.ts'],
+    category: 'typography',
+    canonical: [...leadingFixtures.canonical],
+    invalid: [...leadingFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 leading 主规则族只接受 leading-* 的语义边界。'],
   },
 ]
