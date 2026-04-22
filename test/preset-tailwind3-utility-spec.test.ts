@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -22,6 +23,7 @@ describe('tailwind utility spec', () => {
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
     const leadingSpec = getSpec('leading')
+    const gapInsetScrollSpec = getSpec('gap-inset-scroll')
     const outlineSpec = getSpec('outline')
     const paddingMarginSpec = getSpec('padding-margin')
     const strokeSpec = getSpec('stroke')
@@ -31,6 +33,7 @@ describe('tailwind utility spec', () => {
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
     expect(leadingSpec).toBeTruthy()
+    expect(gapInsetScrollSpec).toBeTruthy()
     expect(outlineSpec).toBeTruthy()
     expect(paddingMarginSpec).toBeTruthy()
     expect(strokeSpec).toBeTruthy()
@@ -56,6 +59,15 @@ describe('tailwind utility spec', () => {
     expect(leadingSpec?.supportsVariants).toBe(true)
     expect(leadingSpec?.invalid).toContain('lh-6')
     expect(leadingSpec?.invalid).toContain('leading-20px')
+    expect(gapInsetScrollSpec?.canonical).toEqual([...gapInsetScrollFixtures.canonical])
+    expect(gapInsetScrollSpec?.invalid).toEqual([...gapInsetScrollFixtures.invalid])
+    expect(gapInsetScrollSpec?.sourceFiles).toEqual(['src/_rules/gap.ts', 'src/_rules/position.ts', 'src/_rules-wind3/scrolls.ts'])
+    expect(gapInsetScrollSpec?.category).toBe('layout')
+    expect(gapInsetScrollSpec?.supportsPrefix).toBe(true)
+    expect(gapInsetScrollSpec?.supportsNegative).toBe(true)
+    expect(gapInsetScrollSpec?.supportsVariants).toBe(true)
+    expect(gapInsetScrollSpec?.invalid).toContain('gap-row-4')
+    expect(gapInsetScrollSpec?.invalid).toContain('scroll-m4')
     expect(paddingMarginSpec?.canonical).toEqual([...paddingMarginFixtures.canonical])
     expect(paddingMarginSpec?.invalid).toEqual([...paddingMarginFixtures.invalid])
     expect(paddingMarginSpec?.sourceFiles).toEqual(['src/_rules/spacing.ts'])
@@ -97,7 +109,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

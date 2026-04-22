@@ -246,6 +246,17 @@ describe('preset-tailwind3', () => {
         'scroll-p-1/2',
       ])
     })
+
+    it('emits the expected gap, inset, and scroll CSS for semantic cases', async () => {
+      const css = await expectTargets(gapInsetScrollFixtures.semantic)
+
+      expect(css).toContain('.gap-4{gap:1rem;}')
+      expect(css).toContain('.gap-x-2{column-gap:0.5rem;}')
+      expect(css).toContain('.inset-\\[5px\\]{inset:5px;}')
+      expect(css).toContain('.start-4{inset-inline-start:1rem;}')
+      expect(css).toContain('.scroll-mx-2{scroll-margin-left:0.5rem;scroll-margin-right:0.5rem;}')
+      expect(css).toContain('.scroll-px-\\[var\\(--gap\\)\\]{scroll-padding-left:var(--gap);scroll-padding-right:var(--gap);}')
+    })
   })
 
   describe('translate', () => {

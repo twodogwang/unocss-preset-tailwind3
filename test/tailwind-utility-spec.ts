@@ -1,6 +1,7 @@
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -48,6 +49,17 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于建立“outline 语义锁定为 Tailwind 3 规则”的重写模板。'],
+  },
+  {
+    id: 'gap-inset-scroll',
+    sourceFiles: ['src/_rules/gap.ts', 'src/_rules/position.ts', 'src/_rules-wind3/scrolls.ts'],
+    category: 'layout',
+    canonical: [...gapInsetScrollFixtures.canonical],
+    invalid: [...gapInsetScrollFixtures.invalid],
+    supportsPrefix: true,
+    supportsNegative: true,
+    supportsVariants: true,
+    notes: ['用于锁定 spacing 第二子阶段的 gap / inset / scroll 主语法边界。'],
   },
   {
     id: 'padding-margin',
