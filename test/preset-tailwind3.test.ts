@@ -4,6 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
@@ -769,11 +770,24 @@ describe('preset-tailwind3', () => {
     })
   })
 
+  describe('leading', () => {
+    it('matches official Tailwind 3 leading utilities', async () => {
+      await expectTargets(leadingFixtures.canonical)
+    })
+
+    it('rejects non-tailwind leading aliases and bare length shortcuts', async () => {
+      await expectNonTargets(leadingFixtures.invalid)
+    })
+
+    it('preserves text shorthand regression cases while leading is rewritten', async () => {
+      await expectTargets(leadingTextShorthandRegressionFixtures)
+    })
+  })
+
   describe('typography / columns / tables / behaviors', () => {
     it('matches official Tailwind 3 typography and behavior utilities', async () => {
       await expectTargets([
         'font-bold',
-        'leading-6',
         'tracking-wide',
         'hyphens-auto',
         'hyphens-manual',

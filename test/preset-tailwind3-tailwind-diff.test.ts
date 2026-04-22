@@ -5,6 +5,7 @@ import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
@@ -367,6 +368,18 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind text aliases and legacy size shortcuts', async () => {
     await expectTailwindParity(textFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for leading utilities', async () => {
+    await expectTailwindParity(leadingFixtures.canonical)
+  })
+
+  it('rejects non-tailwind leading aliases and bare length shortcuts', async () => {
+    await expectTailwindParity(leadingFixtures.invalid)
+  })
+
+  it('preserves Tailwind parity for text shorthand while leading is rewritten', async () => {
+    await expectTailwindParity(leadingTextShorthandRegressionFixtures)
   })
 
   it('matches Tailwind 3 support for background / svg / accent / caret color utilities', async () => {

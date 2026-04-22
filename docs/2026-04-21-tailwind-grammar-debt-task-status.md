@@ -25,11 +25,14 @@
 
 ### 待处理 utility
 
-- `leading`
 - `tracking`
 - `stroke`
 - `spacing`
 - `behavior`
+
+### 进行中 utility
+
+- `leading`
 
 ## 已完成的配套治理
 
