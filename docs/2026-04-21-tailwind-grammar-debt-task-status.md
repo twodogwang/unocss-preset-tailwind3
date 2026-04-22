@@ -1,6 +1,6 @@
 # Tailwind 源头重写整体状态
 
-状态日期：2026-04-22  
+状态日期：2026-04-23  
 当前分支：`codex/tailwind3-source-rewrite`
 
 > 这份文档用于说明整体推进状态，不是唯一实时入口。  
@@ -49,14 +49,18 @@
   - `docs/superpowers/plans/2026-04-22-background-color-bg-opacity-source-rewrite.md`
   - `docs/2026-04-22-background-color-bg-opacity-source-rewrite-log.md`
   - `docs/2026-04-22-background-color-bg-opacity-source-rewrite-status.md`
+- `background-style / gradient / clip / origin / repeat / position` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite.md`
+  - `docs/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite-log.md`
+  - `docs/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段第一个 family `background-color / bg-opacity` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
+第一阶段主线已完成，第二阶段前两个 family `background-color / bg-opacity` 与 `background-style / gradient / clip / origin / repeat / position` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
 
-1. `background-style / gradient`
-2. `ring`
-3. `decoration / shadow / divide`
+1. `ring`
+2. `decoration / shadow / divide`
 
 ## 文档职责
 

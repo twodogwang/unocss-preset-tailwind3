@@ -1,6 +1,6 @@
 # Tailwind 3 Full Rule Family Inventory
 
-状态日期：2026-04-22  
+状态日期：2026-04-23  
 适用分支：`codex/tailwind3-source-rewrite`
 
 > 这份文档用于补齐“全规则族重写”视角的总清单。  
@@ -26,6 +26,7 @@
 | `border-width` | `src/_rules/border.ts` | `completed_template` | 已锁住数字刻度与裸单位值边界 |
 | `border-radius` | `src/_rules/border.ts` | `completed_template` | 已锁住 Tailwind 3 圆角方向语义 |
 | `background-color / bg-opacity` | `src/_rules/color.ts` | `completed_template` | 已覆盖 `bg-*` 颜色、opacity 和高置信度 alias migration |
+| `background-style / gradient / clip / origin / repeat / position` | `src/_rules-wind3/background.ts` | `completed_template` | 已覆盖 size / attachment / clip / origin / repeat / position / gradient，并锁住旧扩展 strictness 子集 |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -40,7 +41,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `background-style / gradient / clip / origin / repeat / position` | `src/_rules-wind3/background.ts` | `pending_wave_1` | `wave_1` | 当前已有测试，但尚未模板化治理 |
 | `ring` | `src/_rules/ring.ts` | `pending_wave_1` | `wave_1` | 含 `ring-offset-*`、opacity 历史写法 |
 | `decoration / underline-offset` | `src/_rules/decoration.ts` | `pending_wave_1` | `wave_1` | 当前仍主要靠综合测试约束 |
 | `shadow` | `src/_rules/shadow.ts` | `pending_wave_1` | `wave_1` | 含颜色与 arbitrary value 边界 |
@@ -94,7 +94,6 @@
 ## Recommended Execution Waves
 
 1. `wave_1`
-- `background-style / gradient / clip / origin / repeat / position`
 - `ring`
 - `decoration`
 - `shadow`
@@ -115,4 +114,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_1` 进入 `background-style / gradient / clip / origin / repeat / position`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_1` 进入 `ring`。
