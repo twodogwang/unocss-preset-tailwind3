@@ -5,6 +5,7 @@ import {
   blocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
+  trackingBlocklistMigrationFixtures,
   textBlocklistMigrationFixtures,
 } from './fixtures/blocklist-migration'
 
@@ -110,6 +111,18 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of leadingBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks tracking migration hints through the shared fixture subset', async () => {
+    expect(trackingBlocklistMigrationFixtures).toHaveLength(2)
+    expect(trackingBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'font-tracking-wide',
+      'tracking-0.2em',
+    ])
+
+    for (const fixture of trackingBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

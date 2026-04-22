@@ -1,12 +1,13 @@
 # Tracking Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 2: tighten tracking syntax
   - Task 3: lock tracking semantics and register utility spec
+  - Task 4: lock tracking blocklist migration and final verification
 - in_progress:
-  - blocklist migration and final verification
+  - none
 - pending:
   - none

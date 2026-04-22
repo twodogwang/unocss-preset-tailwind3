@@ -190,6 +190,20 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'leading-[20px]',
   },
   {
+    label: 'tracking alias',
+    matcher: /^font-tracking-(.+)$/,
+    input: 'font-tracking-wide',
+    prefixed: 'tw-font-tracking-wide',
+    replacement: 'tracking-wide',
+  },
+  {
+    label: 'tracking bare length alias',
+    matcher: new RegExp('^tracking-((?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc))$'),
+    input: 'tracking-0.2em',
+    prefixed: 'tw-tracking-0.2em',
+    replacement: 'tracking-[0.2em]',
+  },
+  {
     label: 'border shorthand width alias',
     matcher: /^b-(.+)$/,
     input: 'b-2',
@@ -420,6 +434,7 @@ const allowFixtures: AllowFixture[] = [
   { label: 'opacity canonical', input: 'opacity-50', prefixed: 'tw-opacity-50' },
   { label: 'text canonical', input: 'text-sm', prefixed: 'tw-text-sm' },
   { label: 'leading canonical', input: 'leading-6', prefixed: 'tw-leading-6' },
+  { label: 'tracking canonical', input: 'tracking-wide', prefixed: 'tw-tracking-wide' },
   { label: 'bg opacity canonical', input: 'bg-opacity-50', prefixed: 'tw-bg-opacity-50' },
   { label: 'delay canonical', input: 'delay-75', prefixed: 'tw-delay-75' },
   { label: 'ease canonical', input: 'ease-linear', prefixed: 'tw-ease-linear' },

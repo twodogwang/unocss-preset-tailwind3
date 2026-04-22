@@ -23,6 +23,7 @@
 - `outline`
 - `text`
 - `leading`
+- `tracking`
 
 ### 待处理 utility
 
@@ -30,14 +31,10 @@
 - `spacing`
 - `behavior`
 
-### 进行中 utility
-
-- `tracking`
-
 ## 已完成的配套治理
 
 - 总需求文档已进入 git
-- `outline`、`text` 与 `leading` 的 spec / plan / log / status 已进入 git
+- `outline`、`text`、`leading` 与 `tracking` 的 spec / plan / log / status 已进入 git
 - `border` 当前已有的计划文档已进入 git
 - 已建立整体任务总入口，用统一 manifest 表维护 utility 状态与文档链接
 
@@ -45,10 +42,9 @@
 
 按当前总入口的顺序，下一步优先继续：
 
-1. `tracking`
-2. `stroke`
-3. `spacing`
-4. `behavior`
+1. `stroke`
+2. `spacing`
+3. `behavior`
 
 ## 文档职责
 

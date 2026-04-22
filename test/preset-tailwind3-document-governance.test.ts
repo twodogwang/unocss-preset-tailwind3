@@ -92,6 +92,10 @@ describe('source rewrite document governance', () => {
     expect(isTracked('docs/superpowers/plans/2026-04-22-leading-source-rewrite.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-leading-source-rewrite-log.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-leading-source-rewrite-status.md')).toBe(true)
+    expect(isTracked('docs/superpowers/specs/2026-04-22-tracking-source-rewrite-design.md')).toBe(true)
+    expect(isTracked('docs/superpowers/plans/2026-04-22-tracking-source-rewrite.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-tracking-source-rewrite-log.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-tracking-source-rewrite-status.md')).toBe(true)
   })
 
   it('marks the original source rewrite plan as a requirements doc and points to the live entry', () => {
@@ -139,11 +143,11 @@ describe('source rewrite document governance', () => {
       },
       {
         utility: 'tracking',
-        status: 'pending',
-        spec: '-',
-        plan: '-',
-        log: '-',
-        statusDoc: '-',
+        status: 'completed',
+        spec: 'docs/superpowers/specs/2026-04-22-tracking-source-rewrite-design.md',
+        plan: 'docs/superpowers/plans/2026-04-22-tracking-source-rewrite.md',
+        log: 'docs/2026-04-22-tracking-source-rewrite-log.md',
+        statusDoc: 'docs/2026-04-22-tracking-source-rewrite-status.md',
       },
       {
         utility: 'stroke',
@@ -176,7 +180,7 @@ describe('source rewrite document governance', () => {
     const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
 
     expect(taskStatusDoc).toContain('实时状态入口')
-    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline', 'text', 'leading'])
+    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline', 'text', 'leading', 'tracking'])
     expect(taskStatusDoc).not.toContain('test/tailwind-rule-family-inventory.ts')
   })
 
