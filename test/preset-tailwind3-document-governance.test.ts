@@ -108,6 +108,10 @@ describe('source rewrite document governance', () => {
     expect(isTracked('docs/superpowers/plans/2026-04-22-spacing-gap-inset-scroll-source-rewrite.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-log.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-status.md')).toBe(true)
+    expect(isTracked('docs/superpowers/specs/2026-04-22-spacing-border-spacing-space-source-rewrite-design.md')).toBe(true)
+    expect(isTracked('docs/superpowers/plans/2026-04-22-spacing-border-spacing-space-source-rewrite.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-spacing-border-spacing-space-source-rewrite-log.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-spacing-border-spacing-space-source-rewrite-status.md')).toBe(true)
   })
 
   it('marks the original source rewrite plan as a requirements doc and points to the live entry', () => {
@@ -171,11 +175,11 @@ describe('source rewrite document governance', () => {
       },
       {
         utility: 'spacing',
-        status: 'in_progress',
-        spec: 'docs/superpowers/specs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-design.md',
-        plan: 'docs/superpowers/plans/2026-04-22-spacing-gap-inset-scroll-source-rewrite.md',
-        log: 'docs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-log.md',
-        statusDoc: 'docs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-status.md',
+        status: 'completed',
+        spec: 'docs/superpowers/specs/2026-04-22-spacing-border-spacing-space-source-rewrite-design.md',
+        plan: 'docs/superpowers/plans/2026-04-22-spacing-border-spacing-space-source-rewrite.md',
+        log: 'docs/2026-04-22-spacing-border-spacing-space-source-rewrite-log.md',
+        statusDoc: 'docs/2026-04-22-spacing-border-spacing-space-source-rewrite-status.md',
       },
       {
         utility: 'behavior',
@@ -192,7 +196,7 @@ describe('source rewrite document governance', () => {
     const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
 
     expect(taskStatusDoc).toContain('实时状态入口')
-    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline', 'text', 'leading', 'tracking', 'stroke'])
+    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline', 'text', 'leading', 'tracking', 'stroke', 'spacing'])
     expect(taskStatusDoc).not.toContain('test/tailwind-rule-family-inventory.ts')
   })
 
