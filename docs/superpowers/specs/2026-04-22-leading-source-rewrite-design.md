@@ -64,6 +64,10 @@
 
 - `leading-none`
 - `leading-tight`
+- `leading-snug`
+- `leading-normal`
+- `leading-relaxed`
+- `leading-loose`
 - `leading-6`
 - `leading-[20px]`
 - `leading-[calc(100%-1px)]`
@@ -82,6 +86,11 @@
 - `leading-[20px] -> line-height:20px`
 - `leading-[calc(100%-1px)] -> line-height:calc(100% - 1px)`
 
+同时必须增加一组 `text` shorthand 回归保护断言，至少覆盖：
+
+- `text-lg/7 -> font-size:1.125rem; line-height:1.75rem`
+- `text-[14px]/[20px] -> font-size:14px; line-height:20px`
+
 ## Shared Fixture Shape
 
 `test/fixtures/tailwind-leading-rewrite.ts` 至少包含：
@@ -91,6 +100,10 @@ export const leadingFixtures = {
   canonical: [
     'leading-none',
     'leading-tight',
+    'leading-snug',
+    'leading-normal',
+    'leading-relaxed',
+    'leading-loose',
     'leading-6',
     'leading-[20px]',
     'leading-[calc(100%-1px)]',
@@ -109,6 +122,17 @@ export const leadingFixtures = {
   ],
 } as const
 ```
+
+并增加一组只用于回归保护的 `text` shorthand fixture：
+
+```ts
+export const leadingTextShorthandRegressionFixtures = [
+  'text-lg/7',
+  'text-[14px]/[20px]',
+] as const
+```
+
+这组样例不属于 `leading` canonical 集合，但必须在 runtime / Tailwind parity 层被显式保护，防止本轮调整 `src/_rules/typography.ts` 时误伤 `text` 路径。
 
 ## Testing Strategy
 
@@ -164,5 +188,7 @@ export const leadingFixtures = {
 - `leading-*` 是唯一合法的 `line-height` 主入口
 - `lh-*`、`line-height-*`、`font-leading-*` 不再被 runtime 接纳
 - `leading-20px` 不再被 runtime 接纳，迁移提示改为 `leading-[20px]`
+- `leading-none`、`leading-tight`、`leading-snug`、`leading-normal`、`leading-relaxed`、`leading-loose`、`leading-6`、`leading-[20px]`、`leading-[calc(100%-1px)]` 持续成立
+- `text-lg/7`、`text-[14px]/[20px]` 未被误伤
 - `leading` 已登记到 utility spec
 - `leading` 的 log/status 和整体总表保持同步
