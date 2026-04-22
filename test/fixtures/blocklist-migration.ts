@@ -83,6 +83,13 @@ export const borderSpacingSpaceBlocklistMigrationFixtures = [
   { input: 'space-y-var(--gap)', replacement: 'space-y-[var(--gap)]' },
 ] as const
 
+export const transitionBlocklistMigrationFixtures = [
+  { input: 'property-opacity', replacement: 'transition-opacity' },
+  { input: 'transition-property-opacity', replacement: 'transition-opacity' },
+  { input: 'transition-delay-75', replacement: 'delay-75' },
+  { input: 'transition-ease-linear', replacement: 'ease-linear' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
@@ -112,8 +119,5 @@ export const blocklistMigrationFixtures = [
   { input: 'border-color-red-500', replacement: 'border-red-500' },
   { input: 'border-s-color-red-500', replacement: 'border-s-red-500' },
   ...outlineBlocklistMigrationFixtures,
-  { input: 'property-opacity', replacement: 'transition-opacity' },
-  { input: 'transition-property-opacity', replacement: 'transition-opacity' },
-  { input: 'transition-delay-75', replacement: 'delay-75' },
-  { input: 'transition-ease-linear', replacement: 'ease-linear' },
+  ...transitionBlocklistMigrationFixtures,
 ] as const

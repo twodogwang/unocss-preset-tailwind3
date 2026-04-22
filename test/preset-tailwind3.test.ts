@@ -11,6 +11,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
+import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 async function createUno(config: UserConfig = {}) {
@@ -610,7 +611,7 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('outline / transition', () => {
+  describe('outline', () => {
     it('matches outline width and offset utilities', async () => {
       await expectTargets(outlineFixtures.canonical)
     })
@@ -639,39 +640,15 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.outline-inherit{outline-color:inherit;}')
       expect(css).toContain('.outline{outline-style:solid;}')
     })
+  })
 
+  describe('transition', () => {
     it('matches official Tailwind 3 transition utilities', async () => {
-      await expectTargets([
-        'transition',
-        'transition-all',
-        'transition-colors',
-        'transition-opacity',
-        'transition-shadow',
-        'transition-transform',
-        'transition-none',
-        'transition-[height]',
-        'transition-[height,opacity]',
-        'duration-200',
-        'delay-75',
-        'ease-linear',
-        'ease-in',
-        'ease-out',
-        'ease-in-out',
-        'ease-[cubic-bezier(0.4,0,0.2,1)]',
-      ])
+      await expectTargets(transitionFixtures.canonical)
     })
 
     it('rejects non-tailwind transition aliases and extensions', async () => {
-      await expectNonTargets([
-        'property-opacity',
-        'transition-property-opacity',
-        'transition-200',
-        'transition-all-200',
-        'transition-delay-75',
-        'transition-ease-linear',
-        'transition-discrete',
-        'transition-normal',
-      ])
+      await expectNonTargets(transitionFixtures.invalid)
     })
   })
 

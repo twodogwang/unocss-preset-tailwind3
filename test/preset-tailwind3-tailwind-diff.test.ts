@@ -12,6 +12,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
+import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 const tailwindSentinel = 'hidden'
@@ -335,40 +336,20 @@ describe('preset-tailwind3 tailwind parity', () => {
     ])
   })
 
-  it('matches Tailwind 3 support for outline and transition utilities', async () => {
-    await expectTailwindParity([
-      ...outlineFixtures.canonical,
-      'transition',
-      'transition-all',
-      'transition-colors',
-      'transition-opacity',
-      'transition-shadow',
-      'transition-transform',
-      'transition-none',
-      'transition-[height]',
-      'transition-[height,opacity]',
-      'duration-200',
-      'delay-75',
-      'ease-linear',
-      'ease-in',
-      'ease-out',
-      'ease-in-out',
-      'ease-[cubic-bezier(0.4,0,0.2,1)]',
-    ])
+  it('matches Tailwind 3 support for outline utilities', async () => {
+    await expectTailwindParity(outlineFixtures.canonical)
   })
 
-  it('rejects non-tailwind outline and transition aliases', async () => {
-    await expectTailwindParity([
-      ...outlineFixtures.invalid,
-      'property-opacity',
-      'transition-property-opacity',
-      'transition-200',
-      'transition-all-200',
-      'transition-delay-75',
-      'transition-ease-linear',
-      'transition-discrete',
-      'transition-normal',
-    ])
+  it('rejects non-tailwind outline aliases', async () => {
+    await expectTailwindParity(outlineFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for transition utilities', async () => {
+    await expectTailwindParity(transitionFixtures.canonical)
+  })
+
+  it('rejects non-tailwind transition aliases', async () => {
+    await expectTailwindParity(transitionFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for text utilities', async () => {

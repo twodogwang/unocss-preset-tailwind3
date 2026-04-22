@@ -3,13 +3,14 @@ import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import {
   blocklistMigrationFixtures,
+  borderSpacingSpaceBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
-  borderSpacingSpaceBlocklistMigrationFixtures,
   paddingMarginBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
+  transitionBlocklistMigrationFixtures,
   textBlocklistMigrationFixtures,
 } from './fixtures/blocklist-migration'
 
@@ -213,6 +214,20 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of borderSpacingSpaceBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks transition migration hints through the shared fixture subset', async () => {
+    expect(transitionBlocklistMigrationFixtures).toHaveLength(4)
+    expect(transitionBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'property-opacity',
+      'transition-property-opacity',
+      'transition-delay-75',
+      'transition-ease-linear',
+    ])
+
+    for (const fixture of transitionBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
