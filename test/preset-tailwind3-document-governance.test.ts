@@ -37,6 +37,24 @@ function isTracked(relativePath: string) {
   }
 }
 
+function parseUtilityManifestTable(markdown: string) {
+  const rows = markdown
+    .split('\n')
+    .filter(line => line.startsWith('|'))
+    .map(line => line.split('|').map(cell => cell.trim()).slice(1, -1))
+    .filter(cells => cells.length === 6)
+    .filter(cells => cells[0] && cells[0] !== 'utility' && cells[0] !== '---')
+
+  return rows.map(([utility, status, spec, plan, log, statusDoc]) => ({
+    utility,
+    status,
+    spec,
+    plan,
+    log,
+    statusDoc,
+  }))
+}
+
 describe('source rewrite document governance', () => {
   it('keeps key task docs outside ignore rules', () => {
     expect(isIgnored('docs/2026-04-21-tailwind-grammar-debt-task-status.md')).toBe(false)
@@ -60,5 +78,77 @@ describe('source rewrite document governance', () => {
     const overallPlan = readRepoFile('internal-docs/tailwind3-source-rewrite/2026-04-21-tailwind3-source-rewrite-plan.md')
 
     expect(overallPlan).toContain('当前实时状态入口')
+  })
+
+  it('keeps the source rewrite index as the structured live manifest', () => {
+    const indexDoc = readRepoFile('docs/2026-04-22-tailwind3-source-rewrite-index.md')
+
+    expect(indexDoc).toContain('唯一实时入口')
+    expect(parseUtilityManifestTable(indexDoc)).toEqual([
+      {
+        utility: 'border',
+        status: 'completed',
+        spec: '-',
+        plan: 'docs/superpowers/plans/2026-04-21-tailwind3-border-source-rewrite.md',
+        log: '-',
+        statusDoc: '-',
+      },
+      {
+        utility: 'outline',
+        status: 'completed',
+        spec: 'docs/superpowers/specs/2026-04-22-outline-source-rewrite-design.md',
+        plan: 'docs/superpowers/plans/2026-04-22-outline-source-rewrite.md',
+        log: 'docs/2026-04-22-outline-source-rewrite-log.md',
+        statusDoc: 'docs/2026-04-22-outline-source-rewrite-status.md',
+      },
+      {
+        utility: 'text',
+        status: 'pending',
+        spec: '-',
+        plan: '-',
+        log: '-',
+        statusDoc: '-',
+      },
+      {
+        utility: 'leading',
+        status: 'pending',
+        spec: '-',
+        plan: '-',
+        log: '-',
+        statusDoc: '-',
+      },
+      {
+        utility: 'tracking',
+        status: 'pending',
+        spec: '-',
+        plan: '-',
+        log: '-',
+        statusDoc: '-',
+      },
+      {
+        utility: 'stroke',
+        status: 'pending',
+        spec: '-',
+        plan: '-',
+        log: '-',
+        statusDoc: '-',
+      },
+      {
+        utility: 'spacing',
+        status: 'pending',
+        spec: '-',
+        plan: '-',
+        log: '-',
+        statusDoc: '-',
+      },
+      {
+        utility: 'behavior',
+        status: 'pending',
+        spec: '-',
+        plan: '-',
+        log: '-',
+        statusDoc: '-',
+      },
+    ])
   })
 })
