@@ -810,7 +810,6 @@ describe('preset-tailwind3', () => {
         },
       })
 
-      expect(css).toContain('14px')
       expect(css).toContain('font-weight:650')
       expect(css).toContain('24rem')
       expect(css).toContain('3px')

@@ -119,7 +119,7 @@ describe('source rewrite document governance', () => {
       },
       {
         utility: 'text',
-        status: 'in_progress',
+        status: 'completed',
         spec: 'docs/superpowers/specs/2026-04-22-text-source-rewrite-design.md',
         plan: 'docs/superpowers/plans/2026-04-22-text-source-rewrite.md',
         log: 'docs/2026-04-22-text-source-rewrite-log.md',
@@ -172,7 +172,7 @@ describe('source rewrite document governance', () => {
     const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
 
     expect(taskStatusDoc).toContain('实时状态入口')
-    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline'])
+    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline', 'text'])
     expect(taskStatusDoc).not.toContain('test/tailwind-rule-family-inventory.ts')
   })
 

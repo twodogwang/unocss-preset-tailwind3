@@ -4,10 +4,19 @@ export const outlineBlocklistMigrationFixtures = [
   { input: 'outline-style-dashed', replacement: 'outline-dashed' },
 ] as const
 
+export const textBlocklistMigrationFixtures = [
+  { input: 'text-#fff', replacement: 'text-[#fff]' },
+  { input: 'text-size-sm', replacement: 'text-sm' },
+  { input: 'font-size-sm', replacement: 'text-sm' },
+  { input: 'text-10px', replacement: 'text-[10px]' },
+  { input: 'text-2rem', replacement: 'text-[2rem]' },
+  { input: 'text-color-red-500', replacement: 'text-red-500' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
-  { input: 'text-#fff', replacement: 'text-[#fff]' },
+  ...textBlocklistMigrationFixtures,
   { input: 'bg-#fff', replacement: 'bg-[#fff]' },
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'stroke-#fff', replacement: 'stroke-[#fff]' },

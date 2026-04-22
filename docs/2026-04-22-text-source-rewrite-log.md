@@ -7,3 +7,5 @@
 - next focus: color / opacity semantics and then blocklist migration
 - 2026-04-22: Task 3 completed, text color and opacity semantics are locked by shared fixtures and utility spec
 - next focus: blocklist migration and final verification
+- 2026-04-22: Task 4 completed, text blocklist migration coverage and overall source rewrite status are now in sync
+- 2026-04-22: final suite patch removed a stale mixed-typography assertion after text semantic coverage moved to dedicated tests

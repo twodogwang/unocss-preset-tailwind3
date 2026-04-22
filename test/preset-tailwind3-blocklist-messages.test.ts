@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 import {
   blocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
+  textBlocklistMigrationFixtures,
 } from './fixtures/blocklist-migration'
 
 async function createUno(options: Parameters<typeof presetTailwind3>[0] = {}) {
@@ -78,6 +79,22 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of outlineBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks text migration hints through the shared fixture subset', async () => {
+    expect(textBlocklistMigrationFixtures).toHaveLength(6)
+    expect(textBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'text-#fff',
+      'text-size-sm',
+      'font-size-sm',
+      'text-10px',
+      'text-2rem',
+      'text-color-red-500',
+    ])
+
+    for (const fixture of textBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

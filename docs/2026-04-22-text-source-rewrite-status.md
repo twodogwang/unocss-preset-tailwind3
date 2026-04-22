@@ -7,7 +7,9 @@
   - Task 1 quality patch: document governance expectations synced with live text tracking docs
   - Task 2: strict text size syntax
   - Task 3: lock text color and opacity semantics and register utility spec
+  - Task 4: lock text blocklist migration and final verification
+  - final suite patch: removed stale typography assertion after text semantic extraction
 - in_progress:
-  - blocklist migration and final verification
+  - none
 - pending:
   - none
