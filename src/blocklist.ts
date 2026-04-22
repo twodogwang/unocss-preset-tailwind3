@@ -26,6 +26,20 @@ interface MigrationDescriptor {
   replacement: MigrationReplacement
 }
 
+const gapAxisMap: Record<string, string> = {
+  row: 'y',
+  col: 'x',
+}
+
+const insetLegacyDirectionMap: Record<string, string> = {
+  t: 'top',
+  r: 'right',
+  b: 'bottom',
+  l: 'left',
+  s: 'start',
+  e: 'end',
+}
+
 function migrationRule(
   matcher: RegExp,
   replacement: MigrationReplacement,
@@ -78,6 +92,21 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: new RegExp(`^color-(${rawHexColor})$`), replacement: (_, match) => `[color:${match[1]}]` },
   { matcher: new RegExp(`^c-(${rawHexColor})$`), replacement: (_, match) => `text-[${match[1]}]` },
   { matcher: new RegExp(`^(text|bg|fill|stroke|accent|caret)-(${rawHexColor})$`), replacement: (_, match) => `${match[1]}-[${match[2]}]` },
+  { matcher: /^gap(\d+(?:\.\d+)?)$/, replacement: (_, match) => `gap-${match[1]}` },
+  { matcher: /^gap([xy])(\d+(?:\.\d+)?)$/, replacement: (_, match) => `gap-${match[1]}-${match[2]}` },
+  { matcher: /^gap([xy])-(.+)$/, replacement: (_, match) => `gap-${match[1]}-${match[2]}` },
+  { matcher: /^gap-(row|col)-(.+)$/, replacement: (_, match) => `gap-${gapAxisMap[match[1]]}-${match[2]}` },
+  { matcher: new RegExp(`^gap-(${rawLengthValue}|${rawCssFunctionValue})$`), replacement: (_, match) => `gap-[${match[1]}]` },
+  { matcher: /^inset([xy])-(.+)$/, replacement: (_, match) => `inset-${match[1]}-${match[2]}` },
+  { matcher: /^inset([xy])(\d+(?:\.\d+)?)$/, replacement: (_, match) => `inset-${match[1]}-${match[2]}` },
+  { matcher: /^inset-([trblse])-(.+)$/, replacement: (_, match) => `${insetLegacyDirectionMap[match[1]]}-${match[2]}` },
+  { matcher: /^(top|right|bottom|left|start|end)(\d+(?:\.\d+)?)$/, replacement: (_, match) => `${match[1]}-${match[2]}` },
+  { matcher: /^scroll([mp])-(.+)$/, replacement: (_, match) => `scroll-${match[1]}-${match[2]}` },
+  { matcher: /^scroll-([mp])(\d+(?:\.\d+)?)$/, replacement: (_, match) => `scroll-${match[1]}-${match[2]}` },
+  { matcher: /^scroll([mp])([xytrblse])-?(.+)$/, replacement: (_, match) => `scroll-${match[1]}${match[2]}-${match[3]}` },
+  { matcher: /^scroll-([mp])a-(.+)$/, replacement: (_, match) => `scroll-${match[1]}-${match[2]}` },
+  { matcher: /^scroll-([mp])-([se])-(.+)$/, replacement: (_, match) => `scroll-${match[1]}${match[2]}-${match[3]}` },
+  { matcher: new RegExp(`^scroll-([mp])-(${rawLengthValue}|${rawCssFunctionValue})$`), replacement: (_, match) => `scroll-${match[1]}-[${match[2]}]` },
   {
     matcher: /^(-?)([mp])([trblxyse]?)(\d+(?:\.\d+)?)$/,
     replacement: (_, match) => formatCompactSpacingReplacement(match[1], match[2], match[3], match[4]),
