@@ -1,3 +1,9 @@
+export const outlineBlocklistMigrationFixtures = [
+  { input: 'outline-color-red-500', replacement: 'outline-red-500' },
+  { input: 'outline-width-2', replacement: 'outline-2' },
+  { input: 'outline-style-dashed', replacement: 'outline-dashed' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
@@ -21,18 +27,9 @@ export const blocklistMigrationFixtures = [
   { input: 'ring-size-2', replacement: 'ring-2' },
   { input: 'border-color-red-500', replacement: 'border-red-500' },
   { input: 'border-s-color-red-500', replacement: 'border-s-red-500' },
-  { input: 'outline-color-red-500', replacement: 'outline-red-500' },
-  { input: 'outline-width-2', replacement: 'outline-2' },
-  { input: 'outline-style-dashed', replacement: 'outline-dashed' },
+  ...outlineBlocklistMigrationFixtures,
   { input: 'property-opacity', replacement: 'transition-opacity' },
   { input: 'transition-property-opacity', replacement: 'transition-opacity' },
   { input: 'transition-delay-75', replacement: 'delay-75' },
   { input: 'transition-ease-linear', replacement: 'ease-linear' },
 ] as const
-
-export const outlineBlocklistMigrationFixtures = blocklistMigrationFixtures.filter(
-  fixture =>
-    fixture.input === 'outline-color-red-500'
-    || fixture.input === 'outline-width-2'
-    || fixture.input === 'outline-style-dashed',
-)

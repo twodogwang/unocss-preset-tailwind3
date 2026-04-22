@@ -70,6 +70,13 @@ describe('preset-tailwind3 blocklist migration messages', () => {
   })
 
   it('locks outline migration hints through the shared fixture subset', async () => {
+    expect(outlineBlocklistMigrationFixtures).toHaveLength(3)
+    expect(outlineBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'outline-color-red-500',
+      'outline-width-2',
+      'outline-style-dashed',
+    ])
+
     for (const fixture of outlineBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }

@@ -19,3 +19,5 @@
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-utility-spec.test.ts` passed
 - 2026-04-22: verified `pnpm test` passed
 - 2026-04-22: verified `pnpm run typecheck` passed
+- 2026-04-22: quality patch hardened the outline blocklist fixture source by making the outline subset explicit and reusing it from the total blocklist table
+- 2026-04-22: quality patch added a minimal structure assertion for the outline subset while keeping message checks driven by shared fixtures

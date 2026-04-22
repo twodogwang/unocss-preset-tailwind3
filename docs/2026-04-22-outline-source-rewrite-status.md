@@ -10,6 +10,8 @@
   - Task 3: lock outline style, color, none, and utility spec template
   - runtime outline semantic assertions restored for width, offset, style, color, and inherit cases
   - Task 4: lock blocklist migration coverage for outline rewrite
+  - Task 4 quality patch: outline blocklist subset is now an explicit shared fixture source reused by the full migration table
+  - Task 4 quality patch: outline blocklist test now includes a minimal structure assertion while preserving shared-fixture message coverage
 - in_progress:
   - none
 - pending:
