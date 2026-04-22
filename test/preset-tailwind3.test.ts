@@ -635,10 +635,18 @@ describe('preset-tailwind3', () => {
         'outline',
         'outline-none',
         'outline-dashed',
+        'outline-dotted',
+        'outline-double',
+        'outline-inherit',
       ])
 
+      expect(css).toContain('.outline-2{outline-width:2px;}')
+      expect(css).toContain('.outline-offset-2{outline-offset:2px;}')
       expect(css).toContain('.outline-none{outline:2px solid transparent;outline-offset:2px;}')
       expect(css).toContain('.outline-dashed{outline-style:dashed;}')
+      expect(css).toContain('.outline-dotted{outline-style:dotted;}')
+      expect(css).toContain('.outline-double{outline-style:double;}')
+      expect(css).toContain('.outline-inherit{outline-color:inherit;}')
       expect(css).toContain('.outline{outline-style:solid;}')
     })
 

@@ -11,3 +11,4 @@
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3.test.ts -t "outline / transition"` passed
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-tailwind-diff.test.ts -t "outline and transition"` passed
 - 2026-04-22: verified `pnpm exec vitest --run test/preset-tailwind3-utility-spec.test.ts` passed
+- 2026-04-22: strengthened runtime outline semantic assertions in `test/preset-tailwind3.test.ts` to keep `outline-2`, `outline-offset-2`, `outline-dotted`, `outline-double`, `outline-inherit`, `outline-none`, `outline-dashed`, and `outline` CSS declarations covered

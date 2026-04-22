@@ -8,6 +8,7 @@
   - outline support coverage restored for base/style/color/inherit variants
   - Task 2: tighten outline width and offset syntax
   - Task 3: lock outline style, color, none, and utility spec template
+  - runtime outline semantic assertions restored for width, offset, style, color, and inherit cases
 - in_progress:
   - none
 - pending:
