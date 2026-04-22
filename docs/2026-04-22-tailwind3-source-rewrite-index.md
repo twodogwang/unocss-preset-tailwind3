@@ -8,7 +8,8 @@
 
 - 目标：把各个 utility 收敛到 Tailwind CSS 3 正式语法
 - 已完成：`border`、`outline`、`text`、`leading`
-- 待处理：`tracking`、`stroke`、`spacing`、`behavior`
+- 进行中：`tracking`
+- 待处理：`stroke`、`spacing`、`behavior`
 
 ## Utility Manifest
 
@@ -20,7 +21,7 @@
 | outline | completed | docs/superpowers/specs/2026-04-22-outline-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-outline-source-rewrite.md | docs/2026-04-22-outline-source-rewrite-log.md | docs/2026-04-22-outline-source-rewrite-status.md |
 | text | completed | docs/superpowers/specs/2026-04-22-text-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-text-source-rewrite.md | docs/2026-04-22-text-source-rewrite-log.md | docs/2026-04-22-text-source-rewrite-status.md |
 | leading | completed | docs/superpowers/specs/2026-04-22-leading-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-leading-source-rewrite.md | docs/2026-04-22-leading-source-rewrite-log.md | docs/2026-04-22-leading-source-rewrite-status.md |
-| tracking | pending | - | - | - | - |
+| tracking | in_progress | docs/superpowers/specs/2026-04-22-tracking-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-tracking-source-rewrite.md | docs/2026-04-22-tracking-source-rewrite-log.md | docs/2026-04-22-tracking-source-rewrite-status.md |
 | stroke | pending | - | - | - | - |
 | spacing | pending | - | - | - | - |
 | behavior | pending | - | - | - | - |

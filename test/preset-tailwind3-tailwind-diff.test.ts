@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 const tailwindSentinel = 'hidden'
@@ -380,6 +381,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('preserves Tailwind parity for text shorthand while leading is rewritten', async () => {
     await expectTailwindParity(leadingTextShorthandRegressionFixtures)
+  })
+
+  it('matches Tailwind 3 support for tracking utilities', async () => {
+    await expectTailwindParity(trackingFixtures.canonical)
+  })
+
+  it('rejects non-tailwind tracking aliases and bare length shortcuts', async () => {
+    await expectTailwindParity(trackingFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for background / svg / accent / caret color utilities', async () => {

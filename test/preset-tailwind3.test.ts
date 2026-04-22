@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 async function createUno(config: UserConfig = {}) {
@@ -796,11 +797,20 @@ describe('preset-tailwind3', () => {
     })
   })
 
+  describe('tracking', () => {
+    it('matches official Tailwind 3 tracking utilities', async () => {
+      await expectTargets(trackingFixtures.canonical)
+    })
+
+    it('rejects non-tailwind tracking aliases and bare length shortcuts', async () => {
+      await expectNonTargets(trackingFixtures.invalid)
+    })
+  })
+
   describe('typography / columns / tables / behaviors', () => {
     it('matches official Tailwind 3 typography and behavior utilities', async () => {
       await expectTargets([
         'font-bold',
-        'tracking-wide',
         'hyphens-auto',
         'hyphens-manual',
         'hyphens-none',

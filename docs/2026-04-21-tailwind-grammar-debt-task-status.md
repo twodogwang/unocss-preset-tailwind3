@@ -26,10 +26,13 @@
 
 ### 待处理 utility
 
-- `tracking`
 - `stroke`
 - `spacing`
 - `behavior`
+
+### 进行中 utility
+
+- `tracking`
 
 ## 已完成的配套治理
 
