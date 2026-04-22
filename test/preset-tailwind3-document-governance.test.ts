@@ -55,6 +55,18 @@ function parseUtilityManifestTable(markdown: string) {
   }))
 }
 
+function parseCompletedUtilities(markdown: string) {
+  const match = markdown.match(/## 当前源头重写状态[\s\S]*?### 已完成 utility[\s\S]*?(?:\n## |\n### |$)/)
+  if (!match)
+    return []
+
+  return match[0]
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line.startsWith('- `') && line.endsWith('`'))
+    .map(line => line.slice(3, -1))
+}
+
 describe('source rewrite document governance', () => {
   it('keeps key task docs outside ignore rules', () => {
     expect(isIgnored('docs/2026-04-21-tailwind-grammar-debt-task-status.md')).toBe(false)
@@ -150,5 +162,13 @@ describe('source rewrite document governance', () => {
         statusDoc: '-',
       },
     ])
+  })
+
+  it('keeps the overall status doc aligned with the live rewrite entry', () => {
+    const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
+
+    expect(taskStatusDoc).toContain('实时状态入口')
+    expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline'])
+    expect(taskStatusDoc).not.toContain('test/tailwind-rule-family-inventory.ts')
   })
 })
