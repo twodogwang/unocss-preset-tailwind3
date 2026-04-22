@@ -70,6 +70,7 @@ function parseCompletedUtilities(markdown: string) {
 describe('source rewrite document governance', () => {
   it('keeps key task docs outside ignore rules', () => {
     expect(isIgnored('docs/2026-04-21-tailwind-grammar-debt-task-status.md')).toBe(false)
+    expect(isIgnored('docs/2026-04-22-tailwind3-full-rule-family-inventory.md')).toBe(false)
     expect(isIgnored('docs/2026-04-22-outline-source-rewrite-status.md')).toBe(false)
     expect(isIgnored('docs/superpowers/plans/2026-04-21-tailwind3-border-source-rewrite.md')).toBe(false)
     expect(isIgnored('docs/superpowers/specs/2026-04-22-outline-source-rewrite-design.md')).toBe(false)
@@ -116,6 +117,8 @@ describe('source rewrite document governance', () => {
     expect(isTracked('docs/superpowers/plans/2026-04-22-behavior-transition-source-rewrite.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-behavior-transition-source-rewrite-log.md')).toBe(true)
     expect(isTracked('docs/2026-04-22-behavior-transition-source-rewrite-status.md')).toBe(true)
+    expect(isTracked('docs/2026-04-22-tailwind3-full-rule-family-inventory.md')).toBe(true)
+    expect(isTracked('docs/superpowers/plans/2026-04-22-tailwind3-full-rewrite-phase2.md')).toBe(true)
   })
 
   it('marks the original source rewrite plan as a requirements doc and points to the live entry', () => {
@@ -128,6 +131,8 @@ describe('source rewrite document governance', () => {
     const indexDoc = readRepoFile('docs/2026-04-22-tailwind3-source-rewrite-index.md')
 
     expect(indexDoc).toContain('唯一实时入口')
+    expect(indexDoc).toContain('第一阶段主线 utility 的交付状态')
+    expect(indexDoc).toContain('docs/2026-04-22-tailwind3-full-rule-family-inventory.md')
     expect(parseUtilityManifestTable(indexDoc)).toEqual([
       {
         utility: 'border',
@@ -200,6 +205,9 @@ describe('source rewrite document governance', () => {
     const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
 
     expect(taskStatusDoc).toContain('实时状态入口')
+    expect(taskStatusDoc).toContain('尚未完成')
+    expect(taskStatusDoc).toContain('全规则族 Tailwind 3 rewrite')
+    expect(taskStatusDoc).toContain('docs/2026-04-22-tailwind3-full-rule-family-inventory.md')
     expect(parseCompletedUtilities(taskStatusDoc)).toEqual(['border', 'outline', 'text', 'leading', 'tracking', 'stroke', 'spacing', 'behavior'])
     expect(taskStatusDoc).not.toContain('test/tailwind-rule-family-inventory.ts')
   })
@@ -215,6 +223,7 @@ describe('source rewrite document governance', () => {
   it('tracks the remaining source rewrite governance docs and keeps cross-doc links stable', () => {
     const taskStatusDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-task-status.md')
     const baselineDoc = readRepoFile('docs/2026-04-21-tailwind-grammar-debt-baseline.md')
+    const inventoryDoc = readRepoFile('docs/2026-04-22-tailwind3-full-rule-family-inventory.md')
 
     expect(isTracked('docs/2026-04-21-blocklist-prefix-audit-plan.md')).toBe(true)
     expect(isTracked('docs/2026-04-21-prefix-tailwind3-strictness-status.md')).toBe(true)
@@ -223,5 +232,8 @@ describe('source rewrite document governance', () => {
 
     expect(taskStatusDoc).toContain('docs/2026-04-22-tailwind3-source-rewrite-index.md')
     expect(baselineDoc).toContain('docs/2026-04-22-tailwind3-source-rewrite-index.md')
+    expect(inventoryDoc).toContain('completed_template')
+    expect(inventoryDoc).toContain('wave_1')
+    expect(inventoryDoc).toContain('docs/superpowers/plans/2026-04-22-tailwind3-full-rewrite-phase2.md')
   })
 })

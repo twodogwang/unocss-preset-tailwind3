@@ -4,6 +4,11 @@
 
 这份文档是当前源头重写任务的唯一实时入口。
 
+> 重要说明：当前表格记录的是第一阶段主线 utility 的交付状态。  
+> 它不等于“整个仓库所有 Tailwind-facing 规则族都已经重写完成”。  
+> 全量规则族盘点请查看：
+> [docs/2026-04-22-tailwind3-full-rule-family-inventory.md](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/docs/2026-04-22-tailwind3-full-rule-family-inventory.md)
+
 ## 任务摘要
 
 - 目标：把各个 utility 收敛到 Tailwind CSS 3 正式语法
@@ -27,5 +32,7 @@
 ## 相关文档
 
 - 原始总需求文档：[internal-docs/tailwind3-source-rewrite/2026-04-21-tailwind3-source-rewrite-plan.md](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/internal-docs/tailwind3-source-rewrite/2026-04-21-tailwind3-source-rewrite-plan.md)
+- 全量规则族总表：[docs/2026-04-22-tailwind3-full-rule-family-inventory.md](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/docs/2026-04-22-tailwind3-full-rule-family-inventory.md)
+- 第二阶段计划：[docs/superpowers/plans/2026-04-22-tailwind3-full-rewrite-phase2.md](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/docs/superpowers/plans/2026-04-22-tailwind3-full-rewrite-phase2.md)
 - 整体状态文档：[docs/2026-04-21-tailwind-grammar-debt-task-status.md](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/docs/2026-04-21-tailwind-grammar-debt-task-status.md)
 - 背景基线文档：[docs/2026-04-21-tailwind-grammar-debt-baseline.md](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/docs/2026-04-21-tailwind-grammar-debt-baseline.md)
