@@ -176,6 +176,16 @@ describe('preset-tailwind3', () => {
         'm-ie-4',
       ])
     })
+
+    it('emits the expected padding and margin CSS for semantic cases', async () => {
+      const css = await expectTargets(paddingMarginFixtures.semantic)
+
+      expect(css).toContain('.p-4{padding:1rem;}')
+      expect(css).toContain('.ps-4{padding-inline-start:1rem;}')
+      expect(css).toContain('.m-auto{margin:auto;}')
+      expect(css).toContain('.-mx-2{margin-left:-0.5rem;margin-right:-0.5rem;}')
+      expect(css).toContain('.mx-\\[var\\(--gap\\)\\]{margin-left:var(--gap);margin-right:var(--gap);}')
+    })
   })
 
   describe('gap / inset / translate / scroll-*', () => {

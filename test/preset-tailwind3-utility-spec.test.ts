@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -22,6 +23,7 @@ describe('tailwind utility spec', () => {
     const borderRadiusSpec = getSpec('border-radius')
     const leadingSpec = getSpec('leading')
     const outlineSpec = getSpec('outline')
+    const paddingMarginSpec = getSpec('padding-margin')
     const strokeSpec = getSpec('stroke')
     const trackingSpec = getSpec('tracking')
     const textSpec = getSpec('text')
@@ -30,6 +32,7 @@ describe('tailwind utility spec', () => {
     expect(borderRadiusSpec).toBeTruthy()
     expect(leadingSpec).toBeTruthy()
     expect(outlineSpec).toBeTruthy()
+    expect(paddingMarginSpec).toBeTruthy()
     expect(strokeSpec).toBeTruthy()
     expect(trackingSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
@@ -53,6 +56,15 @@ describe('tailwind utility spec', () => {
     expect(leadingSpec?.supportsVariants).toBe(true)
     expect(leadingSpec?.invalid).toContain('lh-6')
     expect(leadingSpec?.invalid).toContain('leading-20px')
+    expect(paddingMarginSpec?.canonical).toEqual([...paddingMarginFixtures.canonical])
+    expect(paddingMarginSpec?.invalid).toEqual([...paddingMarginFixtures.invalid])
+    expect(paddingMarginSpec?.sourceFiles).toEqual(['src/_rules/spacing.ts'])
+    expect(paddingMarginSpec?.category).toBe('layout')
+    expect(paddingMarginSpec?.supportsPrefix).toBe(true)
+    expect(paddingMarginSpec?.supportsNegative).toBe(true)
+    expect(paddingMarginSpec?.supportsVariants).toBe(true)
+    expect(paddingMarginSpec?.invalid).toContain('p4')
+    expect(paddingMarginSpec?.invalid).toContain('mx-var(--gap)')
     expect(strokeSpec?.canonical).toEqual([...strokeFixtures.canonical])
     expect(strokeSpec?.invalid).toEqual([...strokeFixtures.invalid])
     expect(strokeSpec?.sourceFiles).toEqual(['src/_rules/svg.ts'])
@@ -85,7 +97,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, outlineSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, leadingSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)
