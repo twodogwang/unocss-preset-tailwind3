@@ -72,6 +72,17 @@ export const gapInsetScrollBlocklistMigrationFixtures = [
   { input: 'scroll-m-2rem', replacement: 'scroll-m-[2rem]' },
 ] as const
 
+export const borderSpacingSpaceBlocklistMigrationFixtures = [
+  { input: 'borderspacing-2', replacement: 'border-spacing-2' },
+  { input: 'border-spacing-3px', replacement: 'border-spacing-[3px]' },
+  { input: 'border-spacingx-2', replacement: 'border-spacing-x-2' },
+  { input: 'border-spacingy4', replacement: 'border-spacing-y-4' },
+  { input: 'spacex-4', replacement: 'space-x-4' },
+  { input: 'spacey2', replacement: 'space-y-2' },
+  { input: 'space-x-5px', replacement: 'space-x-[5px]' },
+  { input: 'space-y-var(--gap)', replacement: 'space-y-[var(--gap)]' },
+] as const
+
 export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
@@ -81,6 +92,7 @@ export const blocklistMigrationFixtures = [
   ...strokeBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
+  ...borderSpacingSpaceBlocklistMigrationFixtures,
   { input: 'bg-#fff', replacement: 'bg-[#fff]' },
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'accent-#fff', replacement: 'accent-[#fff]' },

@@ -1,0 +1,4 @@
+# Spacing Border Spacing Space Source Rewrite Log
+- 2026-04-22: initialized spacing border-spacing / space rewrite task
+- current focus: create failing tests, process docs, and migration coverage for border-spacing / space
+- 2026-04-22: red tests confirmed missing migration coverage for border-spacing / space legacy aliases

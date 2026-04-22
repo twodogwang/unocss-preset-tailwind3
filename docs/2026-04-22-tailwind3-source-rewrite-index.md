@@ -23,7 +23,7 @@
 | leading | completed | docs/superpowers/specs/2026-04-22-leading-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-leading-source-rewrite.md | docs/2026-04-22-leading-source-rewrite-log.md | docs/2026-04-22-leading-source-rewrite-status.md |
 | tracking | completed | docs/superpowers/specs/2026-04-22-tracking-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-tracking-source-rewrite.md | docs/2026-04-22-tracking-source-rewrite-log.md | docs/2026-04-22-tracking-source-rewrite-status.md |
 | stroke | completed | docs/superpowers/specs/2026-04-22-stroke-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-stroke-source-rewrite.md | docs/2026-04-22-stroke-source-rewrite-log.md | docs/2026-04-22-stroke-source-rewrite-status.md |
-| spacing | in_progress | docs/superpowers/specs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-spacing-gap-inset-scroll-source-rewrite.md | docs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-log.md | docs/2026-04-22-spacing-gap-inset-scroll-source-rewrite-status.md |
+| spacing | in_progress | docs/superpowers/specs/2026-04-22-spacing-border-spacing-space-source-rewrite-design.md | docs/superpowers/plans/2026-04-22-spacing-border-spacing-space-source-rewrite.md | docs/2026-04-22-spacing-border-spacing-space-source-rewrite-log.md | docs/2026-04-22-spacing-border-spacing-space-source-rewrite-status.md |
 | behavior | pending | - | - | - | - |
 
 ## 相关文档

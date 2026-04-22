@@ -1,0 +1,11 @@
+# Spacing Border Spacing Space Source Rewrite Status
+- phase: red
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: initialize fixtures, logs, and failing tests
+- in_progress:
+  - Task 2: add border-spacing / space runtime support and migration hints
+- pending:
+  - Task 3: lock border-spacing / space semantics and register utility spec
+  - Task 4: finalize spacing governance and mark spacing complete

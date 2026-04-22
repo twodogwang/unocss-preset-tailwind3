@@ -6,6 +6,7 @@ import {
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
+  borderSpacingSpaceBlocklistMigrationFixtures,
   paddingMarginBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
@@ -194,6 +195,24 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of gapInsetScrollBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks border spacing space migration hints through the shared fixture subset', async () => {
+    expect(borderSpacingSpaceBlocklistMigrationFixtures).toHaveLength(8)
+    expect(borderSpacingSpaceBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'borderspacing-2',
+      'border-spacing-3px',
+      'border-spacingx-2',
+      'border-spacingy4',
+      'spacex-4',
+      'spacey2',
+      'space-x-5px',
+      'space-y-var(--gap)',
+    ])
+
+    for (const fixture of borderSpacingSpaceBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
