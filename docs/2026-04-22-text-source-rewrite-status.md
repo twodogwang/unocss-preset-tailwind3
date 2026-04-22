@@ -2,9 +2,11 @@
 - phase: red
 - completed:
   - design approved
+  - implementation plan approved
+  - Task 1: initialize fixtures, logs, and failing tests
+  - Task 1 quality patch: document governance expectations synced with live text tracking docs
 - in_progress:
-  - initialize fixtures, logs, and failing tests
-- pending:
   - strict size syntax
+- pending:
   - lock color and opacity semantics
   - blocklist migration and final verification
