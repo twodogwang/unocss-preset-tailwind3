@@ -7,9 +7,6 @@ export const fonts: Rule<Theme>[] = [
   // text
   [/^text-(.+)$/, handleText, { autocomplete: 'text-$fontSize' }],
 
-  // text size
-  [/^(?:text|font)-size-(.+)$/, handleSize, { autocomplete: 'text-size-$fontSize' }],
-
   // text colors
   [/^text-(.+)$/, handlerColorOrSize, { autocomplete: 'text-$colors' }],
 
@@ -168,7 +165,7 @@ function handleText([, s = 'base']: string[], { theme }: RuleContext<Theme>): CS
     }
   }
 
-  const fontSize = h.bracketOfLength.rem(size)
+  const fontSize = size.startsWith('[') ? h.bracketOfLength.rem(size) : undefined
   if (lineHeight && fontSize) {
     return {
       'font-size': fontSize,
@@ -176,5 +173,6 @@ function handleText([, s = 'base']: string[], { theme }: RuleContext<Theme>): CS
     }
   }
 
-  return { 'font-size': h.bracketOfLength.rem(s) }
+  if (fontSize)
+    return { 'font-size': fontSize }
 }

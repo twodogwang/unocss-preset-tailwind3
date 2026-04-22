@@ -3,3 +3,5 @@
 - current focus: create failing tests and tracking docs
 - 2026-04-22: Task 1 approved at spec level after red tests confirmed known size gaps
 - 2026-04-22: Task 1 quality patch synced document governance expectations with live text tracking docs
+- 2026-04-22: Task 2 completed, strict text size syntax now rejects legacy size aliases and bare lengths
+- next focus: color / opacity semantics and then blocklist migration

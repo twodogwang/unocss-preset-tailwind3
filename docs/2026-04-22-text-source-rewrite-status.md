@@ -1,12 +1,12 @@
 # Text Source Rewrite Status
-- phase: red
+- phase: green
 - completed:
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 1 quality patch: document governance expectations synced with live text tracking docs
+  - Task 2: strict text size syntax
 - in_progress:
-  - strict size syntax
+  - color / opacity semantics
 - pending:
-  - lock color and opacity semantics
   - blocklist migration and final verification
