@@ -164,6 +164,7 @@ export const leadingTextShorthandRegressionFixtures = [
 
 接入 `leadingFixtures`，并把 `leading` 在总表里从 `pending` 改为 `in_progress`。
 同时在 runtime / parity 测试中增加 `leadingTextShorthandRegressionFixtures` 的保护性断言。
+这一步必须先把现有混合的 typography 测试切成 dedicated `leading` 测试入口，例如新增 `describe('leading')` 或至少新增标题里明确包含 `leading` 的 `it(...)`，保证后续 `-t "leading"` 命令能稳定命中。
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -205,6 +206,8 @@ invalid: ['lh-6', 'line-height-6', 'font-leading-6', 'leading-20px']
 semantic: ['leading-none', 'leading-6', 'leading-[20px]', 'leading-[calc(100%-1px)]']
 text regression: ['text-lg/7', 'text-[14px]/[20px]']
 ```
+
+如果 Task 1 里还没拆出 dedicated `leading` 测试标题，这一步先补齐，再执行下面两条 red 命令。
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -279,6 +282,8 @@ expect(css).toContain('.leading-\\[calc\\(100\\%-1px\\)\\]{line-height:calc(100%
 expect(textCss).toContain('.text-lg\\/7{font-size:1.125rem;line-height:1.75rem;}')
 expect(textCss).toContain('.text-\\[14px\\]\\/\\[20px\\]{font-size:14px;line-height:20px;}')
 ```
+
+这里的 runtime 断言应继续放在 dedicated `leading` 测试入口下，避免后续 `-t "leading"` 命中不到。
 
 - [ ] **Step 2: Run test to verify it fails**
 
