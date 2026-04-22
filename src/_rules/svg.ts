@@ -7,15 +7,12 @@ export const svgUtilities: Rule<Theme>[] = [
   [/^fill-(.+)$/, colorResolver('fill', 'fill', 'backgroundColor'), { autocomplete: 'fill-$colors' }],
   ['fill-none', { fill: 'none' }],
 
-  // stroke size
-  [/^stroke-(?:width-|size-)?(.+)$/, handleWidth, { autocomplete: ['stroke-width-$lineWidth', 'stroke-size-$lineWidth'] }],
-
   // stroke dash
   [/^stroke-dash-(.+)$/, ([, s]) => ({ 'stroke-dasharray': h.bracket.cssvar.number(s) }), { autocomplete: 'stroke-dash-<num>' }],
   [/^stroke-offset-(.+)$/, ([, s], { theme }) => ({ 'stroke-dashoffset': theme.lineWidth?.[s] ?? h.bracket.cssvar.px.numberWithUnit(s) }), { autocomplete: 'stroke-offset-$lineWidth' }],
 
   // stroke colors
-  [/^stroke-(.+)$/, handleColorOrWidth, { autocomplete: 'stroke-$colors' }],
+  [/^stroke-(.+)$/, handleColorOrWidth, { autocomplete: ['stroke-$lineWidth', 'stroke-$colors'] }],
 
   // line cap
   ['stroke-cap-square', { 'stroke-linecap': 'square' }],
@@ -38,7 +35,8 @@ function handleWidth([, b]: string[], { theme }: RuleContext<Theme>): CSSObject 
 }
 
 function handleColorOrWidth(match: RegExpMatchArray, ctx: RuleContext<Theme>): CSSObject | undefined {
-  if (isCSSMathFn(h.bracket(match[1])))
+  const width = handleWidth(match, ctx)['stroke-width']
+  if (width != null || isCSSMathFn(h.bracket(match[1])))
     return handleWidth(match, ctx)
   return colorResolver('stroke', 'stroke', 'borderColor')(match, ctx) as CSSObject | undefined
 }
