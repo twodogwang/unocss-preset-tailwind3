@@ -24,6 +24,7 @@ export const textFixtures = {
     'text-[14px]',
     'text-[14px]/[20px]',
     'text-white',
+    'text-red-500/50',
     'text-opacity-50',
   ],
 } as const

@@ -703,6 +703,7 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.text-\\[14px\\]{font-size:14px;}')
       expect(css).toContain('.text-\\[14px\\]\\/\\[20px\\]{font-size:14px;line-height:20px;}')
       expect(css).toContain('.text-white{--un-text-opacity:1;color:rgb(255 255 255 / var(--un-text-opacity));}')
+      expect(css).toContain('.text-red-500\\/50{color:rgb(239 68 68 / 0.5);}')
       expect(css).toContain('.text-opacity-50{--un-text-opacity:0.5;}')
     })
 

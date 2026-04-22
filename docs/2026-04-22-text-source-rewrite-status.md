@@ -6,7 +6,8 @@
   - Task 1: initialize fixtures, logs, and failing tests
   - Task 1 quality patch: document governance expectations synced with live text tracking docs
   - Task 2: strict text size syntax
+  - Task 3: lock text color and opacity semantics and register utility spec
 - in_progress:
-  - color / opacity semantics
-- pending:
   - blocklist migration and final verification
+- pending:
+  - none

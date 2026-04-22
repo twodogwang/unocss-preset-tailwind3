@@ -5,3 +5,5 @@
 - 2026-04-22: Task 1 quality patch synced document governance expectations with live text tracking docs
 - 2026-04-22: Task 2 completed, strict text size syntax now rejects legacy size aliases and bare lengths
 - next focus: color / opacity semantics and then blocklist migration
+- 2026-04-22: Task 3 completed, text color and opacity semantics are locked by shared fixtures and utility spec
+- next focus: blocklist migration and final verification

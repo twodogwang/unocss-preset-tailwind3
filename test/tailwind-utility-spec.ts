@@ -1,5 +1,6 @@
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 export interface TailwindUtilitySpec {
   id: string
@@ -43,5 +44,15 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于建立“outline 语义锁定为 Tailwind 3 规则”的重写模板。'],
+  },
+  {
+    id: 'text',
+    sourceFiles: ['src/_rules/typography.ts'],
+    category: 'typography',
+    canonical: [...textFixtures.canonical],
+    invalid: [...textFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 text 主规则族的 size、color 与 opacity 语义边界。'],
   },
 ]

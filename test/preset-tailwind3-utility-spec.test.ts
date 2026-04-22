@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { textFixtures } from './fixtures/tailwind-text-rewrite'
 import { tailwindUtilitySpecs } from './tailwind-utility-spec'
 
 function getSpec(id: string) {
@@ -17,10 +18,12 @@ describe('tailwind utility spec', () => {
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
     const outlineSpec = getSpec('outline')
+    const textSpec = getSpec('text')
 
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
     expect(outlineSpec).toBeTruthy()
+    expect(textSpec).toBeTruthy()
 
     expect(borderWidthSpec?.invalid).toContain('border-10px')
     expect(borderRadiusSpec?.invalid).toContain('rounded-lt-lg')
@@ -39,8 +42,16 @@ describe('tailwind utility spec', () => {
     expect(outlineSpec?.category).toBe('behavior')
     expect(outlineSpec?.supportsPrefix).toBe(true)
     expect(outlineSpec?.supportsVariants).toBe(true)
+    expect(textSpec?.canonical).toEqual([...textFixtures.canonical])
+    expect(textSpec?.invalid).toEqual([...textFixtures.invalid])
+    expect(textSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
+    expect(textSpec?.category).toBe('typography')
+    expect(textSpec?.supportsPrefix).toBe(true)
+    expect(textSpec?.supportsVariants).toBe(true)
+    expect(textSpec?.invalid).toContain('text-#fff')
+    expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, outlineSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, outlineSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)
