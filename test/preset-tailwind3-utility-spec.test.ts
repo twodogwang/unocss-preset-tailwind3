@@ -7,6 +7,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
+import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 import { tailwindUtilitySpecs } from './tailwind-utility-spec'
 
@@ -30,6 +31,7 @@ describe('tailwind utility spec', () => {
     const paddingMarginSpec = getSpec('padding-margin')
     const strokeSpec = getSpec('stroke')
     const trackingSpec = getSpec('tracking')
+    const transitionSpec = getSpec('transition')
     const textSpec = getSpec('text')
 
     expect(borderWidthSpec).toBeTruthy()
@@ -41,6 +43,7 @@ describe('tailwind utility spec', () => {
     expect(paddingMarginSpec).toBeTruthy()
     expect(strokeSpec).toBeTruthy()
     expect(trackingSpec).toBeTruthy()
+    expect(transitionSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
     expect(borderWidthSpec?.invalid).toContain('border-10px')
@@ -104,6 +107,14 @@ describe('tailwind utility spec', () => {
     expect(trackingSpec?.supportsVariants).toBe(true)
     expect(trackingSpec?.invalid).toContain('font-tracking-wide')
     expect(trackingSpec?.invalid).toContain('tracking-0.2em')
+    expect(transitionSpec?.canonical).toEqual([...transitionFixtures.canonical])
+    expect(transitionSpec?.invalid).toEqual([...transitionFixtures.invalid])
+    expect(transitionSpec?.sourceFiles).toEqual(['src/_rules/transition.ts', 'src/_theme/transition.ts'])
+    expect(transitionSpec?.category).toBe('behavior')
+    expect(transitionSpec?.supportsPrefix).toBe(true)
+    expect(transitionSpec?.supportsVariants).toBe(true)
+    expect(transitionSpec?.invalid).toContain('property-opacity')
+    expect(transitionSpec?.invalid).toContain('transition-ease-linear')
 
     expect(outlineSpec?.canonical).toEqual([...outlineFixtures.canonical])
     expect(outlineSpec?.invalid).toEqual([...outlineFixtures.invalid])
@@ -120,7 +131,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [borderWidthSpec, borderRadiusSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, textSpec].filter(Boolean)) {
+    for (const spec of [borderWidthSpec, borderRadiusSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

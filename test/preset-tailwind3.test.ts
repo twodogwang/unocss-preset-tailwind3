@@ -650,6 +650,17 @@ describe('preset-tailwind3', () => {
     it('rejects non-tailwind transition aliases and extensions', async () => {
       await expectNonTargets(transitionFixtures.invalid)
     })
+
+    it('emits the expected transition CSS for semantic cases', async () => {
+      const css = await expectTargets(transitionFixtures.semantic)
+
+      expect(css).toContain('.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}')
+      expect(css).toContain('.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}')
+      expect(css).toContain('.transition-\\[height\\,opacity\\]{transition-property:height,opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms;}')
+      expect(css).toContain('.duration-200{transition-duration:200ms;}')
+      expect(css).toContain('.delay-75{transition-delay:75ms;}')
+      expect(css).toContain('.ease-linear{transition-timing-function:linear;}')
+    })
   })
 
   describe('text', () => {

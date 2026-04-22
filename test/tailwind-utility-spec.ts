@@ -6,6 +6,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
+import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
 export interface TailwindUtilitySpec {
@@ -92,6 +93,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 stroke 主规则族只接受 stroke-* 的颜色与宽度语义边界。'],
+  },
+  {
+    id: 'transition',
+    sourceFiles: ['src/_rules/transition.ts', 'src/_theme/transition.ts'],
+    category: 'behavior',
+    canonical: [...transitionFixtures.canonical],
+    invalid: [...transitionFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 behavior 最后一轮的 transition / duration / delay / ease 主语法边界。'],
   },
   {
     id: 'text',
