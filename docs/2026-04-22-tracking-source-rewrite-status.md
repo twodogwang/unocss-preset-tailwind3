@@ -4,8 +4,8 @@
   - design approved
   - implementation plan approved
   - Task 1: initialize fixtures, logs, and failing tests
+  - Task 2: tighten tracking syntax
 - in_progress:
-  - tighten tracking syntax
-- pending:
   - lock tracking semantics and register utility spec
+- pending:
   - blocklist migration and final verification
