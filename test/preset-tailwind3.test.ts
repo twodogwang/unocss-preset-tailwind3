@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 
@@ -735,8 +736,6 @@ describe('preset-tailwind3', () => {
         '[color:#fff]',
         'fill-red-500',
         'fill-[#fff]',
-        'stroke-red-500',
-        'stroke-[#fff]',
         'accent-red-500',
         'accent-[#fff]',
         'caret-blue-500',
@@ -755,10 +754,6 @@ describe('preset-tailwind3', () => {
         'fill-red500',
         'fill-opacity-50',
         'fill-op50',
-        'stroke-#fff',
-        'stroke-red500',
-        'stroke-opacity-50',
-        'stroke-op50',
         'accent-#fff',
         'accent-red500',
         'accent-opacity-50',
@@ -768,6 +763,16 @@ describe('preset-tailwind3', () => {
         'caret-opacity-50',
         'caret-op50',
       ])
+    })
+  })
+
+  describe('stroke', () => {
+    it('matches official Tailwind 3 stroke utilities', async () => {
+      await expectTargets(strokeFixtures.canonical)
+    })
+
+    it('rejects non-tailwind stroke aliases and bare color shortcuts', async () => {
+      await expectNonTargets(strokeFixtures.invalid)
     })
   })
 
