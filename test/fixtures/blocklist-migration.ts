@@ -29,3 +29,10 @@ export const blocklistMigrationFixtures = [
   { input: 'transition-delay-75', replacement: 'delay-75' },
   { input: 'transition-ease-linear', replacement: 'ease-linear' },
 ] as const
+
+export const outlineBlocklistMigrationFixtures = blocklistMigrationFixtures.filter(
+  fixture =>
+    fixture.input === 'outline-color-red-500'
+    || fixture.input === 'outline-width-2'
+    || fixture.input === 'outline-style-dashed',
+)

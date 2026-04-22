@@ -9,7 +9,8 @@
   - Task 2: tighten outline width and offset syntax
   - Task 3: lock outline style, color, none, and utility spec template
   - runtime outline semantic assertions restored for width, offset, style, color, and inherit cases
+  - Task 4: lock blocklist migration coverage for outline rewrite
 - in_progress:
   - none
 - pending:
-  - Task 4: blocklist fixture/test rewrite
+  - none

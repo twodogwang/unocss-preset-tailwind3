@@ -1,7 +1,10 @@
 import { createGenerator } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
-import { blocklistMigrationFixtures } from './fixtures/blocklist-migration'
+import {
+  blocklistMigrationFixtures,
+  outlineBlocklistMigrationFixtures,
+} from './fixtures/blocklist-migration'
 
 async function createUno(options: Parameters<typeof presetTailwind3>[0] = {}) {
   return createGenerator({
@@ -62,6 +65,12 @@ async function expectNotBlocked(
 describe('preset-tailwind3 blocklist migration messages', () => {
   it('suggests canonical replacements for legacy alias utilities', async () => {
     for (const fixture of blocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks outline migration hints through the shared fixture subset', async () => {
+    for (const fixture of outlineBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
