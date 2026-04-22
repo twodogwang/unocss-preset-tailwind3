@@ -1,6 +1,7 @@
 import { createGenerator } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
+import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import {
   backgroundColorBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
@@ -118,6 +119,21 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     for (const fixture of backgroundColorBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
+  })
+
+  it('locks background style strictness cases through the shared fixture subset', async () => {
+    expect(backgroundStyleFixtures.blocklisted).toEqual([
+      'bg-gradient-linear',
+      'bg-gradient-from-red-500',
+      'bg-gradient-via-cyan-500',
+      'bg-gradient-to-emerald-500',
+      'bg-gradient-shape-r',
+      'bg-gradient-stops-3',
+      'shape-r',
+    ])
+
+    for (const input of backgroundStyleFixtures.blocklisted)
+      await expectBlocked(input)
   })
 
   it('locks leading migration hints through the shared fixture subset', async () => {

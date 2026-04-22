@@ -1,4 +1,5 @@
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -32,6 +33,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 background-color / bg-opacity 主规则族只接受 Tailwind 3 正式颜色与 opacity 语法。'],
+  },
+  {
+    id: 'background-style',
+    sourceFiles: ['src/_rules-wind3/background.ts'],
+    category: 'layout',
+    canonical: [...backgroundStyleFixtures.canonical],
+    invalid: [...backgroundStyleFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 background-style / gradient / clip / origin / repeat / position 主规则族的 Tailwind 3 语义边界。'],
   },
   {
     id: 'border-width',

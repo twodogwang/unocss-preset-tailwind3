@@ -5,6 +5,7 @@ import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -490,6 +491,14 @@ describe('preset-tailwind3 tailwind parity', () => {
       'bg-repeat-inherit',
       'bg-repeat-initial',
     ])
+  })
+
+  it('matches Tailwind 3 support for background style and gradient utilities through the shared fixtures', async () => {
+    await expectTailwindParity(backgroundStyleFixtures.canonical)
+  })
+
+  it('rejects non-tailwind background style aliases through the shared fixtures', async () => {
+    await expectTailwindParity(backgroundStyleFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for typography, layout, variant, and container edge cases', async () => {

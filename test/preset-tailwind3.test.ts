@@ -4,6 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -631,6 +632,30 @@ describe('preset-tailwind3', () => {
         'bg-repeat-initial',
         'shape-r',
       ])
+    })
+
+    it('matches Tailwind 3 background style and gradient utilities through the shared fixtures', async () => {
+      await expectTargets(backgroundStyleFixtures.canonical)
+    })
+
+    it('rejects non-tailwind background style aliases through the shared fixtures', async () => {
+      await expectNonTargets(backgroundStyleFixtures.invalid)
+    })
+
+    it('emits the expected background style CSS for semantic cases', async () => {
+      const css = await expectTargets(backgroundStyleFixtures.semantic)
+
+      expect(css).toContain('background-image:none')
+      expect(css).toContain('background-size:cover')
+      expect(css).toContain('background-attachment:fixed')
+      expect(css).toContain('background-clip:text')
+      expect(css).toContain('background-origin:border-box')
+      expect(css).toContain('background-repeat:repeat-x')
+      expect(css).toContain('background-position:center')
+      expect(css).toContain('linear-gradient')
+      expect(css).toContain('--un-gradient-from-position:10%')
+      expect(css).toContain('--un-gradient-via-position:30%')
+      expect(css).toContain('--un-gradient-to-position:90%')
     })
   })
 

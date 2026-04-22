@@ -1,0 +1,13 @@
+# Background Style Gradient Clip Origin Repeat Position Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: background style fixtures and dedicated tests
+  - Task 2: utility spec and blocklist strictness subset
+  - Task 3: docs and overall tracking sync
+  - verification: runtime, parity, utility spec, blocklist messages, document governance, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
