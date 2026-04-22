@@ -2,3 +2,4 @@
 - 2026-04-22: initialized leading rewrite task
 - current focus: create failing tests and tracking docs
 - 2026-04-22: red tests confirmed current leading gaps in lh / line-height / font-leading aliases and bare length syntax
+- 2026-04-22: Task 2 completed, runtime leading syntax now accepts only leading-* and bracket arbitrary values
