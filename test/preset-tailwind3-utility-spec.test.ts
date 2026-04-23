@@ -6,6 +6,7 @@ import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
+import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -37,6 +38,7 @@ describe('tailwind utility spec', () => {
     const outlineSpec = getSpec('outline')
     const paddingMarginSpec = getSpec('padding-margin')
     const ringSpec = getSpec('ring')
+    const shadowSpec = getSpec('shadow')
     const strokeSpec = getSpec('stroke')
     const trackingSpec = getSpec('tracking')
     const transitionSpec = getSpec('transition')
@@ -53,6 +55,7 @@ describe('tailwind utility spec', () => {
     expect(outlineSpec).toBeTruthy()
     expect(paddingMarginSpec).toBeTruthy()
     expect(ringSpec).toBeTruthy()
+    expect(shadowSpec).toBeTruthy()
     expect(strokeSpec).toBeTruthy()
     expect(trackingSpec).toBeTruthy()
     expect(transitionSpec).toBeTruthy()
@@ -90,6 +93,14 @@ describe('tailwind utility spec', () => {
     expect(ringSpec?.supportsVariants).toBe(true)
     expect(ringSpec?.invalid).toContain('ring-op50')
     expect(ringSpec?.invalid).toContain('ring-offset-opacity-50')
+    expect(shadowSpec?.canonical).toEqual([...shadowFixtures.canonical])
+    expect(shadowSpec?.invalid).toEqual([...shadowFixtures.invalid])
+    expect(shadowSpec?.sourceFiles).toEqual(['src/_rules/shadow.ts'])
+    expect(shadowSpec?.category).toBe('behavior')
+    expect(shadowSpec?.supportsPrefix).toBe(true)
+    expect(shadowSpec?.supportsVariants).toBe(true)
+    expect(shadowSpec?.invalid).toContain('shadowmd')
+    expect(shadowSpec?.invalid).toContain('shadow-inset')
     expect(borderWidthSpec?.invalid).toContain('border-10px')
     expect(borderRadiusSpec?.invalid).toContain('rounded-lt-lg')
     expect(borderWidthSpec?.supportsPrefix).toBe(true)
@@ -175,7 +186,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [backgroundColorSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
+    for (const spec of [backgroundColorSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

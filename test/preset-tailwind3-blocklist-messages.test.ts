@@ -12,6 +12,7 @@ import {
   outlineBlocklistMigrationFixtures,
   paddingMarginBlocklistMigrationFixtures,
   ringBlocklistMigrationFixtures,
+  shadowBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
@@ -147,6 +148,18 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of ringBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks shadow migration hints through the shared fixture subset', async () => {
+    expect(shadowBlocklistMigrationFixtures).toHaveLength(2)
+    expect(shadowBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'shadowmd',
+      'shadow-inset',
+    ])
+
+    for (const fixture of shadowBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

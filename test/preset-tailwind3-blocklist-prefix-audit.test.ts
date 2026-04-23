@@ -484,6 +484,20 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'ring-2',
   },
   {
+    label: 'shadow compact theme alias',
+    matcher: /^shadowmd$/,
+    input: 'shadowmd',
+    prefixed: 'tw-shadowmd',
+    replacement: 'shadow-md',
+  },
+  {
+    label: 'shadow inset alias',
+    matcher: /^shadow-inset$/,
+    input: 'shadow-inset',
+    prefixed: 'tw-shadow-inset',
+    replacement: 'shadow-inner',
+  },
+  {
     label: 'decoration none alias',
     matcher: /^decoration-none$/,
     input: 'decoration-none',

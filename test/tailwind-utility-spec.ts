@@ -5,6 +5,7 @@ import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
+import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -95,6 +96,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 ring 主规则族的 width、color、offset、inset 与 opacity 语义边界。'],
+  },
+  {
+    id: 'shadow',
+    sourceFiles: ['src/_rules/shadow.ts'],
+    category: 'behavior',
+    canonical: [...shadowFixtures.canonical],
+    invalid: [...shadowFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 shadow 主规则族的 theme、color、inner、none 与 arbitrary 语义边界。'],
   },
   {
     id: 'border-spacing-space',

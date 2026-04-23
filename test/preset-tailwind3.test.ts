@@ -10,6 +10,7 @@ import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
+import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -1051,14 +1052,32 @@ describe('preset-tailwind3', () => {
     })
   })
 
+  describe('shadow', () => {
+    it('matches official Tailwind 3 shadow utilities', async () => {
+      const css = await expectTargets(shadowFixtures.canonical)
+
+      expect(css).toContain('box-shadow')
+      expect(css).toContain('--un-shadow')
+      expect(css).toContain('--un-shadow-color')
+      expect(css).toContain('rgba(0, 0, 0, 0.35)')
+    })
+
+    it('keeps shadow semantic output stable', async () => {
+      const css = await expectTargets(shadowFixtures.semantic)
+
+      expect(css).toContain('box-shadow:var(--un-ring-offset-shadow), var(--un-ring-shadow), var(--un-shadow)')
+      expect(css).toContain('--un-shadow-color')
+      expect(css).toContain('rgb(0 0 0 / 0)')
+    })
+
+    it('rejects non-tailwind shadow aliases and opacity shortcuts', async () => {
+      await expectNonTargets(shadowFixtures.invalid)
+    })
+  })
+
   describe('effects / filters / transform', () => {
     it('matches official Tailwind 3 effects and transform utilities', async () => {
       await expectTargets([
-        'shadow-md',
-        'shadow-inner',
-        'shadow-none',
-        'shadow-red-500',
-        'shadow-[#000]',
         'opacity-50',
         'blur-sm',
         'brightness-75',
@@ -1082,14 +1101,12 @@ describe('preset-tailwind3', () => {
 
     it('matches arbitrary and theme-driven effects utilities', async () => {
       const css = await expectTargets([
-        'shadow-[0_0_10px_rgba(0,0,0,0.35)]',
         'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]',
         'rotate-[13deg]',
         'scale-[1.12]',
         'blur-[3px]',
       ])
 
-      expect(css).toContain('rgba(0, 0, 0, 0.35)')
       expect(css).toContain('drop-shadow(0 0 2px rgba(0,0,0,0.5))')
       expect(css).toContain('13deg')
       expect(css).toContain('1.12')
@@ -1098,10 +1115,6 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind effects aliases and extensions', async () => {
       await expectNonTargets([
-        'shadowmd',
-        'shadow-op50',
-        'shadow-opacity-50',
-        'shadow-inset',
         'op50',
         'filter-blur-sm',
         'filter-drop-shadow',

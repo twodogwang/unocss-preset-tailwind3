@@ -16,6 +16,11 @@ export const ringBlocklistMigrationFixtures = [
   { input: 'ring-size-2', replacement: 'ring-2' },
 ] as const
 
+export const shadowBlocklistMigrationFixtures = [
+  { input: 'shadowmd', replacement: 'shadow-md' },
+  { input: 'shadow-inset', replacement: 'shadow-inner' },
+] as const
+
 export const decorationBlocklistMigrationFixtures = [
   { input: 'decoration-none', replacement: 'no-underline' },
   { input: 'decoration-underline', replacement: 'underline' },
@@ -135,6 +140,7 @@ export const blocklistMigrationFixtures = [
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
   ...ringBlocklistMigrationFixtures,
+  ...shadowBlocklistMigrationFixtures,
   ...decorationBlocklistMigrationFixtures,
   { input: 'border-color-red-500', replacement: 'border-red-500' },
   { input: 'border-s-color-red-500', replacement: 'border-s-red-500' },

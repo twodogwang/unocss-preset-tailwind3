@@ -11,6 +11,7 @@ import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
+import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -322,22 +323,11 @@ describe('preset-tailwind3 tailwind parity', () => {
   })
 
   it('matches Tailwind 3 support for shadow utilities', async () => {
-    await expectTailwindParity([
-      'shadow',
-      'shadow-md',
-      'shadow-inner',
-      'shadow-none',
-      'shadow-red-500',
-      'shadow-[#000]',
-    ])
+    await expectTailwindParity(shadowFixtures.canonical)
   })
 
   it('rejects non-tailwind shadow aliases and opacity shortcuts', async () => {
-    await expectTailwindParity([
-      'shadow-op50',
-      'shadow-opacity-50',
-      'shadow-inset',
-    ])
+    await expectTailwindParity(shadowFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for outline utilities', async () => {
