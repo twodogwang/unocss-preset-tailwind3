@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
@@ -32,6 +33,7 @@ describe('tailwind utility spec', () => {
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const backgroundColorSpec = getSpec('background-color')
     const accentSpec = getSpec('accent')
+    const caretSpec = getSpec('caret')
     const backgroundStyleSpec = getSpec('background-style')
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
@@ -52,6 +54,7 @@ describe('tailwind utility spec', () => {
 
     expect(backgroundColorSpec).toBeTruthy()
     expect(accentSpec).toBeTruthy()
+    expect(caretSpec).toBeTruthy()
     expect(backgroundStyleSpec).toBeTruthy()
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
@@ -86,6 +89,14 @@ describe('tailwind utility spec', () => {
     expect(accentSpec?.supportsVariants).toBe(true)
     expect(accentSpec?.invalid).toContain('accent-#fff')
     expect(accentSpec?.invalid).toContain('accent-opacity-50')
+    expect(caretSpec?.canonical).toEqual([...caretFixtures.canonical])
+    expect(caretSpec?.invalid).toEqual([...caretFixtures.invalid])
+    expect(caretSpec?.sourceFiles).toEqual(['src/_rules-wind3/behaviors.ts'])
+    expect(caretSpec?.category).toBe('color')
+    expect(caretSpec?.supportsPrefix).toBe(true)
+    expect(caretSpec?.supportsVariants).toBe(true)
+    expect(caretSpec?.invalid).toContain('caret-#fff')
+    expect(caretSpec?.invalid).toContain('caret-opacity-50')
     expect(backgroundStyleSpec?.canonical).toEqual([...backgroundStyleFixtures.canonical])
     expect(backgroundStyleSpec?.invalid).toEqual([...backgroundStyleFixtures.invalid])
     expect(backgroundStyleSpec?.sourceFiles).toEqual(['src/_rules-wind3/background.ts'])
@@ -219,7 +230,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [backgroundColorSpec, accentSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, divideSpec, fillSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
+    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, divideSpec, fillSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

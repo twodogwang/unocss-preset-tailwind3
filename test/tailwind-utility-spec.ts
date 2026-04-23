@@ -1,4 +1,5 @@
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
@@ -49,6 +50,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 accent 主规则族只接受 Tailwind 3 的 accent color 语义。'],
+  },
+  {
+    id: 'caret',
+    sourceFiles: ['src/_rules-wind3/behaviors.ts'],
+    category: 'color',
+    canonical: [...caretFixtures.canonical],
+    invalid: [...caretFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 caret 主规则族只接受 Tailwind 3 的 caret color 语义。'],
   },
   {
     id: 'background-style',

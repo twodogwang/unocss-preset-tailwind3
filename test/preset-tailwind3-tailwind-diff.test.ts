@@ -6,6 +6,7 @@ import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
@@ -449,14 +450,13 @@ describe('preset-tailwind3 tailwind parity', () => {
     })
   })
 
-  it('matches Tailwind 3 support for background / svg / accent / caret color utilities', async () => {
+  it('matches Tailwind 3 support for background / svg color utilities', async () => {
     await expectTailwindParity([
       '[color:#fff]',
       'bg-red-500',
       'bg-[#fff]',
       'bg-opacity-50',
       '[background-color:#fff]',
-      'caret-[#fff]',
     ])
   })
 
@@ -468,10 +468,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'bg-red500',
       'bg-op50',
       'bg-op-50',
-      'caret-#fff',
-      'caret-red500',
-      'caret-opacity-50',
-      'caret-op50',
     ])
   })
 
@@ -481,6 +477,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind accent aliases and opacity shortcuts', async () => {
     await expectTailwindParity(accentFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for caret utilities', async () => {
+    await expectTailwindParity(caretFixtures.canonical)
+  })
+
+  it('rejects non-tailwind caret aliases and opacity shortcuts', async () => {
+    await expectTailwindParity(caretFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for fill utilities', async () => {

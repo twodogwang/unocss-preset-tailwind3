@@ -5,6 +5,7 @@ import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
@@ -870,8 +871,6 @@ describe('preset-tailwind3', () => {
     it('matches official Tailwind 3 color utilities', async () => {
       await expectTargets([
         '[color:#fff]',
-        'caret-blue-500',
-        'caret-[#fff]',
       ])
     })
 
@@ -882,10 +881,6 @@ describe('preset-tailwind3', () => {
         'text-#fff',
         'text-red500',
         'text-color-red-500',
-        'caret-#fff',
-        'caret-red500',
-        'caret-opacity-50',
-        'caret-op50',
       ])
     })
 
@@ -914,6 +909,33 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind accent aliases and opacity shortcuts', async () => {
       await expectNonTargets(accentFixtures.invalid)
+    })
+
+    it('matches official Tailwind 3 caret utilities', async () => {
+      await expectTargets(caretFixtures.canonical)
+    })
+
+    it('keeps caret semantic output stable', async () => {
+      const css = await expectTargets(caretFixtures.semantic)
+
+      expect(css).toContain('.caret-blue-500{--un-caret-opacity:1;caret-color:rgb(59 130 246 / var(--un-caret-opacity));}')
+      expect(css).toContain('.caret-\\[\\#fff\\]{--un-caret-opacity:1;caret-color:rgb(255 255 255 / var(--un-caret-opacity));}')
+    })
+
+    it('matches theme-driven caret utilities', async () => {
+      const css = await expectTargets(['caret-brand'], {
+        theme: {
+          colors: {
+            brand: '#ff8800',
+          },
+        },
+      })
+
+      expect(css).toContain('255 136 0')
+    })
+
+    it('rejects non-tailwind caret aliases and opacity shortcuts', async () => {
+      await expectNonTargets(caretFixtures.invalid)
     })
   })
 

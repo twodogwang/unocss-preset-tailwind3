@@ -7,6 +7,7 @@ import {
   backgroundColorBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
+  caretBlocklistMigrationFixtures,
   decorationBlocklistMigrationFixtures,
   divideBlocklistMigrationFixtures,
   fillBlocklistMigrationFixtures,
@@ -255,6 +256,17 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of accentBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks caret migration hints through the shared fixture subset', async () => {
+    expect(caretBlocklistMigrationFixtures).toHaveLength(1)
+    expect(caretBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'caret-#fff',
+    ])
+
+    for (const fixture of caretBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
