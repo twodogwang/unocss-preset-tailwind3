@@ -15,6 +15,7 @@ import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
+import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
@@ -56,6 +57,7 @@ describe('tailwind utility spec', () => {
     const divideSpec = getSpec('divide')
     const fillSpec = getSpec('fill')
     const fontSpec = getSpec('font')
+    const lineClampSpec = getSpec('line-clamp')
     const textAlignSpec = getSpec('text-align')
     const verticalAlignSpec = getSpec('vertical-align')
     const borderSpacingSpaceSpec = getSpec('border-spacing-space')
@@ -86,6 +88,7 @@ describe('tailwind utility spec', () => {
     expect(divideSpec).toBeTruthy()
     expect(fillSpec).toBeTruthy()
     expect(fontSpec).toBeTruthy()
+    expect(lineClampSpec).toBeTruthy()
     expect(textAlignSpec).toBeTruthy()
     expect(verticalAlignSpec).toBeTruthy()
     expect(borderSpacingSpaceSpec).toBeTruthy()
@@ -216,6 +219,14 @@ describe('tailwind utility spec', () => {
     expect(fontSpec?.supportsVariants).toBe(true)
     expect(fontSpec?.invalid).toContain('fw-bold')
     expect(fontSpec?.invalid).toContain('font-650')
+    expect(lineClampSpec?.canonical).toEqual([...lineClampFixtures.canonical])
+    expect(lineClampSpec?.invalid).toEqual([...lineClampFixtures.invalid])
+    expect(lineClampSpec?.sourceFiles).toEqual(['src/_rules-wind3/line-clamp.ts'])
+    expect(lineClampSpec?.category).toBe('typography')
+    expect(lineClampSpec?.supportsPrefix).toBe(true)
+    expect(lineClampSpec?.supportsVariants).toBe(true)
+    expect(lineClampSpec?.invalid).toContain('line-clamp-0')
+    expect(lineClampSpec?.invalid).toContain('line-clamp-revert-layer')
     expect(textAlignSpec?.canonical).toEqual([...textAlignFixtures.canonical])
     expect(textAlignSpec?.invalid).toEqual([...textAlignFixtures.invalid])
     expect(textAlignSpec?.sourceFiles).toEqual(['src/_rules/align.ts'])

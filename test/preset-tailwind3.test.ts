@@ -14,6 +14,7 @@ import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
+import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
@@ -897,6 +898,25 @@ describe('preset-tailwind3', () => {
   describe('text-shadow', () => {
     it('rejects non-tailwind text-shadow aliases and extensions', async () => {
       await expectNonTargets(textShadowFixtures.invalid)
+    })
+  })
+
+  describe('line-clamp', () => {
+    it('matches official Tailwind 3 line-clamp utilities', async () => {
+      await expectTargets(lineClampFixtures.canonical)
+    })
+
+    it('rejects non-tailwind line-clamp aliases and loose keywords', async () => {
+      await expectNonTargets(lineClampFixtures.invalid)
+    })
+
+    it('emits the expected line-clamp CSS for semantic cases', async () => {
+      const css = await expectTargets(lineClampFixtures.semantic)
+
+      expect(css).toContain('.line-clamp-3{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;}')
+      expect(css).toContain('.line-clamp-none{overflow:visible;display:block;-webkit-box-orient:horizontal;-webkit-line-clamp:none;}')
+      expect(css).toContain('.line-clamp-\\[var\\(--n\\)\\]{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:var(--n);}')
+      expect(css).toContain('.line-clamp-\\[inherit\\]{overflow:hidden;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:inherit;}')
     })
   })
 

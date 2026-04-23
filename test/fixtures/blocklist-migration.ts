@@ -80,6 +80,15 @@ export const textShadowBlocklistMigrationFixtures = [
   { input: 'text-shadow-[0_0_10px_var(--x)]', replacement: '[text-shadow:0_0_10px_var(--x)]' },
 ] as const
 
+export const lineClampBlocklistMigrationFixtures = [
+  { input: 'line-clamp-0', replacement: 'line-clamp-[0]' },
+  { input: 'line-clamp-inherit', replacement: 'line-clamp-[inherit]' },
+  { input: 'line-clamp-initial', replacement: 'line-clamp-[initial]' },
+  { input: 'line-clamp-unset', replacement: 'line-clamp-[unset]' },
+  { input: 'line-clamp-revert', replacement: 'line-clamp-[revert]' },
+  { input: 'line-clamp-revert-layer', replacement: 'line-clamp-[revert-layer]' },
+] as const
+
 export const textStrokeBlocklistMigrationFixtures = [
   { input: 'text-stroke', replacement: '[-webkit-text-stroke-width:1.5rem]' },
   { input: 'text-stroke-2', replacement: '[-webkit-text-stroke-width:2px]' },
@@ -210,6 +219,7 @@ export const blocklistMigrationFixtures = [
   ...textIndentBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
+  ...lineClampBlocklistMigrationFixtures,
   ...textShadowBlocklistMigrationFixtures,
   ...textStrokeBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,

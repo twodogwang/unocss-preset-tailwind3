@@ -1,20 +1,28 @@
 import type { Rule } from '@unocss/core'
-import { globalKeywords } from '../utils'
+import { h } from '../utils'
 
 export const lineClamps: Rule[] = [
-  [/^line-clamp-(\d+)$/, ([, v]) => ({
+  [/^line-clamp-([1-9]\d*)$/, ([, v]) => ({
     'overflow': 'hidden',
     'display': '-webkit-box',
     '-webkit-box-orient': 'vertical',
     '-webkit-line-clamp': v,
-    'line-clamp': v,
   }), { autocomplete: ['line-clamp', 'line-clamp-<num>'] }],
-
-  ...['none', ...globalKeywords].map(keyword => [`line-clamp-${keyword}`, {
+  [/^line-clamp-(\[.+\])$/, ([, v]) => {
+    const value = h.bracket.cssvar.global(v)
+    if (value == null)
+      return
+    return {
+      'overflow': 'hidden',
+      'display': '-webkit-box',
+      '-webkit-box-orient': 'vertical',
+      '-webkit-line-clamp': value,
+    }
+  }],
+  ['line-clamp-none', {
     'overflow': 'visible',
     'display': 'block',
     '-webkit-box-orient': 'horizontal',
-    '-webkit-line-clamp': keyword,
-    'line-clamp': keyword,
-  }] as Rule),
+    '-webkit-line-clamp': 'none',
+  }],
 ]

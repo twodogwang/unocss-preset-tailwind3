@@ -15,6 +15,7 @@ import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
+import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
@@ -446,6 +447,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind text-shadow aliases and extensions', async () => {
     await expectTailwindParity(textShadowFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for line-clamp utilities', async () => {
+    await expectTailwindParity(lineClampFixtures.canonical)
+  })
+
+  it('rejects non-tailwind line-clamp aliases and loose keywords', async () => {
+    await expectTailwindParity(lineClampFixtures.invalid)
   })
 
   it('rejects non-tailwind tab-size aliases and extensions', async () => {

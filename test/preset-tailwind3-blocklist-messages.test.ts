@@ -14,6 +14,7 @@ import {
   fontBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
+  lineClampBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
   paddingMarginBlocklistMigrationFixtures,
   ringBlocklistMigrationFixtures,
@@ -288,6 +289,22 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textShadowBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks line-clamp migration hints through the shared fixture subset', async () => {
+    expect(lineClampBlocklistMigrationFixtures).toHaveLength(6)
+    expect(lineClampBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'line-clamp-0',
+      'line-clamp-inherit',
+      'line-clamp-initial',
+      'line-clamp-unset',
+      'line-clamp-revert',
+      'line-clamp-revert-layer',
+    ])
+
+    for (const fixture of lineClampBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
