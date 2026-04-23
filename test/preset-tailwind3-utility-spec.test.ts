@@ -7,6 +7,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -45,6 +46,7 @@ describe('tailwind utility spec', () => {
     const decorationSpec = getSpec('decoration')
     const textDecorationSpec = getSpec('text-decoration')
     const textIndentSpec = getSpec('text-indent')
+    const textWrapOverflowTransformSpec = getSpec('text-wrap-overflow-transform')
     const divideSpec = getSpec('divide')
     const fillSpec = getSpec('fill')
     const fontSpec = getSpec('font')
@@ -71,6 +73,7 @@ describe('tailwind utility spec', () => {
     expect(decorationSpec).toBeTruthy()
     expect(textDecorationSpec).toBeTruthy()
     expect(textIndentSpec).toBeTruthy()
+    expect(textWrapOverflowTransformSpec).toBeTruthy()
     expect(divideSpec).toBeTruthy()
     expect(fillSpec).toBeTruthy()
     expect(fontSpec).toBeTruthy()
@@ -145,6 +148,14 @@ describe('tailwind utility spec', () => {
     expect(textIndentSpec?.supportsVariants).toBe(true)
     expect(textIndentSpec?.invalid).toContain('text-indent-4')
     expect(textIndentSpec?.invalid).toContain('indent-10px')
+    expect(textWrapOverflowTransformSpec?.canonical).toEqual([...textWrapOverflowTransformFixtures.canonical])
+    expect(textWrapOverflowTransformSpec?.invalid).toEqual([...textWrapOverflowTransformFixtures.invalid])
+    expect(textWrapOverflowTransformSpec?.sourceFiles).toEqual(['src/_rules/static.ts'])
+    expect(textWrapOverflowTransformSpec?.category).toBe('typography')
+    expect(textWrapOverflowTransformSpec?.supportsPrefix).toBe(true)
+    expect(textWrapOverflowTransformSpec?.supportsVariants).toBe(true)
+    expect(textWrapOverflowTransformSpec?.invalid).toContain('text-truncate')
+    expect(textWrapOverflowTransformSpec?.invalid).toContain('case-normal')
     expect(divideSpec?.canonical).toEqual([...divideFixtures.canonical])
     expect(divideSpec?.invalid).toEqual([...divideFixtures.invalid])
     expect(divideSpec?.sourceFiles).toEqual(['src/_rules-wind3/divide.ts'])
@@ -286,7 +297,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, textDecorationSpec, textIndentSpec, divideSpec, fillSpec, fontSpec, textAlignSpec, verticalAlignSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
+    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, textDecorationSpec, textIndentSpec, textWrapOverflowTransformSpec, divideSpec, fillSpec, fontSpec, textAlignSpec, verticalAlignSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

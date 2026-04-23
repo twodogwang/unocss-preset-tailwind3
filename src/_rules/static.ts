@@ -134,17 +134,15 @@ export const hyphens: Rule[] = [
 
 export const textOverflows: Rule[] = [
   ['truncate', { 'overflow': 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' }],
-  ['text-truncate', { 'overflow': 'hidden', 'text-overflow': 'ellipsis', 'white-space': 'nowrap' }],
   ['text-ellipsis', { 'text-overflow': 'ellipsis' }],
   ['text-clip', { 'text-overflow': 'clip' }],
 ]
 
 export const textTransforms: Rule[] = [
-  ['case-upper', { 'text-transform': 'uppercase' }],
-  ['case-lower', { 'text-transform': 'lowercase' }],
-  ['case-capital', { 'text-transform': 'capitalize' }],
-  ['case-normal', { 'text-transform': 'none' }],
-  ...makeGlobalStaticRules('case', 'text-transform'),
+  ['uppercase', { 'text-transform': 'uppercase' }],
+  ['lowercase', { 'text-transform': 'lowercase' }],
+  ['capitalize', { 'text-transform': 'capitalize' }],
+  ['normal-case', { 'text-transform': 'none' }],
 ]
 
 export const fontStyles: Rule[] = [

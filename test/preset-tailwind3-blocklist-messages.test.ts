@@ -22,6 +22,7 @@ import {
   textAlignBlocklistMigrationFixtures,
   textDecorationBlocklistMigrationFixtures,
   textIndentBlocklistMigrationFixtures,
+  textWrapOverflowTransformBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
   verticalAlignBlocklistMigrationFixtures,
@@ -225,6 +226,21 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textIndentBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks text-wrap / text-overflow / text-transform migration hints through the shared fixture subset', async () => {
+    expect(textWrapOverflowTransformBlocklistMigrationFixtures).toHaveLength(5)
+    expect(textWrapOverflowTransformBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'text-truncate',
+      'case-upper',
+      'case-lower',
+      'case-capital',
+      'case-normal',
+    ])
+
+    for (const fixture of textWrapOverflowTransformBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

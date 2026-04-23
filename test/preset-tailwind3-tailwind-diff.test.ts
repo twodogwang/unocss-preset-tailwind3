@@ -24,6 +24,7 @@ import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margi
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
@@ -426,6 +427,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind text-indent aliases and raw values', async () => {
     await expectTailwindParity(textIndentFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for text-wrap / text-overflow / text-transform utilities', async () => {
+    await expectTailwindParity(textWrapOverflowTransformFixtures.canonical)
+  })
+
+  it('rejects non-tailwind text-wrap / text-overflow / text-transform aliases', async () => {
+    await expectTailwindParity(textWrapOverflowTransformFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for text utilities', async () => {

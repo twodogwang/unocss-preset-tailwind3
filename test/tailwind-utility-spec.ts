@@ -6,6 +6,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -126,6 +127,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsNegative: true,
     supportsVariants: true,
     notes: ['用于锁定 text-indent 主规则族只接受 Tailwind 3 的 spacing/theme/arbitrary 语义，并拒绝 bare raw values 与旧前缀。'],
+  },
+  {
+    id: 'text-wrap-overflow-transform',
+    sourceFiles: ['src/_rules/static.ts'],
+    category: 'typography',
+    canonical: [...textWrapOverflowTransformFixtures.canonical],
+    invalid: [...textWrapOverflowTransformFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 text-wrap / text-overflow / text-transform 主规则族只接受 Tailwind 3 的 truncate、text-wrap-* 与 uppercase/lowercase/capitalize/normal-case 语义。'],
   },
   {
     id: 'divide',

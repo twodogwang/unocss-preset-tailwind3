@@ -58,6 +58,14 @@ export const textIndentBlocklistMigrationFixtures = [
   { input: 'indent-10px', replacement: 'indent-[10px]' },
 ] as const
 
+export const textWrapOverflowTransformBlocklistMigrationFixtures = [
+  { input: 'text-truncate', replacement: 'truncate' },
+  { input: 'case-upper', replacement: 'uppercase' },
+  { input: 'case-lower', replacement: 'lowercase' },
+  { input: 'case-capital', replacement: 'capitalize' },
+  { input: 'case-normal', replacement: 'normal-case' },
+] as const
+
 export const leadingBlocklistMigrationFixtures = [
   { input: 'lh-6', replacement: 'leading-6' },
   { input: 'line-height-6', replacement: 'leading-6' },
@@ -177,6 +185,7 @@ export const blocklistMigrationFixtures = [
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
   ...textIndentBlocklistMigrationFixtures,
+  ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,

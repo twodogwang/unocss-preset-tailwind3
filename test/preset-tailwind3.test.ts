@@ -23,6 +23,7 @@ import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margi
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
@@ -678,6 +679,33 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('text-indent:10px')
       expect(css).toContain('text-indent:-10px')
       expect(css).toContain('text-indent:3rem')
+    })
+  })
+
+  describe('text-wrap / text-overflow / text-transform', () => {
+    it('matches Tailwind 3 utilities through the shared fixtures', async () => {
+      await expectTargets(textWrapOverflowTransformFixtures.canonical)
+    })
+
+    it('rejects non-tailwind aliases through the shared fixtures', async () => {
+      await expectNonTargets(textWrapOverflowTransformFixtures.invalid)
+    })
+
+    it('emits the expected semantic CSS', async () => {
+      const css = await expectTargets(textWrapOverflowTransformFixtures.semantic)
+
+      expect(css).toContain('overflow:hidden')
+      expect(css).toContain('text-overflow:ellipsis')
+      expect(css).toContain('text-overflow:clip')
+      expect(css).toContain('white-space:nowrap')
+      expect(css).toContain('text-wrap:wrap')
+      expect(css).toContain('text-wrap:nowrap')
+      expect(css).toContain('text-wrap:balance')
+      expect(css).toContain('text-wrap:pretty')
+      expect(css).toContain('text-transform:uppercase')
+      expect(css).toContain('text-transform:lowercase')
+      expect(css).toContain('text-transform:capitalize')
+      expect(css).toContain('text-transform:none')
     })
   })
 
