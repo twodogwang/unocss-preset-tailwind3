@@ -104,12 +104,17 @@
   - `docs/superpowers/plans/2026-04-23-vertical-align-source-rewrite.md`
   - `docs/2026-04-23-vertical-align-source-rewrite-log.md`
   - `docs/2026-04-23-vertical-align-source-rewrite-status.md`
+- `text-decoration` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-text-decoration-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-text-decoration-source-rewrite.md`
+  - `docs/2026-04-23-text-decoration-source-rewrite-log.md`
+  - `docs/2026-04-23-text-decoration-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align` 与 `vertical-align`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align` 与 `text-decoration`。下一步应按 full inventory 继续推进：
 
-1. `text-decoration`
+1. `text-indent`
 2. typography 剩余主规则族
 
 ## 文档职责
