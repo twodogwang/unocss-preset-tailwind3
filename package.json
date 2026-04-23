@@ -41,6 +41,8 @@
     "prepublishOnly": "pnpm run ci",
     "release:publish": "changeset publish",
     "release:notes": "node scripts/release-notes.mjs",
+    "rewrite:finish-family": "node scripts/rewrite-finish-family.mjs --",
+    "rewrite:next-family": "node scripts/rewrite-next-family.mjs",
     "test": "vitest --run",
     "test:fixtures": "pnpm run lint:fixture:ide",
     "test:watch": "vitest",
