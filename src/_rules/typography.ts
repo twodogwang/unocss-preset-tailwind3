@@ -103,7 +103,15 @@ export const tabSizes: Rule<Theme>[] = [
 ]
 
 export const textIndents: Rule<Theme>[] = [
-  [/^indent(?:-(.+))?$/, ([, s], { theme }) => ({ 'text-indent': theme.textIndent?.[s || 'DEFAULT'] || h.bracket.cssvar.global.fraction.rem(s) }), { autocomplete: 'indent-$textIndent' }],
+  [
+    /^indent-(.+)$/,
+    ([, s], { theme }) => {
+      const value = theme.textIndent?.[s] ?? theme.spacing?.[s] ?? (s.startsWith('[') ? h.bracket.cssvar.global.fraction.rem(s) : undefined)
+      if (value != null)
+        return { 'text-indent': value }
+    },
+    { autocomplete: 'indent-$textIndent' },
+  ],
 ]
 
 export const textStrokes: Rule<Theme>[] = [

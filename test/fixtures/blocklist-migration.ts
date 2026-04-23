@@ -52,6 +52,12 @@ export const textBlocklistMigrationFixtures = [
   { input: 'text-color-red-500', replacement: 'text-red-500' },
 ] as const
 
+export const textIndentBlocklistMigrationFixtures = [
+  { input: 'text-indent-4', replacement: 'indent-4' },
+  { input: 'text-indent-[10px]', replacement: 'indent-[10px]' },
+  { input: 'indent-10px', replacement: 'indent-[10px]' },
+] as const
+
 export const leadingBlocklistMigrationFixtures = [
   { input: 'lh-6', replacement: 'leading-6' },
   { input: 'line-height-6', replacement: 'leading-6' },
@@ -170,6 +176,7 @@ export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
+  ...textIndentBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,

@@ -1,0 +1,30 @@
+export const textIndentFixtures = {
+  canonical: [
+    'indent-0',
+    'indent-px',
+    'indent-1.5',
+    'indent-2.5',
+    'indent-4',
+    'indent-[10px]',
+    '-indent-4',
+    '-indent-[10px]',
+    'indent-gutter',
+  ],
+  invalid: [
+    'indent',
+    'indent-1/2',
+    '-indent-1/2',
+    'indent-full',
+    'indent-10px',
+    'text-indent-4',
+    'text-indent-[10px]',
+    'indentx-4',
+  ],
+  semantic: [
+    'indent-4',
+    '-indent-4',
+    'indent-[10px]',
+    '-indent-[10px]',
+    'indent-gutter',
+  ],
+} as const

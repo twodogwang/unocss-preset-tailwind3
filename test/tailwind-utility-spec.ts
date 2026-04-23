@@ -5,6 +5,7 @@ import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-re
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
+import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -114,6 +115,17 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 text-decoration-line 主规则族只接受 Tailwind 3 的 underline / overline / line-through / no-underline 语义。'],
+  },
+  {
+    id: 'text-indent',
+    sourceFiles: ['src/_rules/typography.ts'],
+    category: 'typography',
+    canonical: [...textIndentFixtures.canonical],
+    invalid: [...textIndentFixtures.invalid],
+    supportsPrefix: true,
+    supportsNegative: true,
+    supportsVariants: true,
+    notes: ['用于锁定 text-indent 主规则族只接受 Tailwind 3 的 spacing/theme/arbitrary 语义，并拒绝 bare raw values 与旧前缀。'],
   },
   {
     id: 'divide',

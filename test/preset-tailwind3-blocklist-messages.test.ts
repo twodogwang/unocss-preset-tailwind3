@@ -21,6 +21,7 @@ import {
   strokeBlocklistMigrationFixtures,
   textAlignBlocklistMigrationFixtures,
   textDecorationBlocklistMigrationFixtures,
+  textIndentBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
   verticalAlignBlocklistMigrationFixtures,
@@ -211,6 +212,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textDecorationBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks text-indent migration hints through the shared fixture subset', async () => {
+    expect(textIndentBlocklistMigrationFixtures).toHaveLength(3)
+    expect(textIndentBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'text-indent-4',
+      'text-indent-[10px]',
+      'indent-10px',
+    ])
+
+    for (const fixture of textIndentBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

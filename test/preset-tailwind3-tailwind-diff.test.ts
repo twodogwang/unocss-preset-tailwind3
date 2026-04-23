@@ -23,6 +23,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
+import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
@@ -400,6 +401,31 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches Tailwind 3 support for text-decoration utilities', async () => {
     await expectTailwindParity(textDecorationFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for text-indent utilities', async () => {
+    await expectTailwindParity(textIndentFixtures.canonical, {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            textIndent: {
+              gutter: '3rem',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          textIndent: {
+            gutter: '3rem',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind text-indent aliases and raw values', async () => {
+    await expectTailwindParity(textIndentFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for text utilities', async () => {

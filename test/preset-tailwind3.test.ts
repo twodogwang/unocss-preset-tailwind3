@@ -22,6 +22,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
+import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
@@ -645,6 +646,38 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('text-decoration-line:overline')
       expect(css).toContain('text-decoration-line:line-through')
       expect(css).toContain('text-decoration:none')
+    })
+  })
+
+  describe('text-indent', () => {
+    it('matches Tailwind 3 text-indent utilities through the shared fixtures', async () => {
+      await expectTargets(textIndentFixtures.canonical, {
+        theme: {
+          textIndent: {
+            gutter: '3rem',
+          },
+        },
+      })
+    })
+
+    it('rejects non-tailwind text-indent aliases through the shared fixtures', async () => {
+      await expectNonTargets(textIndentFixtures.invalid)
+    })
+
+    it('emits the expected text-indent CSS for semantic cases', async () => {
+      const css = await expectTargets(textIndentFixtures.semantic, {
+        theme: {
+          textIndent: {
+            gutter: '3rem',
+          },
+        },
+      })
+
+      expect(css).toContain('text-indent:1rem')
+      expect(css).toContain('text-indent:-1rem')
+      expect(css).toContain('text-indent:10px')
+      expect(css).toContain('text-indent:-10px')
+      expect(css).toContain('text-indent:3rem')
     })
   })
 
