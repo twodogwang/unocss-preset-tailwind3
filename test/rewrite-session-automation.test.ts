@@ -37,9 +37,10 @@ describe('rewrite session automation', () => {
     const inventoryDoc = readFileSync(inventoryDocPath, 'utf8')
 
     expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('accent')
+    expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('caret')
     expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('fill')
-    expect(mod.parsePendingFamilies(inventoryDoc)).toContain('caret')
-    expect(mod.findNextPendingFamily(inventoryDoc)).toBe('caret')
+    expect(mod.parsePendingFamilies(inventoryDoc)).toContain('font')
+    expect(mod.findNextPendingFamily(inventoryDoc)).toBe('font')
     expect(mod.slugifyFamily('background-color / bg-opacity')).toBe('background-color-bg-opacity')
     expect(mod.slugifyFamily('text-wrap / text-overflow / text-transform')).toBe('text-wrap-text-overflow-text-transform')
   })
