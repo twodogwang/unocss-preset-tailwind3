@@ -1,9 +1,5 @@
 export const decorationFixtures = {
   canonical: [
-    'underline',
-    'overline',
-    'line-through',
-    'no-underline',
     'decoration-2',
     'decoration-[3px]',
     'decoration-auto',
@@ -17,8 +13,6 @@ export const decorationFixtures = {
     'underline-offset-[3px]',
   ],
   invalid: [
-    'decoration-none',
-    'decoration-underline',
     'decoration-offset-4',
     'decoration-op50',
     'decoration-opacity-50',
@@ -29,10 +23,6 @@ export const decorationFixtures = {
     'underline-wavy',
   ],
   semantic: [
-    'underline',
-    'overline',
-    'line-through',
-    'no-underline',
     'decoration-2',
     'decoration-[3px]',
     'decoration-auto',

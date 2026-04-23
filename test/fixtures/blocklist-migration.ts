@@ -1,3 +1,10 @@
+export const textDecorationBlocklistMigrationFixtures = [
+  { input: 'decoration-none', replacement: 'no-underline' },
+  { input: 'decoration-underline', replacement: 'underline' },
+  { input: 'decoration-overline', replacement: 'overline' },
+  { input: 'decoration-line-through', replacement: 'line-through' },
+] as const
+
 export const outlineBlocklistMigrationFixtures = [
   { input: 'outline-color-red-500', replacement: 'outline-red-500' },
   { input: 'outline-width-2', replacement: 'outline-2' },
@@ -28,8 +35,6 @@ export const divideBlocklistMigrationFixtures = [
 ] as const
 
 export const decorationBlocklistMigrationFixtures = [
-  { input: 'decoration-none', replacement: 'no-underline' },
-  { input: 'decoration-underline', replacement: 'underline' },
   { input: 'decoration-offset-4', replacement: 'underline-offset-4' },
   { input: 'underline-2', replacement: 'decoration-2' },
   { input: 'underline-[3px]', replacement: 'decoration-[3px]' },
@@ -165,6 +170,7 @@ export const blocklistMigrationFixtures = [
   { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
+  ...textDecorationBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,
   ...strokeBlocklistMigrationFixtures,

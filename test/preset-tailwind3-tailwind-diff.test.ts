@@ -10,6 +10,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -277,6 +278,7 @@ describe('preset-tailwind3 tailwind parity', () => {
       'ring-offset-[3px]',
       'ring-offset-red-500',
       'ring-inset',
+      ...textDecorationFixtures.canonical,
       'decoration-2',
       'decoration-[3px]',
       'decoration-auto',
@@ -324,8 +326,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'ring-size-2',
       'ring-offset-op50',
       'ring-offset-opacity-50',
-      'decoration-none',
-      'decoration-underline',
       'decoration-offset-4',
       'decoration-op50',
       'decoration-opacity-50',
@@ -335,6 +335,10 @@ describe('preset-tailwind3 tailwind parity', () => {
       'underline-dashed',
       'underline-wavy',
     ])
+  })
+
+  it('rejects non-tailwind text-decoration aliases and extensions', async () => {
+    await expectTailwindParity(textDecorationFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for shadow utilities', async () => {
@@ -392,6 +396,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind decoration aliases', async () => {
     await expectTailwindParity(decorationFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for text-decoration utilities', async () => {
+    await expectTailwindParity(textDecorationFixtures.canonical)
   })
 
   it('matches Tailwind 3 support for text utilities', async () => {

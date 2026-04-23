@@ -9,6 +9,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -566,8 +567,6 @@ describe('preset-tailwind3', () => {
         'ring-size-2',
         'ring-offset-op50',
         'ring-offset-opacity-50',
-        'decoration-none',
-        'decoration-underline',
         'decoration-offset-4',
         'decoration-op50',
         'decoration-opacity-50',
@@ -618,10 +617,6 @@ describe('preset-tailwind3', () => {
         },
       })
 
-      expect(css).toContain('text-decoration-line:underline')
-      expect(css).toContain('text-decoration-line:overline')
-      expect(css).toContain('text-decoration-line:line-through')
-      expect(css).toContain('text-decoration:none')
       expect(css).toContain('text-decoration-thickness:2px')
       expect(css).toContain('text-decoration-thickness:3px')
       expect(css).toContain('text-decoration-thickness:auto')
@@ -633,6 +628,23 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('text-underline-offset:4px')
       expect(css).toContain('text-underline-offset:3px')
       expect(css).toContain('29 161 242')
+    })
+
+    it('matches Tailwind 3 text-decoration utilities through the shared fixtures', async () => {
+      await expectTargets(textDecorationFixtures.canonical)
+    })
+
+    it('rejects non-tailwind text-decoration aliases through the shared fixtures', async () => {
+      await expectNonTargets(textDecorationFixtures.invalid)
+    })
+
+    it('emits the expected text-decoration CSS for semantic cases', async () => {
+      const css = await expectTargets(textDecorationFixtures.semantic)
+
+      expect(css).toContain('text-decoration-line:underline')
+      expect(css).toContain('text-decoration-line:overline')
+      expect(css).toContain('text-decoration-line:line-through')
+      expect(css).toContain('text-decoration:none')
     })
   })
 

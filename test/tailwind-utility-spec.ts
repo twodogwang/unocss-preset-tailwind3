@@ -4,6 +4,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -102,7 +103,17 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     invalid: [...decorationFixtures.invalid],
     supportsPrefix: true,
     supportsVariants: true,
-    notes: ['用于锁定 decoration / underline-offset 主规则族的 thickness、style、color 与 offset 语义边界。'],
+    notes: ['用于锁定 decoration / underline-offset 主规则族的 thickness、style、color 与 offset 语义边界，不再混入 line 入口。'],
+  },
+  {
+    id: 'text-decoration',
+    sourceFiles: ['src/_rules/decoration.ts'],
+    category: 'typography',
+    canonical: [...textDecorationFixtures.canonical],
+    invalid: [...textDecorationFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 text-decoration-line 主规则族只接受 Tailwind 3 的 underline / overline / line-through / no-underline 语义。'],
   },
   {
     id: 'divide',

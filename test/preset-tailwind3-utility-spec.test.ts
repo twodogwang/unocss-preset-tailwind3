@@ -5,6 +5,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -41,6 +42,7 @@ describe('tailwind utility spec', () => {
     const borderWidthSpec = getSpec('border-width')
     const borderRadiusSpec = getSpec('border-radius')
     const decorationSpec = getSpec('decoration')
+    const textDecorationSpec = getSpec('text-decoration')
     const divideSpec = getSpec('divide')
     const fillSpec = getSpec('fill')
     const fontSpec = getSpec('font')
@@ -65,6 +67,7 @@ describe('tailwind utility spec', () => {
     expect(borderWidthSpec).toBeTruthy()
     expect(borderRadiusSpec).toBeTruthy()
     expect(decorationSpec).toBeTruthy()
+    expect(textDecorationSpec).toBeTruthy()
     expect(divideSpec).toBeTruthy()
     expect(fillSpec).toBeTruthy()
     expect(fontSpec).toBeTruthy()
@@ -120,8 +123,16 @@ describe('tailwind utility spec', () => {
     expect(decorationSpec?.category).toBe('typography')
     expect(decorationSpec?.supportsPrefix).toBe(true)
     expect(decorationSpec?.supportsVariants).toBe(true)
-    expect(decorationSpec?.invalid).toContain('decoration-none')
+    expect(decorationSpec?.invalid).toContain('decoration-offset-4')
     expect(decorationSpec?.invalid).toContain('underline-dashed')
+    expect(textDecorationSpec?.canonical).toEqual([...textDecorationFixtures.canonical])
+    expect(textDecorationSpec?.invalid).toEqual([...textDecorationFixtures.invalid])
+    expect(textDecorationSpec?.sourceFiles).toEqual(['src/_rules/decoration.ts'])
+    expect(textDecorationSpec?.category).toBe('typography')
+    expect(textDecorationSpec?.supportsPrefix).toBe(true)
+    expect(textDecorationSpec?.supportsVariants).toBe(true)
+    expect(textDecorationSpec?.invalid).toContain('decoration-none')
+    expect(textDecorationSpec?.invalid).toContain('decoration-line-through')
     expect(divideSpec?.canonical).toEqual([...divideFixtures.canonical])
     expect(divideSpec?.invalid).toEqual([...divideFixtures.invalid])
     expect(divideSpec?.sourceFiles).toEqual(['src/_rules-wind3/divide.ts'])

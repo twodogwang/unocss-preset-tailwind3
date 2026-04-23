@@ -603,6 +603,20 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'underline',
   },
   {
+    label: 'decoration overline alias',
+    matcher: /^decoration-overline$/,
+    input: 'decoration-overline',
+    prefixed: 'tw-decoration-overline',
+    replacement: 'overline',
+  },
+  {
+    label: 'decoration line-through alias',
+    matcher: /^decoration-line-through$/,
+    input: 'decoration-line-through',
+    prefixed: 'tw-decoration-line-through',
+    replacement: 'line-through',
+  },
+  {
     label: 'decoration offset alias',
     matcher: /^decoration-offset-(.+)$/,
     input: 'decoration-offset-4',
