@@ -114,12 +114,17 @@
   - `docs/superpowers/plans/2026-04-23-text-indent-source-rewrite.md`
   - `docs/2026-04-23-text-indent-source-rewrite-log.md`
   - `docs/2026-04-23-text-indent-source-rewrite-status.md`
+- `text-wrap / text-overflow / text-transform` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-text-wrap-text-overflow-text-transform-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-text-wrap-text-overflow-text-transform-source-rewrite.md`
+  - `docs/2026-04-23-text-wrap-text-overflow-text-transform-source-rewrite-log.md`
+  - `docs/2026-04-23-text-wrap-text-overflow-text-transform-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration` 与 `text-indent`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent` 与 `text-wrap / text-overflow / text-transform`。下一步应按 full inventory 继续推进：
 
-1. `text-wrap / text-overflow / text-transform`
+1. `tab-size`
 2. typography 剩余主规则族
 
 ## 文档职责

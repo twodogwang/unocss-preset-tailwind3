@@ -1,0 +1,13 @@
+# Text Wrap Text Overflow Text Transform Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: text-wrap / text-overflow / text-transform fixtures and dedicated tests
+  - Task 2: static runtime narrowed to official Tailwind 3 text-transform and truncate semantics
+  - Task 3: utility spec, blocklist migration subset, docs, and rewrite-session automation update
+  - verification: runtime, parity, utility spec, blocklist messages, blocklist prefix audit, document governance, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
