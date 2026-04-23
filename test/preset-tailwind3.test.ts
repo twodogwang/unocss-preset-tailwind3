@@ -4,6 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
@@ -869,8 +870,6 @@ describe('preset-tailwind3', () => {
     it('matches official Tailwind 3 color utilities', async () => {
       await expectTargets([
         '[color:#fff]',
-        'accent-red-500',
-        'accent-[#fff]',
         'caret-blue-500',
         'caret-[#fff]',
       ])
@@ -883,15 +882,38 @@ describe('preset-tailwind3', () => {
         'text-#fff',
         'text-red500',
         'text-color-red-500',
-        'accent-#fff',
-        'accent-red500',
-        'accent-opacity-50',
-        'accent-op50',
         'caret-#fff',
         'caret-red500',
         'caret-opacity-50',
         'caret-op50',
       ])
+    })
+
+    it('matches official Tailwind 3 accent utilities', async () => {
+      await expectTargets(accentFixtures.canonical)
+    })
+
+    it('keeps accent semantic output stable', async () => {
+      const css = await expectTargets(accentFixtures.semantic)
+
+      expect(css).toContain('.accent-red-500{--un-accent-opacity:1;accent-color:rgb(239 68 68 / var(--un-accent-opacity));}')
+      expect(css).toContain('.accent-\\[\\#fff\\]{--un-accent-opacity:1;accent-color:rgb(255 255 255 / var(--un-accent-opacity));}')
+    })
+
+    it('matches theme-driven accent utilities', async () => {
+      const css = await expectTargets(['accent-brand'], {
+        theme: {
+          colors: {
+            brand: '#ff8800',
+          },
+        },
+      })
+
+      expect(css).toContain('255 136 0')
+    })
+
+    it('rejects non-tailwind accent aliases and opacity shortcuts', async () => {
+      await expectNonTargets(accentFixtures.invalid)
     })
   })
 

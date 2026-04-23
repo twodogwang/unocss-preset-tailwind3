@@ -3,6 +3,7 @@ import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import {
+  accentBlocklistMigrationFixtures,
   backgroundColorBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
@@ -243,6 +244,17 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of fillBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks accent migration hints through the shared fixture subset', async () => {
+    expect(accentBlocklistMigrationFixtures).toHaveLength(1)
+    expect(accentBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'accent-#fff',
+    ])
+
+    for (const fixture of accentBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

@@ -1,3 +1,4 @@
+import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
@@ -38,6 +39,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 background-color / bg-opacity 主规则族只接受 Tailwind 3 正式颜色与 opacity 语法。'],
+  },
+  {
+    id: 'accent',
+    sourceFiles: ['src/_rules-wind3/behaviors.ts'],
+    category: 'color',
+    canonical: [...accentFixtures.canonical],
+    invalid: [...accentFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 accent 主规则族只接受 Tailwind 3 的 accent color 语义。'],
   },
   {
     id: 'background-style',

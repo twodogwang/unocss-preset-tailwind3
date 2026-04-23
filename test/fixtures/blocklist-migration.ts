@@ -69,6 +69,10 @@ export const fillBlocklistMigrationFixtures = [
   { input: 'fill-#fff', replacement: 'fill-[#fff]' },
 ] as const
 
+export const accentBlocklistMigrationFixtures = [
+  { input: 'accent-#fff', replacement: 'accent-[#fff]' },
+] as const
+
 export const paddingMarginBlocklistMigrationFixtures = [
   { input: 'p4', replacement: 'p-4' },
   { input: 'px2', replacement: 'px-2' },
@@ -136,11 +140,11 @@ export const blocklistMigrationFixtures = [
   ...trackingBlocklistMigrationFixtures,
   ...strokeBlocklistMigrationFixtures,
   ...fillBlocklistMigrationFixtures,
+  ...accentBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,
   ...backgroundColorBlocklistMigrationFixtures,
-  { input: 'accent-#fff', replacement: 'accent-[#fff]' },
   { input: 'caret-#fff', replacement: 'caret-[#fff]' },
   { input: 'b-2', replacement: 'border-2' },
   { input: 'b-red-500', replacement: 'border-red-500' },

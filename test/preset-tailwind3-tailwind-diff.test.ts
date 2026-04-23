@@ -5,6 +5,7 @@ import presetTailwind3 from '../src/index'
 import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
@@ -455,7 +456,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'bg-[#fff]',
       'bg-opacity-50',
       '[background-color:#fff]',
-      'accent-[#fff]',
       'caret-[#fff]',
     ])
   })
@@ -468,15 +468,19 @@ describe('preset-tailwind3 tailwind parity', () => {
       'bg-red500',
       'bg-op50',
       'bg-op-50',
-      'accent-#fff',
-      'accent-red500',
-      'accent-opacity-50',
-      'accent-op50',
       'caret-#fff',
       'caret-red500',
       'caret-opacity-50',
       'caret-op50',
     ])
+  })
+
+  it('matches Tailwind 3 support for accent utilities', async () => {
+    await expectTailwindParity(accentFixtures.canonical)
+  })
+
+  it('rejects non-tailwind accent aliases and opacity shortcuts', async () => {
+    await expectTailwindParity(accentFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for fill utilities', async () => {
