@@ -82,6 +82,15 @@ export const fontBlocklistMigrationFixtures = [
   { input: 'font-650', replacement: 'font-[650]' },
 ] as const
 
+export const textAlignBlocklistMigrationFixtures = [
+  { input: 'text-align-left', replacement: 'text-left' },
+  { input: 'text-align-center', replacement: 'text-center' },
+  { input: 'text-align-right', replacement: 'text-right' },
+  { input: 'text-align-justify', replacement: 'text-justify' },
+  { input: 'text-align-start', replacement: 'text-start' },
+  { input: 'text-align-end', replacement: 'text-end' },
+] as const
+
 export const paddingMarginBlocklistMigrationFixtures = [
   { input: 'p4', replacement: 'p-4' },
   { input: 'px2', replacement: 'px-2' },
@@ -151,6 +160,7 @@ export const blocklistMigrationFixtures = [
   ...fillBlocklistMigrationFixtures,
   ...accentBlocklistMigrationFixtures,
   ...fontBlocklistMigrationFixtures,
+  ...textAlignBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,

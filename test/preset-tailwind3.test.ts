@@ -20,6 +20,7 @@ import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-s
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
+import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -1002,6 +1003,27 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.tracking-wide{letter-spacing:0.025em;}')
       expect(css).toContain('.tracking-\\[0\\.2em\\]{letter-spacing:0.2em;}')
       expect(css).toContain('.tracking-\\[calc\\(1em-1px\\)\\]{letter-spacing:calc(1em - 1px);}')
+    })
+  })
+
+  describe('text-align', () => {
+    it('matches official Tailwind 3 text-align utilities', async () => {
+      await expectTargets(textAlignFixtures.canonical)
+    })
+
+    it('keeps text-align semantic output stable', async () => {
+      const css = await expectTargets(textAlignFixtures.semantic)
+
+      expect(css).toContain('.text-left{text-align:left;}')
+      expect(css).toContain('.text-center{text-align:center;}')
+      expect(css).toContain('.text-right{text-align:right;}')
+      expect(css).toContain('.text-justify{text-align:justify;}')
+      expect(css).toContain('.text-start{text-align:start;}')
+      expect(css).toContain('.text-end{text-align:end;}')
+    })
+
+    it('rejects legacy text-align aliases and global keyword shortcuts', async () => {
+      await expectNonTargets(textAlignFixtures.invalid)
     })
   })
 

@@ -21,6 +21,7 @@ import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-s
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
+import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -502,6 +503,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind font aliases and bare numeric shortcuts', async () => {
     await expectTailwindParity(fontFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for text-align utilities', async () => {
+    await expectTailwindParity(textAlignFixtures.canonical)
+  })
+
+  it('rejects legacy text-align aliases and global keyword shortcuts', async () => {
+    await expectTailwindParity(textAlignFixtures.invalid)
   })
 
   it('matches official Tailwind 3 stroke utilities', async () => {

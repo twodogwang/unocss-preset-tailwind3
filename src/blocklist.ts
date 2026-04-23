@@ -135,6 +135,7 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: new RegExp(`^leading-(${rawLengthValue})$`), replacement: (_, match) => `leading-[${match[1]}]` },
   { matcher: /^font-tracking-(.+)$/, replacement: (_, match) => `tracking-${match[1]}` },
   { matcher: new RegExp(`^tracking-(${rawLengthValue})$`), replacement: (_, match) => `tracking-[${match[1]}]` },
+  { matcher: /^text-align-(left|center|right|justify|start|end)$/, replacement: (_, match) => `text-${match[1]}` },
   { matcher: /^stroke-(?:width|size)-(.+)$/, replacement: (_, match) => `stroke-${match[1]}` },
   { matcher: /^font-(\d+)$/, replacement: (_, match) => `font-[${match[1]}]` },
   { matcher: /^b-(.+)$/, replacement: selector => selector.replace(/^b-/, 'border-') },

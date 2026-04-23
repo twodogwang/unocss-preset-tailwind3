@@ -19,6 +19,7 @@ import {
   ringBlocklistMigrationFixtures,
   shadowBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
+  textAlignBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
   textBlocklistMigrationFixtures,
@@ -280,6 +281,22 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of fontBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks text-align migration hints through the shared fixture subset', async () => {
+    expect(textAlignBlocklistMigrationFixtures).toHaveLength(6)
+    expect(textAlignBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'text-align-left',
+      'text-align-center',
+      'text-align-right',
+      'text-align-justify',
+      'text-align-start',
+      'text-align-end',
+    ])
+
+    for (const fixture of textAlignBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

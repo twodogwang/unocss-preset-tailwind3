@@ -15,6 +15,7 @@ import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-s
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
+import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -131,6 +132,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 font 主规则族只接受 Tailwind 3 的 font family 与 font weight 语义。'],
+  },
+  {
+    id: 'text-align',
+    sourceFiles: ['src/_rules/align.ts'],
+    category: 'typography',
+    canonical: [...textAlignFixtures.canonical],
+    invalid: [...textAlignFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 text-align 主规则族只接受 Tailwind 3 的 text-left/right/center/justify/start/end 语义。'],
   },
   {
     id: 'outline',

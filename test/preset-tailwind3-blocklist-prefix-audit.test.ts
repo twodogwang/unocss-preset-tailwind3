@@ -379,6 +379,13 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'tracking-[0.2em]',
   },
   {
+    label: 'text-align alias',
+    matcher: /^text-align-(left|center|right|justify|start|end)$/,
+    input: 'text-align-left',
+    prefixed: 'tw-text-align-left',
+    replacement: 'text-left',
+  },
+  {
     label: 'stroke width alias',
     matcher: /^stroke-(?:width|size)-(.+)$/,
     input: 'stroke-width-2',
