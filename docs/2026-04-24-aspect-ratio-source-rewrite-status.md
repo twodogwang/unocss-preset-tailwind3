@@ -1,0 +1,13 @@
+# Aspect Ratio Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: aspect-ratio fixtures and dedicated tests
+  - Task 2: runtime, theme, and blocklist aligned with Tailwind 3.4 aspect-ratio semantics
+  - Task 3: utility spec, docs, and rewrite-session automation update
+  - verification: runtime, parity, utility spec, blocklist messages, blocklist prefix audit, document governance, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
