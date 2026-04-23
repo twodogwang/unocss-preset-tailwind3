@@ -17,15 +17,31 @@ export const baseSize = {
 
 export const width = {
   auto: 'auto',
-  ...baseSize,
+  full: '100%',
   screen: '100vw',
+  svw: '100svw',
+  lvw: '100lvw',
+  dvw: '100dvw',
+  min: 'min-content',
+  max: 'max-content',
+  fit: 'fit-content',
 } satisfies Theme['width']
 
 export const maxWidth = {
   none: 'none',
   ...baseSize,
-  screen: '100vw',
+  full: '100%',
+  min: 'min-content',
+  max: 'max-content',
+  fit: 'fit-content',
 } satisfies Theme['maxWidth']
+
+export const minWidth = {
+  full: '100%',
+  min: 'min-content',
+  max: 'max-content',
+  fit: 'fit-content',
+} satisfies Theme['minWidth']
 
 export const blockSize = {
   auto: 'auto',
@@ -41,15 +57,38 @@ export const inlineSize = {
 
 export const height = {
   auto: 'auto',
-  ...baseSize,
+  full: '100%',
   screen: '100vh',
+  svh: '100svh',
+  lvh: '100lvh',
+  dvh: '100dvh',
+  min: 'min-content',
+  max: 'max-content',
+  fit: 'fit-content',
 } satisfies Theme['height']
 
 export const maxHeight = {
   none: 'none',
-  ...baseSize,
+  full: '100%',
   screen: '100vh',
+  svh: '100svh',
+  lvh: '100lvh',
+  dvh: '100dvh',
+  min: 'min-content',
+  max: 'max-content',
+  fit: 'fit-content',
 } satisfies Theme['maxHeight']
+
+export const minHeight = {
+  full: '100%',
+  screen: '100vh',
+  svh: '100svh',
+  lvh: '100lvh',
+  dvh: '100dvh',
+  min: 'min-content',
+  max: 'max-content',
+  fit: 'fit-content',
+} satisfies Theme['minHeight']
 
 export const maxBlockSize = {
   none: 'none',

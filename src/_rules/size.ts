@@ -21,6 +21,9 @@ function getSizeValue(minmax: string, hw: string, theme: Theme, prop: string) {
   if (v != null)
     return v
 
+  if (prop === 'none')
+    return
+
   const spacingValue = resolveTailwindSpacing(theme, prop, { allowFraction: true })
   if (spacingValue != null)
     return spacingValue
@@ -35,8 +38,30 @@ function getSizeValue(minmax: string, hw: string, theme: Theme, prop: string) {
   }
 }
 
+function getSquareSizeValue(theme: Theme, prop: string) {
+  if (prop === 'none')
+    return
+
+  const spacingValue = resolveTailwindSpacing(theme, prop, { allowAuto: true, allowFraction: true })
+  if (spacingValue != null)
+    return spacingValue
+
+  switch (prop) {
+    case 'full':
+      return '100%'
+    case 'fit':
+    case 'max':
+    case 'min':
+      return `${prop}-content`
+  }
+}
+
 export const sizes: Rule<Theme>[] = [
-  [/^size-(min-|max-)?(.+)$/, ([, m, s], { theme }) => ({ [getPropName(m, 'w')]: getSizeValue(m, 'w', theme, s), [getPropName(m, 'h')]: getSizeValue(m, 'h', theme, s) })],
+  [/^size-(.+)$/, ([, s], { theme }) => {
+    const value = getSquareSizeValue(theme, s)
+    if (value != null)
+      return { width: value, height: value }
+  }],
   [/^(min-|max-)?([wh])-(.+)$/, ([, m, w, s], { theme }) => ({ [getPropName(m, w)]: getSizeValue(m, w, theme, s) }), {
     autocomplete: [
       '(w|h)-$width|height|maxWidth|maxHeight|minWidth|minHeight',
@@ -46,15 +71,9 @@ export const sizes: Rule<Theme>[] = [
       '(max|min)-(w|h)-full',
     ],
   }],
-  [/^(min-|max-)?(h)-screen-(.+)$/, ([, m, h, p], context) => ({ [getPropName(m, h)]: handleBreakpoint(context, p, 'verticalBreakpoints') })],
-  [/^(min-|max-)?(w)-screen-(.+)$/, ([, m, w, p], context) => ({ [getPropName(m, w)]: handleBreakpoint(context, p) }), {
+  [/^(max-)(w)-screen-(.+)$/, ([, m, w, p], context) => ({ [getPropName(m, w)]: handleBreakpoint(context, p) }), {
     autocomplete: [
-      '(w|h)-screen',
-      '(min|max)-(w|h)-screen',
-      'h-screen-$verticalBreakpoints',
-      '(min|max)-h-screen-$verticalBreakpoints',
-      'w-screen-$breakpoints',
-      '(min|max)-w-screen-$breakpoints',
+      'max-w-screen-$breakpoints',
     ],
   }],
 ]

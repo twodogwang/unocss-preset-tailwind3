@@ -148,6 +148,27 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'mx-[var(--gap)]',
   },
   {
+    label: 'compact size axis shorthand alias',
+    matcher: /^([wh])(\d+(?:\.\d+)?)$/,
+    input: 'w4',
+    prefixed: 'tw-w4',
+    replacement: 'w-4',
+  },
+  {
+    label: 'compact min max size shorthand alias',
+    matcher: /^(min|max)([wh])(.+)$/,
+    input: 'minw0',
+    prefixed: 'tw-minw0',
+    replacement: 'min-w-0',
+  },
+  {
+    label: 'raw size arbitrary alias',
+    matcher: new RegExp('^(size|(?:min|max)-[wh]|[wh])-((?:(?:\\d+\\.?\\d*|\\d*\\.\\d+)(?:%|px|r?em|ex|ch|vh|vw|vmin|vmax|svh|svw|lvh|lvw|dvh|dvw|cm|mm|in|pt|pc)|(?:var|calc|min|max|clamp)\\(.+\\)))$'),
+    input: 'w-100px',
+    prefixed: 'tw-w-100px',
+    replacement: 'w-[100px]',
+  },
+  {
     label: 'compact gap shorthand alias',
     matcher: /^gap(\d+(?:\.\d+)?)$/,
     input: 'gap4',

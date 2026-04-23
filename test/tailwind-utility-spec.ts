@@ -19,6 +19,7 @@ import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
+import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -42,6 +43,16 @@ export interface TailwindUtilitySpec {
 }
 
 export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
+  {
+    id: 'size',
+    sourceFiles: ['src/_rules/size.ts'],
+    category: 'layout',
+    canonical: [...sizeFixtures.canonical],
+    invalid: [...sizeFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 size / width / height / min-* / max-* 主规则族只接受 Tailwind 3 官方的 spacing、fraction、viewport 与 screen/max-width 语义。'],
+  },
   {
     id: 'background-color',
     sourceFiles: ['src/_rules/color.ts'],

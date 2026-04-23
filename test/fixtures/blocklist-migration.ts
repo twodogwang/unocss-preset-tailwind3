@@ -58,6 +58,17 @@ export const textIndentBlocklistMigrationFixtures = [
   { input: 'indent-10px', replacement: 'indent-[10px]' },
 ] as const
 
+export const sizeBlocklistMigrationFixtures = [
+  { input: 'w4', replacement: 'w-4' },
+  { input: 'h10', replacement: 'h-10' },
+  { input: 'minw0', replacement: 'min-w-0' },
+  { input: 'maxhfull', replacement: 'max-h-full' },
+  { input: 'w-100px', replacement: 'w-[100px]' },
+  { input: 'max-h-400px', replacement: 'max-h-[400px]' },
+  { input: 'min-w-20ch', replacement: 'min-w-[20ch]' },
+  { input: 'size-32rem', replacement: 'size-[32rem]' },
+] as const
+
 export const textWrapOverflowTransformBlocklistMigrationFixtures = [
   { input: 'text-truncate', replacement: 'truncate' },
   { input: 'case-upper', replacement: 'uppercase' },
@@ -229,6 +240,7 @@ export const blocklistMigrationFixtures = [
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
   ...textIndentBlocklistMigrationFixtures,
+  ...sizeBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,

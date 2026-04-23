@@ -20,6 +20,7 @@ import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
+import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -43,6 +44,7 @@ describe('tailwind utility spec', () => {
 
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const backgroundColorSpec = getSpec('background-color')
+    const sizeSpec = getSpec('size')
     const accentSpec = getSpec('accent')
     const caretSpec = getSpec('caret')
     const backgroundStyleSpec = getSpec('background-style')
@@ -75,6 +77,7 @@ describe('tailwind utility spec', () => {
     const textSpec = getSpec('text')
 
     expect(backgroundColorSpec).toBeTruthy()
+    expect(sizeSpec).toBeTruthy()
     expect(accentSpec).toBeTruthy()
     expect(caretSpec).toBeTruthy()
     expect(backgroundStyleSpec).toBeTruthy()
@@ -106,6 +109,16 @@ describe('tailwind utility spec', () => {
     expect(transitionSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
+    expect(sizeSpec?.canonical).toEqual([...sizeFixtures.canonical])
+    expect(sizeSpec?.invalid).toEqual([...sizeFixtures.invalid])
+    expect(sizeSpec?.sourceFiles).toEqual(['src/_rules/size.ts'])
+    expect(sizeSpec?.category).toBe('layout')
+    expect(sizeSpec?.supportsPrefix).toBe(true)
+    expect(sizeSpec?.supportsVariants).toBe(true)
+    expect(sizeSpec?.canonical).toContain('w-svw')
+    expect(sizeSpec?.canonical).toContain('max-w-screen-md')
+    expect(sizeSpec?.invalid).toContain('w-xs')
+    expect(sizeSpec?.invalid).toContain('size-screen')
     expect(backgroundColorSpec?.canonical).toEqual([...backgroundColorFixtures.canonical])
     expect(backgroundColorSpec?.invalid).toEqual([...backgroundColorFixtures.invalid])
     expect(backgroundColorSpec?.sourceFiles).toEqual(['src/_rules/color.ts'])

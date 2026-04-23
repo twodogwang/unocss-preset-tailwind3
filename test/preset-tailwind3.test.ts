@@ -19,6 +19,7 @@ import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
+import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -74,26 +75,7 @@ describe('preset-tailwind3', () => {
 
   describe('size / width / height / min-* / max-*', () => {
     it('matches official Tailwind 3 dimension utilities', async () => {
-      await expectTargets([
-        'w-4',
-        'w-px',
-        'w-auto',
-        'w-full',
-        'w-screen',
-        'h-8',
-        'h-px',
-        'h-auto',
-        'h-full',
-        'h-screen',
-        'min-w-0',
-        'min-w-full',
-        'min-h-screen',
-        'max-w-screen-md',
-        'max-w-full',
-        'max-h-screen',
-        'size-4',
-        'size-full',
-      ])
+      await expectTargets(sizeFixtures.canonical)
     })
 
     it('matches arbitrary dimension values', async () => {
@@ -129,25 +111,18 @@ describe('preset-tailwind3', () => {
     })
 
     it('rejects non-tailwind dimension syntax', async () => {
-      await expectNonTargets([
-        'w4',
-        'w-100px',
-        'h8',
-        'h-2rem',
-        'minw-0',
-        'min-w-20ch',
-        'maxw-screen-md',
-        'max-h-400px',
-        'size-w-4',
-        'size-h-8',
-        'size-32rem',
-        'min-w0',
-        'max-h400px',
-        'block-4',
-        'inline-4',
-        'min-block-4',
-        'size-max-w-full',
-      ])
+      await expectNonTargets(sizeFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic size cases', async () => {
+      const css = await expectTargets(sizeFixtures.semantic)
+
+      expect(css).toContain('.w-svw{width:100svw;}')
+      expect(css).toContain('.h-dvh{height:100dvh;}')
+      expect(css).toContain('.min-w-fit{min-width:fit-content;}')
+      expect(css).toContain('.max-w-screen-md{max-width:768px;}')
+      expect(css).toContain('.size-auto{width:auto;height:auto;}')
+      expect(css).toContain('.size-fit{width:fit-content;height:fit-content;}')
     })
   })
 

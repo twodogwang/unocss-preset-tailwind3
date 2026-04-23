@@ -20,6 +20,7 @@ import {
   paddingMarginBlocklistMigrationFixtures,
   ringBlocklistMigrationFixtures,
   shadowBlocklistMigrationFixtures,
+  sizeBlocklistMigrationFixtures,
   strokeBlocklistMigrationFixtures,
   textAlignBlocklistMigrationFixtures,
   textDecorationBlocklistMigrationFixtures,
@@ -122,6 +123,24 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks size migration hints through the shared fixture subset', async () => {
+    expect(sizeBlocklistMigrationFixtures).toHaveLength(8)
+    expect(sizeBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'w4',
+      'h10',
+      'minw0',
+      'maxhfull',
+      'w-100px',
+      'max-h-400px',
+      'min-w-20ch',
+      'size-32rem',
+    ])
+
+    for (const fixture of sizeBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

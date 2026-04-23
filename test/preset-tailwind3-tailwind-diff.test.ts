@@ -20,6 +20,7 @@ import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
+import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -104,9 +105,8 @@ async function expectTailwindParity(
 describe('preset-tailwind3 tailwind parity', () => {
   it('matches Tailwind 3 support for strict size / spacing / gap / inset / translate / scroll utilities', async () => {
     await expectTailwindParity([
-      'w-4',
+      ...sizeFixtures.canonical,
       'w-[100px]',
-      'min-w-0',
       'max-h-[400px]',
       'translate-x-[12px]',
     ])
@@ -114,14 +114,7 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects loose mini or windicss-style syntax that Tailwind 3 does not support', async () => {
     await expectTailwindParity([
-      'min-w0',
-      'max-h400px',
-      'size-w-4',
-      'size-h-8',
-      'size-max-w-full',
-      'block-4',
-      'inline-4',
-      'min-block-4',
+      ...sizeFixtures.invalid,
       'flex-gap-4',
       'grid-gap-4',
       'translate-4',
