@@ -32,6 +32,7 @@
 | `shadow` | `src/_rules/shadow.ts` | `completed_template` | 已覆盖 theme、color、inner、none、arbitrary value，并锁住高置信度 alias migration |
 | `divide` | `src/_rules-wind3/divide.ts` | `completed_template` | 已覆盖 width、reverse、style、color、opacity、arbitrary/theme-driven 语义，并锁住高置信度 alias migration |
 | `fill` | `src/_rules/svg.ts` | `completed_template` | 已覆盖 fill color、none 与高置信度 hex alias migration |
+| `accent` | `src/_rules-wind3/behaviors.ts` | `completed_template` | 已覆盖 accent color 与高置信度 hex alias migration |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -46,7 +47,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `accent` | `src/_rules-wind3/behaviors.ts` | `pending_wave_2` | `wave_2` | 目前只有综合测试与 blocklist |
 | `caret` | `src/_rules-wind3/behaviors.ts` | `pending_wave_2` | `wave_2` | 目前只有综合测试与 blocklist |
 | `font` | `src/_rules/typography.ts` | `pending_wave_2` | `wave_2` | 含 font family / weight 等主规则族 |
 | `text-align` | `src/_rules/align.ts` | `pending_wave_2` | `wave_2` | 尚未进入 rewrite 模板 |
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `accent / caret` 或 typography 剩余主规则族。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `caret` 或 typography 剩余主规则族。
