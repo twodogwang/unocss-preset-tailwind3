@@ -35,6 +35,7 @@
 | `accent` | `src/_rules-wind3/behaviors.ts` | `completed_template` | 已覆盖 accent color 与高置信度 hex alias migration |
 | `caret` | `src/_rules-wind3/behaviors.ts` | `completed_template` | 已覆盖 caret color 与高置信度 hex alias migration |
 | `font` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 font family、font weight 与高置信度 alias migration |
+| `text-align` | `src/_rules/align.ts` | `completed_template` | 已覆盖 text-left/right/center/justify/start/end 与高置信度 alias migration |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -49,7 +50,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `text-align` | `src/_rules/align.ts` | `pending_wave_2` | `wave_2` | 尚未进入 rewrite 模板 |
 | `vertical-align` | `src/_rules/align.ts` | `pending_wave_2` | `wave_2` | 尚未进入 rewrite 模板 |
 | `text-decoration` | `src/_rules/decoration.ts` | `pending_wave_2` | `wave_2` | 与 decoration thickness/style 相邻但未拆开治理 |
 | `text-indent` | `src/_rules/typography.ts` | `pending_wave_2` | `wave_2` | |
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `text-align` 或 typography 剩余主规则族。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `vertical-align` 或 typography 剩余主规则族。

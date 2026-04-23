@@ -1,0 +1,13 @@
+# Text Align Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: text-align fixtures and dedicated tests
+  - Task 2: utility spec and blocklist migration subset
+  - Task 3: docs and overall tracking sync
+  - verification: runtime, parity, utility spec, blocklist messages, blocklist prefix audit, document governance, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
