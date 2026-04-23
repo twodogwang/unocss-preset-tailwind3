@@ -1,0 +1,13 @@
+# Line Clamp Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: line-clamp fixtures and dedicated tests
+  - Task 2: line-clamp runtime aligned to Tailwind 3
+  - Task 3: utility spec, blocklist governance subset, docs, and rewrite-session automation update
+  - verification: runtime, parity, utility spec, blocklist messages, blocklist prefix audit, document governance, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
