@@ -9,6 +9,7 @@ import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-re
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -454,8 +455,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'bg-[#fff]',
       'bg-opacity-50',
       '[background-color:#fff]',
-      'fill-red-500',
-      'fill-[#fff]',
       'accent-[#fff]',
       'caret-[#fff]',
     ])
@@ -469,10 +468,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'bg-red500',
       'bg-op50',
       'bg-op-50',
-      'fill-#fff',
-      'fill-red500',
-      'fill-opacity-50',
-      'fill-op50',
       'accent-#fff',
       'accent-red500',
       'accent-opacity-50',
@@ -482,6 +477,14 @@ describe('preset-tailwind3 tailwind parity', () => {
       'caret-opacity-50',
       'caret-op50',
     ])
+  })
+
+  it('matches Tailwind 3 support for fill utilities', async () => {
+    await expectTailwindParity(fillFixtures.canonical)
+  })
+
+  it('rejects non-tailwind fill aliases and opacity shortcuts', async () => {
+    await expectTailwindParity(fillFixtures.invalid)
   })
 
   it('matches official Tailwind 3 stroke utilities', async () => {

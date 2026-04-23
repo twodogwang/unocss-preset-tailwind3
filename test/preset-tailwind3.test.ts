@@ -8,6 +8,7 @@ import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-re
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -837,11 +838,37 @@ describe('preset-tailwind3', () => {
   })
 
   describe('svg / accent / caret colors', () => {
+    it('matches official Tailwind 3 fill utilities', async () => {
+      await expectTargets(fillFixtures.canonical)
+    })
+
+    it('keeps fill semantic output stable', async () => {
+      const css = await expectTargets(fillFixtures.semantic)
+
+      expect(css).toContain('.fill-red-500{--un-fill-opacity:1;fill:rgb(239 68 68 / var(--un-fill-opacity));}')
+      expect(css).toContain('.fill-\\[\\#fff\\]{--un-fill-opacity:1;fill:rgb(255 255 255 / var(--un-fill-opacity));}')
+      expect(css).toContain('.fill-none{fill:none;}')
+    })
+
+    it('matches theme-driven fill utilities', async () => {
+      const css = await expectTargets(['fill-brand'], {
+        theme: {
+          colors: {
+            brand: '#ff8800',
+          },
+        },
+      })
+
+      expect(css).toContain('255 136 0')
+    })
+
+    it('rejects non-tailwind fill aliases and opacity shortcuts', async () => {
+      await expectNonTargets(fillFixtures.invalid)
+    })
+
     it('matches official Tailwind 3 color utilities', async () => {
       await expectTargets([
         '[color:#fff]',
-        'fill-red-500',
-        'fill-[#fff]',
         'accent-red-500',
         'accent-[#fff]',
         'caret-blue-500',
@@ -856,10 +883,6 @@ describe('preset-tailwind3', () => {
         'text-#fff',
         'text-red500',
         'text-color-red-500',
-        'fill-#fff',
-        'fill-red500',
-        'fill-opacity-50',
-        'fill-op50',
         'accent-#fff',
         'accent-red500',
         'accent-opacity-50',

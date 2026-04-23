@@ -65,6 +65,10 @@ export const strokeBlocklistMigrationFixtures = [
   { input: 'stroke-#fff', replacement: 'stroke-[#fff]' },
 ] as const
 
+export const fillBlocklistMigrationFixtures = [
+  { input: 'fill-#fff', replacement: 'fill-[#fff]' },
+] as const
+
 export const paddingMarginBlocklistMigrationFixtures = [
   { input: 'p4', replacement: 'p-4' },
   { input: 'px2', replacement: 'px-2' },
@@ -131,11 +135,11 @@ export const blocklistMigrationFixtures = [
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,
   ...strokeBlocklistMigrationFixtures,
+  ...fillBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,
   ...backgroundColorBlocklistMigrationFixtures,
-  { input: 'fill-#fff', replacement: 'fill-[#fff]' },
   { input: 'accent-#fff', replacement: 'accent-[#fff]' },
   { input: 'caret-#fff', replacement: 'caret-[#fff]' },
   { input: 'b-2', replacement: 'border-2' },

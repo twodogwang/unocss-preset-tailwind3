@@ -8,6 +8,7 @@ import {
   borderSpacingSpaceBlocklistMigrationFixtures,
   decorationBlocklistMigrationFixtures,
   divideBlocklistMigrationFixtures,
+  fillBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
@@ -231,6 +232,17 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of strokeBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks fill migration hints through the shared fixture subset', async () => {
+    expect(fillBlocklistMigrationFixtures).toHaveLength(1)
+    expect(fillBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'fill-#fff',
+    ])
+
+    for (const fixture of fillBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
