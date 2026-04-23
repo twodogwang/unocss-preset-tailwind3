@@ -91,6 +91,17 @@ export const textAlignBlocklistMigrationFixtures = [
   { input: 'text-align-end', replacement: 'text-end' },
 ] as const
 
+export const verticalAlignBlocklistMigrationFixtures = [
+  { input: 'vertical-baseline', replacement: 'align-baseline' },
+  { input: 'v-baseline', replacement: 'align-baseline' },
+  { input: 'align-base', replacement: 'align-baseline' },
+  { input: 'align-mid', replacement: 'align-middle' },
+  { input: 'align-btm', replacement: 'align-bottom' },
+  { input: 'align-start', replacement: 'align-top' },
+  { input: 'align-end', replacement: 'align-bottom' },
+  { input: 'align-10px', replacement: 'align-[10px]' },
+] as const
+
 export const paddingMarginBlocklistMigrationFixtures = [
   { input: 'p4', replacement: 'p-4' },
   { input: 'px2', replacement: 'px-2' },
@@ -161,6 +172,7 @@ export const blocklistMigrationFixtures = [
   ...accentBlocklistMigrationFixtures,
   ...fontBlocklistMigrationFixtures,
   ...textAlignBlocklistMigrationFixtures,
+  ...verticalAlignBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,

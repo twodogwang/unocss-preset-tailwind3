@@ -17,6 +17,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
+import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -44,6 +45,7 @@ describe('tailwind utility spec', () => {
     const fillSpec = getSpec('fill')
     const fontSpec = getSpec('font')
     const textAlignSpec = getSpec('text-align')
+    const verticalAlignSpec = getSpec('vertical-align')
     const borderSpacingSpaceSpec = getSpec('border-spacing-space')
     const leadingSpec = getSpec('leading')
     const gapInsetScrollSpec = getSpec('gap-inset-scroll')
@@ -67,6 +69,7 @@ describe('tailwind utility spec', () => {
     expect(fillSpec).toBeTruthy()
     expect(fontSpec).toBeTruthy()
     expect(textAlignSpec).toBeTruthy()
+    expect(verticalAlignSpec).toBeTruthy()
     expect(borderSpacingSpaceSpec).toBeTruthy()
     expect(leadingSpec).toBeTruthy()
     expect(gapInsetScrollSpec).toBeTruthy()
@@ -151,6 +154,14 @@ describe('tailwind utility spec', () => {
     expect(textAlignSpec?.supportsVariants).toBe(true)
     expect(textAlignSpec?.invalid).toContain('text-align-left')
     expect(textAlignSpec?.invalid).toContain('text-align-inherit')
+    expect(verticalAlignSpec?.canonical).toEqual([...verticalAlignFixtures.canonical])
+    expect(verticalAlignSpec?.invalid).toEqual([...verticalAlignFixtures.invalid])
+    expect(verticalAlignSpec?.sourceFiles).toEqual(['src/_rules/align.ts'])
+    expect(verticalAlignSpec?.category).toBe('typography')
+    expect(verticalAlignSpec?.supportsPrefix).toBe(true)
+    expect(verticalAlignSpec?.supportsVariants).toBe(true)
+    expect(verticalAlignSpec?.invalid).toContain('vertical-baseline')
+    expect(verticalAlignSpec?.invalid).toContain('align-10px')
     expect(ringSpec?.canonical).toEqual([...ringFixtures.canonical])
     expect(ringSpec?.invalid).toEqual([...ringFixtures.invalid])
     expect(ringSpec?.sourceFiles).toEqual(['src/_rules/ring.ts'])
@@ -252,7 +263,7 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, divideSpec, fillSpec, fontSpec, textAlignSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
+    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, divideSpec, fillSpec, fontSpec, textAlignSpec, verticalAlignSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
       expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)

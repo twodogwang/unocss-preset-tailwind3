@@ -1,35 +1,18 @@
 import type { Rule } from '@unocss/core'
 import { h } from '../_utils/handlers'
-import { globalKeywords } from '../_utils/mappings'
 
-const verticalAlignAlias: Record<string, string> = {
-  'mid': 'middle',
-  'base': 'baseline',
-  'btm': 'bottom',
-  'baseline': 'baseline',
-  'top': 'top',
-  'start': 'top',
-  'middle': 'middle',
-  'bottom': 'bottom',
-  'end': 'bottom',
-  'text-top': 'text-top',
-  'text-bottom': 'text-bottom',
-  'sub': 'sub',
-  'super': 'super',
-  ...Object.fromEntries(globalKeywords.map(x => [x, x])),
-}
+const verticalAlignValues = ['baseline', 'top', 'middle', 'bottom', 'text-top', 'text-bottom', 'sub', 'super'] as const
 
 export const verticalAligns: Rule[] = [
-  [
-    /^(?:vertical|align|v)-(.+)$/,
-    ([, v]) => ({ 'vertical-align': verticalAlignAlias[v] ?? h.bracket.cssvar.numberWithUnit(v) }),
-    {
-      autocomplete: [
-        `(vertical|align|v)-(${Object.keys(verticalAlignAlias).join('|')})`,
-        '(vertical|align|v)-<percentage>',
-      ],
-    },
-  ],
+  ...verticalAlignValues.map(v => [`align-${v}`, { 'vertical-align': v }] as Rule),
+  [/^align-(.+)$/, ([, v]) => {
+    if (!v.startsWith('[') || !v.endsWith(']'))
+      return
+
+    const value = h.bracket.cssvar.global(v)
+    if (value != null)
+      return { 'vertical-align': value }
+  }],
 ]
 
 const textAlignValues = ['center', 'left', 'right', 'justify', 'start', 'end']

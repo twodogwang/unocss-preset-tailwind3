@@ -21,6 +21,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
+import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -1024,6 +1025,30 @@ describe('preset-tailwind3', () => {
 
     it('rejects legacy text-align aliases and global keyword shortcuts', async () => {
       await expectNonTargets(textAlignFixtures.invalid)
+    })
+  })
+
+  describe('vertical-align', () => {
+    it('matches official Tailwind 3 vertical-align utilities', async () => {
+      await expectTargets(verticalAlignFixtures.canonical)
+    })
+
+    it('keeps vertical-align semantic output stable', async () => {
+      const css = await expectTargets(verticalAlignFixtures.semantic)
+
+      expect(css).toContain('.align-baseline{vertical-align:baseline;}')
+      expect(css).toContain('.align-top{vertical-align:top;}')
+      expect(css).toContain('.align-middle{vertical-align:middle;}')
+      expect(css).toContain('.align-bottom{vertical-align:bottom;}')
+      expect(css).toContain('.align-text-top{vertical-align:text-top;}')
+      expect(css).toContain('.align-text-bottom{vertical-align:text-bottom;}')
+      expect(css).toContain('.align-sub{vertical-align:sub;}')
+      expect(css).toContain('.align-super{vertical-align:super;}')
+      expect(css).toContain('.align-\\[4px\\]{vertical-align:4px;}')
+    })
+
+    it('rejects legacy vertical-align aliases, global keywords, and bare length shortcuts', async () => {
+      await expectNonTargets(verticalAlignFixtures.invalid)
     })
   })
 

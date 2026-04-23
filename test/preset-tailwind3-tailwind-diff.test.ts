@@ -22,6 +22,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
+import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
@@ -511,6 +512,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects legacy text-align aliases and global keyword shortcuts', async () => {
     await expectTailwindParity(textAlignFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for vertical-align utilities', async () => {
+    await expectTailwindParity(verticalAlignFixtures.canonical)
+  })
+
+  it('rejects legacy vertical-align aliases, global keywords, and bare length shortcuts', async () => {
+    await expectTailwindParity(verticalAlignFixtures.invalid)
   })
 
   it('matches official Tailwind 3 stroke utilities', async () => {

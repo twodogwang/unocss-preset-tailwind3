@@ -22,6 +22,7 @@ import {
   textAlignBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
+  verticalAlignBlocklistMigrationFixtures,
   textBlocklistMigrationFixtures,
 } from './fixtures/blocklist-migration'
 
@@ -297,6 +298,24 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textAlignBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks vertical-align migration hints through the shared fixture subset', async () => {
+    expect(verticalAlignBlocklistMigrationFixtures).toHaveLength(8)
+    expect(verticalAlignBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'vertical-baseline',
+      'v-baseline',
+      'align-base',
+      'align-mid',
+      'align-btm',
+      'align-start',
+      'align-end',
+      'align-10px',
+    ])
+
+    for (const fixture of verticalAlignBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
