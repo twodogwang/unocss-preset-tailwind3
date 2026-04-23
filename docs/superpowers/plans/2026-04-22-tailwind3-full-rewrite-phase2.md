@@ -113,4 +113,4 @@
 
 ## Immediate Next Step
 
-从 `wave_1` 的 `background-color / bg-opacity` 开始，建立“第二阶段第一个规则族”的完整 spec / plan / log / status 链路，并把 full inventory 作为新的阶段 planning 依据。
+`wave_3` 已完成 `size / width / height / min / max`。下一步进入 `aspect-ratio`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。

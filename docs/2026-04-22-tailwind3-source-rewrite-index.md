@@ -133,6 +133,11 @@
   - plan: `docs/superpowers/plans/2026-04-23-font-variant-numeric-source-rewrite.md`
   - log: `docs/2026-04-23-font-variant-numeric-source-rewrite-log.md`
   - status: `docs/2026-04-23-font-variant-numeric-source-rewrite-status.md`
+- `size / width / height / min / max` 已完成模板化：
+  - spec: `docs/superpowers/specs/2026-04-23-size-source-rewrite-design.md`
+  - plan: `docs/superpowers/plans/2026-04-23-size-source-rewrite.md`
+  - log: `docs/2026-04-23-size-source-rewrite-log.md`
+  - status: `docs/2026-04-23-size-source-rewrite-status.md`
 
 ## 相关文档
 
