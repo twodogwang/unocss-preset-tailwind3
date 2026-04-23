@@ -40,6 +40,13 @@ const insetLegacyDirectionMap: Record<string, string> = {
   e: 'end',
 }
 
+const textStrokeKeywordWidthMap: Record<string, string> = {
+  none: '0',
+  sm: 'thin',
+  md: 'medium',
+  lg: 'thick',
+}
+
 function migrationRule(
   matcher: RegExp,
   replacement: MigrationReplacement,
@@ -103,6 +110,11 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: /^tab$/, replacement: () => '[tab-size:4]' },
   { matcher: /^tab-(\d+(?:\.\d+)?)$/, replacement: (_, match) => `[tab-size:${match[1]}]` },
   { matcher: /^tab-(\[.+\])$/, replacement: (_, match) => `[tab-size:${match[1].slice(1, -1)}]` },
+  { matcher: /^text-stroke$/, replacement: () => '[-webkit-text-stroke-width:1.5rem]' },
+  { matcher: /^text-stroke-(\d+(?:\.\d+)?)$/, replacement: (_, match) => `[-webkit-text-stroke-width:${match[1]}px]` },
+  { matcher: /^text-stroke-(none|sm|md|lg)$/, replacement: (_, match) => `[-webkit-text-stroke-width:${textStrokeKeywordWidthMap[match[1]]}]` },
+  { matcher: new RegExp(`^text-stroke-\\[(${rawHexColor})\\]$`), replacement: (_, match) => `[-webkit-text-stroke-color:${match[1]}]` },
+  { matcher: new RegExp(`^text-stroke-\\[(?:length:)?(${rawLengthValue}|${rawCssFunctionValue})\\]$`), replacement: (_, match) => `[-webkit-text-stroke-width:${match[1]}]` },
   { matcher: /^gap(\d+(?:\.\d+)?)$/, replacement: (_, match) => `gap-${match[1]}` },
   { matcher: /^gap([xy])(\d+(?:\.\d+)?)$/, replacement: (_, match) => `gap-${match[1]}-${match[2]}` },
   { matcher: /^gap([xy])-(.+)$/, replacement: (_, match) => `gap-${match[1]}-${match[2]}` },
@@ -214,6 +226,7 @@ const rawBlocklist: RegExp[] = [
   /^shape-.+$/,
   /^font(?!-|\[)\S+$/,
   /^of-.+$/,
+  /^text-stroke(?:-.+)?$/,
   /^z\d\S*$/,
   /^flex-inline$/,
   /^flex-basis-.+$/,

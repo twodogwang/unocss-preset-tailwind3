@@ -74,6 +74,15 @@ export const tabSizeBlocklistMigrationFixtures = [
   { input: 'tab-[var(--n)]', replacement: '[tab-size:var(--n)]' },
 ] as const
 
+export const textStrokeBlocklistMigrationFixtures = [
+  { input: 'text-stroke', replacement: '[-webkit-text-stroke-width:1.5rem]' },
+  { input: 'text-stroke-2', replacement: '[-webkit-text-stroke-width:2px]' },
+  { input: 'text-stroke-none', replacement: '[-webkit-text-stroke-width:0]' },
+  { input: 'text-stroke-lg', replacement: '[-webkit-text-stroke-width:thick]' },
+  { input: 'text-stroke-[#fff]', replacement: '[-webkit-text-stroke-color:#fff]' },
+  { input: 'text-stroke-[length:var(--stroke)]', replacement: '[-webkit-text-stroke-width:var(--stroke)]' },
+] as const
+
 export const leadingBlocklistMigrationFixtures = [
   { input: 'lh-6', replacement: 'leading-6' },
   { input: 'line-height-6', replacement: 'leading-6' },
@@ -195,6 +204,7 @@ export const blocklistMigrationFixtures = [
   ...textIndentBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
+  ...textStrokeBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,

@@ -1,0 +1,20 @@
+export const textStrokeFixtures = {
+  canonical: [] as string[],
+  invalid: [
+    'text-stroke',
+    'text-stroke-0',
+    'text-stroke-1',
+    'text-stroke-2',
+    'text-stroke-none',
+    'text-stroke-sm',
+    'text-stroke-md',
+    'text-stroke-lg',
+    'text-stroke-red-500',
+    'text-stroke-[#fff]',
+    'text-stroke-[3px]',
+    'text-stroke-[length:var(--stroke)]',
+    'text-stroke-opacity-50',
+    'text-stroke-op50',
+  ],
+  semantic: [] as string[],
+} as const

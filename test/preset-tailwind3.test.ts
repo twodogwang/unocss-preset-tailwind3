@@ -23,6 +23,7 @@ import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margi
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
@@ -883,6 +884,12 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.duration-200{transition-duration:200ms;}')
       expect(css).toContain('.delay-75{transition-delay:75ms;}')
       expect(css).toContain('.ease-linear{transition-timing-function:linear;}')
+    })
+  })
+
+  describe('text-stroke', () => {
+    it('rejects non-tailwind text-stroke aliases and extensions', async () => {
+      await expectNonTargets(textStrokeFixtures.invalid)
     })
   })
 

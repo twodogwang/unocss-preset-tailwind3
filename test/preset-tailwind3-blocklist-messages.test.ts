@@ -22,6 +22,7 @@ import {
   textAlignBlocklistMigrationFixtures,
   textDecorationBlocklistMigrationFixtures,
   textIndentBlocklistMigrationFixtures,
+  textStrokeBlocklistMigrationFixtures,
   tabSizeBlocklistMigrationFixtures,
   textWrapOverflowTransformBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
@@ -257,6 +258,22 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of tabSizeBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks text-stroke migration hints through the shared fixture subset', async () => {
+    expect(textStrokeBlocklistMigrationFixtures).toHaveLength(6)
+    expect(textStrokeBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'text-stroke',
+      'text-stroke-2',
+      'text-stroke-none',
+      'text-stroke-lg',
+      'text-stroke-[#fff]',
+      'text-stroke-[length:var(--stroke)]',
+    ])
+
+    for (const fixture of textStrokeBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

@@ -7,6 +7,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
@@ -47,6 +48,7 @@ describe('tailwind utility spec', () => {
     const decorationSpec = getSpec('decoration')
     const textDecorationSpec = getSpec('text-decoration')
     const textIndentSpec = getSpec('text-indent')
+    const textStrokeSpec = getSpec('text-stroke')
     const tabSizeSpec = getSpec('tab-size')
     const textWrapOverflowTransformSpec = getSpec('text-wrap-overflow-transform')
     const divideSpec = getSpec('divide')
@@ -75,6 +77,7 @@ describe('tailwind utility spec', () => {
     expect(decorationSpec).toBeTruthy()
     expect(textDecorationSpec).toBeTruthy()
     expect(textIndentSpec).toBeTruthy()
+    expect(textStrokeSpec).toBeTruthy()
     expect(tabSizeSpec).toBeTruthy()
     expect(textWrapOverflowTransformSpec).toBeTruthy()
     expect(divideSpec).toBeTruthy()
@@ -151,6 +154,15 @@ describe('tailwind utility spec', () => {
     expect(textIndentSpec?.supportsVariants).toBe(true)
     expect(textIndentSpec?.invalid).toContain('text-indent-4')
     expect(textIndentSpec?.invalid).toContain('indent-10px')
+    expect(textStrokeSpec?.canonical).toEqual([...textStrokeFixtures.canonical])
+    expect(textStrokeSpec?.invalid).toEqual([...textStrokeFixtures.invalid])
+    expect(textStrokeSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
+    expect(textStrokeSpec?.category).toBe('typography')
+    expect(textStrokeSpec?.supportsPrefix).toBe(true)
+    expect(textStrokeSpec?.supportsVariants).toBe(true)
+    expect(textStrokeSpec?.canonical).toHaveLength(0)
+    expect(textStrokeSpec?.invalid).toContain('text-stroke')
+    expect(textStrokeSpec?.invalid).toContain('text-stroke-opacity-50')
     expect(textWrapOverflowTransformSpec?.canonical).toEqual([...textWrapOverflowTransformFixtures.canonical])
     expect(textWrapOverflowTransformSpec?.invalid).toEqual([...textWrapOverflowTransformFixtures.invalid])
     expect(textWrapOverflowTransformSpec?.sourceFiles).toEqual(['src/_rules/static.ts'])

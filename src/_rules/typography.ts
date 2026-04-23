@@ -104,12 +104,6 @@ export const textIndents: Rule<Theme>[] = [
 ]
 
 export const textStrokes: Rule<Theme>[] = [
-  // widths
-  [/^text-stroke(?:-(.+))?$/, ([, s], { theme }) => ({ '-webkit-text-stroke-width': theme.textStrokeWidth?.[s || 'DEFAULT'] || h.bracket.cssvar.px(s) }), { autocomplete: 'text-stroke-$textStrokeWidth' }],
-
-  // colors
-  [/^text-stroke-(.+)$/, colorResolver('-webkit-text-stroke-color', 'text-stroke', 'borderColor'), { autocomplete: 'text-stroke-$colors' }],
-  [/^text-stroke-op(?:acity)?-?(.+)$/, ([, opacity]) => ({ '--un-text-stroke-opacity': h.bracket.percent.cssvar(opacity) }), { autocomplete: 'text-stroke-(op|opacity)-<percent>' }],
 ]
 
 export const textShadows: Rule<Theme>[] = [
