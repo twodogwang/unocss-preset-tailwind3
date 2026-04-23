@@ -38,9 +38,10 @@ describe('rewrite session automation', () => {
 
     expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('accent')
     expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('caret')
+    expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('font')
     expect(mod.parseCompletedFamilies(inventoryDoc)).toContain('fill')
-    expect(mod.parsePendingFamilies(inventoryDoc)).toContain('font')
-    expect(mod.findNextPendingFamily(inventoryDoc)).toBe('font')
+    expect(mod.parsePendingFamilies(inventoryDoc)).toContain('text-align')
+    expect(mod.findNextPendingFamily(inventoryDoc)).toBe('text-align')
     expect(mod.slugifyFamily('background-color / bg-opacity')).toBe('background-color-bg-opacity')
     expect(mod.slugifyFamily('text-wrap / text-overflow / text-transform')).toBe('text-wrap-text-overflow-text-transform')
   })
