@@ -7,6 +7,7 @@ import {
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
   decorationBlocklistMigrationFixtures,
+  divideBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
@@ -160,6 +161,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of shadowBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks divide migration hints through the shared fixture subset', async () => {
+    expect(divideBlocklistMigrationFixtures).toHaveLength(3)
+    expect(divideBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'dividex',
+      'dividey2',
+      'divide-op50',
+    ])
+
+    for (const fixture of divideBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

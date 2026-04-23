@@ -484,6 +484,27 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'ring-2',
   },
   {
+    label: 'divide compact axis alias',
+    matcher: /^divide([xy])$/,
+    input: 'dividex',
+    prefixed: 'tw-dividex',
+    replacement: 'divide-x',
+  },
+  {
+    label: 'divide compact axis width alias',
+    matcher: /^divide([xy])(\d+(?:\.\d+)?)$/,
+    input: 'dividey2',
+    prefixed: 'tw-dividey2',
+    replacement: 'divide-y-2',
+  },
+  {
+    label: 'divide opacity alias',
+    matcher: /^divide-op(\d+)$/,
+    input: 'divide-op50',
+    prefixed: 'tw-divide-op50',
+    replacement: 'divide-opacity-50',
+  },
+  {
     label: 'shadow compact theme alias',
     matcher: /^shadowmd$/,
     input: 'shadowmd',

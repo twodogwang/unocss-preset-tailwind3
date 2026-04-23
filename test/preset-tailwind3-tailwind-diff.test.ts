@@ -8,6 +8,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -284,6 +285,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches strict border width fixtures', async () => {
     await expectTailwindParity(borderWidthFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for divide utilities', async () => {
+    await expectTailwindParity(divideFixtures.canonical)
+  })
+
+  it('rejects non-tailwind divide aliases and logical extensions', async () => {
+    await expectTailwindParity(divideFixtures.invalid)
   })
 
   it('rejects non-tailwind border / ring / decoration aliases and extensions', async () => {

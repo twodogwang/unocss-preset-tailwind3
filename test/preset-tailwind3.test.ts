@@ -7,6 +7,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -382,7 +383,7 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('border / divide', () => {
+  describe('border', () => {
     it('expands border width values and directions correctly', async () => {
       const css = await expectTargets([
         'border',
@@ -421,10 +422,6 @@ describe('preset-tailwind3', () => {
         'rounded-ss-lg',
         'rounded-t-lg',
         'rounded-br-xl',
-        'divide-x',
-        'divide-y-2',
-        'divide-dashed',
-        'divide-red-500',
       ])
     })
 
@@ -452,10 +449,8 @@ describe('preset-tailwind3', () => {
       const css = await expectTargets([
         'border-[3px]',
         'rounded-[10px]',
-        'divide-x-[3px]',
         'border-brand',
         'rounded-brand',
-        'divide-x-gutter',
       ], {
         theme: {
           colors: {
@@ -463,9 +458,6 @@ describe('preset-tailwind3', () => {
           },
           borderRadius: {
             brand: '1.25rem',
-          },
-          lineWidth: {
-            gutter: '3px',
           },
         },
       })
@@ -496,9 +488,42 @@ describe('preset-tailwind3', () => {
         'border-style-dashed',
         'border-rounded-md',
         'borderx',
-        'dividex',
-        'dividey2',
       ])
+    })
+  })
+
+  describe('divide', () => {
+    it('matches official Tailwind 3 divide utilities', async () => {
+      await expectTargets(divideFixtures.canonical)
+    })
+
+    it('keeps divide semantic output stable', async () => {
+      const css = await expectTargets(divideFixtures.semantic)
+
+      expect(css).toContain('--un-divide-x-reverse:0')
+      expect(css).toContain('border-left-width:calc(1px * calc(1 - var(--un-divide-x-reverse)))')
+      expect(css).toContain('border-bottom-width:calc(2px * var(--un-divide-y-reverse))')
+      expect(css).toContain('--un-divide-opacity:0.5')
+      expect(css).toContain('border-color:rgb(239 68 68 / var(--un-divide-opacity))')
+    })
+
+    it('matches arbitrary and theme-driven divide utilities', async () => {
+      const css = await expectTargets([
+        'divide-x-[3px]',
+        'divide-x-gutter',
+      ], {
+        theme: {
+          lineWidth: {
+            gutter: '3px',
+          },
+        },
+      })
+
+      expect(css).toContain('3px')
+    })
+
+    it('rejects non-tailwind divide aliases and logical extensions', async () => {
+      await expectNonTargets(divideFixtures.invalid)
     })
   })
 

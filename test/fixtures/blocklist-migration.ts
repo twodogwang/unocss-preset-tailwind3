@@ -21,6 +21,12 @@ export const shadowBlocklistMigrationFixtures = [
   { input: 'shadow-inset', replacement: 'shadow-inner' },
 ] as const
 
+export const divideBlocklistMigrationFixtures = [
+  { input: 'dividex', replacement: 'divide-x' },
+  { input: 'dividey2', replacement: 'divide-y-2' },
+  { input: 'divide-op50', replacement: 'divide-opacity-50' },
+] as const
+
 export const decorationBlocklistMigrationFixtures = [
   { input: 'decoration-none', replacement: 'no-underline' },
   { input: 'decoration-underline', replacement: 'underline' },
@@ -139,6 +145,7 @@ export const blocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
+  ...divideBlocklistMigrationFixtures,
   ...ringBlocklistMigrationFixtures,
   ...shadowBlocklistMigrationFixtures,
   ...decorationBlocklistMigrationFixtures,
