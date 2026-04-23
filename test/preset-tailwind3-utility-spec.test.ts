@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
@@ -44,6 +45,7 @@ describe('tailwind utility spec', () => {
 
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const backgroundColorSpec = getSpec('background-color')
+    const aspectRatioSpec = getSpec('aspect-ratio')
     const sizeSpec = getSpec('size')
     const accentSpec = getSpec('accent')
     const caretSpec = getSpec('caret')
@@ -77,6 +79,7 @@ describe('tailwind utility spec', () => {
     const textSpec = getSpec('text')
 
     expect(backgroundColorSpec).toBeTruthy()
+    expect(aspectRatioSpec).toBeTruthy()
     expect(sizeSpec).toBeTruthy()
     expect(accentSpec).toBeTruthy()
     expect(caretSpec).toBeTruthy()
@@ -109,6 +112,14 @@ describe('tailwind utility spec', () => {
     expect(transitionSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
+    expect(aspectRatioSpec?.canonical).toEqual([...aspectRatioFixtures.canonical])
+    expect(aspectRatioSpec?.invalid).toEqual([...aspectRatioFixtures.invalid])
+    expect(aspectRatioSpec?.sourceFiles).toEqual(['src/_rules/size.ts'])
+    expect(aspectRatioSpec?.category).toBe('layout')
+    expect(aspectRatioSpec?.supportsPrefix).toBe(true)
+    expect(aspectRatioSpec?.supportsVariants).toBe(true)
+    expect(aspectRatioSpec?.invalid).toContain('aspect-ratio-square')
+    expect(aspectRatioSpec?.invalid).toContain('size-aspect-square')
     expect(sizeSpec?.canonical).toEqual([...sizeFixtures.canonical])
     expect(sizeSpec?.invalid).toEqual([...sizeFixtures.invalid])
     expect(sizeSpec?.sourceFiles).toEqual(['src/_rules/size.ts'])

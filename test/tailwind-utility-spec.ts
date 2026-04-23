@@ -1,4 +1,5 @@
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
@@ -43,6 +44,16 @@ export interface TailwindUtilitySpec {
 }
 
 export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
+  {
+    id: 'aspect-ratio',
+    sourceFiles: ['src/_rules/size.ts'],
+    category: 'layout',
+    canonical: [...aspectRatioFixtures.canonical],
+    invalid: [...aspectRatioFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 aspect-ratio 主规则族只接受 Tailwind 3 的 auto、square、video 与 aspect-[...] 语义，并拒绝历史别名与裸 ratio shorthand。'],
+  },
   {
     id: 'size',
     sourceFiles: ['src/_rules/size.ts'],

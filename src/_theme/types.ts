@@ -14,6 +14,7 @@ export interface Colors {
 }
 
 export interface Theme {
+  aspectRatio?: Record<string, string>
   width?: Record<string, string>
   height?: Record<string, string>
   maxWidth?: Record<string, string>

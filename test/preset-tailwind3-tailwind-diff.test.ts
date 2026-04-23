@@ -6,6 +6,7 @@ import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
@@ -126,6 +127,40 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches Tailwind 3 support for gap / inset / scroll utilities', async () => {
     await expectTailwindParity(gapInsetScrollFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for aspect-ratio utilities', async () => {
+    await expectTailwindParity(aspectRatioFixtures.canonical)
+  })
+
+  it('rejects non-tailwind aspect-ratio aliases and raw ratio shorthands', async () => {
+    await expectTailwindParity(aspectRatioFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 for theme-driven aspect-ratio extensions', async () => {
+    await expectTailwindParity([
+      'aspect-card',
+      'aspect-golden',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            aspectRatio: {
+              card: '4 / 3',
+              golden: '1.618 / 1',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          aspectRatio: {
+            card: '4 / 3',
+            golden: '1.618 / 1',
+          },
+        },
+      },
+    })
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

@@ -69,6 +69,17 @@ export const sizeBlocklistMigrationFixtures = [
   { input: 'size-32rem', replacement: 'size-[32rem]' },
 ] as const
 
+export const aspectRatioBlocklistMigrationFixtures = [
+  { input: 'aspect-1/1', replacement: 'aspect-square' },
+  { input: 'aspect-16/9', replacement: 'aspect-video' },
+  { input: 'aspect-4/3', replacement: 'aspect-[4/3]' },
+  { input: 'aspect-ratio-auto', replacement: 'aspect-auto' },
+  { input: 'aspect-ratio-square', replacement: 'aspect-square' },
+  { input: 'aspect-ratio-video', replacement: 'aspect-video' },
+  { input: 'aspect-ratio-[4/3]', replacement: 'aspect-[4/3]' },
+  { input: 'size-aspect-square', replacement: 'aspect-square' },
+] as const
+
 export const textWrapOverflowTransformBlocklistMigrationFixtures = [
   { input: 'text-truncate', replacement: 'truncate' },
   { input: 'case-upper', replacement: 'uppercase' },
@@ -240,6 +251,7 @@ export const blocklistMigrationFixtures = [
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
   ...textIndentBlocklistMigrationFixtures,
+  ...aspectRatioBlocklistMigrationFixtures,
   ...sizeBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,

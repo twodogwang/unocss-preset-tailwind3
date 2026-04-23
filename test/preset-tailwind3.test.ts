@@ -4,6 +4,7 @@ import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
@@ -123,6 +124,42 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.max-w-screen-md{max-width:768px;}')
       expect(css).toContain('.size-auto{width:auto;height:auto;}')
       expect(css).toContain('.size-fit{width:fit-content;height:fit-content;}')
+    })
+  })
+
+  describe('aspect-ratio', () => {
+    it('matches official Tailwind 3 aspect-ratio utilities', async () => {
+      await expectTargets(aspectRatioFixtures.canonical)
+    })
+
+    it('matches theme-driven aspect-ratio utilities', async () => {
+      const css = await expectTargets([
+        'aspect-card',
+        'aspect-golden',
+      ], {
+        theme: {
+          aspectRatio: {
+            card: '4 / 3',
+            golden: '1.618 / 1',
+          },
+        },
+      })
+
+      expect(css).toContain('.aspect-card{aspect-ratio:4 / 3;}')
+      expect(css).toContain('.aspect-golden{aspect-ratio:1.618 / 1;}')
+    })
+
+    it('rejects non-tailwind aspect-ratio syntax', async () => {
+      await expectNonTargets(aspectRatioFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic aspect-ratio cases', async () => {
+      const css = await expectTargets(aspectRatioFixtures.semantic)
+
+      expect(css).toContain('.aspect-auto{aspect-ratio:auto;}')
+      expect(css).toContain('.aspect-square{aspect-ratio:1 / 1;}')
+      expect(css).toContain('.aspect-video{aspect-ratio:16 / 9;}')
+      expect(css).toContain('.aspect-\\[4\\/3\\]{aspect-ratio:4/3;}')
     })
   })
 

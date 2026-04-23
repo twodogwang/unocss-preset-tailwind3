@@ -1,5 +1,11 @@
 import type { Theme } from './types'
 
+export const aspectRatio = {
+  auto: 'auto',
+  square: '1 / 1',
+  video: '16 / 9',
+} satisfies Theme['aspectRatio']
+
 export const baseSize = {
   'xs': '20rem',
   'sm': '24rem',

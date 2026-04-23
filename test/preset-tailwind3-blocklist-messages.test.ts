@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import {
   accentBlocklistMigrationFixtures,
+  aspectRatioBlocklistMigrationFixtures,
   backgroundColorBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
@@ -141,6 +142,24 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of sizeBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks aspect-ratio migration hints through the shared fixture subset', async () => {
+    expect(aspectRatioBlocklistMigrationFixtures).toHaveLength(8)
+    expect(aspectRatioBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'aspect-1/1',
+      'aspect-16/9',
+      'aspect-4/3',
+      'aspect-ratio-auto',
+      'aspect-ratio-square',
+      'aspect-ratio-video',
+      'aspect-ratio-[4/3]',
+      'size-aspect-square',
+    ])
+
+    for (const fixture of aspectRatioBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

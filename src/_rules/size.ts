@@ -84,18 +84,19 @@ function handleBreakpoint(context: Readonly<RuleContext<Theme>>, point: string, 
     return bp.find(i => i.point === point)?.size
 }
 
-function getAspectRatio(prop: string) {
-  if (/^\d+\/\d+$/.test(prop))
-    return prop
+function getAspectRatio(theme: Theme, prop: string) {
+  const themed = theme.aspectRatio?.[prop]
+  if (themed != null)
+    return themed
 
-  switch (prop) {
-    case 'square': return '1/1'
-    case 'video': return '16/9'
-  }
-
-  return h.bracket.cssvar.global.auto.number(prop)
+  if (prop.startsWith('['))
+    return h.bracket.cssvar.global.auto.number(prop)
 }
 
-export const aspectRatio: Rule[] = [
-  [/^(?:size-)?aspect-(?:ratio-)?(.+)$/, ([, d]: string[]) => ({ 'aspect-ratio': getAspectRatio(d) }), { autocomplete: ['aspect-(square|video|ratio)', 'aspect-ratio-(square|video)'] }],
+export const aspectRatio: Rule<Theme>[] = [
+  [/^aspect-(.+)$/, ([, d], { theme }) => {
+    const value = getAspectRatio(theme, d)
+    if (value != null)
+      return { 'aspect-ratio': value }
+  }, { autocomplete: ['aspect-(auto|square|video)'] }],
 ]
