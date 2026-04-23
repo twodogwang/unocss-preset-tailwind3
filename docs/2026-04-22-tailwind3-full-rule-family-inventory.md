@@ -42,6 +42,7 @@
 | `text-wrap / text-overflow / text-transform` | `src/_rules/static.ts` | `completed_template` | 已覆盖 truncate、text-wrap-* 与 uppercase/lowercase/capitalize/normal-case，并锁住高置信度 alias migration |
 | `tab-size` | `src/_rules/typography.ts` | `completed_template` | 已确认 Tailwind 3 无原生 tab-* utility，并把旧写法迁移到 arbitrary property [tab-size:...] |
 | `text-stroke` | `src/_rules/typography.ts` | `completed_template` | 已确认 Tailwind 3 无原生 text-stroke utility，并把高置信度旧写法迁移到 `[-webkit-text-stroke-*:*]` arbitrary property |
+| `text-shadow` | `src/_rules/typography.ts` | `completed_template` | 已确认 Tailwind 3 无原生 text-shadow utility，并把少量可确定旧写法迁移到 `[text-shadow:...]` arbitrary property |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -56,7 +57,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `text-shadow` | `src/_rules/typography.ts` | `pending_wave_2` | `wave_2` | |
 | `line-clamp` | `src/_rules-wind3/line-clamp.ts` | `pending_wave_2` | `wave_2` | |
 | `font-variant-numeric` | `src/_rules-wind3/typography.ts` | `pending_wave_2` | `wave_2` | |
 | `size / width / height / min / max` | `src/_rules/size.ts` | `pending_wave_3` | `wave_3` | 当前有综合测试，但无专用模板 |
@@ -97,7 +97,7 @@
 - 已完成：`background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow`、`divide`
 
 2. `wave_2`
-- typography 剩余主规则族：`text-shadow`、`line-clamp`、`font-variant-numeric`
+- typography 剩余主规则族：`line-clamp`、`font-variant-numeric`
 - `fill / accent / caret`
 
 3. `wave_3`
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `text-shadow`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `line-clamp`。

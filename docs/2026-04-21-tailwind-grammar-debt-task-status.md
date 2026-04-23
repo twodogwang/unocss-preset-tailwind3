@@ -129,12 +129,17 @@
   - `docs/superpowers/plans/2026-04-23-text-stroke-source-rewrite.md`
   - `docs/2026-04-23-text-stroke-source-rewrite-log.md`
   - `docs/2026-04-23-text-stroke-source-rewrite-status.md`
+- `text-shadow` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-text-shadow-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-text-shadow-source-rewrite.md`
+  - `docs/2026-04-23-text-shadow-source-rewrite-log.md`
+  - `docs/2026-04-23-text-shadow-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size` 与 `text-stroke`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke` 与 `text-shadow`。下一步应按 full inventory 继续推进：
 
-1. `text-shadow`
+1. `line-clamp`
 2. typography 剩余主规则族
 
 ## 文档职责
