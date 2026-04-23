@@ -7,6 +7,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
@@ -48,6 +49,7 @@ describe('tailwind utility spec', () => {
     const decorationSpec = getSpec('decoration')
     const textDecorationSpec = getSpec('text-decoration')
     const textIndentSpec = getSpec('text-indent')
+    const textShadowSpec = getSpec('text-shadow')
     const textStrokeSpec = getSpec('text-stroke')
     const tabSizeSpec = getSpec('tab-size')
     const textWrapOverflowTransformSpec = getSpec('text-wrap-overflow-transform')
@@ -77,6 +79,7 @@ describe('tailwind utility spec', () => {
     expect(decorationSpec).toBeTruthy()
     expect(textDecorationSpec).toBeTruthy()
     expect(textIndentSpec).toBeTruthy()
+    expect(textShadowSpec).toBeTruthy()
     expect(textStrokeSpec).toBeTruthy()
     expect(tabSizeSpec).toBeTruthy()
     expect(textWrapOverflowTransformSpec).toBeTruthy()
@@ -154,6 +157,15 @@ describe('tailwind utility spec', () => {
     expect(textIndentSpec?.supportsVariants).toBe(true)
     expect(textIndentSpec?.invalid).toContain('text-indent-4')
     expect(textIndentSpec?.invalid).toContain('indent-10px')
+    expect(textShadowSpec?.canonical).toEqual([...textShadowFixtures.canonical])
+    expect(textShadowSpec?.invalid).toEqual([...textShadowFixtures.invalid])
+    expect(textShadowSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
+    expect(textShadowSpec?.category).toBe('typography')
+    expect(textShadowSpec?.supportsPrefix).toBe(true)
+    expect(textShadowSpec?.supportsVariants).toBe(true)
+    expect(textShadowSpec?.canonical).toHaveLength(0)
+    expect(textShadowSpec?.invalid).toContain('text-shadow')
+    expect(textShadowSpec?.invalid).toContain('text-shadow-color-opacity-50')
     expect(textStrokeSpec?.canonical).toEqual([...textStrokeFixtures.canonical])
     expect(textStrokeSpec?.invalid).toEqual([...textStrokeFixtures.invalid])
     expect(textStrokeSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])

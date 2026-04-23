@@ -74,6 +74,12 @@ export const tabSizeBlocklistMigrationFixtures = [
   { input: 'tab-[var(--n)]', replacement: '[tab-size:var(--n)]' },
 ] as const
 
+export const textShadowBlocklistMigrationFixtures = [
+  { input: 'text-shadow-none', replacement: '[text-shadow:0_0_#0000]' },
+  { input: 'text-shadow-[0_0_#000]', replacement: '[text-shadow:0_0_#000]' },
+  { input: 'text-shadow-[0_0_10px_var(--x)]', replacement: '[text-shadow:0_0_10px_var(--x)]' },
+] as const
+
 export const textStrokeBlocklistMigrationFixtures = [
   { input: 'text-stroke', replacement: '[-webkit-text-stroke-width:1.5rem]' },
   { input: 'text-stroke-2', replacement: '[-webkit-text-stroke-width:2px]' },
@@ -204,6 +210,7 @@ export const blocklistMigrationFixtures = [
   ...textIndentBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
+  ...textShadowBlocklistMigrationFixtures,
   ...textStrokeBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,

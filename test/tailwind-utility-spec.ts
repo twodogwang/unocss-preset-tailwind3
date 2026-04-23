@@ -6,6 +6,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
@@ -139,6 +140,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 text-wrap / text-overflow / text-transform 主规则族只接受 Tailwind 3 的 truncate、text-wrap-* 与 uppercase/lowercase/capitalize/normal-case 语义。'],
+  },
+  {
+    id: 'text-shadow',
+    sourceFiles: ['src/_rules/typography.ts'],
+    category: 'typography',
+    canonical: [...textShadowFixtures.canonical],
+    invalid: [...textShadowFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 text-shadow 在 Tailwind 3 中没有原生 utility family，旧 text-shadow* 与 text-shadow-color* 语法需要迁移到 arbitrary property 或直接移除。'],
   },
   {
     id: 'text-stroke',

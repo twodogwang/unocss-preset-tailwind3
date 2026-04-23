@@ -22,6 +22,7 @@ import {
   textAlignBlocklistMigrationFixtures,
   textDecorationBlocklistMigrationFixtures,
   textIndentBlocklistMigrationFixtures,
+  textShadowBlocklistMigrationFixtures,
   textStrokeBlocklistMigrationFixtures,
   tabSizeBlocklistMigrationFixtures,
   textWrapOverflowTransformBlocklistMigrationFixtures,
@@ -274,6 +275,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textStrokeBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks text-shadow migration hints through the shared fixture subset', async () => {
+    expect(textShadowBlocklistMigrationFixtures).toHaveLength(3)
+    expect(textShadowBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'text-shadow-none',
+      'text-shadow-[0_0_#000]',
+      'text-shadow-[0_0_10px_var(--x)]',
+    ])
+
+    for (const fixture of textShadowBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

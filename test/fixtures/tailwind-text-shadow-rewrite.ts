@@ -1,0 +1,20 @@
+export const textShadowFixtures = {
+  canonical: [] as string[],
+  invalid: [
+    'text-shadow',
+    'text-shadow-none',
+    'text-shadow-sm',
+    'text-shadow-md',
+    'text-shadow-lg',
+    'text-shadow-xl',
+    'text-shadow-red-500',
+    'text-shadow-[#fff]',
+    'text-shadow-[0_0_#000]',
+    'text-shadow-[0_0_10px_var(--x)]',
+    'text-shadow-color-red-500',
+    'text-shadow-color-[#fff]',
+    'text-shadow-color-opacity-50',
+    'text-shadow-color-op50',
+  ],
+  semantic: [] as string[],
+} as const

@@ -23,6 +23,7 @@ import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margi
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
@@ -890,6 +891,12 @@ describe('preset-tailwind3', () => {
   describe('text-stroke', () => {
     it('rejects non-tailwind text-stroke aliases and extensions', async () => {
       await expectNonTargets(textStrokeFixtures.invalid)
+    })
+  })
+
+  describe('text-shadow', () => {
+    it('rejects non-tailwind text-shadow aliases and extensions', async () => {
+      await expectNonTargets(textShadowFixtures.invalid)
     })
   })
 

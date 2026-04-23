@@ -107,20 +107,6 @@ export const textStrokes: Rule<Theme>[] = [
 ]
 
 export const textShadows: Rule<Theme>[] = [
-  [/^text-shadow(?:-(.+))?$/, ([, s], { theme }) => {
-    const v = theme.textShadow?.[s || 'DEFAULT']
-    if (v != null) {
-      return {
-        '--un-text-shadow': colorableShadows(v, '--un-text-shadow-color').join(','),
-        'text-shadow': 'var(--un-text-shadow)',
-      }
-    }
-    return { 'text-shadow': h.bracket.cssvar.global(s) }
-  }, { autocomplete: 'text-shadow-$textShadow' }],
-
-  // colors
-  [/^text-shadow-color-(.+)$/, colorResolver('--un-text-shadow-color', 'text-shadow', 'shadowColor'), { autocomplete: 'text-shadow-color-$colors' }],
-  [/^text-shadow-color-op(?:acity)?-?(.+)$/, ([, opacity]) => ({ '--un-text-shadow-opacity': h.bracket.percent.cssvar(opacity) }), { autocomplete: 'text-shadow-color-(op|opacity)-<percent>' }],
 ]
 
 function handleThemeByKey(s: string, theme: Theme, key: 'lineHeight' | 'letterSpacing') {
