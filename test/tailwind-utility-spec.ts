@@ -6,6 +6,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
+import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -120,6 +121,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 fill 主规则族只接受 Tailwind 3 的 fill color 与 none 语义。'],
+  },
+  {
+    id: 'font',
+    sourceFiles: ['src/_rules/typography.ts'],
+    category: 'typography',
+    canonical: [...fontFixtures.canonical],
+    invalid: [...fontFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 font 主规则族只接受 Tailwind 3 的 font family 与 font weight 语义。'],
   },
   {
     id: 'outline',

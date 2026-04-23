@@ -11,6 +11,7 @@ import {
   decorationBlocklistMigrationFixtures,
   divideBlocklistMigrationFixtures,
   fillBlocklistMigrationFixtures,
+  fontBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
@@ -267,6 +268,18 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of caretBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks font migration hints through the shared fixture subset', async () => {
+    expect(fontBlocklistMigrationFixtures).toHaveLength(2)
+    expect(fontBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'fw-bold',
+      'font-650',
+    ])
+
+    for (const fixture of fontBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

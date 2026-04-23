@@ -77,6 +77,11 @@ export const caretBlocklistMigrationFixtures = [
   { input: 'caret-#fff', replacement: 'caret-[#fff]' },
 ] as const
 
+export const fontBlocklistMigrationFixtures = [
+  { input: 'fw-bold', replacement: 'font-bold' },
+  { input: 'font-650', replacement: 'font-[650]' },
+] as const
+
 export const paddingMarginBlocklistMigrationFixtures = [
   { input: 'p4', replacement: 'p-4' },
   { input: 'px2', replacement: 'px-2' },
@@ -145,6 +150,7 @@ export const blocklistMigrationFixtures = [
   ...strokeBlocklistMigrationFixtures,
   ...fillBlocklistMigrationFixtures,
   ...accentBlocklistMigrationFixtures,
+  ...fontBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,
@@ -153,7 +159,6 @@ export const blocklistMigrationFixtures = [
   { input: 'b-2', replacement: 'border-2' },
   { input: 'b-red-500', replacement: 'border-red-500' },
   { input: 'rd-md', replacement: 'rounded-md' },
-  { input: 'fw-bold', replacement: 'font-bold' },
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },

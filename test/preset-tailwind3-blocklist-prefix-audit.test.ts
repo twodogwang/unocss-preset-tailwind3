@@ -428,6 +428,13 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'font-bold',
   },
   {
+    label: 'font numeric weight alias',
+    matcher: /^font-(\d+)$/,
+    input: 'font-650',
+    prefixed: 'tw-font-650',
+    replacement: 'font-[650]',
+  },
+  {
     label: 'position alias',
     matcher: /^pos-(relative|absolute|fixed|sticky|static)$/,
     input: 'pos-absolute',

@@ -12,6 +12,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
+import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -493,6 +494,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind fill aliases and opacity shortcuts', async () => {
     await expectTailwindParity(fillFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for font utilities', async () => {
+    await expectTailwindParity(fontFixtures.canonical)
+  })
+
+  it('rejects non-tailwind font aliases and bare numeric shortcuts', async () => {
+    await expectTailwindParity(fontFixtures.invalid)
   })
 
   it('matches official Tailwind 3 stroke utilities', async () => {

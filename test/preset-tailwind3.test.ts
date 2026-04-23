@@ -11,6 +11,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
+import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -1004,10 +1005,39 @@ describe('preset-tailwind3', () => {
     })
   })
 
+  describe('font', () => {
+    it('matches official Tailwind 3 font utilities', async () => {
+      await expectTargets(fontFixtures.canonical)
+    })
+
+    it('keeps font semantic output stable', async () => {
+      const css = await expectTargets(fontFixtures.semantic)
+
+      expect(css).toContain('font-family:ui-sans-serif,system-ui')
+      expect(css).toContain('.font-bold{font-weight:700;}')
+      expect(css).toContain('.font-\\[650\\]{font-weight:650;}')
+    })
+
+    it('matches theme-driven font utilities', async () => {
+      const css = await expectTargets(['font-brand'], {
+        theme: {
+          fontFamily: {
+            brand: '"Fira Sans", sans-serif',
+          },
+        },
+      })
+
+      expect(css).toContain('font-family:"Fira Sans", sans-serif')
+    })
+
+    it('rejects non-tailwind font aliases and bare numeric shortcuts', async () => {
+      await expectNonTargets(fontFixtures.invalid)
+    })
+  })
+
   describe('typography / columns / tables / behaviors', () => {
     it('matches official Tailwind 3 typography and behavior utilities', async () => {
       await expectTargets([
-        'font-bold',
         'hyphens-auto',
         'hyphens-manual',
         'hyphens-none',
@@ -1029,7 +1059,6 @@ describe('preset-tailwind3', () => {
 
     it('matches arbitrary and theme-driven typography-related utilities', async () => {
       const css = await expectTargets([
-        'font-[650]',
         'columns-sm',
         'border-spacing-[3px]',
       ], {
@@ -1043,7 +1072,6 @@ describe('preset-tailwind3', () => {
         },
       })
 
-      expect(css).toContain('font-weight:650')
       expect(css).toContain('24rem')
       expect(css).toContain('3px')
     })
@@ -1051,7 +1079,6 @@ describe('preset-tailwind3', () => {
     it('rejects non-tailwind typography and behavior aliases', async () => {
       await expectNonTargets([
         'fontbold',
-        'fw-bold',
         'textsize-sm',
         'lineclamp-3',
         'columns3',

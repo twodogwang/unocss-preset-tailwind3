@@ -136,6 +136,7 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: /^font-tracking-(.+)$/, replacement: (_, match) => `tracking-${match[1]}` },
   { matcher: new RegExp(`^tracking-(${rawLengthValue})$`), replacement: (_, match) => `tracking-[${match[1]}]` },
   { matcher: /^stroke-(?:width|size)-(.+)$/, replacement: (_, match) => `stroke-${match[1]}` },
+  { matcher: /^font-(\d+)$/, replacement: (_, match) => `font-[${match[1]}]` },
   { matcher: /^b-(.+)$/, replacement: selector => selector.replace(/^b-/, 'border-') },
   { matcher: /^rd-(.+)$/, replacement: selector => selector.replace(/^rd-/, 'rounded-') },
   { matcher: /^fw-(.+)$/, replacement: selector => selector.replace(/^fw-/, 'font-') },

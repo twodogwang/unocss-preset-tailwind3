@@ -17,7 +17,7 @@ export const fonts: Rule<Theme>[] = [
   [
     /^font-([^-]+)$/,
     ([, s], { theme }) => {
-      const value = theme.fontWeight?.[s] || h.bracket.global.number(s)
+      const value = theme.fontWeight?.[s] || (s.startsWith('[') ? h.bracket.global.number(s) : undefined)
       if (value != null)
         return { 'font-weight': value }
     },
