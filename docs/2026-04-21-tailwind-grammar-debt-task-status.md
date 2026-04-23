@@ -69,12 +69,18 @@
   - `docs/superpowers/plans/2026-04-23-shadow-source-rewrite.md`
   - `docs/2026-04-23-shadow-source-rewrite-log.md`
   - `docs/2026-04-23-shadow-source-rewrite-status.md`
+- `divide` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-divide-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-divide-source-rewrite.md`
+  - `docs/2026-04-23-divide-source-rewrite-log.md`
+  - `docs/2026-04-23-divide-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段前五个 family `background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset` 与 `shadow` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
+第一阶段主线已完成，第二阶段 `wave_1` 的六个 family `background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow` 与 `divide` 也已完成模板化。下一步应按 full inventory 进入 `wave_2`：
 
-1. `divide`
+1. `fill / accent / caret`
+2. typography 剩余主规则族
 
 ## 文档职责
 
