@@ -7,6 +7,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
@@ -46,6 +47,7 @@ describe('tailwind utility spec', () => {
     const decorationSpec = getSpec('decoration')
     const textDecorationSpec = getSpec('text-decoration')
     const textIndentSpec = getSpec('text-indent')
+    const tabSizeSpec = getSpec('tab-size')
     const textWrapOverflowTransformSpec = getSpec('text-wrap-overflow-transform')
     const divideSpec = getSpec('divide')
     const fillSpec = getSpec('fill')
@@ -73,6 +75,7 @@ describe('tailwind utility spec', () => {
     expect(decorationSpec).toBeTruthy()
     expect(textDecorationSpec).toBeTruthy()
     expect(textIndentSpec).toBeTruthy()
+    expect(tabSizeSpec).toBeTruthy()
     expect(textWrapOverflowTransformSpec).toBeTruthy()
     expect(divideSpec).toBeTruthy()
     expect(fillSpec).toBeTruthy()
@@ -156,6 +159,15 @@ describe('tailwind utility spec', () => {
     expect(textWrapOverflowTransformSpec?.supportsVariants).toBe(true)
     expect(textWrapOverflowTransformSpec?.invalid).toContain('text-truncate')
     expect(textWrapOverflowTransformSpec?.invalid).toContain('case-normal')
+    expect(tabSizeSpec?.canonical).toEqual([...tabSizeFixtures.canonical])
+    expect(tabSizeSpec?.invalid).toEqual([...tabSizeFixtures.invalid])
+    expect(tabSizeSpec?.sourceFiles).toEqual(['src/_rules/typography.ts'])
+    expect(tabSizeSpec?.category).toBe('typography')
+    expect(tabSizeSpec?.supportsPrefix).toBe(true)
+    expect(tabSizeSpec?.supportsVariants).toBe(true)
+    expect(tabSizeSpec?.canonical).toHaveLength(0)
+    expect(tabSizeSpec?.invalid).toContain('tab')
+    expect(tabSizeSpec?.invalid).toContain('tab-[var(--n)]')
     expect(divideSpec?.canonical).toEqual([...divideFixtures.canonical])
     expect(divideSpec?.invalid).toEqual([...divideFixtures.invalid])
     expect(divideSpec?.sourceFiles).toEqual(['src/_rules-wind3/divide.ts'])
@@ -297,8 +309,9 @@ describe('tailwind utility spec', () => {
     expect(textSpec?.invalid).toContain('text-#fff')
     expect(textSpec?.invalid).toContain('text-color-red-500')
 
-    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, textDecorationSpec, textIndentSpec, textWrapOverflowTransformSpec, divideSpec, fillSpec, fontSpec, textAlignSpec, verticalAlignSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
-      expect(spec?.canonical.length).toBeGreaterThan(0)
+    for (const spec of [backgroundColorSpec, accentSpec, caretSpec, backgroundStyleSpec, borderWidthSpec, borderRadiusSpec, decorationSpec, textDecorationSpec, textIndentSpec, textWrapOverflowTransformSpec, tabSizeSpec, divideSpec, fillSpec, fontSpec, textAlignSpec, verticalAlignSpec, borderSpacingSpaceSpec, leadingSpec, gapInsetScrollSpec, outlineSpec, paddingMarginSpec, ringSpec, shadowSpec, strokeSpec, trackingSpec, transitionSpec, textSpec].filter(Boolean)) {
+      if (spec?.id !== 'tab-size')
+        expect(spec?.canonical.length).toBeGreaterThan(0)
       expect(spec?.invalid.length).toBeGreaterThan(0)
       expect(spec?.sourceFiles.length).toBeGreaterThan(0)
     }

@@ -89,18 +89,7 @@ export const fonts: Rule<Theme>[] = [
   ],
 ]
 
-export const tabSizes: Rule<Theme>[] = [
-  [/^tab(?:-(.+))?$/, ([, s]) => {
-    const v = h.bracket.cssvar.global.number(s || '4')
-    if (v != null) {
-      return {
-        '-moz-tab-size': v,
-        '-o-tab-size': v,
-        'tab-size': v,
-      }
-    }
-  }],
-]
+export const tabSizes: Rule<Theme>[] = []
 
 export const textIndents: Rule<Theme>[] = [
   [

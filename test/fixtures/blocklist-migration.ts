@@ -66,6 +66,14 @@ export const textWrapOverflowTransformBlocklistMigrationFixtures = [
   { input: 'case-normal', replacement: 'normal-case' },
 ] as const
 
+export const tabSizeBlocklistMigrationFixtures = [
+  { input: 'tab', replacement: '[tab-size:4]' },
+  { input: 'tab-4', replacement: '[tab-size:4]' },
+  { input: 'tab-8', replacement: '[tab-size:8]' },
+  { input: 'tab-[8]', replacement: '[tab-size:8]' },
+  { input: 'tab-[var(--n)]', replacement: '[tab-size:var(--n)]' },
+] as const
+
 export const leadingBlocklistMigrationFixtures = [
   { input: 'lh-6', replacement: 'leading-6' },
   { input: 'line-height-6', replacement: 'leading-6' },
@@ -186,6 +194,7 @@ export const blocklistMigrationFixtures = [
   ...textBlocklistMigrationFixtures,
   ...textIndentBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
+  ...tabSizeBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,
   ...leadingBlocklistMigrationFixtures,
   ...trackingBlocklistMigrationFixtures,

@@ -23,6 +23,7 @@ import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margi
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
+import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -706,6 +707,17 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('text-transform:lowercase')
       expect(css).toContain('text-transform:capitalize')
       expect(css).toContain('text-transform:none')
+    })
+  })
+
+  describe('tab-size', () => {
+    it('has no native Tailwind 3 tab-size utilities in the shared fixtures', () => {
+      expect(tabSizeFixtures.canonical).toEqual([])
+      expect(tabSizeFixtures.semantic).toEqual([])
+    })
+
+    it('rejects non-tailwind tab-size aliases through the shared fixtures', async () => {
+      await expectNonTargets(tabSizeFixtures.invalid)
     })
   })
 

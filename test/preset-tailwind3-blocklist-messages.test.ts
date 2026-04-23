@@ -22,6 +22,7 @@ import {
   textAlignBlocklistMigrationFixtures,
   textDecorationBlocklistMigrationFixtures,
   textIndentBlocklistMigrationFixtures,
+  tabSizeBlocklistMigrationFixtures,
   textWrapOverflowTransformBlocklistMigrationFixtures,
   trackingBlocklistMigrationFixtures,
   transitionBlocklistMigrationFixtures,
@@ -241,6 +242,21 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of textWrapOverflowTransformBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks tab-size migration hints through the shared fixture subset', async () => {
+    expect(tabSizeBlocklistMigrationFixtures).toHaveLength(5)
+    expect(tabSizeBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'tab',
+      'tab-4',
+      'tab-8',
+      'tab-[8]',
+      'tab-[var(--n)]',
+    ])
+
+    for (const fixture of tabSizeBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
