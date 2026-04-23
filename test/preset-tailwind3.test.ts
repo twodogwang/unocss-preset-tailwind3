@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -566,6 +567,40 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('--un-ring-offset-color')
       expect(css).toContain('--un-ring-inset:inset')
       expect(css).toContain('box-shadow')
+    })
+
+    it('matches Tailwind 3 decoration and underline-offset utilities through the shared fixtures', async () => {
+      await expectTargets(decorationFixtures.canonical)
+    })
+
+    it('rejects non-tailwind decoration aliases through the shared fixtures', async () => {
+      await expectNonTargets(decorationFixtures.invalid)
+    })
+
+    it('emits the expected decoration CSS for semantic cases', async () => {
+      const css = await expectTargets(decorationFixtures.semantic, {
+        theme: {
+          colors: {
+            brand: '#1da1f2',
+          },
+        },
+      })
+
+      expect(css).toContain('text-decoration-line:underline')
+      expect(css).toContain('text-decoration-line:overline')
+      expect(css).toContain('text-decoration-line:line-through')
+      expect(css).toContain('text-decoration:none')
+      expect(css).toContain('text-decoration-thickness:2px')
+      expect(css).toContain('text-decoration-thickness:3px')
+      expect(css).toContain('text-decoration-thickness:auto')
+      expect(css).toContain('text-decoration-thickness:from-font')
+      expect(css).toContain('text-decoration-style:dashed')
+      expect(css).toContain('text-decoration-style:wavy')
+      expect(css).toContain('-webkit-text-decoration-color')
+      expect(css).toContain('text-decoration-color')
+      expect(css).toContain('text-underline-offset:4px')
+      expect(css).toContain('text-underline-offset:3px')
+      expect(css).toContain('29 161 242')
     })
   })
 

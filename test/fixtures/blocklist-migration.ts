@@ -16,6 +16,17 @@ export const ringBlocklistMigrationFixtures = [
   { input: 'ring-size-2', replacement: 'ring-2' },
 ] as const
 
+export const decorationBlocklistMigrationFixtures = [
+  { input: 'decoration-none', replacement: 'no-underline' },
+  { input: 'decoration-underline', replacement: 'underline' },
+  { input: 'decoration-offset-4', replacement: 'underline-offset-4' },
+  { input: 'underline-2', replacement: 'decoration-2' },
+  { input: 'underline-[3px]', replacement: 'decoration-[3px]' },
+  { input: 'underline-auto', replacement: 'decoration-auto' },
+  { input: 'underline-dashed', replacement: 'decoration-dashed' },
+  { input: 'underline-wavy', replacement: 'decoration-wavy' },
+] as const
+
 export const textBlocklistMigrationFixtures = [
   { input: 'text-#fff', replacement: 'text-[#fff]' },
   { input: 'text-size-sm', replacement: 'text-sm' },
@@ -124,6 +135,7 @@ export const blocklistMigrationFixtures = [
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
   ...ringBlocklistMigrationFixtures,
+  ...decorationBlocklistMigrationFixtures,
   { input: 'border-color-red-500', replacement: 'border-red-500' },
   { input: 'border-s-color-red-500', replacement: 'border-s-red-500' },
   ...outlineBlocklistMigrationFixtures,

@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -361,6 +362,31 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind ring aliases', async () => {
     await expectTailwindParity(ringFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for decoration and underline-offset utilities', async () => {
+    await expectTailwindParity(decorationFixtures.canonical, {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            colors: {
+              brand: '#1da1f2',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          colors: {
+            brand: '#1da1f2',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind decoration aliases', async () => {
+    await expectTailwindParity(decorationFixtures.invalid)
   })
 
   it('matches Tailwind 3 support for text utilities', async () => {

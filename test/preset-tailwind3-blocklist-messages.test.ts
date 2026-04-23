@@ -6,6 +6,7 @@ import {
   backgroundColorBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
+  decorationBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   outlineBlocklistMigrationFixtures,
@@ -146,6 +147,24 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of ringBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks decoration migration hints through the shared fixture subset', async () => {
+    expect(decorationBlocklistMigrationFixtures).toHaveLength(8)
+    expect(decorationBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'decoration-none',
+      'decoration-underline',
+      'decoration-offset-4',
+      'underline-2',
+      'underline-[3px]',
+      'underline-auto',
+      'underline-dashed',
+      'underline-wavy',
+    ])
+
+    for (const fixture of decorationBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

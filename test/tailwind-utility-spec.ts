@@ -1,6 +1,7 @@
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
@@ -64,6 +65,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于建立“圆角别名收敛到 Tailwind 3 语义”的重写模板。'],
+  },
+  {
+    id: 'decoration',
+    sourceFiles: ['src/_rules/decoration.ts'],
+    category: 'typography',
+    canonical: [...decorationFixtures.canonical],
+    invalid: [...decorationFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 decoration / underline-offset 主规则族的 thickness、style、color 与 offset 语义边界。'],
   },
   {
     id: 'outline',
