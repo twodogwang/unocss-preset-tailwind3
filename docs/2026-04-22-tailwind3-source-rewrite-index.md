@@ -14,7 +14,7 @@
 
 - 目标：把各个 utility 收敛到 Tailwind CSS 3 正式语法
 - 已完成：`border`、`outline`、`text`、`leading`、`tracking`、`stroke`、`spacing`、`behavior`
-- 第二阶段已完成模板化：`background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow`、`divide`、`fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`
+- 第二阶段已完成模板化：`background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow`、`divide`、`fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`
 
 ## Utility Manifest
 
@@ -98,6 +98,11 @@
   - plan: `docs/superpowers/plans/2026-04-23-text-decoration-source-rewrite.md`
   - log: `docs/2026-04-23-text-decoration-source-rewrite-log.md`
   - status: `docs/2026-04-23-text-decoration-source-rewrite-status.md`
+- `text-indent` 已完成模板化：
+  - spec: `docs/superpowers/specs/2026-04-23-text-indent-source-rewrite-design.md`
+  - plan: `docs/superpowers/plans/2026-04-23-text-indent-source-rewrite.md`
+  - log: `docs/2026-04-23-text-indent-source-rewrite-log.md`
+  - status: `docs/2026-04-23-text-indent-source-rewrite-status.md`
 
 ## 相关文档
 

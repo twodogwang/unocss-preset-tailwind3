@@ -38,6 +38,7 @@
 | `text-align` | `src/_rules/align.ts` | `completed_template` | 已覆盖 text-left/right/center/justify/start/end 与高置信度 alias migration |
 | `vertical-align` | `src/_rules/align.ts` | `completed_template` | 已覆盖 align-*、align-[...] 与高置信度 alias migration |
 | `text-decoration` | `src/_rules/decoration.ts` | `completed_template` | 已覆盖 underline / overline / line-through / no-underline 与高置信度 alias migration |
+| `text-indent` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 spacing/theme/arbitrary/negative 语义，并锁住高置信度 alias migration |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -52,7 +53,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `text-indent` | `src/_rules/typography.ts` | `pending_wave_2` | `wave_2` | |
 | `text-wrap / text-overflow / text-transform` | `src/_rules/static.ts` | `pending_wave_2` | `wave_2` | 目前只在综合测试中出现 |
 | `tab-size` | `src/_rules/typography.ts` | `pending_wave_2` | `wave_2` | |
 | `text-stroke` | `src/_rules/typography.ts` | `pending_wave_2` | `wave_2` | 与 `stroke` 不同，仍未治理 |
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `text-indent` 或 typography 剩余主规则族。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `text-wrap / text-overflow / text-transform` 或 typography 剩余主规则族。
