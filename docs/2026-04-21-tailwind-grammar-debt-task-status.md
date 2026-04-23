@@ -54,13 +54,17 @@
   - `docs/superpowers/plans/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite.md`
   - `docs/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite-log.md`
   - `docs/2026-04-23-background-style-gradient-clip-origin-repeat-position-source-rewrite-status.md`
+- `ring` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-ring-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-ring-source-rewrite.md`
+  - `docs/2026-04-23-ring-source-rewrite-log.md`
+  - `docs/2026-04-23-ring-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段前两个 family `background-color / bg-opacity` 与 `background-style / gradient / clip / origin / repeat / position` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
+第一阶段主线已完成，第二阶段前三个 family `background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position` 与 `ring` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
 
-1. `ring`
-2. `decoration / shadow / divide`
+1. `decoration / shadow / divide`
 
 ## 文档职责
 
