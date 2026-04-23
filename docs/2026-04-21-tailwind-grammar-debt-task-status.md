@@ -59,12 +59,17 @@
   - `docs/superpowers/plans/2026-04-23-ring-source-rewrite.md`
   - `docs/2026-04-23-ring-source-rewrite-log.md`
   - `docs/2026-04-23-ring-source-rewrite-status.md`
+- `decoration / underline-offset` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-23-decoration-underline-offset-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-23-decoration-underline-offset-source-rewrite.md`
+  - `docs/2026-04-23-decoration-underline-offset-source-rewrite-log.md`
+  - `docs/2026-04-23-decoration-underline-offset-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段前三个 family `background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position` 与 `ring` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
+第一阶段主线已完成，第二阶段前四个 family `background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring` 与 `decoration / underline-offset` 也已完成模板化。下一步应按 full inventory 的 `wave_1` 继续推进：
 
-1. `decoration / shadow / divide`
+1. `shadow / divide`
 
 ## 文档职责
 

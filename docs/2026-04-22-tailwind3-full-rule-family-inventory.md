@@ -28,6 +28,7 @@
 | `background-color / bg-opacity` | `src/_rules/color.ts` | `completed_template` | 已覆盖 `bg-*` 颜色、opacity 和高置信度 alias migration |
 | `background-style / gradient / clip / origin / repeat / position` | `src/_rules-wind3/background.ts` | `completed_template` | 已覆盖 size / attachment / clip / origin / repeat / position / gradient，并锁住旧扩展 strictness 子集 |
 | `ring` | `src/_rules/ring.ts` | `completed_template` | 已覆盖 width / color / opacity / offset / inset，并锁住高置信度 alias migration |
+| `decoration / underline-offset` | `src/_rules/decoration.ts` | `completed_template` | 已覆盖 line / thickness / style / color / underline-offset，并锁住高置信度 alias migration |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -42,7 +43,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `decoration / underline-offset` | `src/_rules/decoration.ts` | `pending_wave_1` | `wave_1` | 当前仍主要靠综合测试约束 |
 | `shadow` | `src/_rules/shadow.ts` | `pending_wave_1` | `wave_1` | 含颜色与 arbitrary value 边界 |
 | `divide` | `src/_rules-wind3/divide.ts` | `pending_wave_1` | `wave_1` | 与 border 家族相邻，历史别名较多 |
 | `fill` | `src/_rules/svg.ts` | `pending_wave_2` | `wave_2` | 与 `stroke` 同文件，但未独立治理 |
@@ -94,8 +94,6 @@
 ## Recommended Execution Waves
 
 1. `wave_1`
-- `ring`
-- `decoration`
 - `shadow`
 - `divide`
 
@@ -114,4 +112,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_1` 进入 `decoration / underline-offset`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_1` 进入 `shadow`。

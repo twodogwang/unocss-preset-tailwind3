@@ -48,6 +48,11 @@
   - plan: `docs/superpowers/plans/2026-04-23-ring-source-rewrite.md`
   - log: `docs/2026-04-23-ring-source-rewrite-log.md`
   - status: `docs/2026-04-23-ring-source-rewrite-status.md`
+- `decoration / underline-offset` 已完成模板化：
+  - spec: `docs/superpowers/specs/2026-04-23-decoration-underline-offset-source-rewrite-design.md`
+  - plan: `docs/superpowers/plans/2026-04-23-decoration-underline-offset-source-rewrite.md`
+  - log: `docs/2026-04-23-decoration-underline-offset-source-rewrite-log.md`
+  - status: `docs/2026-04-23-decoration-underline-offset-source-rewrite-status.md`
 
 ## 相关文档
 
