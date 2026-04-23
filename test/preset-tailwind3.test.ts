@@ -13,6 +13,7 @@ import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewr
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
+import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -958,6 +959,25 @@ describe('preset-tailwind3', () => {
       })
 
       expect(css).toContain('255 136 0')
+    })
+  })
+
+  describe('font-variant-numeric', () => {
+    it('matches official Tailwind 3 font-variant-numeric utilities', async () => {
+      await expectTargets(fontVariantNumericFixtures.canonical)
+    })
+
+    it('rejects non-tailwind font-variant-numeric aliases', async () => {
+      await expectNonTargets(fontVariantNumericFixtures.invalid)
+    })
+
+    it('emits the expected font-variant-numeric CSS for semantic cases', async () => {
+      const css = await expectTargets(fontVariantNumericFixtures.semantic)
+
+      expect(css).toContain('.normal-nums{font-variant-numeric:normal;}')
+      expect(css).toContain('.ordinal{--un-ordinal:ordinal;font-variant-numeric:var(--un-ordinal) var(--un-slashed-zero) var(--un-numeric-figure) var(--un-numeric-spacing) var(--un-numeric-fraction);}')
+      expect(css).toContain('.tabular-nums{--un-numeric-spacing:tabular-nums;font-variant-numeric:var(--un-ordinal) var(--un-slashed-zero) var(--un-numeric-figure) var(--un-numeric-spacing) var(--un-numeric-fraction);}')
+      expect(css).toContain('.stacked-fractions{--un-numeric-fraction:stacked-fractions;font-variant-numeric:var(--un-ordinal) var(--un-slashed-zero) var(--un-numeric-figure) var(--un-numeric-spacing) var(--un-numeric-fraction);}')
     })
   })
 

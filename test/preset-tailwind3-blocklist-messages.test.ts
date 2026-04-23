@@ -12,6 +12,7 @@ import {
   divideBlocklistMigrationFixtures,
   fillBlocklistMigrationFixtures,
   fontBlocklistMigrationFixtures,
+  fontVariantNumericBlocklistMigrationFixtures,
   gapInsetScrollBlocklistMigrationFixtures,
   leadingBlocklistMigrationFixtures,
   lineClampBlocklistMigrationFixtures,
@@ -305,6 +306,25 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of lineClampBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks font-variant-numeric migration hints through the shared fixture subset', async () => {
+    expect(fontVariantNumericBlocklistMigrationFixtures).toHaveLength(9)
+    expect(fontVariantNumericBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'nums-normal',
+      'numeric-ordinal',
+      'numeric-slashed-zero',
+      'numeric-lining',
+      'numeric-oldstyle',
+      'numeric-proportional',
+      'numeric-tabular',
+      'fractions-diagonal',
+      'fractions-stacked',
+    ])
+
+    for (const fixture of fontVariantNumericBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

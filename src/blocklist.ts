@@ -47,6 +47,20 @@ const textStrokeKeywordWidthMap: Record<string, string> = {
   lg: 'thick',
 }
 
+const fontVariantNumericAliasMap: Record<string, string> = {
+  ordinal: 'ordinal',
+  'slashed-zero': 'slashed-zero',
+  lining: 'lining-nums',
+  oldstyle: 'oldstyle-nums',
+  proportional: 'proportional-nums',
+  tabular: 'tabular-nums',
+}
+
+const fontVariantFractionAliasMap: Record<string, string> = {
+  diagonal: 'diagonal-fractions',
+  stacked: 'stacked-fractions',
+}
+
 function migrationRule(
   matcher: RegExp,
   replacement: MigrationReplacement,
@@ -112,6 +126,15 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: /^tab-(\[.+\])$/, replacement: (_, match) => `[tab-size:${match[1].slice(1, -1)}]` },
   { matcher: /^line-clamp-0$/, replacement: () => 'line-clamp-[0]' },
   { matcher: /^line-clamp-(inherit|initial|unset|revert|revert-layer)$/, replacement: (_, match) => `line-clamp-[${match[1]}]` },
+  { matcher: /^nums-normal$/, replacement: () => 'normal-nums' },
+  {
+    matcher: /^numeric-(ordinal|slashed-zero|lining|oldstyle|proportional|tabular)$/,
+    replacement: (_, match) => fontVariantNumericAliasMap[match[1]],
+  },
+  {
+    matcher: /^fractions-(diagonal|stacked)$/,
+    replacement: (_, match) => fontVariantFractionAliasMap[match[1]],
+  },
   { matcher: /^text-shadow-none$/, replacement: () => '[text-shadow:0_0_#0000]' },
   { matcher: /^text-shadow-\[(.+_.+)\]$/, replacement: (_, match) => `[text-shadow:${match[1]}]` },
   { matcher: /^text-stroke$/, replacement: () => '[-webkit-text-stroke-width:1.5rem]' },

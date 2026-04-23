@@ -14,6 +14,7 @@ import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
+import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -57,6 +58,7 @@ describe('tailwind utility spec', () => {
     const divideSpec = getSpec('divide')
     const fillSpec = getSpec('fill')
     const fontSpec = getSpec('font')
+    const fontVariantNumericSpec = getSpec('font-variant-numeric')
     const lineClampSpec = getSpec('line-clamp')
     const textAlignSpec = getSpec('text-align')
     const verticalAlignSpec = getSpec('vertical-align')
@@ -88,6 +90,7 @@ describe('tailwind utility spec', () => {
     expect(divideSpec).toBeTruthy()
     expect(fillSpec).toBeTruthy()
     expect(fontSpec).toBeTruthy()
+    expect(fontVariantNumericSpec).toBeTruthy()
     expect(lineClampSpec).toBeTruthy()
     expect(textAlignSpec).toBeTruthy()
     expect(verticalAlignSpec).toBeTruthy()
@@ -219,6 +222,14 @@ describe('tailwind utility spec', () => {
     expect(fontSpec?.supportsVariants).toBe(true)
     expect(fontSpec?.invalid).toContain('fw-bold')
     expect(fontSpec?.invalid).toContain('font-650')
+    expect(fontVariantNumericSpec?.canonical).toEqual([...fontVariantNumericFixtures.canonical])
+    expect(fontVariantNumericSpec?.invalid).toEqual([...fontVariantNumericFixtures.invalid])
+    expect(fontVariantNumericSpec?.sourceFiles).toEqual(['src/_rules-wind3/typography.ts'])
+    expect(fontVariantNumericSpec?.category).toBe('typography')
+    expect(fontVariantNumericSpec?.supportsPrefix).toBe(true)
+    expect(fontVariantNumericSpec?.supportsVariants).toBe(true)
+    expect(fontVariantNumericSpec?.invalid).toContain('nums-normal')
+    expect(fontVariantNumericSpec?.invalid).toContain('font-variant-numeric-ordinal')
     expect(lineClampSpec?.canonical).toEqual([...lineClampFixtures.canonical])
     expect(lineClampSpec?.invalid).toEqual([...lineClampFixtures.invalid])
     expect(lineClampSpec?.sourceFiles).toEqual(['src/_rules-wind3/line-clamp.ts'])

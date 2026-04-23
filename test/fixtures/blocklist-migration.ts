@@ -89,6 +89,18 @@ export const lineClampBlocklistMigrationFixtures = [
   { input: 'line-clamp-revert-layer', replacement: 'line-clamp-[revert-layer]' },
 ] as const
 
+export const fontVariantNumericBlocklistMigrationFixtures = [
+  { input: 'nums-normal', replacement: 'normal-nums' },
+  { input: 'numeric-ordinal', replacement: 'ordinal' },
+  { input: 'numeric-slashed-zero', replacement: 'slashed-zero' },
+  { input: 'numeric-lining', replacement: 'lining-nums' },
+  { input: 'numeric-oldstyle', replacement: 'oldstyle-nums' },
+  { input: 'numeric-proportional', replacement: 'proportional-nums' },
+  { input: 'numeric-tabular', replacement: 'tabular-nums' },
+  { input: 'fractions-diagonal', replacement: 'diagonal-fractions' },
+  { input: 'fractions-stacked', replacement: 'stacked-fractions' },
+] as const
+
 export const textStrokeBlocklistMigrationFixtures = [
   { input: 'text-stroke', replacement: '[-webkit-text-stroke-width:1.5rem]' },
   { input: 'text-stroke-2', replacement: '[-webkit-text-stroke-width:2px]' },
@@ -220,6 +232,7 @@ export const blocklistMigrationFixtures = [
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,
+  ...fontVariantNumericBlocklistMigrationFixtures,
   ...textShadowBlocklistMigrationFixtures,
   ...textStrokeBlocklistMigrationFixtures,
   ...textDecorationBlocklistMigrationFixtures,

@@ -13,6 +13,7 @@ import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
+import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -201,6 +202,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 fill 主规则族只接受 Tailwind 3 的 fill color 与 none 语义。'],
+  },
+  {
+    id: 'font-variant-numeric',
+    sourceFiles: ['src/_rules-wind3/typography.ts'],
+    category: 'typography',
+    canonical: [...fontVariantNumericFixtures.canonical],
+    invalid: [...fontVariantNumericFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 font-variant-numeric 主规则族只接受 Tailwind 3 官方的 numeric feature utilities，并拒绝旧别名与伪前缀写法。'],
   },
   {
     id: 'font',

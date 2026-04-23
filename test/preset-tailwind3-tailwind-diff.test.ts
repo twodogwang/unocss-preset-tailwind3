@@ -14,6 +14,7 @@ import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewr
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
+import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -455,6 +456,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind line-clamp aliases and loose keywords', async () => {
     await expectTailwindParity(lineClampFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for font-variant-numeric utilities', async () => {
+    await expectTailwindParity(fontVariantNumericFixtures.canonical)
+  })
+
+  it('rejects non-tailwind font-variant-numeric aliases', async () => {
+    await expectTailwindParity(fontVariantNumericFixtures.invalid)
   })
 
   it('rejects non-tailwind tab-size aliases and extensions', async () => {
