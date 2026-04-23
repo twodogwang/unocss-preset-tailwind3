@@ -44,6 +44,7 @@
 | `text-stroke` | `src/_rules/typography.ts` | `completed_template` | 已确认 Tailwind 3 无原生 text-stroke utility，并把高置信度旧写法迁移到 `[-webkit-text-stroke-*:*]` arbitrary property |
 | `text-shadow` | `src/_rules/typography.ts` | `completed_template` | 已确认 Tailwind 3 无原生 text-shadow utility，并把少量可确定旧写法迁移到 `[text-shadow:...]` arbitrary property |
 | `line-clamp` | `src/_rules-wind3/line-clamp.ts` | `completed_template` | 已收敛到 Tailwind 3 官方的正整数、`none` 与 `line-clamp-[...]` 语义，并把 `0` / global keyword 迁移到 arbitrary value |
+| `font-variant-numeric` | `src/_rules-wind3/typography.ts` | `completed_template` | 已确认 runtime 与 Tailwind 3 官方 numeric feature utilities 一致，并补齐高置信度旧别名治理 |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -58,7 +59,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `font-variant-numeric` | `src/_rules-wind3/typography.ts` | `pending_wave_2` | `wave_2` | |
 | `size / width / height / min / max` | `src/_rules/size.ts` | `pending_wave_3` | `wave_3` | 当前有综合测试，但无专用模板 |
 | `aspect-ratio` | `src/_rules/size.ts` | `pending_wave_3` | `wave_3` | |
 | `display` | `src/_rules/static.ts` | `pending_wave_3` | `wave_3` | |
@@ -97,7 +97,7 @@
 - 已完成：`background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow`、`divide`
 
 2. `wave_2`
-- typography 剩余主规则族：`font-variant-numeric`
+- typography 主规则族已清空，下一阶段进入尺寸与布局主规则族
 - `fill / accent / caret`
 
 3. `wave_3`
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_2` 进入 `font-variant-numeric`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_3` 进入 `size / width / height / min / max`。
