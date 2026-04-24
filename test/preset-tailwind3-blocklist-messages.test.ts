@@ -6,6 +6,7 @@ import {
   accentBlocklistMigrationFixtures,
   aspectRatioBlocklistMigrationFixtures,
   backgroundColorBlocklistMigrationFixtures,
+  displayBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
   caretBlocklistMigrationFixtures,
@@ -160,6 +161,23 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of aspectRatioBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks display migration hints through the shared fixture subset', async () => {
+    expect(displayBlocklistMigrationFixtures).toHaveLength(7)
+    expect(displayBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'display-block',
+      'display-inline',
+      'display-inline-block',
+      'display-none',
+      'display-contents',
+      'display-flow-root',
+      'display-list-item',
+    ])
+
+    for (const fixture of displayBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

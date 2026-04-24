@@ -11,6 +11,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
+import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
@@ -161,6 +162,14 @@ describe('preset-tailwind3 tailwind parity', () => {
         },
       },
     })
+  })
+
+  it('matches Tailwind 3 support for display utilities', async () => {
+    await expectTailwindParity(displayFixtures.canonical.filter(item => item !== 'hidden'))
+  })
+
+  it('rejects non-tailwind display aliases and arbitrary values', async () => {
+    await expectTailwindParity(displayFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

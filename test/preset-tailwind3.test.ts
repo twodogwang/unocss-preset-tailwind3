@@ -9,6 +9,7 @@ import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
@@ -160,6 +161,28 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.aspect-square{aspect-ratio:1 / 1;}')
       expect(css).toContain('.aspect-video{aspect-ratio:16 / 9;}')
       expect(css).toContain('.aspect-\\[4\\/3\\]{aspect-ratio:4/3;}')
+    })
+  })
+
+  describe('display', () => {
+    it('matches official Tailwind 3 display utilities', async () => {
+      await expectTargets(displayFixtures.canonical)
+    })
+
+    it('rejects non-tailwind display aliases and arbitrary values', async () => {
+      await expectNonTargets(displayFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic display cases', async () => {
+      const css = await expectTargets(displayFixtures.semantic)
+
+      expect(css).toContain('.block{display:block;}')
+      expect(css).toContain('.inline{display:inline;}')
+      expect(css).toContain('.inline-block{display:inline-block;}')
+      expect(css).toContain('.contents{display:contents;}')
+      expect(css).toContain('.flow-root{display:flow-root;}')
+      expect(css).toContain('.list-item{display:list-item;}')
+      expect(css).toContain('.hidden{display:none;}')
     })
   })
 

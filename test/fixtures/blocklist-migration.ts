@@ -80,6 +80,16 @@ export const aspectRatioBlocklistMigrationFixtures = [
   { input: 'size-aspect-square', replacement: 'aspect-square' },
 ] as const
 
+export const displayBlocklistMigrationFixtures = [
+  { input: 'display-block', replacement: 'block' },
+  { input: 'display-inline', replacement: 'inline' },
+  { input: 'display-inline-block', replacement: 'inline-block' },
+  { input: 'display-none', replacement: 'hidden' },
+  { input: 'display-contents', replacement: 'contents' },
+  { input: 'display-flow-root', replacement: 'flow-root' },
+  { input: 'display-list-item', replacement: 'list-item' },
+] as const
+
 export const textWrapOverflowTransformBlocklistMigrationFixtures = [
   { input: 'text-truncate', replacement: 'truncate' },
   { input: 'case-upper', replacement: 'uppercase' },

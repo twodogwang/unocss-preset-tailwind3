@@ -211,6 +211,13 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'aspect-square',
   },
   {
+    label: 'legacy display alias',
+    matcher: /^display-(block|inline|inline-block|none|contents|flow-root|list-item)$/,
+    input: 'display-block',
+    prefixed: 'tw-display-block',
+    replacement: 'block',
+  },
+  {
     label: 'compact gap shorthand alias',
     matcher: /^gap(\d+(?:\.\d+)?)$/,
     input: 'gap4',

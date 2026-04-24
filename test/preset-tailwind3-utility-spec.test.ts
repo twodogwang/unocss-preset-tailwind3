@@ -5,6 +5,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
@@ -45,6 +46,7 @@ describe('tailwind utility spec', () => {
 
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const backgroundColorSpec = getSpec('background-color')
+    const displaySpec = getSpec('display')
     const aspectRatioSpec = getSpec('aspect-ratio')
     const sizeSpec = getSpec('size')
     const accentSpec = getSpec('accent')
@@ -79,6 +81,7 @@ describe('tailwind utility spec', () => {
     const textSpec = getSpec('text')
 
     expect(backgroundColorSpec).toBeTruthy()
+    expect(displaySpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
     expect(sizeSpec).toBeTruthy()
     expect(accentSpec).toBeTruthy()
@@ -112,6 +115,14 @@ describe('tailwind utility spec', () => {
     expect(transitionSpec).toBeTruthy()
     expect(textSpec).toBeTruthy()
 
+    expect(displaySpec?.canonical).toEqual([...displayFixtures.canonical])
+    expect(displaySpec?.invalid).toEqual([...displayFixtures.invalid])
+    expect(displaySpec?.sourceFiles).toEqual(['src/_rules/static.ts'])
+    expect(displaySpec?.category).toBe('layout')
+    expect(displaySpec?.supportsPrefix).toBe(true)
+    expect(displaySpec?.supportsVariants).toBe(true)
+    expect(displaySpec?.invalid).toContain('display-block')
+    expect(displaySpec?.invalid).toContain('display-[var(--display)]')
     expect(aspectRatioSpec?.canonical).toEqual([...aspectRatioFixtures.canonical])
     expect(aspectRatioSpec?.invalid).toEqual([...aspectRatioFixtures.invalid])
     expect(aspectRatioSpec?.sourceFiles).toEqual(['src/_rules/size.ts'])

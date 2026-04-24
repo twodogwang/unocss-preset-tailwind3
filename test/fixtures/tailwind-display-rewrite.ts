@@ -1,0 +1,32 @@
+export const displayFixtures = {
+  canonical: [
+    'block',
+    'inline',
+    'inline-block',
+    'contents',
+    'flow-root',
+    'list-item',
+    'hidden',
+  ],
+  invalid: [
+    'display-block',
+    'display-inline',
+    'display-inline-block',
+    'display-none',
+    'display-contents',
+    'display-flow-root',
+    'display-list-item',
+    'display-[none]',
+    'display-[inherit]',
+    'display-[var(--display)]',
+  ],
+  semantic: [
+    'block',
+    'inline',
+    'inline-block',
+    'contents',
+    'flow-root',
+    'list-item',
+    'hidden',
+  ],
+} as const

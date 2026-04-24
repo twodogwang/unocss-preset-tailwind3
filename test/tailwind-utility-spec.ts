@@ -4,6 +4,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
@@ -44,6 +45,16 @@ export interface TailwindUtilitySpec {
 }
 
 export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
+  {
+    id: 'display',
+    sourceFiles: ['src/_rules/static.ts'],
+    category: 'layout',
+    canonical: [...displayFixtures.canonical],
+    invalid: [...displayFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 display 主规则族只接受 Tailwind 3 的静态 display utilities，并拒绝历史 display-* 别名与 arbitrary value。'],
+  },
   {
     id: 'aspect-ratio',
     sourceFiles: ['src/_rules/size.ts'],
