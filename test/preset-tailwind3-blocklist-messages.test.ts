@@ -7,6 +7,7 @@ import {
   aspectRatioBlocklistMigrationFixtures,
   backgroundColorBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
+  overflowBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
   caretBlocklistMigrationFixtures,
@@ -178,6 +179,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of displayBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks overflow migration hints through the shared fixture subset', async () => {
+    expect(overflowBlocklistMigrationFixtures).toHaveLength(3)
+    expect(overflowBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'of-hidden',
+      'of-x-auto',
+      'of-y-scroll',
+    ])
+
+    for (const fixture of overflowBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

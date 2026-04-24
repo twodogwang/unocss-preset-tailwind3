@@ -20,6 +20,7 @@ import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-num
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -170,6 +171,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind display aliases and arbitrary values', async () => {
     await expectTailwindParity(displayFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for overflow utilities', async () => {
+    await expectTailwindParity(overflowFixtures.canonical)
+  })
+
+  it('rejects non-tailwind overflow aliases and legacy keywords', async () => {
+    await expectTailwindParity(overflowFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

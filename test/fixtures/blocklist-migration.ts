@@ -90,6 +90,12 @@ export const displayBlocklistMigrationFixtures = [
   { input: 'display-list-item', replacement: 'list-item' },
 ] as const
 
+export const overflowBlocklistMigrationFixtures = [
+  { input: 'of-hidden', replacement: 'overflow-hidden' },
+  { input: 'of-x-auto', replacement: 'overflow-x-auto' },
+  { input: 'of-y-scroll', replacement: 'overflow-y-scroll' },
+] as const
+
 export const textWrapOverflowTransformBlocklistMigrationFixtures = [
   { input: 'text-truncate', replacement: 'truncate' },
   { input: 'case-upper', replacement: 'uppercase' },

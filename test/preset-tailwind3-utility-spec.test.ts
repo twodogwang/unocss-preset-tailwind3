@@ -20,6 +20,7 @@ import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-num
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -47,6 +48,7 @@ describe('tailwind utility spec', () => {
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const backgroundColorSpec = getSpec('background-color')
     const displaySpec = getSpec('display')
+    const overflowSpec = getSpec('overflow')
     const aspectRatioSpec = getSpec('aspect-ratio')
     const sizeSpec = getSpec('size')
     const accentSpec = getSpec('accent')
@@ -82,6 +84,7 @@ describe('tailwind utility spec', () => {
 
     expect(backgroundColorSpec).toBeTruthy()
     expect(displaySpec).toBeTruthy()
+    expect(overflowSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
     expect(sizeSpec).toBeTruthy()
     expect(accentSpec).toBeTruthy()
@@ -123,6 +126,14 @@ describe('tailwind utility spec', () => {
     expect(displaySpec?.supportsVariants).toBe(true)
     expect(displaySpec?.invalid).toContain('display-block')
     expect(displaySpec?.invalid).toContain('display-[var(--display)]')
+    expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
+    expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
+    expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])
+    expect(overflowSpec?.category).toBe('layout')
+    expect(overflowSpec?.supportsPrefix).toBe(true)
+    expect(overflowSpec?.supportsVariants).toBe(true)
+    expect(overflowSpec?.invalid).toContain('overflow-overlay')
+    expect(overflowSpec?.invalid).toContain('of-x-auto')
     expect(aspectRatioSpec?.canonical).toEqual([...aspectRatioFixtures.canonical])
     expect(aspectRatioSpec?.invalid).toEqual([...aspectRatioFixtures.invalid])
     expect(aspectRatioSpec?.sourceFiles).toEqual(['src/_rules/size.ts'])

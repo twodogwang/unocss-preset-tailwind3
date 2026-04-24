@@ -126,6 +126,10 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: /^aspect-ratio-(\[.+\])$/, replacement: (_, match) => `aspect-${match[1]}` },
   { matcher: /^size-aspect-(auto|square|video)$/, replacement: (_, match) => `aspect-${match[1]}` },
   { matcher: /^display-(block|inline|inline-block|none|contents|flow-root|list-item)$/, replacement: (_, match) => match[1] === 'none' ? 'hidden' : match[1] },
+  {
+    matcher: /^of(?:-([xy]))?-(auto|hidden|clip|visible|scroll)$/,
+    replacement: (_, match) => match[1] ? `overflow-${match[1]}-${match[2]}` : `overflow-${match[2]}`,
+  },
   { matcher: /^text-truncate$/, replacement: () => 'truncate' },
   { matcher: /^case-upper$/, replacement: () => 'uppercase' },
   { matcher: /^case-lower$/, replacement: () => 'lowercase' },

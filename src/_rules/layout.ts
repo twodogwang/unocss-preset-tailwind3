@@ -1,5 +1,4 @@
 import type { Rule } from '@unocss/core'
-import { globalKeywords } from '../utils'
 
 const overflowValues = [
   'auto',
@@ -7,8 +6,6 @@ const overflowValues = [
   'clip',
   'visible',
   'scroll',
-  'overlay',
-  ...globalKeywords,
 ]
 
 export const overflows: Rule[] = [

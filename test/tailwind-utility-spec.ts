@@ -19,6 +19,7 @@ import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-num
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -54,6 +55,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 display 主规则族只接受 Tailwind 3 的静态 display utilities，并拒绝历史 display-* 别名与 arbitrary value。'],
+  },
+  {
+    id: 'overflow',
+    sourceFiles: ['src/_rules/layout.ts'],
+    category: 'layout',
+    canonical: [...overflowFixtures.canonical],
+    invalid: [...overflowFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 overflow 主规则族只接受 Tailwind 3 的五个静态 overflow 值与 x/y 变体，并拒绝 overlay、global keyword 与 of-* 旧别名。'],
   },
   {
     id: 'aspect-ratio',

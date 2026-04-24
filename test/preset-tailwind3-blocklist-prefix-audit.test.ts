@@ -218,6 +218,13 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'block',
   },
   {
+    label: 'legacy overflow alias',
+    matcher: /^of(?:-([xy]))?-(auto|hidden|clip|visible|scroll)$/,
+    input: 'of-hidden',
+    prefixed: 'tw-of-hidden',
+    replacement: 'overflow-hidden',
+  },
+  {
     label: 'compact gap shorthand alias',
     matcher: /^gap(\d+(?:\.\d+)?)$/,
     input: 'gap4',

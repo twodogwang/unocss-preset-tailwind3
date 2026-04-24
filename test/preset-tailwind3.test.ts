@@ -19,6 +19,7 @@ import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-num
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
+import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -183,6 +184,24 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.flow-root{display:flow-root;}')
       expect(css).toContain('.list-item{display:list-item;}')
       expect(css).toContain('.hidden{display:none;}')
+    })
+  })
+
+  describe('overflow', () => {
+    it('matches official Tailwind 3 overflow utilities', async () => {
+      await expectTargets(overflowFixtures.canonical)
+    })
+
+    it('rejects non-tailwind overflow aliases and legacy keywords', async () => {
+      await expectNonTargets(overflowFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic overflow cases', async () => {
+      const css = await expectTargets(overflowFixtures.semantic)
+
+      expect(css).toContain('.overflow-clip{overflow:clip;}')
+      expect(css).toContain('.overflow-x-auto{overflow-x:auto;}')
+      expect(css).toContain('.overflow-y-visible{overflow-y:visible;}')
     })
   })
 
