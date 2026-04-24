@@ -154,12 +154,17 @@
   - `docs/superpowers/plans/2026-04-24-aspect-ratio-source-rewrite.md`
   - `docs/2026-04-24-aspect-ratio-source-rewrite-log.md`
   - `docs/2026-04-24-aspect-ratio-source-rewrite-status.md`
+- `display` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-24-display-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-24-display-source-rewrite.md`
+  - `docs/2026-04-24-display-source-rewrite-log.md`
+  - `docs/2026-04-24-display-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric` 与 `wave_3` 的 `size / width / height / min / max`、`aspect-ratio`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric` 与 `wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`。下一步应按 full inventory 继续推进：
 
-1. `display`
+1. `overflow`
 2. `wave_3` 其余布局主规则族
 
 ## 文档职责

@@ -47,6 +47,7 @@
 | `font-variant-numeric` | `src/_rules-wind3/typography.ts` | `completed_template` | 已确认 runtime 与 Tailwind 3 官方 numeric feature utilities 一致，并补齐高置信度旧别名治理 |
 | `size / width / height / min / max` | `src/_rules/size.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 width/height/min/max/size 边界，补齐 viewport key、移除 container/screen 误接纳，并锁住高置信度旧尺寸别名治理 |
 | `aspect-ratio` | `src/_rules/size.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `aspect-*` 官方边界，支持 theme-driven aspectRatio key，并锁住 `aspect-ratio-*` / 裸 ratio shorthand 的高置信度迁移治理 |
+| `display` | `src/_rules/static.ts` | `completed_template` | 已对齐 Tailwind 3.4 display core plugin 的静态语义，并锁住 `display-*` 高置信度旧别名治理 |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -61,7 +62,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `display` | `src/_rules/static.ts` | `pending_wave_3` | `wave_3` | |
 | `overflow` | `src/_rules/layout.ts` | `pending_wave_3` | `wave_3` | |
 | `position / inset leftovers / float / z / order / box-sizing` | `src/_rules/position.ts` | `pending_wave_3` | `wave_3` | `inset` 主体已完成，其他仍未模板化 |
 | `container` | `src/_rules/container.ts`, `src/_rules-wind3/container.ts` | `pending_wave_3` | `wave_3` | |
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_3` 进入 `display`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_3` 进入 `overflow`。
