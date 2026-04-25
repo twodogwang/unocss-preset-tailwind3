@@ -1,0 +1,13 @@
+# Table Display Caption Collapse Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: table fixtures and dedicated tests
+  - Task 2: runtime aligned with Tailwind 3.4 table display / caption / collapse semantics
+  - Task 3: utility spec, docs, and rewrite-session automation update
+  - verification: runtime, parity, utility spec, document governance, rewrite-session automation, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
