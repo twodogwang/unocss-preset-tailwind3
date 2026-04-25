@@ -8,6 +8,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
+import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
@@ -53,6 +54,7 @@ describe('tailwind utility spec', () => {
     const displaySpec = getSpec('display')
     const containerSpec = getSpec('container')
     const columnsSpec = getSpec('columns')
+    const tableSpec = getSpec('table-display-caption-collapse')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -92,6 +94,7 @@ describe('tailwind utility spec', () => {
     expect(displaySpec).toBeTruthy()
     expect(containerSpec).toBeTruthy()
     expect(columnsSpec).toBeTruthy()
+    expect(tableSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -151,6 +154,14 @@ describe('tailwind utility spec', () => {
     expect(columnsSpec?.supportsVariants).toBe(true)
     expect(columnsSpec?.invalid).toContain('columns3')
     expect(columnsSpec?.invalid).toContain('break-before-inherit')
+    expect(tableSpec?.canonical).toEqual([...tableFixtures.canonical])
+    expect(tableSpec?.invalid).toEqual([...tableFixtures.invalid])
+    expect(tableSpec?.sourceFiles).toEqual(['src/_rules-wind3/table.ts'])
+    expect(tableSpec?.category).toBe('layout')
+    expect(tableSpec?.supportsPrefix).toBe(true)
+    expect(tableSpec?.supportsVariants).toBe(true)
+    expect(tableSpec?.invalid).toContain('table-empty-cells-visible')
+    expect(tableSpec?.invalid).toContain('caption-initial')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

@@ -12,6 +12,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
+import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
@@ -1327,10 +1328,8 @@ describe('preset-tailwind3', () => {
         'tabular-nums',
         'line-clamp-3',
         ...columnsFixtures.semantic,
-        'table-auto',
-        'border-collapse',
+        ...tableFixtures.semantic,
         'border-spacing-2',
-        'caption-bottom',
         'list-disc',
         'list-inside',
         'scroll-smooth',
@@ -1368,6 +1367,7 @@ describe('preset-tailwind3', () => {
         'lineclamp-3',
         ...columnsFixtures.invalid,
         'borderspacing-2',
+        ...tableFixtures.invalid,
         'accentop50',
         'caretop50',
         'touchpan-x',

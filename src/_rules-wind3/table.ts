@@ -51,6 +51,4 @@ export const tables: Rule<Theme>[] = [
   ['caption-bottom', { 'caption-side': 'bottom' }],
   ['table-auto', { 'table-layout': 'auto' }],
   ['table-fixed', { 'table-layout': 'fixed' }],
-  ['table-empty-cells-visible', { 'empty-cells': 'show' }],
-  ['table-empty-cells-hidden', { 'empty-cells': 'hide' }],
 ]

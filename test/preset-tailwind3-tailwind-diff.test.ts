@@ -41,6 +41,7 @@ import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrit
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
+import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -775,6 +776,14 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind columns aliases and break global keywords', async () => {
     await expectTailwindParity(columnsFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for table display, layout, caption, and collapse utilities', async () => {
+    await expectTailwindParity(tableFixtures.canonical)
+  })
+
+  it('rejects non-tailwind table aliases and extra table extensions', async () => {
+    await expectTailwindParity(tableFixtures.invalid)
   })
 
   it('rejects non-tailwind pseudo chaining syntax', async () => {

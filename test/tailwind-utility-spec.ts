@@ -7,6 +7,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
+import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
@@ -99,6 +100,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 columns / break-before / break-inside / break-after 只接受 Tailwind 3 官方静态语义、默认 columns key、theme.columns key 与 arbitrary value，并拒绝 break-* global keyword 与紧凑旧别名。'],
+  },
+  {
+    id: 'table-display-caption-collapse',
+    sourceFiles: ['src/_rules-wind3/table.ts'],
+    category: 'layout',
+    canonical: [...tableFixtures.canonical],
+    invalid: [...tableFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 table display / table-layout / caption-side / border-collapse 只接受 Tailwind 3 官方静态语义，并排除 `table-empty-cells-*` 等仓库扩展。'],
   },
   {
     id: 'aspect-ratio',
