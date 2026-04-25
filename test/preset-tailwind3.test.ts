@@ -10,6 +10,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
+import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -1325,8 +1326,7 @@ describe('preset-tailwind3', () => {
         'hyphens-none',
         'tabular-nums',
         'line-clamp-3',
-        'columns-3',
-        'break-after-column',
+        ...columnsFixtures.semantic,
         'table-auto',
         'border-collapse',
         'border-spacing-2',
@@ -1342,11 +1342,13 @@ describe('preset-tailwind3', () => {
     it('matches arbitrary and theme-driven typography-related utilities', async () => {
       const css = await expectTargets([
         'columns-sm',
+        'columns-layout',
         'border-spacing-[3px]',
       ], {
         theme: {
-          containers: {
+          columns: {
             sm: '24rem',
+            layout: '22rem',
           },
           colors: {
             brand: '#ff8800',
@@ -1355,6 +1357,7 @@ describe('preset-tailwind3', () => {
       })
 
       expect(css).toContain('24rem')
+      expect(css).toContain('22rem')
       expect(css).toContain('3px')
     })
 
@@ -1363,7 +1366,7 @@ describe('preset-tailwind3', () => {
         'fontbold',
         'textsize-sm',
         'lineclamp-3',
-        'columns3',
+        ...columnsFixtures.invalid,
         'borderspacing-2',
         'accentop50',
         'caretop50',

@@ -5,6 +5,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
+import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -88,6 +89,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 container 只接受 Tailwind 3 的 `container` 与响应式变体，并对齐 `theme.container.screens` / `center` / `padding` 语义；`container-*` 后缀与 `@container` query class 不在当前 preset 的默认暴露面。'],
+  },
+  {
+    id: 'columns',
+    sourceFiles: ['src/_rules-wind3/columns.ts', 'src/_theme/size.ts', 'src/_theme/default.ts', 'src/_theme/types.ts'],
+    category: 'layout',
+    canonical: [...columnsFixtures.canonical],
+    invalid: [...columnsFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 columns / break-before / break-inside / break-after 只接受 Tailwind 3 官方静态语义、默认 columns key、theme.columns key 与 arbitrary value，并拒绝 break-* global keyword 与紧凑旧别名。'],
   },
   {
     id: 'aspect-ratio',

@@ -130,6 +130,7 @@ const migrationDescriptors: MigrationDescriptor[] = [
     matcher: /^of(?:-([xy]))?-(auto|hidden|clip|visible|scroll)$/,
     replacement: (_, match) => match[1] ? `overflow-${match[1]}-${match[2]}` : `overflow-${match[2]}`,
   },
+  { matcher: /^columns([1-9]|1[0-2])$/, replacement: (_, match) => `columns-${match[1]}` },
   { matcher: /^z(0|10|20|30|40|50)$/, replacement: (_, match) => `z-${match[1]}` },
   { matcher: /^order([1-9]|1[0-2])$/, replacement: (_, match) => `order-${match[1]}` },
   { matcher: /^text-truncate$/, replacement: () => 'truncate' },

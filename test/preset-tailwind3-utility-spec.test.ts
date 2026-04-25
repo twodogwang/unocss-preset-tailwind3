@@ -6,6 +6,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
+import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -51,6 +52,7 @@ describe('tailwind utility spec', () => {
     const backgroundColorSpec = getSpec('background-color')
     const displaySpec = getSpec('display')
     const containerSpec = getSpec('container')
+    const columnsSpec = getSpec('columns')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -89,6 +91,7 @@ describe('tailwind utility spec', () => {
     expect(backgroundColorSpec).toBeTruthy()
     expect(displaySpec).toBeTruthy()
     expect(containerSpec).toBeTruthy()
+    expect(columnsSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -140,6 +143,14 @@ describe('tailwind utility spec', () => {
     expect(containerSpec?.supportsVariants).toBe(true)
     expect(containerSpec?.invalid).toContain('container-normal')
     expect(containerSpec?.invalid).toContain('@container')
+    expect(columnsSpec?.canonical).toEqual([...columnsFixtures.canonical])
+    expect(columnsSpec?.invalid).toEqual([...columnsFixtures.invalid])
+    expect(columnsSpec?.sourceFiles).toEqual(['src/_rules-wind3/columns.ts', 'src/_theme/size.ts', 'src/_theme/default.ts', 'src/_theme/types.ts'])
+    expect(columnsSpec?.category).toBe('layout')
+    expect(columnsSpec?.supportsPrefix).toBe(true)
+    expect(columnsSpec?.supportsVariants).toBe(true)
+    expect(columnsSpec?.invalid).toContain('columns3')
+    expect(columnsSpec?.invalid).toContain('break-before-inherit')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

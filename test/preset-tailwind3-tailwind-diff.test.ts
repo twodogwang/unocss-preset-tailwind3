@@ -11,6 +11,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
+import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -743,6 +744,37 @@ describe('preset-tailwind3 tailwind parity', () => {
       'flex-shrink-0',
       '*:p-4',
     ])
+  })
+
+  it('matches Tailwind 3 support for columns and break utilities', async () => {
+    await expectTailwindParity(columnsFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for theme-driven columns keys', async () => {
+    await expectTailwindParity([
+      'columns-layout',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            columns: {
+              layout: '22rem',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          columns: {
+            layout: '22rem',
+          },
+        } as any,
+      },
+    })
+  })
+
+  it('rejects non-tailwind columns aliases and break global keywords', async () => {
+    await expectTailwindParity(columnsFixtures.invalid)
   })
 
   it('rejects non-tailwind pseudo chaining syntax', async () => {

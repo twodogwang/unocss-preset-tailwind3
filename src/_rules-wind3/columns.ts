@@ -1,15 +1,15 @@
 import type { Rule } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h, makeGlobalStaticRules } from '../utils'
+import { h } from '../utils'
 
 export const columns: Rule<Theme>[] = [
   [/^columns-(.+)$/, ([, v], { theme }) => {
-    if (theme.containers && v in theme.containers) {
-      return { columns: theme.containers[v] }
+    if (theme.columns && v in theme.columns) {
+      return { columns: theme.columns[v] }
     }
 
     return { columns: h.bracket.numberWithUnit.number.cssvar(v) }
-  }, { autocomplete: ['columns-<num>', 'columns-$containers'] }],
+  }, { autocomplete: ['columns-<num>', 'columns-$columns'] }],
   ['columns-auto', { columns: 'auto' }],
 
   // break before
@@ -21,14 +21,12 @@ export const columns: Rule<Theme>[] = [
   ['break-before-left', { 'break-before': 'left' }],
   ['break-before-right', { 'break-before': 'right' }],
   ['break-before-column', { 'break-before': 'column' }],
-  ...makeGlobalStaticRules('break-before'),
 
   // break inside
   ['break-inside-auto', { 'break-inside': 'auto' }],
   ['break-inside-avoid', { 'break-inside': 'avoid' }],
   ['break-inside-avoid-page', { 'break-inside': 'avoid-page' }],
   ['break-inside-avoid-column', { 'break-inside': 'avoid-column' }],
-  ...makeGlobalStaticRules('break-inside'),
 
   // break after
   ['break-after-auto', { 'break-after': 'auto' }],
@@ -39,5 +37,4 @@ export const columns: Rule<Theme>[] = [
   ['break-after-left', { 'break-after': 'left' }],
   ['break-after-right', { 'break-after': 'right' }],
   ['break-after-column', { 'break-after': 'column' }],
-  ...makeGlobalStaticRules('break-after'),
 ]

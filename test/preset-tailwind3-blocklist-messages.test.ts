@@ -6,6 +6,7 @@ import {
   accentBlocklistMigrationFixtures,
   aspectRatioBlocklistMigrationFixtures,
   backgroundColorBlocklistMigrationFixtures,
+  columnsBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
   overflowBlocklistMigrationFixtures,
   positionFloatZOrderBoxSizingBlocklistMigrationFixtures,
@@ -193,6 +194,17 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of overflowBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks columns migration hints through the shared fixture subset', async () => {
+    expect(columnsBlocklistMigrationFixtures).toHaveLength(1)
+    expect(columnsBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'columns3',
+    ])
+
+    for (const fixture of columnsBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

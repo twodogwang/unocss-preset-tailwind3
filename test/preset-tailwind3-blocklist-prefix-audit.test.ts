@@ -225,6 +225,13 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'overflow-hidden',
   },
   {
+    label: 'legacy compact columns alias',
+    matcher: /^columns([1-9]|1[0-2])$/,
+    input: 'columns3',
+    prefixed: 'tw-columns3',
+    replacement: 'columns-3',
+  },
+  {
     label: 'legacy compact z-index alias',
     matcher: /^z(0|10|20|30|40|50)$/,
     input: 'z10',

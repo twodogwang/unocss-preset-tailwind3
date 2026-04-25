@@ -109,3 +109,22 @@ export const maxInlineSize = {
 } satisfies Theme['maxInlineSize']
 
 export const containers = { ...baseSize } satisfies Theme['containers']
+
+export const columns = {
+  auto: 'auto',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10',
+  11: '11',
+  12: '12',
+  '3xs': '16rem',
+  '2xs': '18rem',
+  ...baseSize,
+} satisfies Theme['columns']

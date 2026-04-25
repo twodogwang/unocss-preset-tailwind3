@@ -96,6 +96,10 @@ export const overflowBlocklistMigrationFixtures = [
   { input: 'of-y-scroll', replacement: 'overflow-y-scroll' },
 ] as const
 
+export const columnsBlocklistMigrationFixtures = [
+  { input: 'columns3', replacement: 'columns-3' },
+] as const
+
 export const positionFloatZOrderBoxSizingBlocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'z10', replacement: 'z-10' },
@@ -276,6 +280,7 @@ export const blocklistMigrationFixtures = [
   ...aspectRatioBlocklistMigrationFixtures,
   ...sizeBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
+  ...columnsBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,
   ...fontVariantNumericBlocklistMigrationFixtures,
