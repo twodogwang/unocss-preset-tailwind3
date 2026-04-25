@@ -21,9 +21,19 @@ export const flex: Rule<Theme>[] = [
 
   // shrink/grow/basis
   [/^(?:flex-)?shrink(?:-(0))?$/, ([, d]) => ({ 'flex-shrink': d === '0' ? 0 : 1 }), { autocomplete: ['flex-shrink', 'flex-shrink-0', 'shrink', 'shrink-0'] }],
+  [/^(?:flex-)?shrink-(.+)$/, ([, d], { theme }) => {
+    const value = theme.flexShrink?.[d] ?? (d.startsWith('[') ? h.bracket.cssvar.number(d) : undefined)
+    if (value != null)
+      return { 'flex-shrink': value }
+  }, { autocomplete: ['flex-shrink-$flexShrink', 'shrink-$flexShrink'] }],
   [/^(?:flex-)?grow(?:-(0))?$/, ([, d]) => ({ 'flex-grow': d === '0' ? 0 : 1 }), { autocomplete: ['flex-grow', 'flex-grow-0', 'grow', 'grow-0'] }],
+  [/^(?:flex-)?grow-(.+)$/, ([, d], { theme }) => {
+    const value = theme.flexGrow?.[d] ?? (d.startsWith('[') ? h.bracket.cssvar.number(d) : undefined)
+    if (value != null)
+      return { 'flex-grow': value }
+  }, { autocomplete: ['flex-grow-$flexGrow', 'grow-$flexGrow'] }],
   [/^basis-(.+)$/, ([, d], { theme }) => {
-    const value = resolveTailwindSpacing(theme, d, { allowAuto: true, allowFraction: true })
+    const value = theme.flexBasis?.[d] ?? resolveTailwindSpacing(theme, d, { allowAuto: true, allowFraction: true })
     if (value != null)
       return { 'flex-basis': value }
   }, { autocomplete: ['basis-$spacing'] }],

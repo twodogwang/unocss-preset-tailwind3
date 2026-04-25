@@ -68,6 +68,10 @@ export interface Theme {
   containers?: Record<string, string>
   // columns
   columns?: Record<string, string>
+  // flex
+  flexBasis?: Record<string, string>
+  flexGrow?: Record<string, string>
+  flexShrink?: Record<string, string>
   // animation
   animation?: ThemeAnimation
   // grids

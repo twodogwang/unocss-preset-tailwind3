@@ -16,6 +16,7 @@ import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
@@ -189,6 +190,47 @@ describe('preset-tailwind3 tailwind parity', () => {
     await expectTailwindParity(positionFloatZOrderBoxSizingFixtures.canonical)
   })
 
+  it('matches Tailwind 3 support for flex utilities', async () => {
+    await expectTailwindParity(flexFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 for theme-driven flex grow / shrink / basis extensions', async () => {
+    await expectTailwindParity([
+      'grow-2',
+      'shrink-2',
+      'basis-sidebar',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            flexGrow: {
+              2: '2',
+            },
+            flexShrink: {
+              2: '2',
+            },
+            flexBasis: {
+              sidebar: '18rem',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          flexGrow: {
+            2: '2',
+          },
+          flexShrink: {
+            2: '2',
+          },
+          flexBasis: {
+            sidebar: '18rem',
+          },
+        } as any,
+      },
+    })
+  })
+
   it('matches Tailwind 3 for theme-driven order and z-index extensions', async () => {
     await expectTailwindParity([
       'order-sidebar',
@@ -221,6 +263,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind position-related aliases and global keywords', async () => {
     await expectTailwindParity(positionFloatZOrderBoxSizingFixtures.invalid)
+  })
+
+  it('rejects non-tailwind flex aliases and raw shorthand syntax', async () => {
+    await expectTailwindParity(flexFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {
@@ -742,7 +788,6 @@ describe('preset-tailwind3 tailwind parity', () => {
       'hyphens-auto',
       'hyphens-manual',
       'hyphens-none',
-      'flex-shrink-0',
       '*:p-4',
     ])
   })

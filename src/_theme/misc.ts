@@ -124,6 +124,16 @@ export const order = {
   12: '12',
 }
 
+export const flexGrow = {
+  0: '0',
+  DEFAULT: '1',
+} satisfies Theme['flexGrow']
+
+export const flexShrink = {
+  0: '0',
+  DEFAULT: '1',
+} satisfies Theme['flexShrink']
+
 export const media = {
   mouse: '(hover) and (pointer: fine)',
 }

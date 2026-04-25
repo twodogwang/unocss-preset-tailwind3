@@ -17,6 +17,7 @@ import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
@@ -55,6 +56,7 @@ describe('tailwind utility spec', () => {
     const containerSpec = getSpec('container')
     const columnsSpec = getSpec('columns')
     const tableSpec = getSpec('table-display-caption-collapse')
+    const flexSpec = getSpec('flex')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -95,6 +97,7 @@ describe('tailwind utility spec', () => {
     expect(containerSpec).toBeTruthy()
     expect(columnsSpec).toBeTruthy()
     expect(tableSpec).toBeTruthy()
+    expect(flexSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -162,6 +165,16 @@ describe('tailwind utility spec', () => {
     expect(tableSpec?.supportsVariants).toBe(true)
     expect(tableSpec?.invalid).toContain('table-empty-cells-visible')
     expect(tableSpec?.invalid).toContain('caption-initial')
+    expect(flexSpec?.canonical).toEqual([...flexFixtures.canonical])
+    expect(flexSpec?.invalid).toEqual([...flexFixtures.invalid])
+    expect(flexSpec?.sourceFiles).toEqual(['src/_rules/flex.ts', 'src/_theme/default.ts', 'src/_theme/size.ts', 'src/_theme/types.ts'])
+    expect(flexSpec?.category).toBe('layout')
+    expect(flexSpec?.supportsPrefix).toBe(true)
+    expect(flexSpec?.supportsVariants).toBe(true)
+    expect(flexSpec?.canonical).toContain('grow-[2]')
+    expect(flexSpec?.canonical).toContain('basis-full')
+    expect(flexSpec?.invalid).toContain('flex-grow-2')
+    expect(flexSpec?.invalid).toContain('flex-basis-10px')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

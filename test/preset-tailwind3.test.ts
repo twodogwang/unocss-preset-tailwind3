@@ -16,6 +16,7 @@ import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
@@ -246,6 +247,55 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.float-start{float:inline-start;}')
       expect(css).toContain('.clear-both{clear:both;}')
       expect(css).toContain('.box-content{box-sizing:content-box;}')
+    })
+  })
+
+  describe('flex', () => {
+    it('matches official Tailwind 3 flex utilities', async () => {
+      await expectTargets(flexFixtures.canonical)
+    })
+
+    it('matches theme-driven flex grow / shrink / basis utilities', async () => {
+      const css = await expectTargets([
+        'grow-2',
+        'shrink-2',
+        'basis-sidebar',
+      ], {
+        theme: {
+          flexGrow: {
+            2: '2',
+          },
+          flexShrink: {
+            2: '2',
+          },
+          flexBasis: {
+            sidebar: '18rem',
+          },
+        } as any,
+      })
+
+      expect(css).toContain('.grow-2{flex-grow:2;}')
+      expect(css).toContain('.shrink-2{flex-shrink:2;}')
+      expect(css).toContain('.basis-sidebar{flex-basis:18rem;}')
+    })
+
+    it('rejects non-tailwind flex aliases and raw shorthand syntax', async () => {
+      await expectNonTargets(flexFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic flex cases', async () => {
+      const css = await expectTargets(flexFixtures.semantic)
+
+      expect(css).toContain('.flex{display:flex;}')
+      expect(css).toContain('.inline-flex{display:inline-flex;}')
+      expect(css).toContain('.flex-1{flex:1 1 0%;}')
+      expect(css).toContain('.flex-\\[3_1_auto\\]{flex:3 1 auto;}')
+      expect(css).toContain('.grow-\\[2\\]{flex-grow:2;}')
+      expect(css).toContain('.shrink-\\[2\\]{flex-shrink:2;}')
+      expect(css).toContain('.basis-full{flex-basis:100%;}')
+      expect(css).toContain('.basis-\\[23rem\\]{flex-basis:23rem;}')
+      expect(css).toContain('.flex-col{flex-direction:column;}')
+      expect(css).toContain('.flex-wrap-reverse{flex-wrap:wrap-reverse;}')
     })
   })
 
@@ -1376,8 +1426,8 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('layout / flex / grid / position', () => {
-    it('matches official Tailwind 3 layout utilities', async () => {
+  describe('layout / grid / position', () => {
+    it('matches official Tailwind 3 grid-adjacent layout utilities', async () => {
       await expectTargets([
         'block',
         'inline-block',
@@ -1386,14 +1436,6 @@ describe('preset-tailwind3', () => {
         'absolute',
         'z-10',
         'order-2',
-        'flex',
-        'inline-flex',
-        'flex-row',
-        'flex-wrap',
-        'grow',
-        'shrink-0',
-        'flex-shrink-0',
-        'basis-1/2',
         'grid',
         'inline-grid',
         'grid-cols-3',
@@ -1409,13 +1451,11 @@ describe('preset-tailwind3', () => {
 
     it('matches arbitrary and theme-driven layout utilities', async () => {
       const css = await expectTargets([
-        'basis-[23rem]',
         'grid-cols-[200px_minmax(900px,_1fr)_100px]',
         'order-[13]',
         'z-[99]',
       ])
 
-      expect(css).toContain('23rem')
       expect(css).toContain('200px minmax(900px, 1fr) 100px')
       expect(css).toContain('13')
       expect(css).toContain('99')
@@ -1427,9 +1467,6 @@ describe('preset-tailwind3', () => {
         'pos-absolute',
         'z10',
         'order2',
-        'flex-inline',
-        'flexrow',
-        'flex-grow-1',
         'auto-flow-col',
         'grid-flowcol',
         'cols-3',

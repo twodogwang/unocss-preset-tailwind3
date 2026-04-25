@@ -7,6 +7,7 @@ import {
   aspectRatioBlocklistMigrationFixtures,
   backgroundColorBlocklistMigrationFixtures,
   columnsBlocklistMigrationFixtures,
+  flexBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
   overflowBlocklistMigrationFixtures,
   positionFloatZOrderBoxSizingBlocklistMigrationFixtures,
@@ -205,6 +206,20 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of columnsBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks flex migration hints through the shared fixture subset', async () => {
+    expect(flexBlocklistMigrationFixtures).toHaveLength(4)
+    expect(flexBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'flex-inline',
+      'flex-basis-10px',
+      'flex-grow-2',
+      'flex-shrink-2',
+    ])
+
+    for (const fixture of flexBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })
