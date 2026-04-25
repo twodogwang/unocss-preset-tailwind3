@@ -82,7 +82,6 @@
 
 范围：
 
-- `grid`
 - `justify / align / place`
 - `transform`
 - `filters / backdrop-filters`
@@ -112,4 +111,4 @@
 
 ## Immediate Next Step
 
-`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns` 与 `table display / caption / collapse`，`wave_4` 已完成 `flex`。下一步进入 `grid`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。
+`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns` 与 `table display / caption / collapse`，`wave_4` 已完成 `flex` 与 `grid`。下一步进入 `justify / align / place / flexGridJustifiesAlignments`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。

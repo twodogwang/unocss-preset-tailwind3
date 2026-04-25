@@ -14,7 +14,7 @@
 
 - 目标：把各个 utility 收敛到 Tailwind CSS 3 正式语法
 - 已完成：`border`、`outline`、`text`、`leading`、`tracking`、`stroke`、`spacing`、`behavior`
-- 第二阶段已完成模板化：`background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow`、`divide`、`fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric`、`size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns`、`table display / caption / collapse`、`flex`
+- 第二阶段已完成模板化：`background-color / bg-opacity`、`background-style / gradient / clip / origin / repeat / position`、`ring`、`decoration / underline-offset`、`shadow`、`divide`、`fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric`、`size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns`、`table display / caption / collapse`、`flex`、`grid`
 
 ## Utility Manifest
 
@@ -178,6 +178,11 @@
   - plan: `docs/superpowers/plans/2026-04-26-flex-source-rewrite.md`
   - log: `docs/2026-04-26-flex-source-rewrite-log.md`
   - status: `docs/2026-04-26-flex-source-rewrite-status.md`
+- `grid` 已完成模板化：
+  - spec: `docs/superpowers/specs/2026-04-26-grid-source-rewrite-design.md`
+  - plan: `docs/superpowers/plans/2026-04-26-grid-source-rewrite.md`
+  - log: `docs/2026-04-26-grid-source-rewrite-log.md`
+  - status: `docs/2026-04-26-grid-source-rewrite-status.md`
 
 ## 相关文档
 
