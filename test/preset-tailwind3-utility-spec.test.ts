@@ -5,6 +5,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -49,6 +50,7 @@ describe('tailwind utility spec', () => {
   it('keeps the border rewrite template in sync with the shared fixtures', () => {
     const backgroundColorSpec = getSpec('background-color')
     const displaySpec = getSpec('display')
+    const containerSpec = getSpec('container')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -86,6 +88,7 @@ describe('tailwind utility spec', () => {
 
     expect(backgroundColorSpec).toBeTruthy()
     expect(displaySpec).toBeTruthy()
+    expect(containerSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -129,6 +132,14 @@ describe('tailwind utility spec', () => {
     expect(displaySpec?.supportsVariants).toBe(true)
     expect(displaySpec?.invalid).toContain('display-block')
     expect(displaySpec?.invalid).toContain('display-[var(--display)]')
+    expect(containerSpec?.canonical).toEqual([...containerFixtures.canonical])
+    expect(containerSpec?.invalid).toEqual([...containerFixtures.invalid])
+    expect(containerSpec?.sourceFiles).toEqual(['src/_rules-wind3/container.ts', 'src/shortcuts.ts'])
+    expect(containerSpec?.category).toBe('layout')
+    expect(containerSpec?.supportsPrefix).toBe(true)
+    expect(containerSpec?.supportsVariants).toBe(true)
+    expect(containerSpec?.invalid).toContain('container-normal')
+    expect(containerSpec?.invalid).toContain('@container')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

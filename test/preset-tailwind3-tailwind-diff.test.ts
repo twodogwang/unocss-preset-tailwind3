@@ -10,6 +10,7 @@ import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -751,13 +752,13 @@ describe('preset-tailwind3 tailwind parity', () => {
   })
 
   it('matches Tailwind 3 support for container with max breakpoint variants', async () => {
-    await expectTailwindParity([
-      'container',
-      'sm:container',
-      'md:container',
-      'lg:container',
-      'max-md:container',
-    ], {
+    await expectTailwindParity(containerFixtures.canonical, {
+      tailwindEntry: '@tailwind components; @tailwind utilities;',
+    })
+  })
+
+  it('rejects non-tailwind container suffixes and query classes', async () => {
+    await expectTailwindParity(containerFixtures.invalid, {
       tailwindEntry: '@tailwind components; @tailwind utilities;',
     })
   })

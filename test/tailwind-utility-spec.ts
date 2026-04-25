@@ -4,6 +4,7 @@ import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -77,6 +78,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsNegative: true,
     supportsVariants: true,
     notes: ['用于锁定 position / float / z-index / order / box-sizing 只接受 Tailwind 3 官方静态语义、默认 key、theme key 与 bracket arbitrary，并拒绝 global keyword 与紧凑旧别名。'],
+  },
+  {
+    id: 'container',
+    sourceFiles: ['src/_rules-wind3/container.ts', 'src/shortcuts.ts'],
+    category: 'layout',
+    canonical: [...containerFixtures.canonical],
+    invalid: [...containerFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 container 只接受 Tailwind 3 的 `container` 与响应式变体，并对齐 `theme.container.screens` / `center` / `padding` 语义；`container-*` 后缀与 `@container` query class 不在当前 preset 的默认暴露面。'],
   },
   {
     id: 'aspect-ratio',

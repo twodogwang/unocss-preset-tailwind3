@@ -9,6 +9,7 @@ import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
+import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -1438,17 +1439,45 @@ describe('preset-tailwind3', () => {
 
   describe('container', () => {
     it('matches official Tailwind 3 container utilities', async () => {
-      const css = await expectTargets([
-        'container',
-        'sm:container',
-        'md:container',
-        'lg:container',
-        'max-md:container',
-      ])
+      const css = await expectTargets(containerFixtures.canonical)
 
       expect(css).toContain('width:100%')
       expect(css).toContain('max-width:640px')
       expect(css).toContain('max-width:768px')
+    })
+
+    it('matches theme-driven container screens, center, and padding', async () => {
+      const css = await expectTargets(containerFixtures.canonical, {
+        theme: {
+          container: {
+            center: true,
+            padding: {
+              DEFAULT: '1rem',
+              sm: '2rem',
+              md: '3rem',
+            },
+            screens: {
+              md: '720px',
+              lg: '960px',
+            },
+          },
+        } as any,
+      })
+
+      expect(css).toContain('margin-left:auto')
+      expect(css).toContain('margin-right:auto')
+      expect(css).toContain('padding-left:1rem')
+      expect(css).toContain('padding-right:1rem')
+      expect(css).toContain('@media (min-width: 720px)')
+      expect(css).toContain('max-width:720px')
+      expect(css).toContain('padding-left:3rem')
+      expect(css).toContain('padding-right:3rem')
+      expect(css).toContain('@media (min-width: 960px)')
+      expect(css).toContain('max-width:960px')
+    })
+
+    it('rejects non-tailwind container suffixes and query classes', async () => {
+      await expectNonTargets(containerFixtures.invalid)
     })
   })
 

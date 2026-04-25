@@ -1,62 +1,77 @@
-import type { CSSObject, Rule, Shortcut, VariantHandlerContext } from '@unocss/core'
+import type { CSSObject, CSSObjectInput, Rule, Shortcut } from '@unocss/core'
 import type { Theme } from '../theme'
-import { isString } from '@unocss/core'
-import { resolveBreakpoints } from '../utils'
+import { isString, symbols } from '@unocss/core'
+import { resolveBreakpoints } from '../breakpoints'
 
-const queryMatcher = /@media \(min-width: (.+)\)/
+function resolveContainerScreens(context: {
+  theme: Theme
+  generator?: {
+    userConfig?: {
+      theme?: Theme
+    }
+  }
+}) {
+  const containerScreens = context.generator?.userConfig?.theme?.container?.screens ?? context.theme.container?.screens
+  if (!containerScreens)
+    return resolveBreakpoints(context) ?? []
+
+  const uniqueEntries = new Map<string, { point: string, size: string }>()
+  for (const [point, size] of Object.entries(containerScreens)
+    .sort((a, b) => Number.parseInt(a[1]) - Number.parseInt(b[1]))) {
+    if (!uniqueEntries.has(size))
+      uniqueEntries.set(size, { point, size })
+  }
+
+  return [...uniqueEntries.values()]
+}
+
+function resolveContainerPadding(
+  theme: Theme,
+  point?: string,
+) {
+  const themePadding = theme.container?.padding
+  if (isString(themePadding))
+    return point == null ? themePadding : undefined
+  if (!themePadding)
+    return undefined
+  return point == null ? themePadding.DEFAULT : themePadding[point]
+}
 
 export const container: Rule<Theme>[] = [
   [
     /^__container$/,
     (m, context) => {
-      const { theme, variantHandlers } = context
-
-      const themePadding = theme.container?.padding
-      let padding: string | undefined
-
-      if (isString(themePadding))
-        padding = themePadding
-      else
-        padding = themePadding?.DEFAULT
-
-      const themeMaxWidth = theme.container?.maxWidth
-      let maxWidth: string | undefined
-
-      for (const v of variantHandlers) {
-        const query = v.handle?.({} as VariantHandlerContext, x => x)?.parent
-        if (isString(query)) {
-          const match = query.match(queryMatcher)?.[1]
-          if (match) {
-            const bp = resolveBreakpoints(context) ?? []
-            const matchBp = bp.find(i => i.size === match)?.point
-
-            if (!themeMaxWidth)
-              maxWidth = match
-            else if (matchBp)
-              maxWidth = themeMaxWidth?.[matchBp]
-
-            if (matchBp && !isString(themePadding))
-              padding = themePadding?.[matchBp] ?? padding
-          }
-        }
+      const { theme } = context
+      const baseCss: CSSObject = {
+        width: '100%',
       }
-
-      const css: CSSObject = {
-        'max-width': maxWidth,
-      }
-
-      // only apply width: 100% when no variant handler is present
-      if (!variantHandlers.length)
-        css.width = '100%'
 
       if (theme.container?.center) {
-        css['margin-left'] = 'auto'
-        css['margin-right'] = 'auto'
+        baseCss['margin-left'] = 'auto'
+        baseCss['margin-right'] = 'auto'
       }
 
-      if (themePadding) {
-        css['padding-left'] = padding
-        css['padding-right'] = padding
+      const basePadding = resolveContainerPadding(theme)
+      if (basePadding) {
+        baseCss['padding-left'] = basePadding
+        baseCss['padding-right'] = basePadding
+      }
+
+      const css: CSSObjectInput[] = [baseCss]
+
+      for (const { point, size } of resolveContainerScreens(context)) {
+        const responsiveCss: CSSObjectInput = {
+          [symbols.parent]: `@media (min-width: ${size})`,
+          'max-width': size,
+        }
+
+        const responsivePadding = resolveContainerPadding(theme, point)
+        if (responsivePadding) {
+          responsiveCss['padding-left'] = responsivePadding
+          responsiveCss['padding-right'] = responsivePadding
+        }
+
+        css.push(responsiveCss)
       }
 
       return css
@@ -66,16 +81,5 @@ export const container: Rule<Theme>[] = [
 ]
 
 export const containerShortcuts: Shortcut<Theme>[] = [
-  [/^(?:(\w+)[:-])?container$/, ([, bp], context) => {
-    let points = (resolveBreakpoints(context) ?? []).map(i => i.point)
-    if (bp) {
-      if (!points.includes(bp))
-        return
-      points = points.slice(points.indexOf(bp))
-    }
-    const shortcuts = points.map(p => `${p}:__container`)
-    if (!bp)
-      shortcuts.unshift('__container')
-    return shortcuts
-  }],
+  [/^container$/, () => '__container'],
 ]
