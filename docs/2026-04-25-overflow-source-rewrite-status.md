@@ -1,0 +1,13 @@
+# Overflow Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: overflow fixtures and dedicated tests
+  - Task 2: runtime and blocklist aligned with Tailwind 3.4 static overflow semantics
+  - Task 3: utility spec, docs, and rewrite-session automation update
+  - verification: runtime, parity, utility spec, blocklist messages, blocklist prefix audit, document governance, rewrite-session automation, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
