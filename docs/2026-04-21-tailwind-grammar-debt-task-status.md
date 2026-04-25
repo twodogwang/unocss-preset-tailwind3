@@ -169,12 +169,17 @@
   - `docs/superpowers/plans/2026-04-25-position-float-z-order-box-sizing-source-rewrite.md`
   - `docs/2026-04-25-position-float-z-order-box-sizing-source-rewrite-log.md`
   - `docs/2026-04-25-position-float-z-order-box-sizing-source-rewrite-status.md`
+- `container` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-25-container-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-25-container-source-rewrite.md`
+  - `docs/2026-04-25-container-source-rewrite-log.md`
+  - `docs/2026-04-25-container-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric` 与 `wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric` 与 `wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`。下一步应按 full inventory 继续推进：
 
-1. `container`
+1. `columns`
 2. `wave_3` 其余布局主规则族
 
 ## 文档职责
