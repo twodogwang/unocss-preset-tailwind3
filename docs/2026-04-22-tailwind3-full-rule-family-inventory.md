@@ -51,6 +51,7 @@
 | `overflow` | `src/_rules/layout.ts` | `completed_template` | 已对齐 Tailwind 3.4 overflow core plugin 的静态语义，并锁住 `of-*` 高置信度旧别名治理 |
 | `position / inset leftovers / float / z / order / box-sizing` | `src/_rules/position.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 position/order/z/float/clear/box-sizing 默认 key、theme key 与 arbitrary 边界，并锁住 `pos-*` / `z10` / `order2` 高置信度旧别名治理 |
 | `container` | `src/_rules/container.ts`, `src/_rules-wind3/container.ts`, `src/shortcuts.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `container` 与 `theme.container.screens / center / padding` 语义；当前无新增高置信度 blocklist migration |
+| `columns` | `src/_rules-wind3/columns.ts`, `src/_theme/size.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `columns` / `break-*` 语义，修正 `theme.columns` 入口，并锁住 `columns3` 高置信度旧别名治理 |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -65,7 +66,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `columns` | `src/_rules-wind3/columns.ts` | `pending_wave_3` | `wave_3` | |
 | `table display / caption / collapse` | `src/_rules-wind3/table.ts` | `pending_wave_3` | `wave_3` | `border-spacing` 已完成，但表格其余语义未治理 |
 | `flex` | `src/_rules/flex.ts` | `pending_wave_4` | `wave_4` | |
 | `grid` | `src/_rules/grid.ts` | `pending_wave_4` | `wave_4` | |
@@ -111,4 +111,4 @@
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_3` 进入 `columns`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_3` 进入 `table display / caption / collapse`。

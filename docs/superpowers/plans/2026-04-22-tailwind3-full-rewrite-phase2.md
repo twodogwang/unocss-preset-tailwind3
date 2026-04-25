@@ -113,4 +113,4 @@
 
 ## Immediate Next Step
 
-`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing` 与 `container`。下一步进入 `columns`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。
+`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container` 与 `columns`。下一步进入 `table display / caption / collapse`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。
