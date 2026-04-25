@@ -1,0 +1,13 @@
+# Position Float Z Order Box Sizing Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: position-related fixtures and dedicated tests
+  - Task 2: runtime, theme, and blocklist aligned with Tailwind 3.4 position/order/z/float/box-sizing semantics
+  - Task 3: utility spec, docs, and rewrite-session automation update
+  - verification: runtime, parity, utility spec, blocklist messages, blocklist prefix audit, document governance, rewrite-session automation, typecheck, and full test suite
+- in_progress:
+  - none
+- pending:
+  - none
