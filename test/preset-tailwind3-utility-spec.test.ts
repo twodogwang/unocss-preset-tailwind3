@@ -21,6 +21,7 @@ import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
+import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-position-float-z-order-box-sizing-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -49,6 +50,7 @@ describe('tailwind utility spec', () => {
     const backgroundColorSpec = getSpec('background-color')
     const displaySpec = getSpec('display')
     const overflowSpec = getSpec('overflow')
+    const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
     const sizeSpec = getSpec('size')
     const accentSpec = getSpec('accent')
@@ -85,6 +87,7 @@ describe('tailwind utility spec', () => {
     expect(backgroundColorSpec).toBeTruthy()
     expect(displaySpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
+    expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
     expect(sizeSpec).toBeTruthy()
     expect(accentSpec).toBeTruthy()
@@ -134,6 +137,15 @@ describe('tailwind utility spec', () => {
     expect(overflowSpec?.supportsVariants).toBe(true)
     expect(overflowSpec?.invalid).toContain('overflow-overlay')
     expect(overflowSpec?.invalid).toContain('of-x-auto')
+    expect(positionFloatZOrderBoxSizingSpec?.canonical).toEqual([...positionFloatZOrderBoxSizingFixtures.canonical])
+    expect(positionFloatZOrderBoxSizingSpec?.invalid).toEqual([...positionFloatZOrderBoxSizingFixtures.invalid])
+    expect(positionFloatZOrderBoxSizingSpec?.sourceFiles).toEqual(['src/_rules/position.ts'])
+    expect(positionFloatZOrderBoxSizingSpec?.category).toBe('layout')
+    expect(positionFloatZOrderBoxSizingSpec?.supportsPrefix).toBe(true)
+    expect(positionFloatZOrderBoxSizingSpec?.supportsNegative).toBe(true)
+    expect(positionFloatZOrderBoxSizingSpec?.supportsVariants).toBe(true)
+    expect(positionFloatZOrderBoxSizingSpec?.invalid).toContain('order2')
+    expect(positionFloatZOrderBoxSizingSpec?.invalid).toContain('box-inherit')
     expect(aspectRatioSpec?.canonical).toEqual([...aspectRatioFixtures.canonical])
     expect(aspectRatioSpec?.invalid).toEqual([...aspectRatioFixtures.invalid])
     expect(aspectRatioSpec?.sourceFiles).toEqual(['src/_rules/size.ts'])

@@ -21,6 +21,7 @@ import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtu
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
+import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-position-float-z-order-box-sizing-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -179,6 +180,44 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind overflow aliases and legacy keywords', async () => {
     await expectTailwindParity(overflowFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for position / float / z / order / box-sizing utilities', async () => {
+    await expectTailwindParity(positionFloatZOrderBoxSizingFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 for theme-driven order and z-index extensions', async () => {
+    await expectTailwindParity([
+      'order-sidebar',
+      'z-toast',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            order: {
+              sidebar: '13',
+            },
+            zIndex: {
+              toast: '999',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          order: {
+            sidebar: '13',
+          },
+          zIndex: {
+            toast: '999',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind position-related aliases and global keywords', async () => {
+    await expectTailwindParity(positionFloatZOrderBoxSizingFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

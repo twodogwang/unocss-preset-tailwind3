@@ -225,6 +225,20 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'overflow-hidden',
   },
   {
+    label: 'legacy compact z-index alias',
+    matcher: /^z(0|10|20|30|40|50)$/,
+    input: 'z10',
+    prefixed: 'tw-z10',
+    replacement: 'z-10',
+  },
+  {
+    label: 'legacy compact order alias',
+    matcher: /^order([1-9]|1[0-2])$/,
+    input: 'order2',
+    prefixed: 'tw-order2',
+    replacement: 'order-2',
+  },
+  {
     label: 'compact gap shorthand alias',
     matcher: /^gap(\d+(?:\.\d+)?)$/,
     input: 'gap4',

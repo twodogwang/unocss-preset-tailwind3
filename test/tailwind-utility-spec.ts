@@ -20,6 +20,7 @@ import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
+import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-position-float-z-order-box-sizing-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -65,6 +66,17 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 overflow 主规则族只接受 Tailwind 3 的五个静态 overflow 值与 x/y 变体，并拒绝 overlay、global keyword 与 of-* 旧别名。'],
+  },
+  {
+    id: 'position-float-z-order-box-sizing',
+    sourceFiles: ['src/_rules/position.ts'],
+    category: 'layout',
+    canonical: [...positionFloatZOrderBoxSizingFixtures.canonical],
+    invalid: [...positionFloatZOrderBoxSizingFixtures.invalid],
+    supportsPrefix: true,
+    supportsNegative: true,
+    supportsVariants: true,
+    notes: ['用于锁定 position / float / z-index / order / box-sizing 只接受 Tailwind 3 官方静态语义、默认 key、theme key 与 bracket arbitrary，并拒绝 global keyword 与紧凑旧别名。'],
   },
   {
     id: 'aspect-ratio',

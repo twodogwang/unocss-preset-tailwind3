@@ -96,6 +96,12 @@ export const overflowBlocklistMigrationFixtures = [
   { input: 'of-y-scroll', replacement: 'overflow-y-scroll' },
 ] as const
 
+export const positionFloatZOrderBoxSizingBlocklistMigrationFixtures = [
+  { input: 'pos-absolute', replacement: 'absolute' },
+  { input: 'z10', replacement: 'z-10' },
+  { input: 'order2', replacement: 'order-2' },
+] as const
+
 export const textWrapOverflowTransformBlocklistMigrationFixtures = [
   { input: 'text-truncate', replacement: 'truncate' },
   { input: 'case-upper', replacement: 'uppercase' },
@@ -286,13 +292,13 @@ export const blocklistMigrationFixtures = [
   ...verticalAlignBlocklistMigrationFixtures,
   ...paddingMarginBlocklistMigrationFixtures,
   ...gapInsetScrollBlocklistMigrationFixtures,
+  ...positionFloatZOrderBoxSizingBlocklistMigrationFixtures,
   ...borderSpacingSpaceBlocklistMigrationFixtures,
   ...backgroundColorBlocklistMigrationFixtures,
   ...caretBlocklistMigrationFixtures,
   { input: 'b-2', replacement: 'border-2' },
   { input: 'b-red-500', replacement: 'border-red-500' },
   { input: 'rd-md', replacement: 'rounded-md' },
-  { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
   ...divideBlocklistMigrationFixtures,

@@ -2,7 +2,7 @@ import type { Theme } from './types'
 import { colors } from './colors'
 import { blur, dropShadow } from './filters'
 import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight, textIndent, textShadow, textStrokeWidth, wordSpacing } from './font'
-import { borderRadius, boxShadow, breakpoints, duration, lineWidth, media, ringWidth, spacing, verticalBreakpoints, zIndex } from './misc'
+import { borderRadius, boxShadow, breakpoints, duration, lineWidth, media, order, ringWidth, spacing, verticalBreakpoints, zIndex } from './misc'
 import { preflightBase } from './preflight'
 import { aspectRatio, blockSize, containers, height, inlineSize, maxBlockSize, maxHeight, maxInlineSize, maxWidth, minHeight, minWidth, width } from './size'
 import { easing, transitionProperty } from './transition'
@@ -43,6 +43,7 @@ export const theme = {
   spacing,
   duration,
   ringWidth,
+  order,
   preflightBase,
   containers,
   zIndex,

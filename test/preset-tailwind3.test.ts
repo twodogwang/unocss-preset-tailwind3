@@ -20,6 +20,7 @@ import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtu
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
+import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-position-float-z-order-box-sizing-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
@@ -202,6 +203,46 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.overflow-clip{overflow:clip;}')
       expect(css).toContain('.overflow-x-auto{overflow-x:auto;}')
       expect(css).toContain('.overflow-y-visible{overflow-y:visible;}')
+    })
+  })
+
+  describe('position / float / z / order / box-sizing', () => {
+    it('matches official Tailwind 3 position-related layout utilities', async () => {
+      await expectTargets(positionFloatZOrderBoxSizingFixtures.canonical)
+    })
+
+    it('matches theme-driven order and z-index utilities', async () => {
+      const css = await expectTargets([
+        'order-sidebar',
+        'z-toast',
+      ], {
+        theme: {
+          order: {
+            sidebar: '13',
+          },
+          zIndex: {
+            toast: '999',
+          },
+        },
+      })
+
+      expect(css).toContain('.order-sidebar{order:13;}')
+      expect(css).toContain('.z-toast{z-index:999;}')
+    })
+
+    it('rejects non-tailwind position-related aliases and global keywords', async () => {
+      await expectNonTargets(positionFloatZOrderBoxSizingFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic position-related cases', async () => {
+      const css = await expectTargets(positionFloatZOrderBoxSizingFixtures.semantic)
+
+      expect(css).toContain('.static{position:static;}')
+      expect(css).toContain('.order-first{order:-9999;}')
+      expect(css).toContain('.z-auto{z-index:auto;}')
+      expect(css).toContain('.float-start{float:inline-start;}')
+      expect(css).toContain('.clear-both{clear:both;}')
+      expect(css).toContain('.box-content{box-sizing:content-box;}')
     })
   })
 

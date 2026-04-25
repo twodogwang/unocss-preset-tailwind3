@@ -46,7 +46,13 @@ export const justifies: StaticRule[] = [
 ]
 
 export const orders: Rule[] = [
-  [/^order-(.+)$/, ([, v]) => ({ order: h.bracket.cssvar.number(v) })],
+  [/^order-(.+)$/, ([, v], { theme }: RuleContext<Theme>) => {
+    if (theme.order?.[v] != null)
+      return { order: theme.order[v] }
+
+    if (v.startsWith('[') && v.endsWith(']'))
+      return { order: h.bracket.cssvar.number(v) }
+  }],
   ['order-first', { order: '-9999' }],
   ['order-last', { order: '9999' }],
   ['order-none', { order: '0' }],
@@ -171,7 +177,6 @@ export const floats: Rule[] = [
   ['float-start', { float: 'inline-start' }],
   ['float-end', { float: 'inline-end' }],
   ['float-none', { float: 'none' }],
-  ...makeGlobalStaticRules('float'),
 
   // clears
   ['clear-left', { clear: 'left' }],
@@ -180,15 +185,19 @@ export const floats: Rule[] = [
   ['clear-start', { clear: 'inline-start' }],
   ['clear-end', { clear: 'inline-end' }],
   ['clear-none', { clear: 'none' }],
-  ...makeGlobalStaticRules('clear'),
 ]
 
 export const zIndexes: Rule[] = [
-  [/^z-(.+)$/, ([, v], { theme }: RuleContext<Theme>) => ({ 'z-index': theme.zIndex?.[v] ?? h.bracket.cssvar.global.auto.number(v) }), { autocomplete: 'z-<num>' }],
+  [/^z-(.+)$/, ([, v], { theme }: RuleContext<Theme>) => {
+    if (theme.zIndex?.[v] != null)
+      return { 'z-index': theme.zIndex[v] }
+
+    if (v.startsWith('[') && v.endsWith(']'))
+      return { 'z-index': h.bracket.cssvar.number(v) }
+  }, { autocomplete: 'z-<num>' }],
 ]
 
 export const boxSizing: Rule[] = [
   ['box-border', { 'box-sizing': 'border-box' }],
   ['box-content', { 'box-sizing': 'content-box' }],
-  ...makeGlobalStaticRules('box', 'box-sizing'),
 ]
