@@ -20,6 +20,7 @@ import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
+import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -194,6 +195,10 @@ describe('preset-tailwind3 tailwind parity', () => {
     await expectTailwindParity(flexFixtures.canonical)
   })
 
+  it('matches Tailwind 3 support for grid utilities', async () => {
+    await expectTailwindParity(gridFixtures.canonical)
+  })
+
   it('matches Tailwind 3 for theme-driven flex grow / shrink / basis extensions', async () => {
     await expectTailwindParity([
       'grow-2',
@@ -225,6 +230,92 @@ describe('preset-tailwind3 tailwind parity', () => {
           },
           flexBasis: {
             sidebar: '18rem',
+          },
+        } as any,
+      },
+    })
+  })
+
+  it('matches Tailwind 3 for theme-driven grid extensions', async () => {
+    await expectTailwindParity([
+      'grid-cols-dashboard',
+      'grid-rows-layout',
+      'auto-cols-sidebar',
+      'auto-rows-card',
+      'col-sidebar',
+      'row-stack',
+      'col-start-sidebar',
+      'col-end-sidebar',
+      'row-start-sidebar',
+      'row-end-sidebar',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            gridTemplateColumns: {
+              dashboard: '240px minmax(0, 1fr)',
+            },
+            gridTemplateRows: {
+              layout: 'auto minmax(0, 1fr)',
+            },
+            gridAutoColumns: {
+              sidebar: '18rem',
+            },
+            gridAutoRows: {
+              card: '12rem',
+            },
+            gridColumn: {
+              sidebar: '2 / span 2',
+            },
+            gridRow: {
+              stack: 'span 2 / span 2',
+            },
+            gridColumnStart: {
+              sidebar: '14',
+            },
+            gridColumnEnd: {
+              sidebar: '16',
+            },
+            gridRowStart: {
+              sidebar: '8',
+            },
+            gridRowEnd: {
+              sidebar: '10',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          gridTemplateColumns: {
+            dashboard: '240px minmax(0, 1fr)',
+          },
+          gridTemplateRows: {
+            layout: 'auto minmax(0, 1fr)',
+          },
+          gridAutoColumns: {
+            sidebar: '18rem',
+          },
+          gridAutoRows: {
+            card: '12rem',
+          },
+          gridColumn: {
+            sidebar: '2 / span 2',
+          },
+          gridRow: {
+            stack: 'span 2 / span 2',
+          },
+          gridColumnStart: {
+            sidebar: '14',
+          },
+          gridColumnEnd: {
+            sidebar: '16',
+          },
+          gridRowStart: {
+            sidebar: '8',
+          },
+          gridRowEnd: {
+            sidebar: '10',
           },
         } as any,
       },
@@ -267,6 +358,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind flex aliases and raw shorthand syntax', async () => {
     await expectTailwindParity(flexFixtures.invalid)
+  })
+
+  it('rejects non-tailwind grid aliases and extra grid extensions', async () => {
+    await expectTailwindParity(gridFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

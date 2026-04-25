@@ -161,3 +161,72 @@ export const flexBasis = {
   '11/12': '91.666667%',
   full: '100%',
 } satisfies Theme['flexBasis']
+
+export const gridAutoColumns = {
+  auto: 'auto',
+  min: 'min-content',
+  max: 'max-content',
+  fr: 'minmax(0, 1fr)',
+} satisfies Theme['gridAutoColumns']
+
+export const gridAutoRows = { ...gridAutoColumns } satisfies Theme['gridAutoRows']
+
+export const gridColumn = {
+  auto: 'auto',
+  'span-1': 'span 1 / span 1',
+  'span-2': 'span 2 / span 2',
+  'span-3': 'span 3 / span 3',
+  'span-4': 'span 4 / span 4',
+  'span-5': 'span 5 / span 5',
+  'span-6': 'span 6 / span 6',
+  'span-7': 'span 7 / span 7',
+  'span-8': 'span 8 / span 8',
+  'span-9': 'span 9 / span 9',
+  'span-10': 'span 10 / span 10',
+  'span-11': 'span 11 / span 11',
+  'span-12': 'span 12 / span 12',
+  'span-full': '1 / -1',
+} satisfies Theme['gridColumn']
+
+export const gridRow = { ...gridColumn } satisfies Theme['gridRow']
+
+const gridLineNumbers = {
+  auto: 'auto',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10',
+  11: '11',
+  12: '12',
+  13: '13',
+}
+
+export const gridColumnStart = { ...gridLineNumbers } satisfies Theme['gridColumnStart']
+export const gridColumnEnd = { ...gridLineNumbers } satisfies Theme['gridColumnEnd']
+export const gridRowStart = { ...gridLineNumbers } satisfies Theme['gridRowStart']
+export const gridRowEnd = { ...gridLineNumbers } satisfies Theme['gridRowEnd']
+
+export const gridTemplateColumns = {
+  none: 'none',
+  subgrid: 'subgrid',
+  1: 'repeat(1, minmax(0, 1fr))',
+  2: 'repeat(2, minmax(0, 1fr))',
+  3: 'repeat(3, minmax(0, 1fr))',
+  4: 'repeat(4, minmax(0, 1fr))',
+  5: 'repeat(5, minmax(0, 1fr))',
+  6: 'repeat(6, minmax(0, 1fr))',
+  7: 'repeat(7, minmax(0, 1fr))',
+  8: 'repeat(8, minmax(0, 1fr))',
+  9: 'repeat(9, minmax(0, 1fr))',
+  10: 'repeat(10, minmax(0, 1fr))',
+  11: 'repeat(11, minmax(0, 1fr))',
+  12: 'repeat(12, minmax(0, 1fr))',
+} satisfies Theme['gridTemplateColumns']
+
+export const gridTemplateRows = { ...gridTemplateColumns } satisfies Theme['gridTemplateRows']

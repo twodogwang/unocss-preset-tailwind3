@@ -21,6 +21,7 @@ import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
+import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -57,6 +58,7 @@ describe('tailwind utility spec', () => {
     const columnsSpec = getSpec('columns')
     const tableSpec = getSpec('table-display-caption-collapse')
     const flexSpec = getSpec('flex')
+    const gridSpec = getSpec('grid')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -98,6 +100,7 @@ describe('tailwind utility spec', () => {
     expect(columnsSpec).toBeTruthy()
     expect(tableSpec).toBeTruthy()
     expect(flexSpec).toBeTruthy()
+    expect(gridSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -175,6 +178,16 @@ describe('tailwind utility spec', () => {
     expect(flexSpec?.canonical).toContain('basis-full')
     expect(flexSpec?.invalid).toContain('flex-grow-2')
     expect(flexSpec?.invalid).toContain('flex-basis-10px')
+    expect(gridSpec?.canonical).toEqual([...gridFixtures.canonical])
+    expect(gridSpec?.invalid).toEqual([...gridFixtures.invalid])
+    expect(gridSpec?.sourceFiles).toEqual(['src/_rules/grid.ts', 'src/_theme/default.ts', 'src/_theme/types.ts'])
+    expect(gridSpec?.category).toBe('layout')
+    expect(gridSpec?.supportsPrefix).toBe(true)
+    expect(gridSpec?.supportsVariants).toBe(true)
+    expect(gridSpec?.canonical).toContain('col-auto')
+    expect(gridSpec?.canonical).toContain('auto-cols-fr')
+    expect(gridSpec?.invalid).toContain('auto-flow-row')
+    expect(gridSpec?.invalid).toContain('grid-areas-layout')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

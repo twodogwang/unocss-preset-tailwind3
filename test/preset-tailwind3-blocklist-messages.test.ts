@@ -10,6 +10,7 @@ import {
   flexBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
   overflowBlocklistMigrationFixtures,
+  gridBlocklistMigrationFixtures,
   positionFloatZOrderBoxSizingBlocklistMigrationFixtures,
   blocklistMigrationFixtures,
   borderSpacingSpaceBlocklistMigrationFixtures,
@@ -220,6 +221,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of flexBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks grid migration hints through the shared fixture subset', async () => {
+    expect(gridBlocklistMigrationFixtures).toHaveLength(3)
+    expect(gridBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'auto-flow-row',
+      'rows-2',
+      'cols-2',
+    ])
+
+    for (const fixture of gridBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

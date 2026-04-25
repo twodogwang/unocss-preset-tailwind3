@@ -20,6 +20,7 @@ import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
+import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -121,6 +122,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 flex 主规则族只接受 Tailwind 3 的 display、flex shorthand、grow / shrink、basis、direction 与 wrap 语义，并拒绝 flex-inline、flex-grow-*、flex-basis-* 旧别名。'],
+  },
+  {
+    id: 'grid',
+    sourceFiles: ['src/_rules/grid.ts', 'src/_theme/default.ts', 'src/_theme/types.ts'],
+    category: 'layout',
+    canonical: [...gridFixtures.canonical],
+    invalid: [...gridFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 grid 主规则族只接受 Tailwind 3 的 grid template、line placement、auto rows/cols 与 flow 语义，并拒绝 auto-flow、rows/cols 紧凑别名以及 grid-areas / minmax 扩展。'],
   },
   {
     id: 'aspect-ratio',

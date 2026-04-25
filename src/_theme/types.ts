@@ -75,10 +75,18 @@ export interface Theme {
   // animation
   animation?: ThemeAnimation
   // grids
+  gridAutoColumns?: Record<string, string>
+  gridAutoRows?: Record<string, string>
   gridAutoColumn?: Record<string, string>
   gridAutoRow?: Record<string, string>
   gridColumn?: Record<string, string>
+  gridColumnEnd?: Record<string, string>
+  gridColumnStart?: Record<string, string>
   gridRow?: Record<string, string>
+  gridRowEnd?: Record<string, string>
+  gridRowStart?: Record<string, string>
+  gridTemplateColumns?: Record<string, string>
+  gridTemplateRows?: Record<string, string>
   gridTemplateColumn?: Record<string, string>
   gridTemplateRow?: Record<string, string>
   // container

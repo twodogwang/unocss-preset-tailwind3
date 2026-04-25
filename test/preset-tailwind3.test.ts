@@ -20,6 +20,7 @@ import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
+import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -296,6 +297,92 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.basis-\\[23rem\\]{flex-basis:23rem;}')
       expect(css).toContain('.flex-col{flex-direction:column;}')
       expect(css).toContain('.flex-wrap-reverse{flex-wrap:wrap-reverse;}')
+    })
+  })
+
+  describe('grid', () => {
+    it('matches official Tailwind 3 grid utilities', async () => {
+      await expectTargets(gridFixtures.canonical)
+    })
+
+    it('matches theme-driven grid utilities', async () => {
+      const css = await expectTargets([
+        'grid-cols-dashboard',
+        'grid-rows-layout',
+        'auto-cols-sidebar',
+        'auto-rows-card',
+        'col-sidebar',
+        'row-stack',
+        'col-start-sidebar',
+        'col-end-sidebar',
+        'row-start-sidebar',
+        'row-end-sidebar',
+      ], {
+        theme: {
+          gridTemplateColumns: {
+            dashboard: '240px minmax(0, 1fr)',
+          },
+          gridTemplateRows: {
+            layout: 'auto minmax(0, 1fr)',
+          },
+          gridAutoColumns: {
+            sidebar: '18rem',
+          },
+          gridAutoRows: {
+            card: '12rem',
+          },
+          gridColumn: {
+            sidebar: '2 / span 2',
+          },
+          gridRow: {
+            stack: 'span 2 / span 2',
+          },
+          gridColumnStart: {
+            sidebar: '14',
+          },
+          gridColumnEnd: {
+            sidebar: '16',
+          },
+          gridRowStart: {
+            sidebar: '8',
+          },
+          gridRowEnd: {
+            sidebar: '10',
+          },
+        } as any,
+      })
+
+      expect(css).toContain('.grid-cols-dashboard{grid-template-columns:240px minmax(0, 1fr);}')
+      expect(css).toContain('.grid-rows-layout{grid-template-rows:auto minmax(0, 1fr);}')
+      expect(css).toContain('.auto-cols-sidebar{grid-auto-columns:18rem;}')
+      expect(css).toContain('.auto-rows-card{grid-auto-rows:12rem;}')
+      expect(css).toContain('.col-sidebar{grid-column:2 / span 2;}')
+      expect(css).toContain('.row-stack{grid-row:span 2 / span 2;}')
+      expect(css).toContain('.col-start-sidebar{grid-column-start:14;}')
+      expect(css).toContain('.col-end-sidebar{grid-column-end:16;}')
+      expect(css).toContain('.row-start-sidebar{grid-row-start:8;}')
+      expect(css).toContain('.row-end-sidebar{grid-row-end:10;}')
+    })
+
+    it('rejects non-tailwind grid aliases and extra grid extensions', async () => {
+      await expectNonTargets(gridFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic grid cases', async () => {
+      const css = await expectTargets(gridFixtures.semantic)
+
+      expect(css).toContain('.grid{display:grid;}')
+      expect(css).toContain('.inline-grid{display:inline-grid;}')
+      expect(css).toContain('.grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr));}')
+      expect(css).toContain('.grid-rows-\\[auto_1fr\\]{grid-template-rows:auto 1fr;}')
+      expect(css).toContain('.col-auto{grid-column:auto;}')
+      expect(css).toContain('.col-span-full{grid-column:1 / -1;}')
+      expect(css).toContain('.col-start-auto{grid-column-start:auto;}')
+      expect(css).toContain('.row-auto{grid-row:auto;}')
+      expect(css).toContain('.row-end-auto{grid-row-end:auto;}')
+      expect(css).toContain('.auto-cols-fr{grid-auto-columns:minmax(0, 1fr);}')
+      expect(css).toContain('.auto-rows-\\[minmax\\(8rem\\,_auto\\)\\]{grid-auto-rows:minmax(8rem, auto);}')
+      expect(css).toContain('.grid-flow-col-dense{grid-auto-flow:column dense;}')
     })
   })
 
@@ -1426,8 +1513,8 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('layout / grid / position', () => {
-    it('matches official Tailwind 3 grid-adjacent layout utilities', async () => {
+  describe('layout / position', () => {
+    it('matches official Tailwind 3 non-grid layout utilities', async () => {
       await expectTargets([
         'block',
         'inline-block',
@@ -1436,27 +1523,16 @@ describe('preset-tailwind3', () => {
         'absolute',
         'z-10',
         'order-2',
-        'grid',
-        'inline-grid',
-        'grid-cols-3',
-        'grid-rows-2',
-        'col-span-2',
-        'row-span-3',
-        'col-start-2',
-        'row-end-4',
-        'grid-flow-row-dense',
         'overflow-x-auto',
       ])
     })
 
     it('matches arbitrary and theme-driven layout utilities', async () => {
       const css = await expectTargets([
-        'grid-cols-[200px_minmax(900px,_1fr)_100px]',
         'order-[13]',
         'z-[99]',
       ])
 
-      expect(css).toContain('200px minmax(900px, 1fr) 100px')
       expect(css).toContain('13')
       expect(css).toContain('99')
     })
@@ -1467,12 +1543,6 @@ describe('preset-tailwind3', () => {
         'pos-absolute',
         'z10',
         'order2',
-        'auto-flow-col',
-        'grid-flowcol',
-        'cols-3',
-        'rows-2',
-        'colspan-2',
-        'rowstart-2',
       ])
     })
   })

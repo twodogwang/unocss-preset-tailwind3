@@ -107,6 +107,12 @@ export const flexBlocklistMigrationFixtures = [
   { input: 'flex-shrink-2', replacement: 'shrink-2' },
 ] as const
 
+export const gridBlocklistMigrationFixtures = [
+  { input: 'auto-flow-row', replacement: 'grid-flow-row' },
+  { input: 'rows-2', replacement: 'grid-rows-2' },
+  { input: 'cols-2', replacement: 'grid-cols-2' },
+] as const
+
 export const positionFloatZOrderBoxSizingBlocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'z10', replacement: 'z-10' },
@@ -289,6 +295,7 @@ export const blocklistMigrationFixtures = [
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...columnsBlocklistMigrationFixtures,
   ...flexBlocklistMigrationFixtures,
+  ...gridBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,
   ...fontVariantNumericBlocklistMigrationFixtures,

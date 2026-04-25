@@ -5,22 +5,35 @@ import { h } from '../utils'
 function rowCol(s: string) {
   return s.replace('col', 'column')
 }
-function rowColTheme(s: string) {
-  return s[0] === 'r' ? 'Row' : 'Column'
+
+function gridAutoTheme(theme: Theme, axis: string) {
+  return axis[0] === 'r'
+    ? theme.gridAutoRows ?? theme.gridAutoRow
+    : theme.gridAutoColumns ?? theme.gridAutoColumn
 }
 
-function autoDirection(c: string, theme: Theme, prop: string) {
-  const v = theme[`gridAuto${rowColTheme(c)}`]?.[prop]
-  if (v != null)
-    return v
+function gridLineTheme(theme: Theme, axis: string) {
+  return axis[0] === 'r'
+    ? theme.gridRow
+    : theme.gridColumn
+}
 
-  switch (prop) {
-    case 'min': return 'min-content'
-    case 'max': return 'max-content'
-    case 'fr': return 'minmax(0,1fr)'
-  }
+function gridLineStartTheme(theme: Theme, axis: string) {
+  return axis[0] === 'r'
+    ? theme.gridRowStart
+    : theme.gridColumnStart
+}
 
-  return h.bracket.cssvar.auto.rem(prop)
+function gridLineEndTheme(theme: Theme, axis: string) {
+  return axis[0] === 'r'
+    ? theme.gridRowEnd
+    : theme.gridColumnEnd
+}
+
+function gridTemplateTheme(theme: Theme, axis: string) {
+  return axis[0] === 'r'
+    ? theme.gridTemplateRows ?? theme.gridTemplateRow
+    : theme.gridTemplateColumns ?? theme.gridTemplateColumn
 }
 
 export const grids: Rule<Theme>[] = [
@@ -28,28 +41,41 @@ export const grids: Rule<Theme>[] = [
   ['grid', { display: 'grid' }],
   ['inline-grid', { display: 'inline-grid' }],
 
-  // span
+  // spans
   [/^(row|col)-span-(.+)$/, ([, c, s]) => {
     if (s === 'full')
       return { [`grid-${rowCol(c)}`]: '1/-1' }
-    const v = h.bracket.number(s)
-    if (v != null)
-      return { [`grid-${rowCol(c)}`]: `span ${v}/span ${v}` }
-  }, { autocomplete: '(grid-row|grid-col|row|col)-span-<num>' }],
+
+    const value = h.bracket.number(s)
+    if (value != null)
+      return { [`grid-${rowCol(c)}`]: `span ${value}/span ${value}` }
+  }, { autocomplete: '(row|col)-span-<num>' }],
 
   // starts & ends
-  [/^(row|col)-start-(.+)$/, ([, c, v]) => ({ [`grid-${rowCol(c)}-start`]: h.bracket.cssvar(v) ?? v })],
-  [/^(row|col)-end-(.+)$/, ([, c, v]) => ({ [`grid-${rowCol(c)}-end`]: h.bracket.cssvar(v) ?? v }), { autocomplete: '(row|col)-(start|end)-<num>' }],
+  [/^(row|col)-start-(.+)$/, ([, c, v], { theme }) => {
+    const value = gridLineStartTheme(theme, c)?.[v] ?? h.bracket.cssvar(v)
+    if (value != null)
+      return { [`grid-${rowCol(c)}-start`]: value }
+  }],
+  [/^(row|col)-end-(.+)$/, ([, c, v], { theme }) => {
+    const value = gridLineEndTheme(theme, c)?.[v] ?? h.bracket.cssvar(v)
+    if (value != null)
+      return { [`grid-${rowCol(c)}-end`]: value }
+  }, { autocomplete: '(row|col)-(start|end)-<num>' }],
 
-  // global
+  // line placement
   [/^(row|col)-(.+)$/, ([, c, v], { theme }) => {
-    const value = theme[`grid${rowColTheme(c)}`]?.[v] ?? h.bracket.cssvar.auto(v)
+    const value = gridLineTheme(theme, c)?.[v] ?? h.bracket.cssvar.auto(v)
     if (value != null)
       return { [`grid-${rowCol(c)}`]: value }
   }],
 
-  // auto flows
-  [/^auto-(rows|cols)-(.+)$/, ([, c, v], { theme }) => ({ [`grid-auto-${rowCol(c)}`]: autoDirection(c, theme, v) }), { autocomplete: 'auto-(rows|cols)-<num>' }],
+  // auto rows/cols
+  [/^auto-(rows|cols)-(.+)$/, ([, c, v], { theme }) => {
+    const value = gridAutoTheme(theme, c)?.[v] ?? h.bracket.cssvar.auto.rem(v)
+    if (value != null)
+      return { [`grid-auto-${rowCol(c)}`]: value }
+  }, { autocomplete: 'auto-(rows|cols)-<num>' }],
 
   // grid flow
   [/^grid-flow-(.+)$/, ([, v]) => {
@@ -60,24 +86,9 @@ export const grids: Rule<Theme>[] = [
   [/^grid-flow-(row|col|dense|row-dense|col-dense)$/, ([, v]) => ({ 'grid-auto-flow': rowCol(v).replace('-', ' ') }), { autocomplete: ['grid-flow-(row|col|dense|row-dense|col-dense)'] }],
 
   // templates
-  [/^grid-(rows|cols)-(.+)$/, ([, c, v], { theme }) => ({
-    [`grid-template-${rowCol(c)}`]: theme[`gridTemplate${rowColTheme(c)}`]?.[v] ?? h.bracket.cssvar(v),
-  })],
-  [/^grid-(rows|cols)-minmax-([\w.-]+)$/, ([, c, d]) => ({ [`grid-template-${rowCol(c)}`]: `repeat(auto-fill,minmax(${d},1fr))` })],
-  [/^grid-(rows|cols)-(\d+)$/, ([, c, d]) => ({ [`grid-template-${rowCol(c)}`]: `repeat(${d},minmax(0,1fr))` }), { autocomplete: 'grid-(rows|cols)-<num>' }],
-
-  // areas
-  [/^grid-area(s)?-(.+)$/, ([, s, v]) => {
-    if (s != null)
-      return { 'grid-template-areas': h.cssvar(v) ?? v.split('-').map(s => `"${h.bracket(s)}"`).join(' ') }
-    return { 'grid-area': h.bracket.cssvar(v) }
+  [/^grid-(rows|cols)-(.+)$/, ([, c, v], { theme }) => {
+    const value = gridTemplateTheme(theme, c)?.[v] ?? h.bracket.cssvar(v)
+    if (value != null)
+      return { [`grid-template-${rowCol(c)}`]: value }
   }],
-
-  // template none
-  ['grid-rows-none', { 'grid-template-rows': 'none' }],
-  ['grid-cols-none', { 'grid-template-columns': 'none' }],
-
-  // template subgrid
-  ['grid-rows-subgrid', { 'grid-template-rows': 'subgrid' }],
-  ['grid-cols-subgrid', { 'grid-template-columns': 'subgrid' }],
 ]
