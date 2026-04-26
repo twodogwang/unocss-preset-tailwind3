@@ -15,6 +15,7 @@ import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
+import { filtersFixtures } from './fixtures/tailwind-filters-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
@@ -44,7 +45,7 @@ import { textFixtures } from './fixtures/tailwind-text-rewrite'
 export interface TailwindUtilitySpec {
   id: string
   sourceFiles: string[]
-  category: 'border' | 'typography' | 'layout' | 'behavior' | 'color' | 'transform'
+  category: 'border' | 'typography' | 'layout' | 'behavior' | 'color' | 'transform' | 'effect'
   canonical: string[]
   invalid: string[]
   supportsPrefix: boolean
@@ -154,6 +155,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 transform 主规则族只接受 Tailwind 3 的 origin / translate / rotate / skew / scale / transform 静态类，补齐默认 `translate` / `rotate` / `scale` / `skew` / `transformOrigin` theme key，并移除 `rotate-x/y/z`、`scale-z`、裸值扩展与 global keyword。'],
+  },
+  {
+    id: 'filters-backdrop-filters',
+    sourceFiles: ['src/_rules-wind3/filters.ts', 'src/_theme/default.ts', 'src/_theme/filters.ts', 'src/_theme/types.ts'],
+    category: 'effect',
+    canonical: [...filtersFixtures.canonical],
+    invalid: [...filtersFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 filters / backdrop-filters 主规则族只接受 Tailwind 3 的 blur / brightness / contrast / drop-shadow / grayscale / hue-rotate / invert / saturate / sepia / backdrop-* / filter 静态类，补齐默认 filter theme key，并移除 `filter-*` 前缀旧别名、`backdrop-op-*` 简写与 global keyword。'],
   },
   {
     id: 'aspect-ratio',

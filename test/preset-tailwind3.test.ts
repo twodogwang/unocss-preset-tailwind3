@@ -16,6 +16,7 @@ import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { filtersFixtures } from './fixtures/tailwind-filters-rewrite'
 import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -1642,41 +1643,25 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('effects / filters', () => {
-    it('matches official Tailwind 3 effects and filter utilities', async () => {
-      await expectTargets([
-        'opacity-50',
-        'blur-sm',
-        'brightness-75',
-        'contrast-50',
-        'grayscale',
-        'invert',
-        'sepia',
-        'drop-shadow',
-        'drop-shadow-md',
-        'backdrop-blur-sm',
-      ])
+  describe('filters / backdrop-filters', () => {
+    it('matches official Tailwind 3 filter utilities', async () => {
+      await expectTargets(filtersFixtures.canonical)
     })
 
-    it('matches arbitrary and theme-driven effects utilities', async () => {
-      const css = await expectTargets([
-        'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]',
-        'blur-[3px]',
-      ])
-
-      expect(css).toContain('drop-shadow(0 0 2px rgba(0,0,0,0.5))')
-      expect(css).toContain('3px')
+    it('rejects non-tailwind filter aliases and extensions', async () => {
+      await expectNonTargets(filtersFixtures.invalid)
     })
 
-    it('rejects non-tailwind effects aliases and extensions', async () => {
-      await expectNonTargets([
-        'op50',
-        'filter-blur-sm',
-        'filter-drop-shadow',
-        'drop-shadow-color-red-500',
-        'perspective-500',
-        'preserve-3d',
-      ])
+    it('emits the expected CSS for semantic filter cases', async () => {
+      const css = await expectTargets(filtersFixtures.semantic)
+
+      expect(css).toContain('.blur-sm{--un-blur:blur(4px);filter:var(--un-blur) var(--un-brightness) var(--un-contrast) var(--un-grayscale) var(--un-hue-rotate) var(--un-invert) var(--un-saturate) var(--un-sepia) var(--un-drop-shadow);}')
+      expect(css).toContain('.drop-shadow-md{--un-drop-shadow:drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));filter:var(--un-blur) var(--un-brightness) var(--un-contrast) var(--un-grayscale) var(--un-hue-rotate) var(--un-invert) var(--un-saturate) var(--un-sepia) var(--un-drop-shadow);}')
+      expect(css).toContain('.grayscale{--un-grayscale:grayscale(100%);filter:var(--un-blur) var(--un-brightness) var(--un-contrast) var(--un-grayscale) var(--un-hue-rotate) var(--un-invert) var(--un-saturate) var(--un-sepia) var(--un-drop-shadow);}')
+      expect(css).toContain('.hue-rotate-15{--un-hue-rotate:hue-rotate(15deg);filter:var(--un-blur) var(--un-brightness) var(--un-contrast) var(--un-grayscale) var(--un-hue-rotate) var(--un-invert) var(--un-saturate) var(--un-sepia) var(--un-drop-shadow);}')
+      expect(css).toContain('.backdrop-opacity-50{--un-backdrop-opacity:opacity(0.5);-webkit-backdrop-filter:var(--un-backdrop-blur) var(--un-backdrop-brightness) var(--un-backdrop-contrast) var(--un-backdrop-grayscale) var(--un-backdrop-hue-rotate) var(--un-backdrop-invert) var(--un-backdrop-opacity) var(--un-backdrop-saturate) var(--un-backdrop-sepia);backdrop-filter:var(--un-backdrop-blur) var(--un-backdrop-brightness) var(--un-backdrop-contrast) var(--un-backdrop-grayscale) var(--un-backdrop-hue-rotate) var(--un-backdrop-invert) var(--un-backdrop-opacity) var(--un-backdrop-saturate) var(--un-backdrop-sepia);}')
+      expect(css).toContain('.filter{filter:var(--un-blur) var(--un-brightness) var(--un-contrast) var(--un-grayscale) var(--un-hue-rotate) var(--un-invert) var(--un-saturate) var(--un-sepia) var(--un-drop-shadow);}')
+      expect(css).toContain('.backdrop-filter-none{-webkit-backdrop-filter:none;backdrop-filter:none;}')
     })
   })
 

@@ -125,6 +125,12 @@ export const transformBlocklistMigrationFixtures = [
   { input: 'translate-x-12px', replacement: 'translate-x-[12px]' },
 ] as const
 
+export const filtersBlocklistMigrationFixtures = [
+  { input: 'filter-blur-sm', replacement: 'blur-sm' },
+  { input: 'filter-drop-shadow', replacement: 'drop-shadow' },
+  { input: 'backdrop-op-50', replacement: 'backdrop-opacity-50' },
+] as const
+
 export const positionFloatZOrderBoxSizingBlocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'z10', replacement: 'z-10' },
@@ -310,6 +316,7 @@ export const blocklistMigrationFixtures = [
   ...gridBlocklistMigrationFixtures,
   ...justifyAlignPlaceBlocklistMigrationFixtures,
   ...transformBlocklistMigrationFixtures,
+  ...filtersBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,
   ...fontVariantNumericBlocklistMigrationFixtures,

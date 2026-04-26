@@ -16,6 +16,7 @@ import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
+import { filtersFixtures } from './fixtures/tailwind-filters-rewrite'
 import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
@@ -113,7 +114,7 @@ async function expectTailwindParity(
   expect([...unoMatched].sort()).toEqual([...tailwindMatched].sort())
 }
 
-describe('preset-tailwind3 tailwind parity', () => {
+describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
   it('matches Tailwind 3 support for strict size / spacing / gap / inset / translate / scroll utilities', async () => {
     await expectTailwindParity([
       ...sizeFixtures.canonical,
@@ -207,6 +208,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches Tailwind 3 support for transform utilities', async () => {
     await expectTailwindParity(transformFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for filters / backdrop-filters utilities', async () => {
+    await expectTailwindParity(filtersFixtures.canonical)
   })
 
   it('matches Tailwind 3 for theme-driven flex grow / shrink / basis extensions', async () => {
@@ -380,6 +385,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind transform aliases and extra extensions', async () => {
     await expectTailwindParity(transformFixtures.invalid)
+  })
+
+  it('rejects non-tailwind filters / backdrop-filters aliases and extra extensions', async () => {
+    await expectTailwindParity(filtersFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

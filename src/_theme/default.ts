@@ -1,6 +1,6 @@
 import type { Theme } from './types'
 import { colors } from './colors'
-import { blur, dropShadow } from './filters'
+import { blur, brightness, contrast, dropShadow, grayscale, hueRotate, invert, opacity, saturate, sepia } from './filters'
 import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight, textIndent, textShadow, textStrokeWidth, wordSpacing } from './font'
 import { borderRadius, boxShadow, breakpoints, duration, flexGrow, flexShrink, lineWidth, media, order, ringWidth, rotate, scale, skew, spacing, transformOrigin, translate, verticalBreakpoints, zIndex } from './misc'
 import { preflightBase } from './preflight'
@@ -36,9 +36,17 @@ export const theme = {
   textShadow,
   textStrokeWidth,
   blur,
+  brightness,
+  contrast,
   dropShadow,
+  grayscale,
+  hueRotate,
+  invert,
+  opacity,
   rotate,
+  saturate,
   scale,
+  sepia,
   skew,
   transformOrigin,
   easing,

@@ -8,6 +8,7 @@ import {
   backgroundColorBlocklistMigrationFixtures,
   columnsBlocklistMigrationFixtures,
   flexBlocklistMigrationFixtures,
+  filtersBlocklistMigrationFixtures,
   justifyAlignPlaceBlocklistMigrationFixtures,
   transformBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
@@ -262,6 +263,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of transformBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks filters / backdrop-filters migration hints through the shared fixture subset', async () => {
+    expect(filtersBlocklistMigrationFixtures).toHaveLength(3)
+    expect(filtersBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'filter-blur-sm',
+      'filter-drop-shadow',
+      'backdrop-op-50',
+    ])
+
+    for (const fixture of filtersBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

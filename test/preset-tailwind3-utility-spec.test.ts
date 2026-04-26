@@ -16,6 +16,7 @@ import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
+import { filtersFixtures } from './fixtures/tailwind-filters-rewrite'
 import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
@@ -63,6 +64,7 @@ describe('tailwind utility spec', () => {
     const gridSpec = getSpec('grid')
     const justifyAlignPlaceSpec = getSpec('justify-align-place-flex-grid-prefixes')
     const transformSpec = getSpec('transform')
+    const filtersSpec = getSpec('filters-backdrop-filters')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -107,6 +109,7 @@ describe('tailwind utility spec', () => {
     expect(gridSpec).toBeTruthy()
     expect(justifyAlignPlaceSpec).toBeTruthy()
     expect(transformSpec).toBeTruthy()
+    expect(filtersSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -214,6 +217,16 @@ describe('tailwind utility spec', () => {
     expect(transformSpec?.canonical).toContain('origin-top-right')
     expect(transformSpec?.invalid).toContain('rotate-13')
     expect(transformSpec?.invalid).toContain('transform-rotate-45')
+    expect(filtersSpec?.canonical).toEqual([...filtersFixtures.canonical])
+    expect(filtersSpec?.invalid).toEqual([...filtersFixtures.invalid])
+    expect(filtersSpec?.sourceFiles).toEqual(['src/_rules-wind3/filters.ts', 'src/_theme/default.ts', 'src/_theme/filters.ts', 'src/_theme/types.ts'])
+    expect(filtersSpec?.category).toBe('effect')
+    expect(filtersSpec?.supportsPrefix).toBe(true)
+    expect(filtersSpec?.supportsVariants).toBe(true)
+    expect(filtersSpec?.canonical).toContain('backdrop-opacity-50')
+    expect(filtersSpec?.canonical).toContain('drop-shadow-md')
+    expect(filtersSpec?.invalid).toContain('backdrop-op-50')
+    expect(filtersSpec?.invalid).toContain('filter-inherit')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

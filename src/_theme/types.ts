@@ -61,7 +61,15 @@ export interface Theme {
   zIndex?: Record<string, string>
   // filters
   blur?: Record<string, string>
+  brightness?: Record<string, string>
+  contrast?: Record<string, string>
   dropShadow?: Record<string, string | string[]>
+  grayscale?: Record<string, string>
+  hueRotate?: Record<string, string>
+  invert?: Record<string, string>
+  opacity?: Record<string, string>
+  saturate?: Record<string, string>
+  sepia?: Record<string, string>
   // transitions
   easing?: Record<string, string>
   transitionProperty?: Record<string, string>
