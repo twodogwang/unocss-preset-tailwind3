@@ -48,6 +48,7 @@ import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrit
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
+import { willChangeFixtures } from './fixtures/tailwind-will-change-rewrite'
 
 async function createUno(config: UserConfig = {}) {
   return createGenerator({
@@ -665,6 +666,28 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind appearance aliases and global keyword shortcuts', async () => {
       await expectNonTargets(appearanceFixtures.invalid)
+    })
+  })
+
+  describe('will-change', () => {
+    it('matches official Tailwind 3 will-change utilities', async () => {
+      await expectTargets(willChangeFixtures.canonical)
+    })
+
+    it('matches theme-driven will-change utilities', async () => {
+      const css = await expectTargets(['will-change-layout'], {
+        theme: {
+          willChange: {
+            layout: 'contents, transform',
+          },
+        },
+      })
+
+      expect(css).toContain('will-change:contents, transform')
+    })
+
+    it('rejects non-tailwind will-change aliases and global keyword shortcuts', async () => {
+      await expectNonTargets(willChangeFixtures.invalid)
     })
   })
 

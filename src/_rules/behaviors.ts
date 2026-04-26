@@ -54,12 +54,14 @@ export const appearance: Rule[] = [
 ]
 
 function willChangeProperty(prop: string): string | undefined {
-  return h.properties.auto.global(prop) ?? {
-    contents: 'contents',
-    scroll: 'scroll-position',
-  }[prop]
+  return h.bracket.cssvar(prop)
 }
 
-export const willChange: Rule[] = [
-  [/^will-change-(.+)/, ([, p]) => ({ 'will-change': willChangeProperty(p) })],
+export const willChange: Rule<Theme>[] = [
+  [/^will-change-(.+)/, ([, p], { theme }) => {
+    const value = theme.willChange?.[p] ?? willChangeProperty(p)
+    if (value == null)
+      return
+    return { 'will-change': value }
+  }, { autocomplete: 'will-change-$willChange' }],
 ]

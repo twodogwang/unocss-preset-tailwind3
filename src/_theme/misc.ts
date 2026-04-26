@@ -181,6 +181,13 @@ export const order = {
   12: '12',
 }
 
+export const willChange = {
+  auto: 'auto',
+  scroll: 'scroll-position',
+  contents: 'contents',
+  transform: 'transform',
+} satisfies Theme['willChange']
+
 export const flexGrow = {
   0: '0',
   DEFAULT: '1',

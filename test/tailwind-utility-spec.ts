@@ -43,6 +43,7 @@ import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrit
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
+import { willChangeFixtures } from './fixtures/tailwind-will-change-rewrite'
 
 export interface TailwindUtilitySpec {
   id: string
@@ -76,6 +77,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 appearance 主规则族只接受 Tailwind 3 的 `appearance-auto` 与 `appearance-none`，并拒绝 global keyword 与浏览器特定 keyword shortcut。'],
+  },
+  {
+    id: 'will-change',
+    sourceFiles: ['src/_rules/behaviors.ts', 'src/_theme/default.ts', 'src/_theme/misc.ts', 'src/_theme/types.ts'],
+    category: 'behavior',
+    canonical: [...willChangeFixtures.canonical],
+    invalid: [...willChangeFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 will-change 主规则族只接受 Tailwind 3 默认 key、theme.willChange key 与 bracket arbitrary value，并拒绝 global keyword 与未命中的裸 property shortcut。'],
   },
   {
     id: 'display',

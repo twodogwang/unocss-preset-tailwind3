@@ -67,6 +67,7 @@ export interface Theme {
   // transitions
   easing?: Record<string, string>
   transitionProperty?: Record<string, string>
+  willChange?: Record<string, string>
   // media queries
   media?: Record<string, string>
   // supports queries

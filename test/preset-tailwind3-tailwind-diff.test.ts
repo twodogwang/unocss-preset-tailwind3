@@ -49,6 +49,7 @@ import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
 import { textFixtures } from './fixtures/tailwind-text-rewrite'
 import { tableFixtures } from './fixtures/tailwind-table-rewrite'
+import { willChangeFixtures } from './fixtures/tailwind-will-change-rewrite'
 
 const tailwindSentinel = 'hidden'
 const tailwindMatchCache = new Map<string, boolean>()
@@ -937,6 +938,37 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind appearance aliases and global keyword shortcuts through the shared fixtures', async () => {
     await expectTailwindParity(appearanceFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for will-change utilities through the shared fixtures', async () => {
+    await expectTailwindParity(willChangeFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for theme-driven will-change keys', async () => {
+    await expectTailwindParity([
+      'will-change-layout',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            willChange: {
+              layout: 'contents, transform',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          willChange: {
+            layout: 'contents, transform',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind will-change aliases and global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(willChangeFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {
