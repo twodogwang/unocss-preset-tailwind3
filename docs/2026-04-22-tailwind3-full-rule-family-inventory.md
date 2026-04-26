@@ -58,6 +58,7 @@
 | `justify / align / place / flexGridJustifiesAlignments` | `src/_rules/position.ts`, `src/rules.ts`, `src/_rules/default.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 justify / align / place 官方静态语义，移除 `*-safe` / global keyword / `justify-left-right` / `flex-*` / `grid-*` 前缀复刻扩展，并锁住高置信度前缀旧别名治理 |
 | `transform` | `src/_rules/transform.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `origin` / `translate` / `rotate` / `skew` / `scale` / `transform` 语义，补齐默认 `translate/rotate/scale/skew/transformOrigin` theme key，并锁住 `transform-rotate-*` / `transform-origin-*` / `translate-x-12px` 高置信度旧别名治理 |
 | `filters / backdrop-filters` | `src/_rules-wind3/filters.ts`, `src/_theme/default.ts`, `src/_theme/filters.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 filter / backdrop-filter 官方语义，补齐默认 `brightness/contrast/grayscale/hueRotate/invert/opacity/saturate/sepia` theme key，移除 global keyword 与 `backdrop-op-*` 简写，并锁住 `filter-*` / `backdrop-op-*` 高置信度旧别名治理 |
+| `animation` | `src/_rules-wind3/animation.ts`, `src/theme.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `theme.animation` / `theme.keyframes` 语义，支持 prefix 下 keyframe 名同步重写，并移除 `animate-*` global keyword shortcut |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -72,7 +73,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `animation` | `src/_rules-wind3/animation.ts` | `pending_wave_4` | `wave_4` | |
 | `appearance` | `src/_rules/behaviors.ts` | `pending_wave_5` | `wave_5` | `behavior` 第一阶段只完成了 `transition` |
 | `will-change` | `src/_rules/behaviors.ts` | `pending_wave_5` | `wave_5` | |
 | `overscroll` | `src/_rules-wind3/behaviors.ts` | `pending_wave_5` | `wave_5` | |
@@ -104,11 +104,11 @@
 - `size / layout / position / container / columns / tables`
 
 4. `wave_4`
-- `animation`
+- 已完成：`animation`
 
 5. `wave_5`
 - `appearance / will-change / overscroll / touch-action / list-style / static utilities`
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_4` 进入 `animation`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_5` 进入 `appearance`。

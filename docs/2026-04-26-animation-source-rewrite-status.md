@@ -1,0 +1,12 @@
+# Animation Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: animation fixtures and dedicated tests
+  - Task 2: runtime and default theme semantics aligned with Tailwind 3 animation behavior
+  - Task 3: utility spec, docs, and rewrite-session automation update
+- in_progress:
+  - none
+- pending:
+  - none
