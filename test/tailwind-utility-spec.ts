@@ -2,6 +2,7 @@ import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
+import { animationFixtures } from './fixtures/tailwind-animation-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
@@ -55,6 +56,16 @@ export interface TailwindUtilitySpec {
 }
 
 export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
+  {
+    id: 'animation',
+    sourceFiles: ['src/_rules-wind3/animation.ts', 'src/theme.ts', 'src/_theme/types.ts'],
+    category: 'effect',
+    canonical: [...animationFixtures.canonical],
+    invalid: [...animationFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 animation 主规则族只接受 Tailwind 3 的 `animate-*` theme key、`animate-none` 与 bracket arbitrary value，并对齐根级 `theme.animation` / `theme.keyframes` 与 prefix 下的 keyframe 重写语义。'],
+  },
   {
     id: 'display',
     sourceFiles: ['src/_rules/static.ts'],

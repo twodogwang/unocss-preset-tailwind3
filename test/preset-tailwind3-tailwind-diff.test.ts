@@ -6,6 +6,7 @@ import tailwindcss from 'tailwindcss'
 import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { animationFixtures } from './fixtures/tailwind-animation-rewrite'
 import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
@@ -884,6 +885,49 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
       'to-emerald-500',
       'to-90%',
     ])
+  })
+
+  it('matches Tailwind 3 support for animation utilities through the shared fixtures', async () => {
+    await expectTailwindParity(animationFixtures.canonical)
+  })
+
+  it('rejects non-tailwind animation aliases and global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(animationFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for theme-driven animation extensions and prefixed keyframes', async () => {
+    await expectTailwindParity([
+      'animate-wiggle',
+      'tw-animate-wiggle',
+    ], {
+      tailwindConfig: {
+        prefix: 'tw-',
+        theme: {
+          extend: {
+            animation: {
+              wiggle: 'wiggle 1s ease-in-out infinite',
+            },
+            keyframes: {
+              wiggle: {
+                '0%,100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
+              },
+            },
+          },
+        },
+      },
+      unoConfig: {
+        presets: [presetTailwind3({ prefix: 'tw-' })],
+        theme: {
+          animation: {
+            wiggle: 'wiggle 1s ease-in-out infinite',
+          },
+          keyframes: {
+            wiggle: '{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}',
+          },
+        },
+      },
+    })
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

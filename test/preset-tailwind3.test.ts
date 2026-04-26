@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
+import { animationFixtures } from './fixtures/tailwind-animation-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
@@ -610,34 +611,19 @@ describe('preset-tailwind3', () => {
 
   describe('animation', () => {
     it('matches official Tailwind 3 animation utilities', async () => {
-      await expectTargets([
-        'animate-none',
-        'animate-spin',
-        'animate-ping',
-        'animate-pulse',
-        'animate-bounce',
-      ])
+      await expectTargets(animationFixtures.canonical)
     })
 
-    it('matches arbitrary and theme-driven animation utilities', async () => {
+    it('matches Tailwind-style theme-driven animation utilities', async () => {
       const css = await expectTargets([
-        'animate-[wiggle_1s_ease-in-out_infinite]',
         'animate-wiggle',
       ], {
         theme: {
           animation: {
-            keyframes: {
-              wiggle: '{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}',
-            },
-            durations: {
-              wiggle: '1s',
-            },
-            timingFns: {
-              wiggle: 'ease-in-out',
-            },
-            counts: {
-              wiggle: 'infinite',
-            },
+            wiggle: 'wiggle 1s ease-in-out infinite',
+          },
+          keyframes: {
+            wiggle: '{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}',
           },
         },
       })
@@ -646,18 +632,28 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('wiggle 1s ease-in-out infinite')
     })
 
-    it('rejects non-tailwind animation extensions', async () => {
-      await expectNonTargets([
-        'keyframes-spin',
-        'animate-name-wiggle',
-        'animate-duration-500',
-        'animate-delay-75',
-        'animate-ease-linear',
-        'animate-fill-forwards',
-        'animate-direction-reverse',
-        'animate-count-infinite',
-        'animate-play-paused',
-      ])
+    it('prefixes keyframe names for prefixed theme-driven animation utilities', async () => {
+      const uno = await createGenerator({
+        presets: [presetTailwind3({ prefix: 'tw-' })],
+        theme: {
+          animation: {
+            wiggle: 'wiggle 1s ease-in-out infinite',
+          },
+          keyframes: {
+            wiggle: '{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}',
+          },
+        },
+      })
+
+      const { css, matched } = await uno.generate(new Set(['tw-animate-wiggle']), { preflights: false })
+
+      expect(matched).toEqual(new Set(['tw-animate-wiggle']))
+      expect(css).toContain('@keyframes tw-wiggle')
+      expect(css).toContain('animation:tw-wiggle 1s ease-in-out infinite;')
+    })
+
+    it('rejects non-tailwind animation extensions and global keyword shortcuts', async () => {
+      await expectNonTargets(animationFixtures.invalid)
     })
   })
 

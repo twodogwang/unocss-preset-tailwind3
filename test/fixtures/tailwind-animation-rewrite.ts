@@ -1,0 +1,30 @@
+export const animationFixtures = {
+  canonical: [
+    'animate-none',
+    'animate-spin',
+    'animate-ping',
+    'animate-pulse',
+    'animate-bounce',
+    'animate-[wiggle_1s_ease-in-out_infinite]',
+  ],
+  invalid: [
+    'animate-inherit',
+    'animate-initial',
+    'animate-revert',
+    'keyframes-spin',
+    'animate-name-wiggle',
+    'animate-duration-500',
+    'animate-delay-75',
+    'animate-ease-linear',
+    'animate-fill-forwards',
+    'animate-direction-reverse',
+    'animate-count-infinite',
+    'animate-play-paused',
+  ],
+  semantic: [
+    'animate-none',
+    'animate-spin',
+    'animate-bounce',
+    'animate-[wiggle_1s_ease-in-out_infinite]',
+  ],
+} as const

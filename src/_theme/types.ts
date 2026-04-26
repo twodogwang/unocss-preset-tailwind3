@@ -1,13 +1,7 @@
 import type { Arrayable, CSSObject } from '@unocss/core'
 
-export interface ThemeAnimation {
-  keyframes?: Record<string, string>
-  durations?: Record<string, string>
-  timingFns?: Record<string, string>
-  properties?: Record<string, object>
-  counts?: Record<string, string | number>
-  category?: Record<string, string>
-}
+export type ThemeAnimation = Record<string, string>
+export type ThemeKeyframes = Record<string, string>
 
 export interface Colors {
   [key: string]: Colors & { DEFAULT?: string } | string
@@ -87,6 +81,7 @@ export interface Theme {
   flexShrink?: Record<string, string>
   // animation
   animation?: ThemeAnimation
+  keyframes?: ThemeKeyframes
   // grids
   gridAutoColumns?: Record<string, string>
   gridAutoRows?: Record<string, string>
