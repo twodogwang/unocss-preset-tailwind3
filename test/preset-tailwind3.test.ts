@@ -7,6 +7,7 @@ import { backgroundColorFixtures } from './fixtures/tailwind-background-color-re
 import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { animationFixtures } from './fixtures/tailwind-animation-rewrite'
+import { appearanceFixtures } from './fixtures/tailwind-appearance-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
@@ -654,6 +655,16 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind animation extensions and global keyword shortcuts', async () => {
       await expectNonTargets(animationFixtures.invalid)
+    })
+  })
+
+  describe('appearance', () => {
+    it('matches official Tailwind 3 appearance utilities', async () => {
+      await expectTargets(appearanceFixtures.canonical)
+    })
+
+    it('rejects non-tailwind appearance aliases and global keyword shortcuts', async () => {
+      await expectNonTargets(appearanceFixtures.invalid)
     })
   })
 

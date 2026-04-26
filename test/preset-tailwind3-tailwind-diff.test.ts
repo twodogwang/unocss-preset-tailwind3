@@ -7,6 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { accentFixtures } from './fixtures/tailwind-accent-rewrite'
 import { animationFixtures } from './fixtures/tailwind-animation-rewrite'
+import { appearanceFixtures } from './fixtures/tailwind-appearance-rewrite'
 import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
@@ -928,6 +929,14 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
         },
       },
     })
+  })
+
+  it('matches Tailwind 3 support for appearance utilities through the shared fixtures', async () => {
+    await expectTailwindParity(appearanceFixtures.canonical)
+  })
+
+  it('rejects non-tailwind appearance aliases and global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(appearanceFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

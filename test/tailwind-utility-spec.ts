@@ -3,6 +3,7 @@ import { aspectRatioFixtures } from './fixtures/tailwind-aspect-ratio-rewrite'
 import { caretFixtures } from './fixtures/tailwind-caret-rewrite'
 import { backgroundColorFixtures } from './fixtures/tailwind-background-color-rewrite'
 import { animationFixtures } from './fixtures/tailwind-animation-rewrite'
+import { appearanceFixtures } from './fixtures/tailwind-appearance-rewrite'
 import { backgroundStyleFixtures } from './fixtures/tailwind-background-style-rewrite'
 import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border-rewrite'
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
@@ -65,6 +66,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 animation 主规则族只接受 Tailwind 3 的 `animate-*` theme key、`animate-none` 与 bracket arbitrary value，并对齐根级 `theme.animation` / `theme.keyframes` 与 prefix 下的 keyframe 重写语义。'],
+  },
+  {
+    id: 'appearance',
+    sourceFiles: ['src/_rules/behaviors.ts'],
+    category: 'behavior',
+    canonical: [...appearanceFixtures.canonical],
+    invalid: [...appearanceFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 appearance 主规则族只接受 Tailwind 3 的 `appearance-auto` 与 `appearance-none`，并拒绝 global keyword 与浏览器特定 keyword shortcut。'],
   },
   {
     id: 'display',
