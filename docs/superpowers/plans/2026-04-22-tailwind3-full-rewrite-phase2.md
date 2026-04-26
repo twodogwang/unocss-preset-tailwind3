@@ -108,4 +108,4 @@
 
 ## Immediate Next Step
 
-`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns` 与 `table display / caption / collapse`，`wave_4` 已完成 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform`、`filters / backdrop-filters` 与 `animation`，`wave_5` 已完成 `appearance` 与 `will-change`。下一步进入 `overscroll`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。
+`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns` 与 `table display / caption / collapse`，`wave_4` 已完成 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform`、`filters / backdrop-filters` 与 `animation`，`wave_5` 已完成 `appearance`、`will-change` 与 `overscroll`。下一步进入 `scroll-behavior`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。

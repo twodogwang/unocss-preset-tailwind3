@@ -61,6 +61,7 @@
 | `animation` | `src/_rules-wind3/animation.ts`, `src/theme.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `theme.animation` / `theme.keyframes` 语义，支持 prefix 下 keyframe 名同步重写，并移除 `animate-*` global keyword shortcut |
 | `appearance` | `src/_rules/behaviors.ts` | `completed_template` | 已确认 runtime 与 Tailwind 3.4 官方 appearance core plugin 一致，只暴露 `appearance-auto` / `appearance-none`，并拒绝 global keyword 与浏览器特定 keyword shortcut |
 | `will-change` | `src/_rules/behaviors.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `theme.willChange` 默认 key 与 arbitrary value 语义，并移除 global keyword 与未命中的裸 property shortcut |
+| `overscroll` | `src/_rules-wind3/behaviors.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 overscroll 官方静态语义，并移除 `overscroll*` global keyword shortcut |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -75,7 +76,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `overscroll` | `src/_rules-wind3/behaviors.ts` | `pending_wave_5` | `wave_5` | |
 | `scroll-behavior` | `src/_rules-wind3/behaviors.ts` | `pending_wave_5` | `wave_5` | |
 | `touch-action` | `src/_rules-wind3/touch-actions.ts` | `pending_wave_5` | `wave_5` | |
 | `list-style` | `src/_rules-wind3/behaviors.ts` | `pending_wave_5` | `wave_5` | |
@@ -107,8 +107,8 @@
 - 已完成：`animation`
 
 5. `wave_5`
-- `overscroll / touch-action / list-style / static utilities`
+- `touch-action / list-style / static utilities`
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_5` 进入 `overscroll`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_5` 进入 `scroll-behavior`。
