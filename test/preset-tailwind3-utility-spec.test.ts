@@ -16,6 +16,7 @@ import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
+import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { flexFixtures } from './fixtures/tailwind-flex-rewrite'
 import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
@@ -61,6 +62,7 @@ describe('tailwind utility spec', () => {
     const flexSpec = getSpec('flex')
     const gridSpec = getSpec('grid')
     const justifyAlignPlaceSpec = getSpec('justify-align-place-flex-grid-prefixes')
+    const transformSpec = getSpec('transform')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -104,6 +106,7 @@ describe('tailwind utility spec', () => {
     expect(flexSpec).toBeTruthy()
     expect(gridSpec).toBeTruthy()
     expect(justifyAlignPlaceSpec).toBeTruthy()
+    expect(transformSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -201,6 +204,16 @@ describe('tailwind utility spec', () => {
     expect(justifyAlignPlaceSpec?.canonical).toContain('place-items-baseline')
     expect(justifyAlignPlaceSpec?.invalid).toContain('justify-center-safe')
     expect(justifyAlignPlaceSpec?.invalid).toContain('flex-justify-center')
+    expect(transformSpec?.canonical).toEqual([...transformFixtures.canonical])
+    expect(transformSpec?.invalid).toEqual([...transformFixtures.invalid])
+    expect(transformSpec?.sourceFiles).toEqual(['src/_rules/transform.ts', 'src/rules.ts', 'src/_rules/default.ts', 'src/_theme/default.ts', 'src/_theme/misc.ts', 'src/_theme/types.ts'])
+    expect(transformSpec?.category).toBe('transform')
+    expect(transformSpec?.supportsPrefix).toBe(true)
+    expect(transformSpec?.supportsVariants).toBe(true)
+    expect(transformSpec?.canonical).toContain('translate-y-1/2')
+    expect(transformSpec?.canonical).toContain('origin-top-right')
+    expect(transformSpec?.invalid).toContain('rotate-13')
+    expect(transformSpec?.invalid).toContain('transform-rotate-45')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

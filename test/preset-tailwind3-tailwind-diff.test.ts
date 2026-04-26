@@ -38,6 +38,7 @@ import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
 import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
+import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
@@ -202,6 +203,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('matches Tailwind 3 support for justify / align / place utilities', async () => {
     await expectTailwindParity(justifyAlignPlaceFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for transform utilities', async () => {
+    await expectTailwindParity(transformFixtures.canonical)
   })
 
   it('matches Tailwind 3 for theme-driven flex grow / shrink / basis extensions', async () => {
@@ -371,6 +376,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind justify / align / place aliases and extra extensions', async () => {
     await expectTailwindParity(justifyAlignPlaceFixtures.invalid)
+  })
+
+  it('rejects non-tailwind transform aliases and extra extensions', async () => {
+    await expectTailwindParity(transformFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {

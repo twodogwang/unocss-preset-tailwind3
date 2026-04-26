@@ -35,6 +35,7 @@ import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-sc
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
+import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
@@ -143,6 +144,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 justify / align / place 主规则族只接受 Tailwind 3 官方静态 utility，并移除 `*-safe`、global keyword、`justify-left/right` 以及 `flex-*` / `grid-*` 前缀复刻扩展。'],
+  },
+  {
+    id: 'transform',
+    sourceFiles: ['src/_rules/transform.ts', 'src/rules.ts', 'src/_rules/default.ts', 'src/_theme/default.ts', 'src/_theme/misc.ts', 'src/_theme/types.ts'],
+    category: 'transform',
+    canonical: [...transformFixtures.canonical],
+    invalid: [...transformFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 transform 主规则族只接受 Tailwind 3 的 origin / translate / rotate / skew / scale / transform 静态类，补齐默认 `translate` / `rotate` / `scale` / `skew` / `transformOrigin` theme key，并移除 `rotate-x/y/z`、`scale-z`、裸值扩展与 global keyword。'],
   },
   {
     id: 'aspect-ratio',

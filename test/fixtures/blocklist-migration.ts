@@ -119,6 +119,12 @@ export const justifyAlignPlaceBlocklistMigrationFixtures = [
   { input: 'flex-place-content-between', replacement: 'place-content-between' },
 ] as const
 
+export const transformBlocklistMigrationFixtures = [
+  { input: 'transform-rotate-45', replacement: 'rotate-45' },
+  { input: 'transform-origin-top-right', replacement: 'origin-top-right' },
+  { input: 'translate-x-12px', replacement: 'translate-x-[12px]' },
+] as const
+
 export const positionFloatZOrderBoxSizingBlocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'z10', replacement: 'z-10' },
@@ -303,6 +309,7 @@ export const blocklistMigrationFixtures = [
   ...flexBlocklistMigrationFixtures,
   ...gridBlocklistMigrationFixtures,
   ...justifyAlignPlaceBlocklistMigrationFixtures,
+  ...transformBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,
   ...fontVariantNumericBlocklistMigrationFixtures,

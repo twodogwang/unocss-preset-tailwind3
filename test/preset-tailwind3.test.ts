@@ -38,6 +38,7 @@ import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
 import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
+import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
@@ -571,6 +572,7 @@ describe('preset-tailwind3', () => {
         'translate-x-4',
         'translate-y-8',
         'translate-x-full',
+        'translate-y-1/2',
         '-translate-y-1',
       ])
     })
@@ -598,6 +600,7 @@ describe('preset-tailwind3', () => {
         'translate-[12px]',
         'translate-x-12px',
         'translate-z-4',
+        'translate-x-1/5',
         'translatey8',
         '-translatey-1',
       ])
@@ -1639,8 +1642,8 @@ describe('preset-tailwind3', () => {
     })
   })
 
-  describe('effects / filters / transform', () => {
-    it('matches official Tailwind 3 effects and transform utilities', async () => {
+  describe('effects / filters', () => {
+    it('matches official Tailwind 3 effects and filter utilities', async () => {
       await expectTargets([
         'opacity-50',
         'blur-sm',
@@ -1652,28 +1655,16 @@ describe('preset-tailwind3', () => {
         'drop-shadow',
         'drop-shadow-md',
         'backdrop-blur-sm',
-        'rotate-45',
-        '-rotate-45',
-        'scale-110',
-        'scale-x-75',
-        'skew-y-6',
-        'origin-top-right',
-        'transform-gpu',
-        'transform-none',
       ])
     })
 
     it('matches arbitrary and theme-driven effects utilities', async () => {
       const css = await expectTargets([
         'drop-shadow-[0_0_2px_rgba(0,0,0,0.5)]',
-        'rotate-[13deg]',
-        'scale-[1.12]',
         'blur-[3px]',
       ])
 
       expect(css).toContain('drop-shadow(0 0 2px rgba(0,0,0,0.5))')
-      expect(css).toContain('13deg')
-      expect(css).toContain('1.12')
       expect(css).toContain('3px')
     })
 
@@ -1683,15 +1674,33 @@ describe('preset-tailwind3', () => {
         'filter-blur-sm',
         'filter-drop-shadow',
         'drop-shadow-color-red-500',
-        'rotate45',
-        'rotatex-45',
-        'scalex-75',
-        'skewy-6',
-        'transform-rotate-45',
-        'transform-origin-top-right',
         'perspective-500',
         'preserve-3d',
       ])
+    })
+  })
+
+  describe('transform', () => {
+    it('matches official Tailwind 3 transform utilities', async () => {
+      await expectTargets(transformFixtures.canonical)
+    })
+
+    it('rejects non-tailwind transform aliases and extensions', async () => {
+      await expectNonTargets(transformFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic transform cases', async () => {
+      const css = await expectTargets(transformFixtures.semantic)
+
+      expect(css).toContain('.origin-top-right{transform-origin:top right;}')
+      expect(css).toContain('.translate-y-1\\/2{--un-translate-y:50%;transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.-translate-y-1{--un-translate-y:-0.25rem;transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.rotate-45{--un-rotate:45deg;transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.skew-x-6{--un-skew-x:6deg;transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.scale-110{--un-scale-x:1.1;--un-scale-y:1.1;transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.transform{transform:translateX(var(--un-translate-x)) translateY(var(--un-translate-y)) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.transform-gpu{transform:translate3d(var(--un-translate-x), var(--un-translate-y), 0) rotate(var(--un-rotate)) skewX(var(--un-skew-x)) skewY(var(--un-skew-y)) scaleX(var(--un-scale-x)) scaleY(var(--un-scale-y));}')
+      expect(css).toContain('.transform-none{transform:none;}')
     })
   })
 

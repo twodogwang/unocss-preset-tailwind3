@@ -9,6 +9,7 @@ import {
   columnsBlocklistMigrationFixtures,
   flexBlocklistMigrationFixtures,
   justifyAlignPlaceBlocklistMigrationFixtures,
+  transformBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
   overflowBlocklistMigrationFixtures,
   gridBlocklistMigrationFixtures,
@@ -248,6 +249,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of justifyAlignPlaceBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks transform migration hints through the shared fixture subset', async () => {
+    expect(transformBlocklistMigrationFixtures).toHaveLength(3)
+    expect(transformBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'transform-rotate-45',
+      'transform-origin-top-right',
+      'translate-x-12px',
+    ])
+
+    for (const fixture of transformBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

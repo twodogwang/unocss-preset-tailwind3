@@ -55,6 +55,63 @@ export const spacing = {
   '96': '24rem',
 } satisfies Theme['spacing']
 
+export const translate = {
+  ...spacing,
+  '1/2': '50%',
+  '1/3': '33.333333%',
+  '2/3': '66.666667%',
+  '1/4': '25%',
+  '2/4': '50%',
+  '3/4': '75%',
+  full: '100%',
+} satisfies Theme['translate']
+
+export const rotate = {
+  0: '0deg',
+  1: '1deg',
+  2: '2deg',
+  3: '3deg',
+  6: '6deg',
+  12: '12deg',
+  45: '45deg',
+  90: '90deg',
+  180: '180deg',
+} satisfies Theme['rotate']
+
+export const scale = {
+  0: '0',
+  50: '.5',
+  75: '.75',
+  90: '.9',
+  95: '.95',
+  100: '1',
+  105: '1.05',
+  110: '1.1',
+  125: '1.25',
+  150: '1.5',
+} satisfies Theme['scale']
+
+export const skew = {
+  0: '0deg',
+  1: '1deg',
+  2: '2deg',
+  3: '3deg',
+  6: '6deg',
+  12: '12deg',
+} satisfies Theme['skew']
+
+export const transformOrigin = {
+  center: 'center',
+  top: 'top',
+  'top-right': 'top right',
+  right: 'right',
+  'bottom-right': 'bottom right',
+  bottom: 'bottom',
+  'bottom-left': 'bottom left',
+  left: 'left',
+  'top-left': 'top left',
+} satisfies Theme['transformOrigin']
+
 export const duration = {
   DEFAULT: '150ms',
   none: '0s',
