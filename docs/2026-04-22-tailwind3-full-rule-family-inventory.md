@@ -67,6 +67,7 @@
 | `list-style` | `src/_rules-wind3/behaviors.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `listStyleType` / `listStylePosition` / `listStyleImage` 官方语义，补齐默认 theme key，并移除历史 alias、组合后缀与 `list-*` global keyword shortcut |
 | `image-rendering` | `src/_rules-wind3/behaviors.ts` | `completed_template` | 已确认 Tailwind 3.4 默认 preset 不暴露 image-rendering core plugin，并移除仓库历史 `image-render-*` 扩展类 |
 | `cursor / pointer-events / resize / user-select` | `src/_rules/static.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 cursor / pointer-events / resize / user-select 官方语义，补齐默认 `theme.cursor` key，并移除 global keyword shortcut 与额外 `-webkit-user-select` 输出 |
+| `white-space / breaks / hyphens / content-visibility / contents / field-sizing / color-scheme` | `src/_rules/static.ts`, `src/_rules/color.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 whitespace / word-break / hyphens / content 官方语义，补齐默认 `theme.content` key，并移除 `ws-*`、`break-anywhere`、vendor hyphens 与默认 preset 不存在的 `content-visibility` / `field-sizing` / `color-scheme` 扩展 |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -79,9 +80,7 @@
 
 ## Pending Tailwind-Facing Families
 
-| family | primary_sources | status | next_wave | notes |
-| --- | --- | --- | --- | --- |
-| `white-space / breaks / hyphens / content-visibility / contents / field-sizing / color-scheme` | `src/_rules/static.ts`, `src/_rules/color.ts` | `pending_wave_5` | `wave_5` | |
+当前没有剩余的 pending Tailwind-facing family。
 
 ## Special Review Families
 
@@ -107,8 +106,8 @@
 - 已完成：`animation`
 
 5. `wave_5`
-- `white-space / content / static leftovers`
+- `completed`
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_5` 进入 `white-space / breaks / hyphens / content-visibility / contents / field-sizing / color-scheme`。
+如果目标仍是“完成整个 preset 的所有规则族重写”，那么当前 full inventory 中的 Tailwind-facing family 已全部完成模板化，下一步应转入全量验证、收尾与后续集成决策。
