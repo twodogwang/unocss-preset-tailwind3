@@ -41,6 +41,7 @@ import { scrollBehaviorFixtures } from './fixtures/tailwind-scroll-behavior-rewr
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
+import { staticLeftoversFixtures } from './fixtures/tailwind-static-leftovers-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
@@ -153,6 +154,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 cursor / pointer-events / resize / user-select 主规则族只接受 Tailwind 3 官方静态 utility、`theme.cursor` key 与 `cursor-[...]` arbitrary value，并移除 global keyword shortcut 与 `user-select` 额外 vendor 前缀输出。'],
+  },
+  {
+    id: 'white-space-breaks-hyphens-content-visibility-contents-field-sizing-color-scheme',
+    sourceFiles: ['src/_rules/static.ts', 'src/_rules/color.ts', 'src/_theme/default.ts', 'src/_theme/misc.ts', 'src/_theme/types.ts'],
+    category: 'behavior',
+    canonical: [...staticLeftoversFixtures.canonical],
+    invalid: [...staticLeftoversFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 white-space / breaks / hyphens / content-* 主规则族只接受 Tailwind 3 官方静态 utility、`theme.content` key 与 `content-[...]` arbitrary value，并移除 `ws-*`、`break-anywhere`、vendor 前缀 hyphens 以及默认 preset 不存在的 `content-visibility` / `field-sizing` / `color-scheme` 扩展类。'],
   },
   {
     id: 'display',

@@ -50,6 +50,10 @@ export const cursor = {
   'zoom-out': 'zoom-out',
 } satisfies Theme['cursor']
 
+export const contentValues = {
+  none: 'none',
+} satisfies Theme['content']
+
 export const lineWidth = {
   DEFAULT: '1px',
   none: '0',

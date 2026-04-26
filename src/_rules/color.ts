@@ -35,6 +35,4 @@ export const bgColors: Rule[] = [
   [/^bg-opacity-(.+)$/, ([, opacity]) => ({ '--un-bg-opacity': h.bracket.percent.cssvar(opacity) }), { autocomplete: 'bg-opacity-<percent>' }],
 ]
 
-export const colorScheme: Rule[] = [
-  [/^color-scheme-(\w+)$/, ([, v]) => ({ 'color-scheme': v })],
-]
+export const colorScheme: Rule[] = []

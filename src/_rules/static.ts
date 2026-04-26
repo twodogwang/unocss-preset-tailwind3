@@ -1,5 +1,5 @@
 import type { Rule } from '@unocss/core'
-import { globalKeywords, h, makeGlobalStaticRules } from '../utils'
+import { h, makeGlobalStaticRules } from '../utils'
 
 const containValues = ['none', 'strict', 'content', 'size', 'inline-size', 'layout', 'style', 'paint']
 
@@ -65,36 +65,24 @@ export const userSelects: Rule[] = [
 
 export const whitespaces: Rule[] = [
   [
-    /^(?:whitespace-|ws-)([-\w]+)$/,
-    ([, v]) => ['normal', 'nowrap', 'pre', 'pre-line', 'pre-wrap', 'break-spaces', ...globalKeywords].includes(v) ? { 'white-space': v } : undefined,
-    { autocomplete: '(whitespace|ws)-(normal|nowrap|pre|pre-line|pre-wrap|break-spaces)' },
+    /^whitespace-(normal|nowrap|pre|pre-line|pre-wrap|break-spaces)$/,
+    ([, v]) => ({ 'white-space': v }),
+    { autocomplete: 'whitespace-(normal|nowrap|pre|pre-line|pre-wrap|break-spaces)' },
   ],
 ]
 
-export const contentVisibility: Rule[] = [
-  [/^intrinsic(?:-(block|inline|w|h))?(?:-size)?-(.+)$/, ([, d, s]) => {
-    const sizeMap = {
-      block: 'block-size',
-      inline: 'inline-size',
-      w: 'width',
-      h: 'height',
-    }
-    return { [`contain-intrinsic-${sizeMap[d as keyof typeof sizeMap] ?? 'size'}`]: h.bracket.cssvar.global.fraction.rem(s) }
-  }, { autocomplete: [
-    'intrinsic-size-<num>',
-    'intrinsic-<num>',
-    'intrinsic-(block|inline|w|h)-<num>',
-  ] }],
-  ['content-visibility-visible', { 'content-visibility': 'visible' }],
-  ['content-visibility-hidden', { 'content-visibility': 'hidden' }],
-  ['content-visibility-auto', { 'content-visibility': 'auto' }],
-  ...makeGlobalStaticRules('content-visibility'),
-]
+export const contentVisibility: Rule[] = []
 
 export const contents: Rule[] = [
-  [/^content-(.+)$/, ([, v]) => ({ content: h.bracket.cssvar(v) })],
-  ['content-empty', { content: '""' }],
-  ['content-none', { content: 'none' }],
+  [/^content-(.+)$/, ([, value], { theme }) => {
+    const resolved = theme.content?.[value] ?? (value.startsWith('[') ? h.bracket(value) : undefined)
+    if (resolved != null) {
+      return {
+        '--tw-content': resolved,
+        content: 'var(--tw-content)',
+      }
+    }
+  }, { autocomplete: 'content-$content' }],
 ]
 
 export const breaks: Rule[] = [
@@ -102,7 +90,6 @@ export const breaks: Rule[] = [
   ['break-words', { 'overflow-wrap': 'break-word' }],
   ['break-all', { 'word-break': 'break-all' }],
   ['break-keep', { 'word-break': 'keep-all' }],
-  ['break-anywhere', { 'overflow-wrap': 'anywhere' }],
 ]
 
 export const textWraps: Rule[] = [
@@ -113,21 +100,9 @@ export const textWraps: Rule[] = [
 ]
 
 export const hyphens: Rule[] = [
-  ['hyphens-auto', {
-    '-webkit-hyphens': 'auto',
-    '-ms-hyphens': 'auto',
-    hyphens: 'auto',
-  }],
-  ['hyphens-manual', {
-    '-webkit-hyphens': 'manual',
-    '-ms-hyphens': 'manual',
-    hyphens: 'manual',
-  }],
-  ['hyphens-none', {
-    '-webkit-hyphens': 'none',
-    '-ms-hyphens': 'none',
-    hyphens: 'none',
-  }],
+  ['hyphens-auto', { hyphens: 'auto' }],
+  ['hyphens-manual', { hyphens: 'manual' }],
+  ['hyphens-none', { hyphens: 'none' }],
 ]
 
 export const textOverflows: Rule[] = [
@@ -165,7 +140,4 @@ export const fontSmoothings: Rule[] = [
   }],
 ]
 
-export const fieldSizing: Rule[] = [
-  ['field-sizing-fixed', { 'field-sizing': 'fixed' }],
-  ['field-sizing-content', { 'field-sizing': 'content' }],
-]
+export const fieldSizing: Rule[] = []

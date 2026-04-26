@@ -30,6 +30,7 @@ export interface Theme {
   textColor?: Colors
   shadowColor?: Colors
   accentColor?: Colors
+  content?: Record<string, string>
   cursor?: Record<string, string>
   fontFamily?: Record<string, string>
   fontSize?: Record<string, string | [string, string | CSSObject] | [string, string, string]>

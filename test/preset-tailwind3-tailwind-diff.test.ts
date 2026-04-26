@@ -41,6 +41,7 @@ import { scrollBehaviorFixtures } from './fixtures/tailwind-scroll-behavior-rewr
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
+import { staticLeftoversFixtures } from './fixtures/tailwind-static-leftovers-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
@@ -1072,6 +1073,37 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind static interaction global keyword shortcuts through the shared fixtures', async () => {
     await expectTailwindParity(staticInteractionFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for static leftover utilities through the shared fixtures', async () => {
+    await expectTailwindParity(staticLeftoversFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for theme-driven content keys', async () => {
+    await expectTailwindParity([
+      'content-badge',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            content: {
+              badge: '"NEW"',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          content: {
+            badge: '"NEW"',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind static leftover extensions and aliases through the shared fixtures', async () => {
+    await expectTailwindParity(staticLeftoversFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

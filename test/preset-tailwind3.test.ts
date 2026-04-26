@@ -41,6 +41,7 @@ import { scrollBehaviorFixtures } from './fixtures/tailwind-scroll-behavior-rewr
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
+import { staticLeftoversFixtures } from './fixtures/tailwind-static-leftovers-rewrite'
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { textIndentFixtures } from './fixtures/tailwind-text-indent-rewrite'
@@ -815,6 +816,42 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.resize-x{resize:horizontal;}')
       expect(css).toContain('.select-none{user-select:none;}')
       expect(css).not.toContain('-webkit-user-select')
+    })
+  })
+
+  describe('white-space / breaks / hyphens / content-visibility / contents / field-sizing / color-scheme', () => {
+    it('matches official Tailwind 3 static leftover utilities', async () => {
+      await expectTargets(staticLeftoversFixtures.canonical)
+    })
+
+    it('matches theme-driven content utilities', async () => {
+      const css = await expectTargets([
+        'content-badge',
+      ], {
+        theme: {
+          content: {
+            badge: '"NEW"',
+          },
+        },
+      })
+
+      expect(css).toContain('.content-badge{--tw-content:"NEW";content:var(--tw-content);}')
+    })
+
+    it('rejects non-tailwind static leftover extensions and aliases', async () => {
+      await expectNonTargets(staticLeftoversFixtures.invalid)
+    })
+
+    it('emits the expected CSS for static leftover semantic cases', async () => {
+      const css = await expectTargets(staticLeftoversFixtures.semantic)
+
+      expect(css).toContain('.whitespace-break-spaces{white-space:break-spaces;}')
+      expect(css).toContain('.break-keep{word-break:keep-all;}')
+      expect(css).toContain('.hyphens-auto{hyphens:auto;}')
+      expect(css).toContain('.content-none{--tw-content:none;content:var(--tw-content);}')
+      expect(css).toContain('.content-\\[\\"hello\\"\\]{--tw-content:"hello";content:var(--tw-content);}')
+      expect(css).not.toContain('-webkit-hyphens')
+      expect(css).not.toContain('-ms-hyphens')
     })
   })
 
