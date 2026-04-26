@@ -1,7 +1,6 @@
 import type { Rule } from '@unocss/core'
 import { globalKeywords, h, makeGlobalStaticRules } from '../utils'
 
-const cursorValues = ['auto', 'default', 'none', 'context-menu', 'help', 'pointer', 'progress', 'wait', 'cell', 'crosshair', 'text', 'vertical-text', 'alias', 'copy', 'move', 'no-drop', 'not-allowed', 'grab', 'grabbing', 'all-scroll', 'col-resize', 'row-resize', 'n-resize', 'e-resize', 's-resize', 'w-resize', 'ne-resize', 'nw-resize', 'se-resize', 'sw-resize', 'ew-resize', 'ns-resize', 'nesw-resize', 'nwse-resize', 'zoom-in', 'zoom-out']
 const containValues = ['none', 'strict', 'content', 'size', 'inline-size', 'layout', 'style', 'paint']
 
 export const varEmpty = ' '
@@ -26,8 +25,11 @@ export const appearances: Rule[] = [
 ]
 
 export const cursors: Rule[] = [
-  [/^cursor-(.+)$/, ([, c]) => ({ cursor: h.bracket.cssvar.global(c) })],
-  ...cursorValues.map((v): Rule => [`cursor-${v}`, { cursor: v }]),
+  [/^cursor-(.+)$/, ([, value], { theme }) => {
+    const resolved = theme.cursor?.[value] ?? (value.startsWith('[') ? h.bracket(value) : undefined)
+    if (resolved != null)
+      return { cursor: resolved }
+  }, { autocomplete: 'cursor-$cursor' }],
 ]
 
 export const contains: Rule[] = [
@@ -45,7 +47,6 @@ export const contains: Rule[] = [
 export const pointerEvents: Rule[] = [
   ['pointer-events-auto', { 'pointer-events': 'auto' }],
   ['pointer-events-none', { 'pointer-events': 'none' }],
-  ...makeGlobalStaticRules('pointer-events'),
 ]
 
 export const resizes: Rule[] = [
@@ -53,15 +54,13 @@ export const resizes: Rule[] = [
   ['resize-y', { resize: 'vertical' }],
   ['resize', { resize: 'both' }],
   ['resize-none', { resize: 'none' }],
-  ...makeGlobalStaticRules('resize'),
 ]
 
 export const userSelects: Rule[] = [
-  ['select-auto', { '-webkit-user-select': 'auto', 'user-select': 'auto' }],
-  ['select-all', { '-webkit-user-select': 'all', 'user-select': 'all' }],
-  ['select-text', { '-webkit-user-select': 'text', 'user-select': 'text' }],
-  ['select-none', { '-webkit-user-select': 'none', 'user-select': 'none' }],
-  ...makeGlobalStaticRules('select', 'user-select'),
+  ['select-auto', { 'user-select': 'auto' }],
+  ['select-all', { 'user-select': 'all' }],
+  ['select-text', { 'user-select': 'text' }],
+  ['select-none', { 'user-select': 'none' }],
 ]
 
 export const whitespaces: Rule[] = [

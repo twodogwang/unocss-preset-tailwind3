@@ -9,6 +9,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
+import { staticInteractionFixtures } from './fixtures/tailwind-static-interaction-rewrite'
 import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -142,6 +143,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 image-rendering 在 Tailwind 3 默认 preset 中不暴露任何官方 utility，并拒绝仓库历史 `image-render-*` 扩展类。'],
+  },
+  {
+    id: 'cursor-pointer-events-resize-user-select',
+    sourceFiles: ['src/_rules/static.ts', 'src/_theme/default.ts', 'src/_theme/misc.ts', 'src/_theme/types.ts'],
+    category: 'behavior',
+    canonical: [...staticInteractionFixtures.canonical],
+    invalid: [...staticInteractionFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 cursor / pointer-events / resize / user-select 主规则族只接受 Tailwind 3 官方静态 utility、`theme.cursor` key 与 `cursor-[...]` arbitrary value，并移除 global keyword shortcut 与 `user-select` 额外 vendor 前缀输出。'],
   },
   {
     id: 'display',

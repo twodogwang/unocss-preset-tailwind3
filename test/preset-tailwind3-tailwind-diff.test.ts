@@ -16,6 +16,7 @@ import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
+import { staticInteractionFixtures } from './fixtures/tailwind-static-interaction-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
 import { divideFixtures } from './fixtures/tailwind-divide-rewrite'
 import { filtersFixtures } from './fixtures/tailwind-filters-rewrite'
@@ -1040,6 +1041,37 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind image-rendering extension utilities through the shared fixtures', async () => {
     await expectTailwindParity(imageRenderingFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for static interaction utilities through the shared fixtures', async () => {
+    await expectTailwindParity(staticInteractionFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for theme-driven cursor keys', async () => {
+    await expectTailwindParity([
+      'cursor-brand',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            cursor: {
+              brand: 'url("/cursor-brand.svg"), pointer',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          cursor: {
+            brand: 'url("/cursor-brand.svg"), pointer',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind static interaction global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(staticInteractionFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

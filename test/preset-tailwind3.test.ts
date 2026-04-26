@@ -14,6 +14,7 @@ import { borderWidthFixtures, roundedFixtures } from './fixtures/tailwind-border
 import { containerFixtures } from './fixtures/tailwind-container-rewrite'
 import { columnsFixtures } from './fixtures/tailwind-columns-rewrite'
 import { displayFixtures } from './fixtures/tailwind-display-rewrite'
+import { staticInteractionFixtures } from './fixtures/tailwind-static-interaction-rewrite'
 import { tableFixtures } from './fixtures/tailwind-table-rewrite'
 import { decorationFixtures } from './fixtures/tailwind-decoration-rewrite'
 import { textDecorationFixtures } from './fixtures/tailwind-text-decoration-rewrite'
@@ -779,6 +780,41 @@ describe('preset-tailwind3', () => {
   describe('image-rendering', () => {
     it('rejects non-tailwind image-rendering extension utilities', async () => {
       await expectNonTargets(imageRenderingFixtures.invalid)
+    })
+  })
+
+  describe('cursor / pointer-events / resize / user-select', () => {
+    it('matches official Tailwind 3 static interaction utilities', async () => {
+      await expectTargets(staticInteractionFixtures.canonical)
+    })
+
+    it('matches theme-driven cursor utilities', async () => {
+      const css = await expectTargets([
+        'cursor-brand',
+      ], {
+        theme: {
+          cursor: {
+            brand: 'url("/cursor-brand.svg"), pointer',
+          },
+        },
+      })
+
+      expect(css).toContain('.cursor-brand{cursor:url("/cursor-brand.svg"), pointer;}')
+    })
+
+    it('rejects non-tailwind static interaction global keyword shortcuts', async () => {
+      await expectNonTargets(staticInteractionFixtures.invalid)
+    })
+
+    it('emits the expected CSS for static interaction semantic cases', async () => {
+      const css = await expectTargets(staticInteractionFixtures.semantic)
+
+      expect(css).toContain('.cursor-not-allowed{cursor:not-allowed;}')
+      expect(css).toContain('.cursor-\\[url\\(\\/cursor\\.svg\\)\\,_pointer\\]{cursor:url(/cursor.svg), pointer;}')
+      expect(css).toContain('.pointer-events-none{pointer-events:none;}')
+      expect(css).toContain('.resize-x{resize:horizontal;}')
+      expect(css).toContain('.select-none{user-select:none;}')
+      expect(css).not.toContain('-webkit-user-select')
     })
   })
 

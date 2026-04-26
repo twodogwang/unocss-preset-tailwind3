@@ -2,7 +2,7 @@ import type { Theme } from './types'
 import { colors } from './colors'
 import { blur, brightness, contrast, dropShadow, grayscale, hueRotate, invert, opacity, saturate, sepia } from './filters'
 import { fontFamily, fontSize, fontWeight, letterSpacing, lineHeight, textIndent, textShadow, textStrokeWidth, wordSpacing } from './font'
-import { borderRadius, boxShadow, breakpoints, duration, flexGrow, flexShrink, lineWidth, listStyleImage, listStyleType, media, order, ringWidth, rotate, scale, skew, spacing, transformOrigin, translate, verticalBreakpoints, willChange, zIndex } from './misc'
+import { borderRadius, boxShadow, breakpoints, cursor, duration, flexGrow, flexShrink, lineWidth, listStyleImage, listStyleType, media, order, ringWidth, rotate, scale, skew, spacing, transformOrigin, translate, verticalBreakpoints, willChange, zIndex } from './misc'
 import { preflightBase } from './preflight'
 import { aspectRatio, blockSize, columns, containers, flexBasis, gridAutoColumns, gridAutoRows, gridColumn, gridColumnEnd, gridColumnStart, gridRow, gridRowEnd, gridRowStart, gridTemplateColumns, gridTemplateRows, height, inlineSize, maxBlockSize, maxHeight, maxInlineSize, maxWidth, minHeight, minWidth, width } from './size'
 import { easing, transitionProperty } from './transition'
@@ -22,6 +22,7 @@ export const theme = {
   minInlineSize: maxInlineSize,
   minBlockSize: maxBlockSize,
   colors,
+  cursor,
   fontFamily,
   fontSize,
   fontWeight,
