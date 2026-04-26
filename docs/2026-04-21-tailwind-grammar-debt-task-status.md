@@ -249,12 +249,17 @@
   - `docs/superpowers/plans/2026-04-26-image-rendering-source-rewrite.md`
   - `docs/2026-04-26-image-rendering-source-rewrite-log.md`
   - `docs/2026-04-26-image-rendering-source-rewrite-status.md`
+- `cursor / pointer-events / resize / user-select` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-26-static-interaction-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-26-static-interaction-source-rewrite.md`
+  - `docs/2026-04-26-static-interaction-source-rewrite-log.md`
+  - `docs/2026-04-26-static-interaction-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric`，`wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns`、`table display / caption / collapse`，以及 `wave_4` 的 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform`、`filters / backdrop-filters`、`animation`，以及 `wave_5` 的 `appearance`、`will-change`、`overscroll`、`scroll-behavior`、`touch-action`、`list-style`、`image-rendering`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric`，`wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns`、`table display / caption / collapse`，以及 `wave_4` 的 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform`、`filters / backdrop-filters`、`animation`，以及 `wave_5` 的 `appearance`、`will-change`、`overscroll`、`scroll-behavior`、`touch-action`、`list-style`、`image-rendering`、`cursor / pointer-events / resize / user-select`。下一步应按 full inventory 继续推进：
 
-1. `cursor / pointer-events / resize / user-select`
+1. `white-space / breaks / hyphens / content-visibility / contents / field-sizing / color-scheme`
 2. `wave_5` 其余 behavior / static families
 
 ## 文档职责
