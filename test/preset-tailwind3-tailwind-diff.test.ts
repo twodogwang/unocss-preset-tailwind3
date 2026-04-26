@@ -29,6 +29,7 @@ import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtu
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
+import { overscrollFixtures } from './fixtures/tailwind-overscroll-rewrite'
 import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-position-float-z-order-box-sizing-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
@@ -969,6 +970,14 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind will-change aliases and global keyword shortcuts through the shared fixtures', async () => {
     await expectTailwindParity(willChangeFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for overscroll utilities through the shared fixtures', async () => {
+    await expectTailwindParity(overscrollFixtures.canonical)
+  })
+
+  it('rejects non-tailwind overscroll global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(overscrollFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

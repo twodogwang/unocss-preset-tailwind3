@@ -29,6 +29,7 @@ import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
+import { overscrollFixtures } from './fixtures/tailwind-overscroll-rewrite'
 import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-position-float-z-order-box-sizing-rewrite'
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
@@ -87,6 +88,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 will-change 主规则族只接受 Tailwind 3 默认 key、theme.willChange key 与 bracket arbitrary value，并拒绝 global keyword 与未命中的裸 property shortcut。'],
+  },
+  {
+    id: 'overscroll',
+    sourceFiles: ['src/_rules-wind3/behaviors.ts'],
+    category: 'behavior',
+    canonical: [...overscrollFixtures.canonical],
+    invalid: [...overscrollFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 overscroll 主规则族只接受 Tailwind 3 的 auto / contain / none 静态 utility 与 x/y 变体，并拒绝 global keyword shortcut。'],
   },
   {
     id: 'display',
