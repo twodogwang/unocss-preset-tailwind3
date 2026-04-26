@@ -1,4 +1,5 @@
 import type { Rule } from '@unocss/core'
+import type { Theme } from '../theme'
 import { h, makeGlobalStaticRules } from '../utils'
 
 const containValues = ['none', 'strict', 'content', 'size', 'inline-size', 'layout', 'style', 'paint']
@@ -24,7 +25,7 @@ export const appearances: Rule[] = [
   ...makeGlobalStaticRules('backface', 'backface-visibility'),
 ]
 
-export const cursors: Rule[] = [
+export const cursors: Rule<Theme>[] = [
   [/^cursor-(.+)$/, ([, value], { theme }) => {
     const resolved = theme.cursor?.[value] ?? (value.startsWith('[') ? h.bracket(value) : undefined)
     if (resolved != null)
@@ -63,7 +64,7 @@ export const userSelects: Rule[] = [
   ['select-none', { 'user-select': 'none' }],
 ]
 
-export const whitespaces: Rule[] = [
+export const whitespaces: Rule<Theme>[] = [
   [
     /^whitespace-(normal|nowrap|pre|pre-line|pre-wrap|break-spaces)$/,
     ([, v]) => ({ 'white-space': v }),
@@ -73,7 +74,7 @@ export const whitespaces: Rule[] = [
 
 export const contentVisibility: Rule[] = []
 
-export const contents: Rule[] = [
+export const contents: Rule<Theme>[] = [
   [/^content-(.+)$/, ([, value], { theme }) => {
     const resolved = theme.content?.[value] ?? (value.startsWith('[') ? h.bracket(value) : undefined)
     if (resolved != null) {

@@ -1,7 +1,8 @@
 import type { Rule } from '@unocss/core'
+import type { Theme } from '../theme'
 import { colorResolver, h } from '../utils'
 
-export const listStyle: Rule[] = [
+export const listStyle: Rule<Theme>[] = [
   ['list-outside', { 'list-style-position': 'outside' }],
   ['list-inside', { 'list-style-position': 'inside' }],
   [/^list-(.+)$/, ([, value], { theme }) => {
