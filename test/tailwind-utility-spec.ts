@@ -21,6 +21,7 @@ import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
+import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -132,6 +133,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 grid 主规则族只接受 Tailwind 3 的 grid template、line placement、auto rows/cols 与 flow 语义，并拒绝 auto-flow、rows/cols 紧凑别名以及 grid-areas / minmax 扩展。'],
+  },
+  {
+    id: 'justify-align-place-flex-grid-prefixes',
+    sourceFiles: ['src/_rules/position.ts', 'src/rules.ts', 'src/_rules/default.ts'],
+    category: 'layout',
+    canonical: [...justifyAlignPlaceFixtures.canonical],
+    invalid: [...justifyAlignPlaceFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 justify / align / place 主规则族只接受 Tailwind 3 官方静态 utility，并移除 `*-safe`、global keyword、`justify-left/right` 以及 `flex-*` / `grid-*` 前缀复刻扩展。'],
   },
   {
     id: 'aspect-ratio',

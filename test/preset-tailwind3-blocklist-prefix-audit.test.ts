@@ -281,6 +281,27 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'grid-cols-2',
   },
   {
+    label: 'legacy flex justify alias',
+    matcher: /^(flex|grid)-((?:justify(?:-items|-self)?|content|items|self|place-content|place-items|place-self)-(?:auto|normal|start|end|center|stretch|baseline|between|around|evenly))$/,
+    input: 'flex-justify-center',
+    prefixed: 'tw-flex-justify-center',
+    replacement: 'justify-center',
+  },
+  {
+    label: 'legacy grid items alias',
+    matcher: /^(flex|grid)-((?:justify(?:-items|-self)?|content|items|self|place-content|place-items|place-self)-(?:auto|normal|start|end|center|stretch|baseline|between|around|evenly))$/,
+    input: 'grid-items-center',
+    prefixed: 'tw-grid-items-center',
+    replacement: 'items-center',
+  },
+  {
+    label: 'legacy flex place-content alias',
+    matcher: /^(flex|grid)-((?:justify(?:-items|-self)?|content|items|self|place-content|place-items|place-self)-(?:auto|normal|start|end|center|stretch|baseline|between|around|evenly))$/,
+    input: 'flex-place-content-between',
+    prefixed: 'tw-flex-place-content-between',
+    replacement: 'place-content-between',
+  },
+  {
     label: 'legacy compact z-index alias',
     matcher: /^z(0|10|20|30|40|50)$/,
     input: 'z10',

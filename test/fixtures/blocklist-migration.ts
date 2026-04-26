@@ -113,6 +113,12 @@ export const gridBlocklistMigrationFixtures = [
   { input: 'cols-2', replacement: 'grid-cols-2' },
 ] as const
 
+export const justifyAlignPlaceBlocklistMigrationFixtures = [
+  { input: 'flex-justify-center', replacement: 'justify-center' },
+  { input: 'grid-items-center', replacement: 'items-center' },
+  { input: 'flex-place-content-between', replacement: 'place-content-between' },
+] as const
+
 export const positionFloatZOrderBoxSizingBlocklistMigrationFixtures = [
   { input: 'pos-absolute', replacement: 'absolute' },
   { input: 'z10', replacement: 'z-10' },
@@ -296,6 +302,7 @@ export const blocklistMigrationFixtures = [
   ...columnsBlocklistMigrationFixtures,
   ...flexBlocklistMigrationFixtures,
   ...gridBlocklistMigrationFixtures,
+  ...justifyAlignPlaceBlocklistMigrationFixtures,
   ...tabSizeBlocklistMigrationFixtures,
   ...lineClampBlocklistMigrationFixtures,
   ...fontVariantNumericBlocklistMigrationFixtures,

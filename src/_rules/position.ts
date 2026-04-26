@@ -1,6 +1,6 @@
 import type { CSSEntries, Rule, RuleContext, StaticRule } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h, insetMap, makeGlobalStaticRules, resolveTailwindSpacing } from '../utils'
+import { h, insetMap, resolveTailwindSpacing } from '../utils'
 
 export const positions: Rule[] = [
   [/^(relative|absolute|fixed|sticky|static)$/, ([, v]) => ({ position: v }), {
@@ -10,6 +10,7 @@ export const positions: Rule[] = [
 
 export const justifies: StaticRule[] = [
   // contents
+  ['justify-normal', { 'justify-content': 'normal' }],
   ['justify-start', { 'justify-content': 'flex-start' }],
   ['justify-end', { 'justify-content': 'flex-end' }],
   ['justify-center', { 'justify-content': 'center' }],
@@ -17,21 +18,12 @@ export const justifies: StaticRule[] = [
   ['justify-around', { 'justify-content': 'space-around' }],
   ['justify-evenly', { 'justify-content': 'space-evenly' }],
   ['justify-stretch', { 'justify-content': 'stretch' }],
-  ['justify-left', { 'justify-content': 'left' }],
-  ['justify-right', { 'justify-content': 'right' }],
-  ['justify-center-safe', { 'justify-content': 'safe center' }],
-  ['justify-end-safe', { 'justify-content': 'safe flex-end' }],
-  ['justify-normal', { 'justify-content': 'normal' }],
-  ...makeGlobalStaticRules('justify', 'justify-content'),
 
   // items
   ['justify-items-start', { 'justify-items': 'start' }],
   ['justify-items-end', { 'justify-items': 'end' }],
   ['justify-items-center', { 'justify-items': 'center' }],
   ['justify-items-stretch', { 'justify-items': 'stretch' }],
-  ['justify-items-center-safe', { 'justify-items': 'safe center' }],
-  ['justify-items-end-safe', { 'justify-items': 'safe flex-end' }],
-  ...makeGlobalStaticRules('justify-items'),
 
   // selfs
   ['justify-self-auto', { 'justify-self': 'auto' }],
@@ -39,10 +31,6 @@ export const justifies: StaticRule[] = [
   ['justify-self-end', { 'justify-self': 'end' }],
   ['justify-self-center', { 'justify-self': 'center' }],
   ['justify-self-stretch', { 'justify-self': 'stretch' }],
-  ['justify-self-baseline', { 'justify-self': 'baseline' }],
-  ['justify-self-center-safe', { 'justify-self': 'safe center' }],
-  ['justify-self-end-safe', { 'justify-self': 'safe flex-end' }],
-  ...makeGlobalStaticRules('justify-self'),
 ]
 
 export const orders: Rule[] = [
@@ -60,6 +48,7 @@ export const orders: Rule[] = [
 
 export const alignments: StaticRule[] = [
   // contents
+  ['content-normal', { 'align-content': 'normal' }],
   ['content-center', { 'align-content': 'center' }],
   ['content-start', { 'align-content': 'flex-start' }],
   ['content-end', { 'align-content': 'flex-end' }],
@@ -67,11 +56,7 @@ export const alignments: StaticRule[] = [
   ['content-around', { 'align-content': 'space-around' }],
   ['content-evenly', { 'align-content': 'space-evenly' }],
   ['content-baseline', { 'align-content': 'baseline' }],
-  ['content-center-safe', { 'align-content': 'safe center' }],
-  ['content-end-safe', { 'align-content': 'safe flex-end' }],
   ['content-stretch', { 'align-content': 'stretch' }],
-  ['content-normal', { 'align-content': 'normal' }],
-  ...makeGlobalStaticRules('content', 'align-content'),
 
   // items
   ['items-start', { 'align-items': 'flex-start' }],
@@ -79,10 +64,6 @@ export const alignments: StaticRule[] = [
   ['items-center', { 'align-items': 'center' }],
   ['items-baseline', { 'align-items': 'baseline' }],
   ['items-stretch', { 'align-items': 'stretch' }],
-  ['items-baseline-last', { 'align-items': 'last baseline' }],
-  ['items-center-safe', { 'align-items': 'safe center' }],
-  ['items-end-safe', { 'align-items': 'safe flex-end' }],
-  ...makeGlobalStaticRules('items', 'align-items'),
 
   // selfs
   ['self-auto', { 'align-self': 'auto' }],
@@ -91,10 +72,6 @@ export const alignments: StaticRule[] = [
   ['self-center', { 'align-self': 'center' }],
   ['self-stretch', { 'align-self': 'stretch' }],
   ['self-baseline', { 'align-self': 'baseline' }],
-  ['self-baseline-last', { 'align-self': 'last baseline' }],
-  ['self-center-safe', { 'align-self': 'safe center' }],
-  ['self-end-safe', { 'align-self': 'safe flex-end' }],
-  ...makeGlobalStaticRules('self', 'align-self'),
 ]
 
 export const placements: StaticRule[] = [
@@ -105,21 +82,15 @@ export const placements: StaticRule[] = [
   ['place-content-between', { 'place-content': 'space-between' }],
   ['place-content-around', { 'place-content': 'space-around' }],
   ['place-content-evenly', { 'place-content': 'space-evenly' }],
-  ['place-content-stretch', { 'place-content': 'stretch' }],
   ['place-content-baseline', { 'place-content': 'baseline' }],
-  ['place-content-center-safe', { 'place-content': 'safe center' }],
-  ['place-content-end-safe', { 'place-content': 'safe flex-end' }],
-  ...makeGlobalStaticRules('place-content'),
+  ['place-content-stretch', { 'place-content': 'stretch' }],
 
   // items
   ['place-items-start', { 'place-items': 'start' }],
   ['place-items-end', { 'place-items': 'end' }],
   ['place-items-center', { 'place-items': 'center' }],
-  ['place-items-stretch', { 'place-items': 'stretch' }],
   ['place-items-baseline', { 'place-items': 'baseline' }],
-  ['place-items-center-safe', { 'place-items': 'safe center' }],
-  ['place-items-end-safe', { 'place-items': 'safe flex-end' }],
-  ...makeGlobalStaticRules('place-items'),
+  ['place-items-stretch', { 'place-items': 'stretch' }],
 
   // selfs
   ['place-self-auto', { 'place-self': 'auto' }],
@@ -127,20 +98,9 @@ export const placements: StaticRule[] = [
   ['place-self-end', { 'place-self': 'end' }],
   ['place-self-center', { 'place-self': 'center' }],
   ['place-self-stretch', { 'place-self': 'stretch' }],
-  ['place-self-center-safe', { 'place-self': 'safe center' }],
-  ['place-self-end-safe', { 'place-self': 'safe flex-end' }],
-  ...makeGlobalStaticRules('place-self'),
 ]
 
-/**
- * This is to add `flex-` and `grid-` prefix to the alignment rules,
- * supporting `flex="~ items-center"` in attributify mode.
- */
-export const flexGridJustifiesAlignments = [...justifies, ...alignments, ...placements]
-  .flatMap(([k, v]): StaticRule[] => [
-    [`flex-${k}`, v],
-    [`grid-${k}`, v],
-  ])
+export const flexGridJustifiesAlignments: StaticRule[] = []
 
 function handleInsetValue(v: string, { theme }: RuleContext<Theme>): string | number | undefined {
   return resolveTailwindSpacing(theme, v, { allowAuto: true, allowFraction: true })

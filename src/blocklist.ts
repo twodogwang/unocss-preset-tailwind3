@@ -61,6 +61,8 @@ const fontVariantFractionAliasMap: Record<string, string> = {
   stacked: 'stacked-fractions',
 }
 
+const prefixedAlignmentBody = String.raw`(?:justify(?:-items|-self)?|content|items|self|place-content|place-items|place-self)-(?:auto|normal|start|end|center|stretch|baseline|between|around|evenly)`
+
 function migrationRule(
   matcher: RegExp,
   replacement: MigrationReplacement,
@@ -138,6 +140,7 @@ const migrationDescriptors: MigrationDescriptor[] = [
   { matcher: /^auto-flow-(.+)$/, replacement: (_, match) => `grid-flow-${match[1]}` },
   { matcher: /^rows-(.+)$/, replacement: (_, match) => `grid-rows-${match[1]}` },
   { matcher: /^cols-(.+)$/, replacement: (_, match) => `grid-cols-${match[1]}` },
+  { matcher: new RegExp(`^(flex|grid)-(${prefixedAlignmentBody})$`), replacement: (_, match) => match[2] },
   { matcher: /^z(0|10|20|30|40|50)$/, replacement: (_, match) => `z-${match[1]}` },
   { matcher: /^order([1-9]|1[0-2])$/, replacement: (_, match) => `order-${match[1]}` },
   { matcher: /^text-truncate$/, replacement: () => 'truncate' },

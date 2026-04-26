@@ -21,6 +21,7 @@ import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
+import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -383,6 +384,30 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.auto-cols-fr{grid-auto-columns:minmax(0, 1fr);}')
       expect(css).toContain('.auto-rows-\\[minmax\\(8rem\\,_auto\\)\\]{grid-auto-rows:minmax(8rem, auto);}')
       expect(css).toContain('.grid-flow-col-dense{grid-auto-flow:column dense;}')
+    })
+  })
+
+  describe('justify / align / place', () => {
+    it('matches official Tailwind 3 justify / align / place utilities', async () => {
+      await expectTargets(justifyAlignPlaceFixtures.canonical)
+    })
+
+    it('rejects non-tailwind justify / align / place aliases and extra extensions', async () => {
+      await expectNonTargets(justifyAlignPlaceFixtures.invalid)
+    })
+
+    it('emits the expected CSS for semantic justify / align / place cases', async () => {
+      const css = await expectTargets(justifyAlignPlaceFixtures.semantic)
+
+      expect(css).toContain('.justify-between{justify-content:space-between;}')
+      expect(css).toContain('.justify-items-center{justify-items:center;}')
+      expect(css).toContain('.justify-self-auto{justify-self:auto;}')
+      expect(css).toContain('.content-baseline{align-content:baseline;}')
+      expect(css).toContain('.items-stretch{align-items:stretch;}')
+      expect(css).toContain('.self-baseline{align-self:baseline;}')
+      expect(css).toContain('.place-content-around{place-content:space-around;}')
+      expect(css).toContain('.place-items-baseline{place-items:baseline;}')
+      expect(css).toContain('.place-self-end{place-self:end;}')
     })
   })
 

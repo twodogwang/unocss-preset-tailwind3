@@ -8,6 +8,7 @@ import {
   backgroundColorBlocklistMigrationFixtures,
   columnsBlocklistMigrationFixtures,
   flexBlocklistMigrationFixtures,
+  justifyAlignPlaceBlocklistMigrationFixtures,
   displayBlocklistMigrationFixtures,
   overflowBlocklistMigrationFixtures,
   gridBlocklistMigrationFixtures,
@@ -234,6 +235,19 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     ])
 
     for (const fixture of gridBlocklistMigrationFixtures) {
+      await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
+    }
+  })
+
+  it('locks justify / align / place prefix migration hints through the shared fixture subset', async () => {
+    expect(justifyAlignPlaceBlocklistMigrationFixtures).toHaveLength(3)
+    expect(justifyAlignPlaceBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
+      'flex-justify-center',
+      'grid-items-center',
+      'flex-place-content-between',
+    ])
+
+    for (const fixture of justifyAlignPlaceBlocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, `旧写法 "${fixture.input}" 已禁用，请改为 "${fixture.replacement}"`)
     }
   })

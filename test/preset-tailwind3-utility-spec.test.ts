@@ -22,6 +22,7 @@ import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
+import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -59,6 +60,7 @@ describe('tailwind utility spec', () => {
     const tableSpec = getSpec('table-display-caption-collapse')
     const flexSpec = getSpec('flex')
     const gridSpec = getSpec('grid')
+    const justifyAlignPlaceSpec = getSpec('justify-align-place-flex-grid-prefixes')
     const overflowSpec = getSpec('overflow')
     const positionFloatZOrderBoxSizingSpec = getSpec('position-float-z-order-box-sizing')
     const aspectRatioSpec = getSpec('aspect-ratio')
@@ -101,6 +103,7 @@ describe('tailwind utility spec', () => {
     expect(tableSpec).toBeTruthy()
     expect(flexSpec).toBeTruthy()
     expect(gridSpec).toBeTruthy()
+    expect(justifyAlignPlaceSpec).toBeTruthy()
     expect(overflowSpec).toBeTruthy()
     expect(positionFloatZOrderBoxSizingSpec).toBeTruthy()
     expect(aspectRatioSpec).toBeTruthy()
@@ -188,6 +191,16 @@ describe('tailwind utility spec', () => {
     expect(gridSpec?.canonical).toContain('auto-cols-fr')
     expect(gridSpec?.invalid).toContain('auto-flow-row')
     expect(gridSpec?.invalid).toContain('grid-areas-layout')
+    expect(justifyAlignPlaceSpec?.canonical).toEqual([...justifyAlignPlaceFixtures.canonical])
+    expect(justifyAlignPlaceSpec?.invalid).toEqual([...justifyAlignPlaceFixtures.invalid])
+    expect(justifyAlignPlaceSpec?.sourceFiles).toEqual(['src/_rules/position.ts', 'src/rules.ts', 'src/_rules/default.ts'])
+    expect(justifyAlignPlaceSpec?.category).toBe('layout')
+    expect(justifyAlignPlaceSpec?.supportsPrefix).toBe(true)
+    expect(justifyAlignPlaceSpec?.supportsVariants).toBe(true)
+    expect(justifyAlignPlaceSpec?.canonical).toContain('justify-stretch')
+    expect(justifyAlignPlaceSpec?.canonical).toContain('place-items-baseline')
+    expect(justifyAlignPlaceSpec?.invalid).toContain('justify-center-safe')
+    expect(justifyAlignPlaceSpec?.invalid).toContain('flex-justify-center')
     expect(overflowSpec?.canonical).toEqual([...overflowFixtures.canonical])
     expect(overflowSpec?.invalid).toEqual([...overflowFixtures.invalid])
     expect(overflowSpec?.sourceFiles).toEqual(['src/_rules/layout.ts'])

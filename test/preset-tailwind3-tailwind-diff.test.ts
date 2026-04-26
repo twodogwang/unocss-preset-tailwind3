@@ -21,6 +21,7 @@ import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
+import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
@@ -199,6 +200,10 @@ describe('preset-tailwind3 tailwind parity', () => {
     await expectTailwindParity(gridFixtures.canonical)
   })
 
+  it('matches Tailwind 3 support for justify / align / place utilities', async () => {
+    await expectTailwindParity(justifyAlignPlaceFixtures.canonical)
+  })
+
   it('matches Tailwind 3 for theme-driven flex grow / shrink / basis extensions', async () => {
     await expectTailwindParity([
       'grow-2',
@@ -362,6 +367,10 @@ describe('preset-tailwind3 tailwind parity', () => {
 
   it('rejects non-tailwind grid aliases and extra grid extensions', async () => {
     await expectTailwindParity(gridFixtures.invalid)
+  })
+
+  it('rejects non-tailwind justify / align / place aliases and extra extensions', async () => {
+    await expectTailwindParity(justifyAlignPlaceFixtures.invalid)
   })
 
   it('rejects non-tailwind gap / inset / scroll aliases and raw shorthand syntax', async () => {
