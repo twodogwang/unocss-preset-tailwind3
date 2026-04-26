@@ -16,6 +16,16 @@ export const lineWidth = {
   none: '0',
 } satisfies Theme['lineWidth']
 
+export const listStyleImage = {
+  none: 'none',
+} satisfies Theme['listStyleImage']
+
+export const listStyleType = {
+  none: 'none',
+  disc: 'disc',
+  decimal: 'decimal',
+} satisfies Theme['listStyleType']
+
 export const spacing = {
   'none': '0',
   'px': '1px',

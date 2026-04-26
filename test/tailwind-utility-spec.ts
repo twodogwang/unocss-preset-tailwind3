@@ -27,6 +27,7 @@ import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
+import { listStyleFixtures } from './fixtures/tailwind-list-style-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { overscrollFixtures } from './fixtures/tailwind-overscroll-rewrite'
@@ -120,6 +121,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 touch-action 主规则族只接受 Tailwind 3 的 `touch-auto` / `touch-none` / pan / pinch-zoom / manipulation 静态 utility，并拒绝 global keyword shortcut。'],
+  },
+  {
+    id: 'list-style',
+    sourceFiles: ['src/_rules-wind3/behaviors.ts', 'src/_theme/default.ts', 'src/_theme/misc.ts', 'src/_theme/types.ts'],
+    category: 'behavior',
+    canonical: [...listStyleFixtures.canonical],
+    invalid: [...listStyleFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 list-style 主规则族只接受 Tailwind 3 的 `listStyleType` / `listStylePosition` / `listStyleImage` 官方语义、theme key 与 bracket arbitrary value，并拒绝历史别名、组合后缀与 global keyword shortcut。'],
   },
   {
     id: 'display',

@@ -37,6 +37,8 @@ export interface Theme {
   letterSpacing?: Record<string, string>
   wordSpacing?: Record<string, string>
   boxShadow?: Record<string, string | string[]>
+  listStyleImage?: Record<string, string>
+  listStyleType?: Record<string, string>
   textIndent?: Record<string, string>
   textShadow?: Record<string, string | string[]>
   textStrokeWidth?: Record<string, string>

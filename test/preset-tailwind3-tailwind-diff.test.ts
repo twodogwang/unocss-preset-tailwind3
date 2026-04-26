@@ -27,6 +27,7 @@ import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
+import { listStyleFixtures } from './fixtures/tailwind-list-style-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { overscrollFixtures } from './fixtures/tailwind-overscroll-rewrite'
@@ -996,6 +997,44 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind touch-action global keyword shortcuts through the shared fixtures', async () => {
     await expectTailwindParity(touchActionFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for list-style utilities through the shared fixtures', async () => {
+    await expectTailwindParity(listStyleFixtures.canonical)
+  })
+
+  it('matches Tailwind 3 support for theme-driven list-style keys', async () => {
+    await expectTailwindParity([
+      'list-roman',
+      'list-image-check',
+    ], {
+      tailwindConfig: {
+        theme: {
+          extend: {
+            listStyleType: {
+              roman: 'upper-roman',
+            },
+            listStyleImage: {
+              check: 'url("/img/check.svg")',
+            },
+          },
+        },
+      },
+      unoConfig: {
+        theme: {
+          listStyleType: {
+            roman: 'upper-roman',
+          },
+          listStyleImage: {
+            check: 'url("/img/check.svg")',
+          },
+        },
+      },
+    })
+  })
+
+  it('rejects non-tailwind list-style aliases and global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(listStyleFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

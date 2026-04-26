@@ -27,6 +27,7 @@ import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
+import { listStyleFixtures } from './fixtures/tailwind-list-style-rewrite'
 import { outlineFixtures } from './fixtures/tailwind-outline-rewrite'
 import { overflowFixtures } from './fixtures/tailwind-overflow-rewrite'
 import { overscrollFixtures } from './fixtures/tailwind-overscroll-rewrite'
@@ -731,6 +732,46 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.touch-pan-down{--un-pan-y:pan-down;touch-action:var(--un-pan-x) var(--un-pan-y) var(--un-pinch-zoom);}')
       expect(css).toContain('.touch-pinch-zoom{--un-pinch-zoom:pinch-zoom;touch-action:var(--un-pan-x) var(--un-pan-y) var(--un-pinch-zoom);}')
       expect(css).toContain('.touch-manipulation{touch-action:manipulation;}')
+    })
+  })
+
+  describe('list-style', () => {
+    it('matches official Tailwind 3 list-style utilities', async () => {
+      await expectTargets(listStyleFixtures.canonical)
+    })
+
+    it('matches theme-driven list-style utilities', async () => {
+      const css = await expectTargets([
+        'list-roman',
+        'list-image-check',
+      ], {
+        theme: {
+          listStyleType: {
+            roman: 'upper-roman',
+          },
+          listStyleImage: {
+            check: 'url("/img/check.svg")',
+          },
+        },
+      })
+
+      expect(css).toContain('.list-roman{list-style-type:upper-roman;}')
+      expect(css).toContain('.list-image-check{list-style-image:url("/img/check.svg");}')
+    })
+
+    it('rejects non-tailwind list-style aliases and global keyword shortcuts', async () => {
+      await expectNonTargets(listStyleFixtures.invalid)
+    })
+
+    it('emits the expected CSS for list-style semantic cases', async () => {
+      const css = await expectTargets(listStyleFixtures.semantic)
+
+      expect(css).toContain('.list-none{list-style-type:none;}')
+      expect(css).toContain('.list-disc{list-style-type:disc;}')
+      expect(css).toContain('.list-inside{list-style-position:inside;}')
+      expect(css).toContain('.list-image-none{list-style-image:none;}')
+      expect(css).toContain('.list-\\[upper-roman\\]{list-style-type:upper-roman;}')
+      expect(css).toContain('list-style-image:url(/img/marker.svg);')
     })
   })
 
