@@ -78,5 +78,4 @@ export const overscrolls: Rule[] = [
 export const scrollBehaviors: Rule[] = [
   ['scroll-auto', { 'scroll-behavior': 'auto' }],
   ['scroll-smooth', { 'scroll-behavior': 'smooth' }],
-  ...makeGlobalStaticRules('scroll', 'scroll-behavior'),
 ]

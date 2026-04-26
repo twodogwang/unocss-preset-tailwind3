@@ -34,6 +34,7 @@ import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-positi
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
+import { scrollBehaviorFixtures } from './fixtures/tailwind-scroll-behavior-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -98,6 +99,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 overscroll 主规则族只接受 Tailwind 3 的 auto / contain / none 静态 utility 与 x/y 变体，并拒绝 global keyword shortcut。'],
+  },
+  {
+    id: 'scroll-behavior',
+    sourceFiles: ['src/_rules-wind3/behaviors.ts'],
+    category: 'behavior',
+    canonical: [...scrollBehaviorFixtures.canonical],
+    invalid: [...scrollBehaviorFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 scroll-behavior 主规则族只接受 Tailwind 3 的 `scroll-auto` 与 `scroll-smooth`，并拒绝 global keyword shortcut。'],
   },
   {
     id: 'display',

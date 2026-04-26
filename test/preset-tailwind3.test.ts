@@ -34,6 +34,7 @@ import { positionFloatZOrderBoxSizingFixtures } from './fixtures/tailwind-positi
 import { ringFixtures } from './fixtures/tailwind-ring-rewrite'
 import { shadowFixtures } from './fixtures/tailwind-shadow-rewrite'
 import { sizeFixtures } from './fixtures/tailwind-size-rewrite'
+import { scrollBehaviorFixtures } from './fixtures/tailwind-scroll-behavior-rewrite'
 import { borderSpacingSpaceFixtures } from './fixtures/tailwind-spacing-border-spacing-space-rewrite'
 import { gapInsetScrollFixtures } from './fixtures/tailwind-spacing-gap-inset-scroll-rewrite'
 import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margin-rewrite'
@@ -699,6 +700,16 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind overscroll global keyword shortcuts', async () => {
       await expectNonTargets(overscrollFixtures.invalid)
+    })
+  })
+
+  describe('scroll-behavior', () => {
+    it('matches official Tailwind 3 scroll-behavior utilities', async () => {
+      await expectTargets(scrollBehaviorFixtures.canonical)
+    })
+
+    it('rejects non-tailwind scroll-behavior global keyword shortcuts', async () => {
+      await expectNonTargets(scrollBehaviorFixtures.invalid)
     })
   })
 
