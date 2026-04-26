@@ -24,6 +24,7 @@ import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
+import { imageRenderingFixtures } from './fixtures/tailwind-image-rendering-rewrite'
 import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
@@ -131,6 +132,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 list-style 主规则族只接受 Tailwind 3 的 `listStyleType` / `listStylePosition` / `listStyleImage` 官方语义、theme key 与 bracket arbitrary value，并拒绝历史别名、组合后缀与 global keyword shortcut。'],
+  },
+  {
+    id: 'image-rendering',
+    sourceFiles: ['src/_rules-wind3/behaviors.ts'],
+    category: 'behavior',
+    canonical: [...imageRenderingFixtures.canonical],
+    invalid: [...imageRenderingFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 image-rendering 在 Tailwind 3 默认 preset 中不暴露任何官方 utility，并拒绝仓库历史 `image-render-*` 扩展类。'],
   },
   {
     id: 'display',

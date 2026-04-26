@@ -24,6 +24,7 @@ import { fillFixtures } from './fixtures/tailwind-fill-rewrite'
 import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
+import { imageRenderingFixtures } from './fixtures/tailwind-image-rendering-rewrite'
 import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
@@ -1035,6 +1036,10 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind list-style aliases and global keyword shortcuts through the shared fixtures', async () => {
     await expectTailwindParity(listStyleFixtures.invalid)
+  })
+
+  it('rejects non-tailwind image-rendering extension utilities through the shared fixtures', async () => {
+    await expectTailwindParity(imageRenderingFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

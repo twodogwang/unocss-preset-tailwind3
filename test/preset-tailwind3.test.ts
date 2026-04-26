@@ -25,6 +25,7 @@ import { fontFixtures } from './fixtures/tailwind-font-rewrite'
 import { fontVariantNumericFixtures } from './fixtures/tailwind-font-variant-numeric-rewrite'
 import { gridFixtures } from './fixtures/tailwind-grid-rewrite'
 import { justifyAlignPlaceFixtures } from './fixtures/tailwind-justify-align-place-rewrite'
+import { imageRenderingFixtures } from './fixtures/tailwind-image-rendering-rewrite'
 import { leadingFixtures, leadingTextShorthandRegressionFixtures } from './fixtures/tailwind-leading-rewrite'
 import { lineClampFixtures } from './fixtures/tailwind-line-clamp-rewrite'
 import { listStyleFixtures } from './fixtures/tailwind-list-style-rewrite'
@@ -772,6 +773,12 @@ describe('preset-tailwind3', () => {
       expect(css).toContain('.list-image-none{list-style-image:none;}')
       expect(css).toContain('.list-\\[upper-roman\\]{list-style-type:upper-roman;}')
       expect(css).toContain('list-style-image:url(/img/marker.svg);')
+    })
+  })
+
+  describe('image-rendering', () => {
+    it('rejects non-tailwind image-rendering extension utilities', async () => {
+      await expectNonTargets(imageRenderingFixtures.invalid)
     })
   })
 

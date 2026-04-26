@@ -28,17 +28,7 @@ export const carets: Rule[] = [
   [/^caret-(.+)$/, colorResolver('caret-color', 'caret', 'textColor'), { autocomplete: 'caret-$colors' }],
 ]
 
-export const imageRenderings: Rule[] = [
-  ['image-render-auto', { 'image-rendering': 'auto' }],
-  ['image-render-edge', { 'image-rendering': 'crisp-edges' }],
-  ['image-render-pixel', [
-    ['-ms-interpolation-mode', 'nearest-neighbor'],
-    ['image-rendering', '-webkit-optimize-contrast'],
-    ['image-rendering', '-moz-crisp-edges'],
-    ['image-rendering', '-o-pixelated'],
-    ['image-rendering', 'pixelated'],
-  ]],
-]
+export const imageRenderings: Rule[] = []
 
 export const overscrolls: Rule[] = [
   ['overscroll-auto', { 'overscroll-behavior': 'auto' }],
