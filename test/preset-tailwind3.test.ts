@@ -45,6 +45,7 @@ import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
+import { touchActionFixtures } from './fixtures/tailwind-touch-action-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -710,6 +711,26 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind scroll-behavior global keyword shortcuts', async () => {
       await expectNonTargets(scrollBehaviorFixtures.invalid)
+    })
+  })
+
+  describe('touch-action', () => {
+    it('matches official Tailwind 3 touch-action utilities', async () => {
+      await expectTargets(touchActionFixtures.canonical)
+    })
+
+    it('rejects non-tailwind touch-action global keyword shortcuts', async () => {
+      await expectNonTargets(touchActionFixtures.invalid)
+    })
+
+    it('emits the expected CSS for touch-action semantic cases', async () => {
+      const css = await expectTargets(touchActionFixtures.semantic)
+
+      expect(css).toContain('.touch-auto{touch-action:auto;}')
+      expect(css).toContain('.touch-pan-left{--un-pan-x:pan-left;touch-action:var(--un-pan-x) var(--un-pan-y) var(--un-pinch-zoom);}')
+      expect(css).toContain('.touch-pan-down{--un-pan-y:pan-down;touch-action:var(--un-pan-x) var(--un-pan-y) var(--un-pinch-zoom);}')
+      expect(css).toContain('.touch-pinch-zoom{--un-pinch-zoom:pinch-zoom;touch-action:var(--un-pan-x) var(--un-pan-y) var(--un-pinch-zoom);}')
+      expect(css).toContain('.touch-manipulation{touch-action:manipulation;}')
     })
   })
 

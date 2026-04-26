@@ -45,6 +45,7 @@ import { textShadowFixtures } from './fixtures/tailwind-text-shadow-rewrite'
 import { textStrokeFixtures } from './fixtures/tailwind-text-stroke-rewrite'
 import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
 import { tabSizeFixtures } from './fixtures/tailwind-tab-size-rewrite'
+import { touchActionFixtures } from './fixtures/tailwind-touch-action-rewrite'
 import { textWrapOverflowTransformFixtures } from './fixtures/tailwind-text-wrap-overflow-transform-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
@@ -987,6 +988,14 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('rejects non-tailwind scroll-behavior global keyword shortcuts through the shared fixtures', async () => {
     await expectTailwindParity(scrollBehaviorFixtures.invalid)
+  })
+
+  it('matches Tailwind 3 support for touch-action utilities through the shared fixtures', async () => {
+    await expectTailwindParity(touchActionFixtures.canonical)
+  })
+
+  it('rejects non-tailwind touch-action global keyword shortcuts through the shared fixtures', async () => {
+    await expectTailwindParity(touchActionFixtures.invalid)
   })
 
   it('rejects non-tailwind background global keyword shortcuts', async () => {

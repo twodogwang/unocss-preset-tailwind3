@@ -41,6 +41,7 @@ import { paddingMarginFixtures } from './fixtures/tailwind-spacing-padding-margi
 import { strokeFixtures } from './fixtures/tailwind-stroke-rewrite'
 import { textAlignFixtures } from './fixtures/tailwind-text-align-rewrite'
 import { transformFixtures } from './fixtures/tailwind-transform-rewrite'
+import { touchActionFixtures } from './fixtures/tailwind-touch-action-rewrite'
 import { verticalAlignFixtures } from './fixtures/tailwind-vertical-align-rewrite'
 import { trackingFixtures } from './fixtures/tailwind-tracking-rewrite'
 import { transitionFixtures } from './fixtures/tailwind-transition-rewrite'
@@ -109,6 +110,16 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     supportsPrefix: true,
     supportsVariants: true,
     notes: ['用于锁定 scroll-behavior 主规则族只接受 Tailwind 3 的 `scroll-auto` 与 `scroll-smooth`，并拒绝 global keyword shortcut。'],
+  },
+  {
+    id: 'touch-action',
+    sourceFiles: ['src/_rules-wind3/touch-actions.ts'],
+    category: 'behavior',
+    canonical: [...touchActionFixtures.canonical],
+    invalid: [...touchActionFixtures.invalid],
+    supportsPrefix: true,
+    supportsVariants: true,
+    notes: ['用于锁定 touch-action 主规则族只接受 Tailwind 3 的 `touch-auto` / `touch-none` / pan / pinch-zoom / manipulation 静态 utility，并拒绝 global keyword shortcut。'],
   },
   {
     id: 'display',
