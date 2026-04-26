@@ -55,6 +55,7 @@
 | `table display / caption / collapse` | `src/_rules-wind3/table.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 table display / table-layout / caption-side / border-collapse 语义，并移除 `table-empty-cells-*` 非官方扩展 |
 | `flex` | `src/_rules/flex.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/size.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `flex` / `grow` / `shrink` / `basis` 语义，补齐默认 `flexBasis/flexGrow/flexShrink` key，并锁住 `flex-inline` / `flex-basis-*` / `flex-grow-*` / `flex-shrink-*` 高置信度旧别名治理 |
 | `grid` | `src/_rules/grid.ts`, `src/_theme/default.ts`, `src/_theme/size.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `grid-cols` / `grid-rows` / `col` / `row` / `auto-cols` / `auto-rows` / `grid-flow` 语义，补齐 Tailwind-style plural grid theme key，并锁住 `auto-flow-*` / `rows-*` / `cols-*` 高置信度旧别名治理 |
+| `justify / align / place / flexGridJustifiesAlignments` | `src/_rules/position.ts`, `src/rules.ts`, `src/_rules/default.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 justify / align / place 官方静态语义，移除 `*-safe` / global keyword / `justify-left-right` / `flex-*` / `grid-*` 前缀复刻扩展，并锁住高置信度前缀旧别名治理 |
 | `text` | `src/_rules/typography.ts` | `completed_template` | 已覆盖 size / color / opacity 主规则族 |
 | `leading` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `leading-*` |
 | `tracking` | `src/_rules/typography.ts` | `completed_template` | 已收敛到 `tracking-*` |
@@ -69,7 +70,6 @@
 
 | family | primary_sources | status | next_wave | notes |
 | --- | --- | --- | --- | --- |
-| `justify / align / place / flexGridJustifiesAlignments` | `src/_rules/position.ts` | `pending_wave_4` | `wave_4` | |
 | `transform` | `src/_rules/transform.ts` | `pending_wave_4` | `wave_4` | 含 translate/rotate/scale/skew 等主体 |
 | `filters / backdrop-filters` | `src/_rules-wind3/filters.ts` | `pending_wave_4` | `wave_4` | |
 | `animation` | `src/_rules-wind3/animation.ts` | `pending_wave_4` | `wave_4` | |
@@ -104,11 +104,11 @@
 - `size / layout / position / container / columns / tables`
 
 4. `wave_4`
-- `justify / align / place / flexGridJustifiesAlignments / transform / filters / animation`
+- `transform / filters / animation`
 
 5. `wave_5`
 - `appearance / will-change / overscroll / touch-action / list-style / static utilities`
 
 ## Next Step
 
-如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_4` 进入 `justify / align / place / flexGridJustifiesAlignments`。
+如果目标改为“完成整个 preset 的所有规则族重写”，下一步应继续以这份 inventory 为总表，沿着 `wave_4` 进入 `transform`。
