@@ -82,7 +82,6 @@
 
 范围：
 
-- `filters / backdrop-filters`
 - `animation`
 
 ### Wave 5: Remaining Behaviors And Static Utility Families
@@ -109,4 +108,4 @@
 
 ## Immediate Next Step
 
-`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns` 与 `table display / caption / collapse`，`wave_4` 已完成 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments` 与 `transform`。下一步进入 `filters / backdrop-filters`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。
+`wave_3` 已完成 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns` 与 `table display / caption / collapse`，`wave_4` 已完成 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform` 与 `filters / backdrop-filters`。下一步进入 `animation`，继续沿用完整 spec / plan / log / status + fixture / runtime / parity / utility spec / blocklist migration 模板，并把 full inventory 作为阶段 planning 依据。

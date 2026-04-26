@@ -1,0 +1,12 @@
+# Filters Backdrop-Filters Source Rewrite Status
+- phase: green
+- completed:
+  - design approved
+  - implementation plan approved
+  - Task 1: filters / backdrop-filters fixtures and dedicated tests
+  - Task 2: runtime and default theme keys aligned with Tailwind 3.4 filter semantics
+  - Task 3: utility spec, blocklist subset, docs, and rewrite-session automation update
+- in_progress:
+  - none
+- pending:
+  - none

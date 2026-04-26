@@ -204,12 +204,17 @@
   - `docs/superpowers/plans/2026-04-26-transform-source-rewrite.md`
   - `docs/2026-04-26-transform-source-rewrite-log.md`
   - `docs/2026-04-26-transform-source-rewrite-status.md`
+- `filters / backdrop-filters` 已完成模板化，相关文档已进入 git：
+  - `docs/superpowers/specs/2026-04-26-filters-backdrop-filters-source-rewrite-design.md`
+  - `docs/superpowers/plans/2026-04-26-filters-backdrop-filters-source-rewrite.md`
+  - `docs/2026-04-26-filters-backdrop-filters-source-rewrite-log.md`
+  - `docs/2026-04-26-filters-backdrop-filters-source-rewrite-status.md`
 
 ## 下一步
 
-第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric`，`wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns`、`table display / caption / collapse`，以及 `wave_4` 的 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform`。下一步应按 full inventory 继续推进：
+第一阶段主线已完成，第二阶段已完成 `wave_1` 全部 family，并已推进 `wave_2` 的 `fill`、`accent`、`caret`、`font`、`text-align`、`vertical-align`、`text-decoration`、`text-indent`、`text-wrap / text-overflow / text-transform`、`tab-size`、`text-stroke`、`text-shadow`、`line-clamp`、`font-variant-numeric`，`wave_3` 的 `size / width / height / min / max`、`aspect-ratio`、`display`、`overflow`、`position / inset leftovers / float / z / order / box-sizing`、`container`、`columns`、`table display / caption / collapse`，以及 `wave_4` 的 `flex`、`grid`、`justify / align / place / flexGridJustifiesAlignments`、`transform`、`filters / backdrop-filters`。下一步应按 full inventory 继续推进：
 
-1. `filters / backdrop-filters`
+1. `animation`
 2. `wave_4` 其余布局主规则族
 
 ## 文档职责
