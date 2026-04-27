@@ -27,7 +27,7 @@ describe('release automation', () => {
     expect(packageJson.scripts?.changeset).toBe('changeset')
     expect(packageJson.scripts?.['version:release']).toBe('changeset version')
     expect(packageJson.scripts?.['release:publish']).toBe('changeset publish')
-    expect(packageJson.scripts?.['release:publish:beta']).toBe('changeset publish --tag beta')
+    expect(packageJson.scripts?.['release:publish:beta']).toBe('changeset publish')
     expect(packageJson.scripts?.['version:prerelease:enter:beta']).toBe('changeset pre enter beta')
     expect(packageJson.scripts?.['version:prerelease:exit']).toBe('changeset pre exit')
     expect(packageJson.scripts?.['release:notes']).toBe('node scripts/release-notes.mjs')

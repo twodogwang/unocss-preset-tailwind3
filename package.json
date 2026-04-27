@@ -40,7 +40,7 @@
     "lint:fixture:ide": "pnpm --filter ide-eslint-fixture lint",
     "prepublishOnly": "pnpm run ci",
     "release:publish": "changeset publish",
-    "release:publish:beta": "changeset publish --tag beta",
+    "release:publish:beta": "changeset publish",
     "release:notes": "node scripts/release-notes.mjs",
     "rewrite:finish-family": "node scripts/rewrite-finish-family.mjs --",
     "rewrite:next-family": "node scripts/rewrite-next-family.mjs",

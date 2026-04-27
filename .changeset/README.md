@@ -20,7 +20,7 @@
 
 1. prerelease 在非 `main` 分支上操作，不要长期把 prerelease 状态留在 `main`
 2. 如果目标是 `1.0.0-beta.0`，changeset 应使用 `major`
-3. beta 发布必须显式使用 npm `beta` dist-tag，避免误发到 `latest`
+3. beta 发布必须先进入 `changeset` 的 prerelease 模式，由 `pre enter beta` 接管 npm dist-tag
 
 常用命令：
 
@@ -31,6 +31,6 @@
 
 说明：
 
-- `changeset pre enter beta` 会让后续版本变成 `*-beta.x`
-- `changeset publish --tag beta` 会把包发布到 npm 的 `beta` channel
+- `changeset pre enter beta` 会让后续版本变成 `*-beta.x`，并把 publish channel 设为 `beta`
+- prerelease 模式下不要再额外传 `--tag beta`，否则 `changeset publish` 会直接报错
 - 在 prerelease 期间新增的 changeset 会继续累积到后续 `beta` 版本中
