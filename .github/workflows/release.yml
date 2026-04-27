@@ -2,6 +2,15 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      channel:
+        description: Release channel to publish
+        required: true
+        default: latest
+        type: choice
+        options:
+          - latest
+          - beta
   push:
     branches:
       - main
@@ -22,6 +31,24 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Configure release channel
+        id: release-config
+        env:
+          RELEASE_CHANNEL: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.channel || 'latest' }}
+        run: |
+          IS_BETA=false
+          PUBLISH_SCRIPT=release:publish
+          GITHUB_RELEASE_FLAGS=
+          if [ "$RELEASE_CHANNEL" = "beta" ]; then
+            IS_BETA=true
+            PUBLISH_SCRIPT=release:publish:beta
+            GITHUB_RELEASE_FLAGS=--prerelease
+          fi
+          echo "channel=$RELEASE_CHANNEL" >> "$GITHUB_OUTPUT"
+          echo "is_beta=$IS_BETA" >> "$GITHUB_OUTPUT"
+          echo "publish_script=$PUBLISH_SCRIPT" >> "$GITHUB_OUTPUT"
+          echo "github_release_flags=$GITHUB_RELEASE_FLAGS" >> "$GITHUB_OUTPUT"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -40,7 +67,22 @@ jobs:
       - name: Run CI checks
         run: pnpm run ci
 
+      - name: Prepare beta prerelease version
+        if: steps.release-config.outputs.is_beta == 'true'
+        run: |
+          if [ -f .changeset/pre.json ]; then
+            PRE_TAG="$(node -p "require('./.changeset/pre.json').tag")"
+            if [ "$PRE_TAG" != "beta" ]; then
+              echo "Existing prerelease tag '$PRE_TAG' does not match expected beta"
+              exit 1
+            fi
+          else
+            pnpm run version:prerelease:enter:beta
+          fi
+          pnpm version:release
+
       - name: Create release pull request or prepare publish
+        if: steps.release-config.outputs.is_beta != 'true'
         id: changesets
         uses: changesets/action@v1
         with:
@@ -49,12 +91,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Resolve release state
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.release-config.outputs.is_beta == 'true' || steps.changesets.outputs.hasChangesets == 'false'
         id: release-state
+        env:
+          IS_BETA: ${{ steps.release-config.outputs.is_beta }}
         run: |
           PACKAGE_VERSION="$(node -p "require('./package.json').version")"
           PACKAGE_NAME="$(node -p "require('./package.json').name")"
-          LAST_PUBLISHED_VERSION="$(npm view "$PACKAGE_NAME" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
+          LAST_PUBLISHED_VERSION=
+          if [ "$IS_BETA" = "true" ]; then
+            LAST_PUBLISHED_VERSION="$(npm view "$PACKAGE_NAME@beta" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
+          else
+            LAST_PUBLISHED_VERSION="$(npm view "$PACKAGE_NAME" version --registry=https://registry.npmjs.org 2>/dev/null || true)"
+          fi
           SHOULD_PUBLISH=false
           if [ "$PACKAGE_VERSION" != "$LAST_PUBLISHED_VERSION" ]; then
             SHOULD_PUBLISH=true
@@ -65,19 +114,25 @@ jobs:
           echo "Last published version: ${LAST_PUBLISHED_VERSION:-<none>}"
 
       - name: Extract release notes
-        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
+        if: (steps.release-config.outputs.is_beta == 'true' || steps.changesets.outputs.hasChangesets == 'false') && steps.release-state.outputs.should_publish == 'true'
         env:
+          IS_BETA: ${{ steps.release-config.outputs.is_beta }}
           LAST_PUBLISHED_VERSION: ${{ steps.release-state.outputs.last_published_version }}
-        run: pnpm run release:notes -- "v${{ steps.release-state.outputs.package_version }}" .release-notes.md
+        run: |
+          if [ "$IS_BETA" = "true" ]; then
+            pnpm run release:notes -- "v${{ steps.release-state.outputs.package_version }}" .release-notes.md
+          else
+            LAST_PUBLISHED_VERSION="$LAST_PUBLISHED_VERSION" pnpm run release:notes -- "v${{ steps.release-state.outputs.package_version }}" .release-notes.md
+          fi
 
       - name: Publish package
-        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
+        if: (steps.release-config.outputs.is_beta == 'true' || steps.changesets.outputs.hasChangesets == 'false') && steps.release-state.outputs.should_publish == 'true'
         env:
           NPM_CONFIG_PROVENANCE: true
-        run: pnpm run release:publish
+        run: pnpm run ${{ steps.release-config.outputs.publish_script }}
 
       - name: Create release tag
-        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
+        if: (steps.release-config.outputs.is_beta == 'true' || steps.changesets.outputs.hasChangesets == 'false') && steps.release-state.outputs.should_publish == 'true'
         env:
           TAG_NAME: v${{ steps.release-state.outputs.package_version }}
         run: |
@@ -87,7 +142,8 @@ jobs:
           git push origin "$TAG_NAME"
 
       - name: Create GitHub release
-        if: steps.changesets.outputs.hasChangesets == 'false' && steps.release-state.outputs.should_publish == 'true'
+        if: (steps.release-config.outputs.is_beta == 'true' || steps.changesets.outputs.hasChangesets == 'false') && steps.release-state.outputs.should_publish == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "v${{ steps.release-state.outputs.package_version }}" --title "v${{ steps.release-state.outputs.package_version }}" --notes-file .release-notes.md --verify-tag
+          GITHUB_RELEASE_FLAGS: ${{ steps.release-config.outputs.github_release_flags }}
+        run: gh release create "v${{ steps.release-state.outputs.package_version }}" --title "v${{ steps.release-state.outputs.package_version }}" --notes-file .release-notes.md --verify-tag $GITHUB_RELEASE_FLAGS
