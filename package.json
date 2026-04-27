@@ -45,7 +45,7 @@
     "rewrite:finish-family": "node scripts/rewrite-finish-family.mjs --",
     "rewrite:next-family": "node scripts/rewrite-next-family.mjs",
     "test": "vitest --run",
-    "test:fixtures": "pnpm run lint:fixture:ide",
+    "test:fixtures": "pnpm --filter ide-eslint-fixture lint && pnpm --filter ide-eslint-fixture verify:autofix",
     "test:watch": "vitest",
     "typecheck": "oxlint . --type-aware --type-check -A all",
     "typecheck:tsc": "tsc --noEmit",

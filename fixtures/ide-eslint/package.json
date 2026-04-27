@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "eslint src/demo.jsx"
+    "lint": "node --import tsx ./node_modules/eslint/bin/eslint.js src/demo.jsx",
+    "verify:autofix": "node --import tsx scripts/verify-blocklist-autofix.mjs"
   },
   "dependencies": {
     "@twodogwang/unocss-preset-tailwind3": "workspace:*",

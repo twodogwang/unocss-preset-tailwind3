@@ -1,9 +1,14 @@
 import unocss from '@unocss/eslint-config/flat'
+import blocklistAutofixPlugin from './eslint-plugin-blocklist-autofix.mjs'
 
 export default [
   {
     ...unocss,
     files: ['**/*.jsx'],
+    plugins: {
+      ...(unocss.plugins ?? {}),
+      tailwind3: blocklistAutofixPlugin,
+    },
     languageOptions: {
       ...unocss.languageOptions,
       parserOptions: {
@@ -16,7 +21,8 @@ export default [
     },
     rules: {
       ...unocss.rules,
-      'unocss/blocklist': 'warn',
+      'unocss/blocklist': 'off',
+      'tailwind3/blocklist-autofix': 'warn',
     },
   },
 ]
