@@ -4,7 +4,7 @@
 
 **Goal:** 把 `container` 纳入统一 Tailwind 3 rewrite 模板，并补齐 shared fixture、runtime/parity、utility spec 与过程文档。
 
-**Architecture:** 运行时留在 `src/_rules-wind3/container.ts`，shortcut 留在 `src/shortcuts.ts`，theme 类型在 `src/_theme/types.ts` 对齐 `theme.container.screens`。本轮核心是让 `container` 直接生成 Tailwind 风格的 base + media output，而不是依赖历史 breakpoint shortcut 推导。
+**Architecture:** 运行时留在 `src/_rules-wind3/container.ts`，theme 类型在 `src/_theme/types.ts` 对齐 `theme.container.screens`。本轮核心是让 `container` 直接生成 Tailwind 风格的 base + media output，而不是依赖历史 breakpoint shortcut 推导。
 
 **Tech Stack:** TypeScript, UnoCSS rules, Vitest, Tailwind CSS 3.4, pnpm
 
@@ -32,7 +32,6 @@
 ### Existing files to modify
 
 - `src/_rules-wind3/container.ts`
-- `src/shortcuts.ts`
 - `src/_theme/types.ts`
 - `test/preset-tailwind3.test.ts`
 - `test/preset-tailwind3-tailwind-diff.test.ts`
@@ -55,7 +54,7 @@
 ## Tasks
 
 - [x] Task 1: create shared fixture and dedicated runtime/parity tests for `container`
-- [x] Task 2: align `container` runtime, shortcut, and theme typing with Tailwind 3 official `screens` / `center` / `padding` semantics
+- [x] Task 2: align `container` runtime and theme typing with Tailwind 3 official `screens` / `center` / `padding` semantics
 - [x] Task 3: register utility spec, docs, and rewrite-session automation update
 
 ## Verification

@@ -17,7 +17,6 @@
 
 - `completed_template`: 已进入当前 rewrite 模板，具备 shared fixture、runtime/parity、utility spec、migration subset、过程文档
 - `pending_wave_n`: 尚未进入 rewrite 模板，已列入后续波次
-- `special_review`: 不是标准 Tailwind 3 规则族，是否纳入 rewrite 需单独决定
 
 ## Completed Templates
 
@@ -50,7 +49,7 @@
 | `display` | `src/_rules/static.ts` | `completed_template` | 已对齐 Tailwind 3.4 display core plugin 的静态语义，并锁住 `display-*` 高置信度旧别名治理 |
 | `overflow` | `src/_rules/layout.ts` | `completed_template` | 已对齐 Tailwind 3.4 overflow core plugin 的静态语义，并锁住 `of-*` 高置信度旧别名治理 |
 | `position / inset leftovers / float / z / order / box-sizing` | `src/_rules/position.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 position/order/z/float/clear/box-sizing 默认 key、theme key 与 arbitrary 边界，并锁住 `pos-*` / `z10` / `order2` 高置信度旧别名治理 |
-| `container` | `src/_rules/container.ts`, `src/_rules-wind3/container.ts`, `src/shortcuts.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `container` 与 `theme.container.screens / center / padding` 语义；当前无新增高置信度 blocklist migration |
+| `container` | `src/_rules/container.ts`, `src/_rules-wind3/container.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `container` 与 `theme.container.screens / center / padding` 语义；当前无新增高置信度 blocklist migration |
 | `columns` | `src/_rules-wind3/columns.ts`, `src/_theme/size.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `columns` / `break-*` 语义，修正 `theme.columns` 入口，并锁住 `columns3` 高置信度旧别名治理 |
 | `table display / caption / collapse` | `src/_rules-wind3/table.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 table display / table-layout / caption-side / border-collapse 语义，并移除 `table-empty-cells-*` 非官方扩展 |
 | `flex` | `src/_rules/flex.ts`, `src/_theme/default.ts`, `src/_theme/misc.ts`, `src/_theme/size.ts`, `src/_theme/types.ts` | `completed_template` | 已对齐 Tailwind 3.4 的 `flex` / `grow` / `shrink` / `basis` 语义，补齐默认 `flexBasis/flexGrow/flexShrink` key，并锁住 `flex-inline` / `flex-basis-*` / `flex-grow-*` / `flex-shrink-*` 高置信度旧别名治理 |
@@ -84,11 +83,7 @@
 
 ## Special Review Families
 
-| family | primary_sources | status | notes |
-| --- | --- | --- | --- |
-| `css variables / css property shortcuts` | `src/_rules/variables.ts`, `src/_rules-wind3/variables.ts` | `special_review` | 这些不是标准 Tailwind 3 utility family，需要决定是否纳入同一 rewrite 主线 |
-| `question-mark` | `src/_rules/question-mark.ts` | `special_review` | 明显是仓库特有扩展，不属于 Tailwind 3 规则族 |
-| `container shortcuts` | `src/_rules-wind3/container.ts` | `special_review` | 更接近 shortcut 设计，不是核心规则族 |
+当前没有剩余的 special review family。
 
 ## Recommended Execution Waves
 

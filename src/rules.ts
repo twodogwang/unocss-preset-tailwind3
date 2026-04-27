@@ -16,7 +16,6 @@ import {
   contains,
   contents,
   contentVisibility,
-  cssProperty,
   cursors,
   displays,
   fieldSizing,
@@ -84,7 +83,6 @@ import {
 } from './_rules-wind3'
 
 export const rules: Rule<Theme>[] = [
-  ...toArray(cssProperty),
   ...toArray(contains),
   ...toArray(pointerEvents),
   ...toArray(appearances),

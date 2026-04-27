@@ -1,4 +1,4 @@
-import type { CSSObject, CSSObjectInput, Rule, Shortcut } from '@unocss/core'
+import type { CSSObject, CSSObjectInput, Rule } from '@unocss/core'
 import type { Theme } from '../theme'
 import { isString, symbols } from '@unocss/core'
 import { resolveBreakpoints } from '../breakpoints'
@@ -39,7 +39,7 @@ function resolveContainerPadding(
 
 export const container: Rule<Theme>[] = [
   [
-    /^__container$/,
+    /^container$/,
     (m, context) => {
       const { theme } = context
       const baseCss: CSSObject = {
@@ -76,10 +76,6 @@ export const container: Rule<Theme>[] = [
 
       return css
     },
-    { internal: true },
+    { autocomplete: 'container' },
   ],
-]
-
-export const containerShortcuts: Shortcut<Theme>[] = [
-  [/^container$/, () => '__container'],
 ]

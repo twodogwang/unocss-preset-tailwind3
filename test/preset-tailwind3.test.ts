@@ -95,6 +95,24 @@ describe('preset-tailwind3', () => {
     })
   })
 
+  describe('special review removals', () => {
+    it('does not expose css variable shortcuts, css property shortcuts, question-mark utilities, or internal container shortcuts', async () => {
+      await expectNonTargets([
+        'select-$brand',
+        'bg-image-$hero',
+        '[display:block]',
+        '__container',
+      ])
+
+      await expectNonTargets([
+        '?',
+        'where',
+      ], {
+        envMode: 'dev',
+      })
+    })
+  })
+
   describe('size / width / height / min-* / max-*', () => {
     it('matches official Tailwind 3 dimension utilities', async () => {
       await expectTargets(sizeFixtures.canonical)
@@ -1468,8 +1486,8 @@ describe('preset-tailwind3', () => {
       await expectNonTargets(fillFixtures.invalid)
     })
 
-    it('matches official Tailwind 3 color utilities', async () => {
-      await expectTargets([
+    it('rejects arbitrary css property color utilities', async () => {
+      await expectNonTargets([
         '[color:#fff]',
       ])
     })

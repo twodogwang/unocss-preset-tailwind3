@@ -304,7 +304,6 @@ export const transitionBlocklistMigrationFixtures = [
 ] as const
 
 export const blocklistMigrationFixtures = [
-  { input: 'color-#fff', replacement: '[color:#fff]' },
   { input: 'c-#fff', replacement: 'text-[#fff]' },
   ...textBlocklistMigrationFixtures,
   ...textIndentBlocklistMigrationFixtures,

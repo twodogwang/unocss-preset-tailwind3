@@ -198,7 +198,7 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
   },
   {
     id: 'container',
-    sourceFiles: ['src/_rules-wind3/container.ts', 'src/shortcuts.ts'],
+    sourceFiles: ['src/_rules-wind3/container.ts'],
     category: 'layout',
     canonical: [...containerFixtures.canonical],
     invalid: [...containerFixtures.invalid],

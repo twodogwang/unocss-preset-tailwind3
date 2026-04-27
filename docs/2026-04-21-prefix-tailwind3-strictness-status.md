@@ -144,7 +144,6 @@ Uno 在解析带 `prefix` 的预设时，会把 `meta.prefix` 写回规则或快
 - `tw-rd-md` -> `tw-rounded-md`
 - `tw-bg-op50` -> `tw-bg-opacity-50`
 - `tw-transition-ease-linear` -> `tw-ease-linear`
-- `tw-color-#fff` -> `tw-[color:#fff]`
 
 相关文件：
 

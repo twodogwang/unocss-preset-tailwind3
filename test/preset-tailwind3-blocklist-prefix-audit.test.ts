@@ -106,13 +106,6 @@ async function expectNotBlocked(
 
 const migrationFixtures: MigrationFixture[] = [
   {
-    label: 'color hex alias',
-    matcher: new RegExp('^color-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
-    input: 'color-#fff',
-    prefixed: 'tw-color-#fff',
-    replacement: '[color:#fff]',
-  },
-  {
     label: 'text shorthand hex alias',
     matcher: new RegExp('^c-(#(?:[\\da-fA-F]{3,4}|[\\da-fA-F]{6}|[\\da-fA-F]{8}))$'),
     input: 'c-#fff',
@@ -1219,7 +1212,7 @@ describe('preset-tailwind3 blocklist prefix audit', () => {
   it('supports english messages for representative prefixed and unprefixed migration fixtures', async () => {
     const samples = [
       migrationFixtures.find(({ input }) => input === 'b-2')!,
-      migrationFixtures.find(({ input }) => input === 'color-#fff')!,
+      migrationFixtures.find(({ input }) => input === 'c-#fff')!,
       migrationFixtures.find(({ input }) => input === 'transition-delay-[120ms]')!,
     ]
 

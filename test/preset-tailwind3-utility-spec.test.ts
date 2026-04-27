@@ -155,7 +155,7 @@ describe('tailwind utility spec', () => {
     expect(displaySpec?.invalid).toContain('display-[var(--display)]')
     expect(containerSpec?.canonical).toEqual([...containerFixtures.canonical])
     expect(containerSpec?.invalid).toEqual([...containerFixtures.invalid])
-    expect(containerSpec?.sourceFiles).toEqual(['src/_rules-wind3/container.ts', 'src/shortcuts.ts'])
+    expect(containerSpec?.sourceFiles).toEqual(['src/_rules-wind3/container.ts'])
     expect(containerSpec?.category).toBe('layout')
     expect(containerSpec?.supportsPrefix).toBe(true)
     expect(containerSpec?.supportsVariants).toBe(true)

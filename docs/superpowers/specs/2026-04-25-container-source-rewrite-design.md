@@ -37,7 +37,7 @@
 
 ## 当前现状
 
-当前主入口使用 [src/_rules-wind3/container.ts](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/src/_rules-wind3/container.ts) 与 [src/shortcuts.ts](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/src/shortcuts.ts) 生成 `container`。
+当前主入口使用 [src/_rules-wind3/container.ts](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/src/_rules-wind3/container.ts) 直接生成 `container`。
 
 已确认的偏差：
 
@@ -57,9 +57,9 @@
 
 `container` 输出直接对齐 Tailwind 3.4 core plugin，而不是沿用历史 shortcut 展开推导。
 
-### 2. shortcut 只保留语法入口，不承载断点语义
+### 2. `container` 直接作为规则入口
 
-`container` shortcut 收敛为单一 `container -> __container`，响应式包装交给现有 variants 机制处理。
+`container` 直接由运行时规则匹配，不再依赖 `container -> __container` shortcut 中转；响应式包装仍由现有 variants 机制处理。
 
 ### 3. 不强行补 blocklist
 
@@ -85,7 +85,6 @@
 更新：
 
 - [src/_rules-wind3/container.ts](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/src/_rules-wind3/container.ts)
-- [src/shortcuts.ts](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/src/shortcuts.ts)
 - [src/_theme/types.ts](/Users/shakugannoshana/Documents/ex/twodogwang/unocss-preset-tailwind3/src/_theme/types.ts)
 
 ### 4. utility spec

@@ -137,11 +137,7 @@
 
 ### special_review
 
-这些不应直接混入标准 Tailwind 3 rewrite 主线，需要单独决定：
-
-- `css variables / css property shortcuts`
-- `question-mark`
-- `container shortcuts`
+当前没有剩余的 special review 项。
 
 ## 建议的下一步
 

@@ -11,7 +11,6 @@ import { gaps } from './gap'
 import { grids } from './grid'
 import { overflows } from './layout'
 import { alignments, boxSizing, flexGridJustifiesAlignments, floats, insets, justifies, orders, placements, positions, zIndexes } from './position'
-import { questionMark } from './question-mark'
 import { rings } from './ring'
 import { boxShadows } from './shadow'
 import { aspectRatio, sizes } from './size'
@@ -21,11 +20,8 @@ import { svgUtilities } from './svg'
 import { transforms } from './transform'
 import { transitions } from './transition'
 import { fonts, tabSizes, textIndents, textShadows, textStrokes } from './typography'
-import { cssProperty, cssVariables } from './variables'
 
 export const rules: Rule<Theme>[] = [
-  cssVariables,
-  cssProperty,
   contains,
   pointerEvents,
   appearances,
@@ -83,7 +79,4 @@ export const rules: Rule<Theme>[] = [
   contents,
   containerParent,
   fieldSizing,
-
-  // should be the last
-  questionMark,
 ].flat(1)

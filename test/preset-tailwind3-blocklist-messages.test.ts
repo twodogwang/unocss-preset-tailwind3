@@ -727,7 +727,6 @@ describe('preset-tailwind3 blocklist migration messages', () => {
     await expectBlockedMessage('tw-rd-md', '旧写法 "tw-rd-md" 已禁用，请改为 "tw-rounded-md"', { prefix: 'tw-' })
     await expectBlockedMessage('tw-bg-op50', '旧写法 "tw-bg-op50" 已禁用，请改为 "tw-bg-opacity-50"', { prefix: 'tw-' })
     await expectBlockedMessage('tw-transition-ease-linear', '旧写法 "tw-transition-ease-linear" 已禁用，请改为 "tw-ease-linear"', { prefix: 'tw-' })
-    await expectBlockedMessage('tw-color-#fff', '旧写法 "tw-color-#fff" 已禁用，请改为 "tw-[color:#fff]"', { prefix: 'tw-' })
   })
 
   it('blocks prefixed strictness-only legacy syntax families', async () => {

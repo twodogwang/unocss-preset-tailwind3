@@ -797,11 +797,9 @@ describe('preset-tailwind3 tailwind parity', { timeout: 30000 }, () => {
 
   it('matches Tailwind 3 support for background / svg color utilities', async () => {
     await expectTailwindParity([
-      '[color:#fff]',
       'bg-red-500',
       'bg-[#fff]',
       'bg-opacity-50',
-      '[background-color:#fff]',
     ])
   })
 
