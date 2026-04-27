@@ -4,6 +4,10 @@ import { extractorArbitraryVariants } from '@unocss/extractor-arbitrary-variants
 
 import type { BlocklistLocale } from './blocklist'
 import { createBlocklist } from './blocklist'
+export {
+  getBlocklistMigrationReplacement,
+  rewriteBlocklistMigrationClassString,
+} from './blocklist-migration'
 import { colors } from './colors'
 import { postprocessors } from './postprocessors'
 import { preflights } from './preflights'
