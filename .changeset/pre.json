@@ -5,6 +5,7 @@
     "@twodogwang/unocss-preset-tailwind3": "0.2.0"
   },
   "changesets": [
+    "autofix-beta-followup",
     "clean-crabs-fix"
   ]
 }

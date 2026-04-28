@@ -1,6 +1,6 @@
 {
   "name": "@twodogwang/unocss-preset-tailwind3",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "description": "Pure Tailwind CSS 3.x preset for UnoCSS",
   "author": "twodogwang <a381097999@qq.com>",

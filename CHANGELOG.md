@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-beta.1
+
+### Patch Changes
+
+- 5cb7815: Document the ESLint blocklist autofix coverage more explicitly and add a bilingual README section for the migration behavior.
+
+  The IDE ESLint fixture now consumes the package through the published `dist` exports, so local verification matches the real package entrypoint instead of importing source files directly.
+
 ## 0.2.0
 
 ### Minor Changes
