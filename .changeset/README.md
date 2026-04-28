@@ -16,6 +16,13 @@
 
 当变更会明显收窄默认支持语法，或需要先收集升级反馈时，优先走 prerelease，而不是直接发正式版。
 
+推荐使用一条长期维护的 beta 分支承载 prerelease：
+
+- 面向 beta 的功能分支从 `beta` 切出，再合回 `beta`
+- `beta` 分支保留 `.changeset/pre.json`，不要把这层 prerelease 状态长期带回 `main`
+- push 到 `beta` 会触发 GitHub Actions 自动发布新的 `beta` 版本
+- workflow 会把 `package.json`、`CHANGELOG.md` 和 `.changeset` 的 prerelease 状态自动提交回 `beta`，保证下一次 beta 继续在上一版基础上滚动
+
 推荐约束：
 
 1. prerelease 在非 `main` 分支上操作，不要长期把 prerelease 状态留在 `main`

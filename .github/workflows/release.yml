@@ -14,6 +14,7 @@ on:
   push:
     branches:
       - main
+      - beta
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -34,7 +35,7 @@ jobs:
       - name: Configure release channel
         id: release-config
         env:
-          RELEASE_CHANNEL: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.channel || 'latest' }}
+          RELEASE_CHANNEL: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.channel || (github.ref_name == 'beta' && 'beta' || 'latest') }}
         run: |
           IS_BETA=false
           PUBLISH_SCRIPT=release:publish
@@ -43,6 +44,13 @@ jobs:
             IS_BETA=true
             PUBLISH_SCRIPT=release:publish:beta
             GITHUB_RELEASE_FLAGS=--prerelease
+            if [ "$GITHUB_REF_NAME" != "beta" ]; then
+              echo "Release channel beta must run from beta branch"
+              exit 1
+            fi
+          elif [ "$GITHUB_REF_NAME" != "main" ]; then
+            echo "Release channel latest must run from main branch"
+            exit 1
           fi
           echo "channel=$RELEASE_CHANNEL" >> "$GITHUB_OUTPUT"
           echo "is_beta=$IS_BETA" >> "$GITHUB_OUTPUT"
@@ -80,6 +88,20 @@ jobs:
             pnpm run version:prerelease:enter:beta
           fi
           pnpm version:release
+
+      - name: Persist beta release state
+        if: steps.release-config.outputs.is_beta == 'true'
+        run: |
+          if git diff --quiet -- package.json CHANGELOG.md .changeset; then
+            echo "No beta release state changes to commit"
+            exit 0
+          fi
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A package.json CHANGELOG.md .changeset
+          git commit -m "chore: release ${PACKAGE_VERSION} [skip release]"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Create release pull request or prepare publish
         if: steps.release-config.outputs.is_beta != 'true'
