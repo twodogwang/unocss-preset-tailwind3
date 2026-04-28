@@ -1,5 +1,7 @@
 export function Demo() {
   return (
-    <div className="c-#fff bg-op50 b-2 rd-md fw-bold pos-absolute" />
+    <div className="bg-opacity-50">
+      <div className="absolute border-2 rounded-md bg-opacity-50 text-[#fff] font-bold" />
+    </div>
   )
 }

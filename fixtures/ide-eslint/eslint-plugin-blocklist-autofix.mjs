@@ -1,22 +1,29 @@
-import {
-  createBlocklist,
-  getBlocklistMigrationReplacement,
-} from '../../src/index.ts'
+import presetTailwind3 from '@twodogwang/unocss-preset-tailwind3'
 
 const CLASS_FIELDS = ['class', 'classname']
-const blocklistRules = createBlocklist()
+const blocklistRules = presetTailwind3().blocklist ?? []
+
+function getBlocklistMigrationReplacement(token, message) {
+  if (typeof message !== 'string')
+    return null
+
+  const quotedParts = Array.from(message.matchAll(/"([^"]+)"/g), match => match[1])
+  const replacement = quotedParts.at(-1)
+  return replacement && replacement !== token ? replacement : null
+}
 
 function getBlockedToken(token) {
   for (const rule of blocklistRules) {
     const [matcher, meta] = Array.isArray(rule) ? rule : [rule, undefined]
     if (!matchesRule(token, matcher))
       continue
+    const message = typeof meta?.message === 'function'
+      ? meta.message(token)
+      : meta?.message
     return {
       token,
-      message: typeof meta?.message === 'function'
-        ? meta.message(token)
-        : meta?.message,
-      replacement: getBlocklistMigrationReplacement(token),
+      message,
+      replacement: getBlocklistMigrationReplacement(token, message),
     }
   }
 }

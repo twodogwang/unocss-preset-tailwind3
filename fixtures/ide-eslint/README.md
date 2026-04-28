@@ -60,6 +60,7 @@ absolute border-2 rounded-md bg-opacity-50 text-[#000] text-[#fff] font-bold
 ## 说明
 
 - 这里故意使用 JSX 的 `className` 属性，因为本地 autofix rule 当前只覆盖 class 字面量，不处理普通字符串变量。
-- `lint` 和 `verify:autofix` 都通过 `tsx` loader 直接读取仓库里的 `src/*.ts`，不依赖预先 build 出来的 `dist`。
+- `lint` 和 `verify:autofix` 都直接走工作区包导出，也就是 `dist`。
+- 如果你在同时开发 preset 源码和这个 fixture，需要在仓库根目录保持 `pnpm dev` 运行，让 `dist` 持续刷新。
 - 如果命令行 `lint` 能报出来，但 IDE 没提示，问题通常在 IDE 的 ESLint 扩展或工作目录配置。
 - 如果命令行 `lint` 都没有报出来，优先检查 `uno.config.mjs` 是否真的加载到了当前 preset。
