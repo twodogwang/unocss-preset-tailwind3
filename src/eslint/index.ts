@@ -1,4 +1,8 @@
-export type { CreateEslintPluginTailwind3Options } from './rules/blocklist-autofix'
+export type {
+  CreateEslintPluginTailwind3Options,
+  Tailwind3BlocklistAutofixRule,
+} from './rules/blocklist-autofix'
+export type { Tailwind3EslintPlugin } from './plugin'
 export {
   createTailwind3BlocklistAutofixRule,
   tailwind3BlocklistAutofixRule,

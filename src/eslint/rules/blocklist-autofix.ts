@@ -13,7 +13,7 @@ export interface CreateEslintPluginTailwind3Options {
   blocklistLocale?: BlocklistLocale
 }
 
-interface ReportDescriptor {
+export interface ReportDescriptor {
   node: {
     range: [number, number]
     value: string
@@ -22,6 +22,34 @@ interface ReportDescriptor {
   fix?: (fixer: {
     replaceTextRange: (range: [number, number], text: string) => unknown
   }) => unknown
+}
+
+export interface Tailwind3BlocklistAutofixRule {
+  meta: {
+    type: 'problem'
+    fixable: 'code'
+    docs: {
+      description: string
+    }
+    schema: []
+  }
+  create(context: {
+    report: (descriptor: ReportDescriptor) => void
+    sourceCode?: {
+      parserServices?: {
+        defineTemplateBodyVisitor?: (
+          templateVisitor: Record<string, (node: unknown) => void>,
+          scriptVisitor: Record<string, (node: unknown) => void>,
+        ) => Record<string, (node: unknown) => void>
+      }
+    }
+    parserServices?: {
+      defineTemplateBodyVisitor?: (
+        templateVisitor: Record<string, (node: unknown) => void>,
+        scriptVisitor: Record<string, (node: unknown) => void>,
+      ) => Record<string, (node: unknown) => void>
+    }
+  }): Record<string, (node: unknown) => void>
 }
 
 function matchesRule(token: string, matcher: unknown) {
@@ -96,7 +124,7 @@ function reportLiteral(
 
 export function createTailwind3BlocklistAutofixRule(
   options: CreateEslintPluginTailwind3Options = {},
-) {
+): Tailwind3BlocklistAutofixRule {
   const enableFix = options.enableFix ?? true
   const prefix = options.prefix
   const locale = options.locale ?? options.blocklistLocale
@@ -127,7 +155,7 @@ export function createTailwind3BlocklistAutofixRule(
           scriptVisitor: Record<string, (node: unknown) => void>,
         ) => Record<string, (node: unknown) => void>
       }
-    }) {
+    }): Record<string, (node: unknown) => void> {
       const scriptVisitor = {
         JSXAttribute(node: {
           name: { name?: string }
@@ -166,7 +194,7 @@ export function createTailwind3BlocklistAutofixRule(
           templateBodyVisitor as Record<string, (node: unknown) => void>,
           scriptVisitor as Record<string, (node: unknown) => void>,
         )
-      return scriptVisitor
+      return scriptVisitor as Record<string, (node: unknown) => void>
     },
   }
 }
