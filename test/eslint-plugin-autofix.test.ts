@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import defaultPlugin, {
   createEslintPluginTailwind3,
   tailwind3BlocklistAutofixRule,
-} from '../src/eslint/index.ts'
+} from '../src/eslint'
 
 interface LiteralNode {
   type: 'Literal'
@@ -31,13 +31,15 @@ function runRuleOnClassLiteral(plugin: typeof defaultPlugin, className: string, 
   const visitors = plugin.rules['blocklist-autofix'].create({
     sourceCode: {},
     report(report) {
+      const replacement = report.fix
+        ? report.fix({
+            replaceTextRange: (_range: [number, number], text: string) => text,
+          })
+        : null
+
       reports.push({
         message: report.message,
-        replacement: report.fix
-          ? report.fix({
-              replaceTextRange: (_range: [number, number], text: string) => text,
-            })
-          : null,
+        replacement: typeof replacement === 'string' ? replacement : null,
       })
     },
   })

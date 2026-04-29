@@ -24,7 +24,7 @@ interface ReportDescriptor {
   }) => unknown
 }
 
-function matchesRule(token: string, matcher: BlocklistRule[0]) {
+function matchesRule(token: string, matcher: unknown) {
   if (typeof matcher === 'string')
     return token === matcher
   if (matcher instanceof RegExp)
@@ -80,14 +80,15 @@ function reportLiteral(
 
     const start = literalStart + match.index
     const end = start + token.length
+    const replacement = blocked.replacement
 
     context.report({
       node,
       message: blocked.message
         ? `"${token}" is in blocklist: ${blocked.message}`
         : `"${token}" is in blocklist`,
-      fix: enableFix && blocked.replacement
-        ? fixer => fixer.replaceTextRange([start, end], blocked.replacement)
+      fix: enableFix && replacement
+        ? fixer => fixer.replaceTextRange([start, end], replacement)
         : undefined,
     })
   }
@@ -161,7 +162,10 @@ export function createTailwind3BlocklistAutofixRule(
 
       const parserServices = context.sourceCode?.parserServices ?? context.parserServices
       if (parserServices?.defineTemplateBodyVisitor)
-        return parserServices.defineTemplateBodyVisitor(templateBodyVisitor, scriptVisitor)
+        return parserServices.defineTemplateBodyVisitor(
+          templateBodyVisitor as Record<string, (node: unknown) => void>,
+          scriptVisitor as Record<string, (node: unknown) => void>,
+        )
       return scriptVisitor
     },
   }
