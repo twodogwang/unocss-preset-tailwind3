@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0-beta.2
+
+### Patch Changes
+
+- d5d4be6: Expose the blocklist autofix ESLint integration as a package export at `@twodogwang/unocss-preset-tailwind3/eslint`.
+
+  The exported plugin now supports the same high-confidence migration fixes that were previously only wired inside the IDE fixture, and also provides a factory entry for prefixed, localized, or diagnostics-only projects via `enableFix: false`.
+
 ## 1.0.0-beta.1
 
 ### Patch Changes

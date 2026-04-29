@@ -1,6 +1,6 @@
 {
   "name": "@twodogwang/unocss-preset-tailwind3",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "type": "module",
   "description": "Pure Tailwind CSS 3.x preset for UnoCSS",
   "author": "twodogwang <a381097999@qq.com>",
@@ -22,14 +22,8 @@
     "tailwind3"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
-    },
-    "./eslint": {
-      "types": "./dist/eslint.d.mts",
-      "import": "./dist/eslint.mjs"
-    },
+    ".": "./dist/index.mjs",
+    "./eslint": "./dist/eslint/index.mjs",
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.mts",
