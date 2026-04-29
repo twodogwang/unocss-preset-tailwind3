@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import defaultPlugin, {
   createEslintPluginTailwind3,
   tailwind3BlocklistAutofixRule,
-} from '../src/eslint'
+} from '../src/eslint/index.ts'
 
 interface LiteralNode {
   type: 'Literal'

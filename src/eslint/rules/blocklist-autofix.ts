@@ -1,8 +1,8 @@
 import type { BlocklistRule } from '@unocss/core'
 
-import type { BlocklistLocale } from './blocklist'
-import { createBlocklist } from './blocklist'
-import { getBlocklistMigrationReplacement } from './blocklist-migration'
+import type { BlocklistLocale } from '../../blocklist'
+import { createBlocklist } from '../../blocklist'
+import { getBlocklistMigrationReplacement } from '../../blocklist-migration'
 
 const CLASS_FIELDS = ['class', 'classname']
 
@@ -165,21 +165,3 @@ export function createTailwind3BlocklistAutofixRule(
 }
 
 export const tailwind3BlocklistAutofixRule = createTailwind3BlocklistAutofixRule()
-
-export function createEslintPluginTailwind3(
-  options: CreateEslintPluginTailwind3Options = {},
-) {
-  return {
-    rules: {
-      'blocklist-autofix': createTailwind3BlocklistAutofixRule(options),
-    },
-  }
-}
-
-const eslintPluginTailwind3 = {
-  rules: {
-    'blocklist-autofix': tailwind3BlocklistAutofixRule,
-  },
-}
-
-export default eslintPluginTailwind3
