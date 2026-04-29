@@ -7,6 +7,7 @@ import { getBlocklistMigrationReplacement } from '../../blocklist-migration'
 const CLASS_FIELDS = ['class', 'classname']
 
 export interface CreateEslintPluginTailwind3Options {
+  enableFix?: boolean
   prefix?: string | string[]
   locale?: BlocklistLocale
   blocklistLocale?: BlocklistLocale
@@ -64,6 +65,7 @@ function reportLiteral(
     value: string
   },
   blocklistRules: BlocklistRule[],
+  enableFix: boolean,
   prefix?: string | string[],
 ) {
   if (typeof node.value !== 'string' || !node.value.trim())
@@ -84,7 +86,7 @@ function reportLiteral(
       message: blocked.message
         ? `"${token}" is in blocklist: ${blocked.message}`
         : `"${token}" is in blocklist`,
-      fix: blocked.replacement
+      fix: enableFix && blocked.replacement
         ? fixer => fixer.replaceTextRange([start, end], blocked.replacement)
         : undefined,
     })
@@ -94,6 +96,7 @@ function reportLiteral(
 export function createTailwind3BlocklistAutofixRule(
   options: CreateEslintPluginTailwind3Options = {},
 ) {
+  const enableFix = options.enableFix ?? true
   const prefix = options.prefix
   const locale = options.locale ?? options.blocklistLocale
   const blocklistRules = createBlocklist(prefix, { locale })
@@ -138,7 +141,7 @@ export function createTailwind3BlocklistAutofixRule(
             && CLASS_FIELDS.includes(node.name.name.toLowerCase())
             && node.value?.type === 'Literal'
           )
-            reportLiteral(context, node.value, blocklistRules, prefix)
+            reportLiteral(context, node.value, blocklistRules, enableFix, prefix)
         },
       }
 
@@ -152,7 +155,7 @@ export function createTailwind3BlocklistAutofixRule(
           }
         }) {
           if (node.key.name === 'class' && node.value?.type === 'VLiteral')
-            reportLiteral(context, node.value, blocklistRules, prefix)
+            reportLiteral(context, node.value, blocklistRules, enableFix, prefix)
         },
       }
 

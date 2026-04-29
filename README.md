@@ -73,14 +73,16 @@ The package also exports an ESLint plugin entrypoint at `@twodogwang/unocss-pres
 
 ```js
 import unocss from '@unocss/eslint-config/flat'
-import tailwind3EslintPlugin from '@twodogwang/unocss-preset-tailwind3/eslint'
+import { createEslintPluginTailwind3 } from '@twodogwang/unocss-preset-tailwind3/eslint'
 
 export default [
   {
     ...unocss,
     plugins: {
       ...(unocss.plugins ?? {}),
-      tailwind3: tailwind3EslintPlugin,
+      tailwind3: createEslintPluginTailwind3({
+        enableFix: true,
+      }),
     },
     rules: {
       ...unocss.rules,
@@ -90,6 +92,8 @@ export default [
   },
 ]
 ```
+
+Set `enableFix: false` if you want diagnostics only and do not want `eslint --fix` to rewrite classes.
 
 The current high-confidence autofix subset covers these legacy rule families:
 
@@ -228,14 +232,16 @@ transform-rotate-45
 
 ```js
 import unocss from '@unocss/eslint-config/flat'
-import tailwind3EslintPlugin from '@twodogwang/unocss-preset-tailwind3/eslint'
+import { createEslintPluginTailwind3 } from '@twodogwang/unocss-preset-tailwind3/eslint'
 
 export default [
   {
     ...unocss,
     plugins: {
       ...(unocss.plugins ?? {}),
-      tailwind3: tailwind3EslintPlugin,
+      tailwind3: createEslintPluginTailwind3({
+        enableFix: true,
+      }),
     },
     rules: {
       ...unocss.rules,
@@ -245,6 +251,8 @@ export default [
   },
 ]
 ```
+
+如果你只想保留诊断、不希望 `eslint --fix` 改写 class，把 `enableFix` 设为 `false` 即可。
 
 目前高置信度可自动修复的旧规则族包括：
 

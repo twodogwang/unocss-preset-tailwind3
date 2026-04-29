@@ -89,4 +89,21 @@ describe('eslint blocklist autofix plugin', () => {
       },
     ])
   })
+
+  it('can disable autofix while keeping diagnostics enabled', () => {
+    const plugin = createEslintPluginTailwind3({
+      enableFix: false,
+    })
+
+    expect(runRuleOnClassLiteral(plugin, 'c-#fff bg-op50')).toEqual([
+      {
+        message: '"c-#fff" is in blocklist: 旧写法 "c-#fff" 已禁用，请改为 "text-[#fff]"',
+        replacement: null,
+      },
+      {
+        message: '"bg-op50" is in blocklist: 旧写法 "bg-op50" 已禁用，请改为 "bg-opacity-50"',
+        replacement: null,
+      },
+    ])
+  })
 })
