@@ -69,7 +69,33 @@ transform-rotate-45
 
 ## ESLint Autofix Coverage
 
-The preset itself provides the blocklist and migration messages. If you wire those messages into an ESLint autofix rule, the current high-confidence autofix subset covers these legacy rule families:
+The package also exports an ESLint plugin entrypoint at `@twodogwang/unocss-preset-tailwind3/eslint`. Use it when you want blocklist diagnostics to participate in `eslint --fix`:
+
+```js
+import unocss from '@unocss/eslint-config/flat'
+import { createEslintPluginTailwind3 } from '@twodogwang/unocss-preset-tailwind3/eslint'
+
+export default [
+  {
+    ...unocss,
+    plugins: {
+      ...(unocss.plugins ?? {}),
+      tailwind3: createEslintPluginTailwind3({
+        enableFix: true,
+      }),
+    },
+    rules: {
+      ...unocss.rules,
+      'unocss/blocklist': 'off',
+      'tailwind3/blocklist-autofix': 'warn',
+    },
+  },
+]
+```
+
+Set `enableFix: false` if you want diagnostics only and do not want `eslint --fix` to rewrite classes.
+
+The current high-confidence autofix subset covers these legacy rule families:
 
 - color aliases such as `c-#fff`, `text-#fff`, `bg-#fff`, `fill-#fff`, `stroke-#fff`, `accent-#fff`, and `caret-#fff`
 - opacity aliases such as `bg-op50`, `border-op50`, `ring-op50`, `divide-op50`, `backdrop-op50`, and `op50`
@@ -123,7 +149,7 @@ export default defineConfig({
 
 ## Exports
 
-The package default export is `presetTailwind3`. It also exposes named exports such as `rules`, `variants`, `shortcuts`, `shorthands`, `theme`, `colors`, and `preflights` for advanced composition.
+The package default export is `presetTailwind3`. It also exposes named exports such as `rules`, `variants`, `shortcuts`, `shorthands`, `theme`, `colors`, and `preflights` for advanced composition. For ESLint autofix integration, use the dedicated subpath export `@twodogwang/unocss-preset-tailwind3/eslint`.
 
 ## Notes
 
@@ -202,7 +228,33 @@ transform-rotate-45
 
 ### ESLint 自动修复覆盖范围
 
-preset 本身提供的是 blocklist 和 migration message。如果你把这些 message 接进 ESLint autofix rule，目前高置信度可自动修复的旧规则族包括：
+包同时提供 `@twodogwang/unocss-preset-tailwind3/eslint` 这个 ESLint plugin 入口。如果你希望 blocklist 诊断参与 `eslint --fix`，可以这样接入：
+
+```js
+import unocss from '@unocss/eslint-config/flat'
+import { createEslintPluginTailwind3 } from '@twodogwang/unocss-preset-tailwind3/eslint'
+
+export default [
+  {
+    ...unocss,
+    plugins: {
+      ...(unocss.plugins ?? {}),
+      tailwind3: createEslintPluginTailwind3({
+        enableFix: true,
+      }),
+    },
+    rules: {
+      ...unocss.rules,
+      'unocss/blocklist': 'off',
+      'tailwind3/blocklist-autofix': 'warn',
+    },
+  },
+]
+```
+
+如果你只想保留诊断、不希望 `eslint --fix` 改写 class，把 `enableFix` 设为 `false` 即可。
+
+目前高置信度可自动修复的旧规则族包括：
 
 - 颜色别名，如 `c-#fff`、`text-#fff`、`bg-#fff`、`fill-#fff`、`stroke-#fff`、`accent-#fff`、`caret-#fff`
 - 透明度别名，如 `bg-op50`、`border-op50`、`ring-op50`、`divide-op50`、`backdrop-op50`、`op50`
@@ -256,7 +308,7 @@ export default defineConfig({
 
 ### 导出
 
-包的默认导出是 `presetTailwind3`。同时也暴露了 `rules`、`variants`、`shortcuts`、`shorthands`、`theme`、`colors`、`preflights` 等命名导出，便于高级组合使用。
+包的默认导出是 `presetTailwind3`。同时也暴露了 `rules`、`variants`、`shortcuts`、`shorthands`、`theme`、`colors`、`preflights` 等命名导出，便于高级组合使用。需要接入 ESLint autofix 时，请使用专门的子路径导出 `@twodogwang/unocss-preset-tailwind3/eslint`。
 
 ### 说明
 

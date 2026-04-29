@@ -22,7 +22,14 @@
     "tailwind3"
   ],
   "exports": {
-    ".": "./dist/index.mjs",
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./eslint": {
+      "types": "./dist/eslint.d.mts",
+      "import": "./dist/eslint.mjs"
+    },
     "./package.json": "./package.json"
   },
   "types": "./dist/index.d.mts",
