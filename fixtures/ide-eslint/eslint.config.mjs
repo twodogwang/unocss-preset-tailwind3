@@ -1,5 +1,5 @@
 import unocss from '@unocss/eslint-config/flat'
-import blocklistAutofixPlugin from './eslint-plugin-blocklist-autofix.mjs'
+import blocklistAutofixPlugin from '@twodogwang/unocss-preset-tailwind3/eslint'
 
 export default [
   {

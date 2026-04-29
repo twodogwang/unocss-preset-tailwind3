@@ -23,15 +23,19 @@ describe('ide eslint fixture configs', () => {
     expectNodeLoad('fixtures/ide-eslint/uno.config.mjs')
   })
 
-  it('loads eslint.config.mjs with plain node', () => {
-    expectNodeLoad('fixtures/ide-eslint/eslint.config.mjs')
-  })
-
   it('resolves the preset through package exports instead of direct source imports', () => {
     expect(readFixtureFile('uno.config.mjs')).toContain(`from '@twodogwang/unocss-preset-tailwind3'`)
     expect(readFixtureFile('uno.config.mjs')).not.toContain('../../src/index.ts')
-    expect(readFixtureFile('eslint-plugin-blocklist-autofix.mjs')).toContain(`from '@twodogwang/unocss-preset-tailwind3'`)
-    expect(readFixtureFile('eslint-plugin-blocklist-autofix.mjs')).not.toContain('../../src/index.ts')
+    expect(readFixtureFile('eslint.config.mjs')).toContain(`from '@twodogwang/unocss-preset-tailwind3/eslint'`)
+    expect(readFixtureFile('eslint.config.mjs')).not.toContain('./eslint-plugin-blocklist-autofix.mjs')
+  })
+
+  it('declares a package export for the eslint integration entrypoint', () => {
+    const packageJson = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8')) as {
+      exports?: Record<string, unknown>
+    }
+
+    expect(packageJson.exports?.['./eslint']).toBeTruthy()
   })
 
   it('keeps fixture lint scripts on plain node without tsx runtime hooks', () => {

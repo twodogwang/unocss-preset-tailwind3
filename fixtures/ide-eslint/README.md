@@ -1,6 +1,6 @@
 # IDE ESLint Fixture
 
-这个夹具用于验证 preset 提供的 blocklist 迁移提示能否在 IDE 中显示，以及本地 ESLint rule 能否为高置信度旧写法提供 autofix。
+这个夹具用于验证 preset 提供的 blocklist 迁移提示能否在 IDE 中显示，以及包内导出的 ESLint plugin 能否为高置信度旧写法提供 autofix。
 
 ## 目标
 
@@ -59,7 +59,7 @@ absolute border-2 rounded-md bg-opacity-50 text-[#000] text-[#fff] font-bold
 
 ## 说明
 
-- 这里故意使用 JSX 的 `className` 属性，因为本地 autofix rule 当前只覆盖 class 字面量，不处理普通字符串变量。
+- 这里故意使用 JSX 的 `className` 属性，因为当前包内 autofix rule 只覆盖 class 字面量，不处理普通字符串变量。
 - `lint` 和 `verify:autofix` 都直接走工作区包导出，也就是 `dist`。
 - 如果你在同时开发 preset 源码和这个 fixture，需要在仓库根目录保持 `pnpm dev` 运行，让 `dist` 持续刷新。
 - 如果命令行 `lint` 能报出来，但 IDE 没提示，问题通常在 IDE 的 ESLint 扩展或工作目录配置。
