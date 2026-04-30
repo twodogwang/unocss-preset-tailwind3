@@ -369,6 +369,8 @@ const legacyDiffAuditSpecs: LegacyDiffAuditSpec[] = [
   {
     specId: 'border-width',
     ignored: [
+      'border-10px',
+      'border-x-10px',
       'borderx',
     ],
   },
@@ -620,7 +622,8 @@ describe('blocklist legacy diff audit', () => {
       const invalid = spec?.invalid ?? []
       const classified = classifyTokens(invalid)
       const expectedBlockedOnly = auditSpec.blockedOnly ?? []
-      const expectedIgnored = auditSpec.ignored ?? []
+      const expectedIgnored = (auditSpec.ignored ?? [])
+        .filter(token => !getBlocklistMigrationReplacement(token))
       const expectedMigratable = invalid.filter(token => !expectedBlockedOnly.includes(token) && !expectedIgnored.includes(token))
 
       expect(sortTokens(classified.blockedOnly)).toEqual(sortTokens(expectedBlockedOnly))
