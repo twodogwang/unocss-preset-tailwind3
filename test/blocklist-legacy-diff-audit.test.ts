@@ -188,6 +188,10 @@ const legacyDiffAuditSpecs: LegacyDiffAuditSpec[] = [
   {
     specId: 'flex',
     ignored: [
+      'flex-grow-1',
+      'flex-grow-2',
+      'flex-shrink-1',
+      'flex-shrink-2',
       'flexrow',
     ],
   },

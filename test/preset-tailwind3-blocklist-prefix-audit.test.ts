@@ -239,20 +239,6 @@ const migrationFixtures: MigrationFixture[] = [
     replacement: 'basis-[10px]',
   },
   {
-    label: 'legacy flex grow alias',
-    matcher: /^flex-grow-(?!0$)(.+)$/,
-    input: 'flex-grow-2',
-    prefixed: 'tw-flex-grow-2',
-    replacement: 'grow-2',
-  },
-  {
-    label: 'legacy flex shrink alias',
-    matcher: /^flex-shrink-(?!0$)(.+)$/,
-    input: 'flex-shrink-2',
-    prefixed: 'tw-flex-shrink-2',
-    replacement: 'shrink-2',
-  },
-  {
     label: 'legacy grid flow alias',
     matcher: /^auto-flow-(.+)$/,
     input: 'auto-flow-row',

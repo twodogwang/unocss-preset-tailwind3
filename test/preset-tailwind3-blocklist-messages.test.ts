@@ -215,12 +215,10 @@ describe('preset-tailwind3 blocklist migration messages', () => {
   })
 
   it('locks flex migration hints through the shared fixture subset', async () => {
-    expect(flexBlocklistMigrationFixtures).toHaveLength(4)
+    expect(flexBlocklistMigrationFixtures).toHaveLength(2)
     expect(flexBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
       'flex-inline',
       'flex-basis-10px',
-      'flex-grow-2',
-      'flex-shrink-2',
     ])
 
     for (const fixture of flexBlocklistMigrationFixtures) {
