@@ -12,7 +12,7 @@
 - `flex` / `inline-flex` / `flex-*` shorthand 只接受 Tailwind 3 官方语义
 - `grow` / `shrink` 支持 Tailwind 3 的默认值、bracket arbitrary 与 `theme.flexGrow` / `theme.flexShrink`
 - `basis-*` 支持 Tailwind 3 默认 `flexBasis` key、fraction、arbitrary value 与 `theme.flexBasis`
-- 通过 blocklist 收口高置信度旧别名：`flex-inline`、`flex-basis-*`、`flex-grow-*`、`flex-shrink-*`
+- 通过 blocklist 收口高置信度旧别名：`flex-inline`、`flex-basis-*`
 
 ## 范围
 
@@ -43,7 +43,7 @@
 - `grow-*` / `shrink-*` 不读取 theme key
 - `basis-*` 只走 spacing / fraction / auto，不读取 `theme.flexBasis`
 - 默认 theme 没有 `flexBasis` / `flexGrow` / `flexShrink` 类型与基线 key
-- blocklist 里 `flex-inline` / `flex-basis-*` / `flex-grow-*` / `flex-shrink-*` 仍是 raw 拦截，没有迁移提示
+- blocklist 里 `flex-inline` / `flex-basis-*` 仍是 raw 拦截，没有迁移提示
 
 通过本地 Tailwind 3.4 主源 `node_modules/tailwindcss/lib/corePlugins.js`、`node_modules/tailwindcss/stubs/config.full.js` 与运行时实测确认：
 
@@ -64,7 +64,7 @@
 
 ### 3. blocklist 只收单义别名
 
-只收可以稳定改写到官方类名的 `flex-inline`、`flex-basis-*`、`flex-grow-*`、`flex-shrink-*`。
+只收可以稳定改写到官方类名、且不会与 Tailwind 官方长写法冲突的 `flex-inline`、`flex-basis-*`。
 
 ## 目标结构
 

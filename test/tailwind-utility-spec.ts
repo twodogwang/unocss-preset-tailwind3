@@ -234,7 +234,7 @@ export const tailwindUtilitySpecs: TailwindUtilitySpec[] = [
     invalid: [...flexFixtures.invalid],
     supportsPrefix: true,
     supportsVariants: true,
-    notes: ['用于锁定 flex 主规则族只接受 Tailwind 3 的 display、flex shorthand、grow / shrink、basis、direction 与 wrap 语义，并拒绝 flex-inline、flex-grow-*、flex-basis-* 旧别名。'],
+    notes: ['用于锁定 flex 主规则族只接受 Tailwind 3 的 display、flex shorthand、grow / shrink、basis、direction 与 wrap 语义；`flex-grow` / `flex-shrink` 长写法按官方语义支持，仅 `flex-inline` 与 `flex-basis-*` 作为旧别名治理入口。'],
   },
   {
     id: 'grid',
