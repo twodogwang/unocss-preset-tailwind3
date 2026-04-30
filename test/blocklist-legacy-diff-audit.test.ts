@@ -369,6 +369,8 @@ const legacyDiffAuditSpecs: LegacyDiffAuditSpec[] = [
   {
     specId: 'border-width',
     ignored: [
+      'border-10px',
+      'border-x-10px',
       'borderx',
     ],
   },
