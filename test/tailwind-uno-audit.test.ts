@@ -139,3 +139,23 @@ describe('tailwind uno audit report formatting', () => {
     expect(markdown).not.toContain('text-#fff -> text-[#fff]')
   })
 })
+
+describe('tailwind uno audit known findings', { timeout: 30000 }, () => {
+  it('surfaces current high-confidence missing migrations', async () => {
+    const { runAudit } = await import(pathToFileURL(resolve(root, 'scripts/tailwind-uno-audit/classifier.mjs')).href) as {
+      runAudit: () => Promise<Array<{ token: string, classification: string, inferredMigration?: string }>>
+    }
+
+    const results = await runAudit()
+    const byToken = new Map(results.map(result => [result.token, result]))
+
+    expect(byToken.get('border-#fff')).toMatchObject({
+      classification: 'missing-migration',
+      inferredMigration: 'border-[#fff]',
+    })
+    expect(byToken.get('border-op-50')).toMatchObject({
+      classification: 'missing-migration',
+      inferredMigration: 'border-opacity-50',
+    })
+  })
+})
