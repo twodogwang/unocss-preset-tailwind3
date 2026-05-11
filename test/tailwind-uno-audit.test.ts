@@ -61,3 +61,53 @@ describe('tailwind uno audit candidates', () => {
     expect(new Set(tokens).size).toBe(tokens.length)
   })
 })
+
+describe('tailwind uno audit classification', () => {
+  it('infers only high-confidence replacements', async () => {
+    const { inferMigrationReplacement } = await import(pathToFileURL(resolve(root, 'scripts/tailwind-uno-audit/migration-inference.mjs')).href) as {
+      inferMigrationReplacement: (candidate: { token: string, expectedReplacement?: string }) => string | undefined
+    }
+
+    expect(inferMigrationReplacement({ token: 'border-#fff', expectedReplacement: 'border-[#fff]' })).toBe('border-[#fff]')
+    expect(inferMigrationReplacement({ token: 'flex-grow-1' })).toBeUndefined()
+  })
+
+  it('classifies missing migration when inferred replacement is Tailwind-supported', async () => {
+    const { classifyAuditCandidate } = await import(pathToFileURL(resolve(root, 'scripts/tailwind-uno-audit/classifier.mjs')).href) as {
+      classifyAuditCandidate: (input: any) => Promise<any>
+    }
+
+    const result = await classifyAuditCandidate({
+      candidate: {
+        token: 'border-#fff',
+        expectedReplacement: 'border-[#fff]',
+      },
+      tailwindMatches: async (token: string) => token === 'border-[#fff]',
+      unoMatches: async () => false,
+      isBlocked: () => false,
+      getMigration: () => undefined,
+    })
+
+    expect(result.classification).toBe('missing-migration')
+    expect(result.inferredMigration).toBe('border-[#fff]')
+  })
+
+  it('classifies existing valid migrations as covered', async () => {
+    const { classifyAuditCandidate } = await import(pathToFileURL(resolve(root, 'scripts/tailwind-uno-audit/classifier.mjs')).href) as {
+      classifyAuditCandidate: (input: any) => Promise<any>
+    }
+
+    const result = await classifyAuditCandidate({
+      candidate: {
+        token: 'text-#fff',
+        expectedReplacement: 'text-[#fff]',
+      },
+      tailwindMatches: async (token: string) => token === 'text-[#fff]',
+      unoMatches: async () => false,
+      isBlocked: () => true,
+      getMigration: () => 'text-[#fff]',
+    })
+
+    expect(result.classification).toBe('covered-migration')
+  })
+})
