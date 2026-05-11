@@ -111,3 +111,31 @@ describe('tailwind uno audit classification', () => {
     expect(result.classification).toBe('covered-migration')
   })
 })
+
+describe('tailwind uno audit report formatting', () => {
+  it('formats markdown with action-focused sections', async () => {
+    const { formatMarkdownReport } = await import(pathToFileURL(resolve(root, 'scripts/audit-tailwind-uno-diff.mjs')).href) as {
+      formatMarkdownReport: (results: Array<any>) => string
+    }
+
+    const markdown = formatMarkdownReport([
+      {
+        token: 'border-#fff',
+        classification: 'missing-migration',
+        inferredMigration: 'border-[#fff]',
+        candidate: { family: 'color', source: 'pattern:bare-hex-color' },
+      },
+      {
+        token: 'text-#fff',
+        classification: 'covered-migration',
+        currentMigration: 'text-[#fff]',
+        candidate: { family: 'color', source: 'pattern:bare-hex-color' },
+      },
+    ])
+
+    expect(markdown).toContain('# Tailwind Uno Diff Audit')
+    expect(markdown).toContain('## Missing Migration')
+    expect(markdown).toContain('border-#fff -> border-[#fff]')
+    expect(markdown).not.toContain('text-#fff -> text-[#fff]')
+  })
+})
