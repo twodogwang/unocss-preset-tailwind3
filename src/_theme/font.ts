@@ -53,16 +53,7 @@ export const fontSize: Theme['fontSize'] = {
   '9xl': ['8rem', '1'],
 } satisfies Theme['fontSize']
 
-export const textIndent: Theme['textIndent'] = {
-  'DEFAULT': '1.5rem',
-  'xs': '0.5rem',
-  'sm': '1rem',
-  'md': '1.5rem',
-  'lg': '2rem',
-  'xl': '2.5rem',
-  '2xl': '3rem',
-  '3xl': '4rem',
-} satisfies Theme['textIndent']
+export const textIndent: Theme['textIndent'] = {} satisfies Theme['textIndent']
 
 export const textStrokeWidth: Theme['textStrokeWidth'] = {
   DEFAULT: '1.5rem',

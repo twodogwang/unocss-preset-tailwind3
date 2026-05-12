@@ -40,13 +40,6 @@ export const fonts: Rule<Theme>[] = [
     { autocomplete: 'leading-$lineHeight' },
   ],
 
-  // synthesis
-  ['font-synthesis-weight', { 'font-synthesis': 'weight' }],
-  ['font-synthesis-style', { 'font-synthesis': 'style' }],
-  ['font-synthesis-small-caps', { 'font-synthesis': 'small-caps' }],
-  ['font-synthesis-none', { 'font-synthesis': 'none' }],
-  [/^font-synthesis-(.+)$/, ([, s]) => ({ 'font-synthesis': h.bracket.cssvar.global(s) })],
-
   // tracking
   [
     /^tracking-(.+)$/,
@@ -56,29 +49,6 @@ export const fonts: Rule<Theme>[] = [
         return { 'letter-spacing': value }
     },
     { autocomplete: 'tracking-$letterSpacing' },
-  ],
-
-  // word-spacing
-  [
-    /^(?:font-)?word-spacing-(.+)$/,
-    ([, s], { theme }) => ({ 'word-spacing': theme.wordSpacing?.[s] || h.bracket.cssvar.global.rem(s) }),
-    { autocomplete: 'word-spacing-$wordSpacing' },
-  ],
-
-  // stretch
-  ['font-stretch-normal', { 'font-stretch': 'normal' }],
-  ['font-stretch-ultra-condensed', { 'font-stretch': 'ultra-condensed' }],
-  ['font-stretch-extra-condensed', { 'font-stretch': 'extra-condensed' }],
-  ['font-stretch-condensed', { 'font-stretch': 'condensed' }],
-  ['font-stretch-semi-condensed', { 'font-stretch': 'semi-condensed' }],
-  ['font-stretch-semi-expanded', { 'font-stretch': 'semi-expanded' }],
-  ['font-stretch-expanded', { 'font-stretch': 'expanded' }],
-  ['font-stretch-extra-expanded', { 'font-stretch': 'extra-expanded' }],
-  ['font-stretch-ultra-expanded', { 'font-stretch': 'ultra-expanded' }],
-  [
-    /^font-stretch-(.+)$/,
-    ([, s]) => ({ 'font-stretch': h.bracket.cssvar.fraction.global(s) }),
-    { autocomplete: 'font-stretch-<percentage>' },
   ],
 
   // family

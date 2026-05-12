@@ -1,8 +1,20 @@
 import type { Rule } from '@unocss/core'
 import type { Theme } from '../theme'
-import { h, makeGlobalStaticRules } from '../utils'
+import { h } from '../utils'
 
 const containValues = ['none', 'strict', 'content', 'size', 'inline-size', 'layout', 'style', 'paint']
+const blendModes = ['normal', 'multiply', 'screen', 'overlay', 'darken', 'lighten', 'color-dodge', 'color-burn', 'hard-light', 'soft-light', 'difference', 'exclusion', 'hue', 'saturation', 'color', 'luminosity']
+const objectPositionMap: Record<string, string> = {
+  bottom: 'bottom',
+  center: 'center',
+  left: 'left',
+  'left-bottom': 'left bottom',
+  'left-top': 'left top',
+  right: 'right',
+  'right-bottom': 'right bottom',
+  'right-top': 'right top',
+  top: 'top',
+}
 
 export const varEmpty = ' '
 
@@ -17,12 +29,64 @@ export const displays: Rule[] = [
   ['hidden', { display: 'none' }],
 ]
 
+export const accessibility: Rule[] = [
+  ['sr-only', {
+    position: 'absolute',
+    width: '1px',
+    height: '1px',
+    padding: '0',
+    margin: '-1px',
+    overflow: 'hidden',
+    clip: 'rect(0, 0, 0, 0)',
+    'white-space': 'nowrap',
+    'border-width': '0',
+  }],
+  ['not-sr-only', {
+    position: 'static',
+    width: 'auto',
+    height: 'auto',
+    padding: '0',
+    margin: '0',
+    overflow: 'visible',
+    clip: 'auto',
+    'white-space': 'normal',
+  }],
+]
+
+export const isolations: Rule[] = [
+  ['isolate', { isolation: 'isolate' }],
+  ['isolation-auto', { isolation: 'auto' }],
+]
+
+export const objectFits: Rule[] = [
+  ['object-contain', { 'object-fit': 'contain' }],
+  ['object-cover', { 'object-fit': 'cover' }],
+  ['object-fill', { 'object-fit': 'fill' }],
+  ['object-none', { 'object-fit': 'none' }],
+  ['object-scale-down', { 'object-fit': 'scale-down' }],
+]
+
+export const objectPositions: Rule[] = [
+  [/^object-(.+)$/, ([, value]) => {
+    if (value in objectPositionMap)
+      return { 'object-position': objectPositionMap[value] }
+
+    const resolved = h.bracket(value)
+    if (resolved != null)
+      return { 'object-position': resolved }
+  }],
+]
+
+export const backgroundBlendModes: Rule[] = blendModes.map(mode => [`bg-blend-${mode}`, { 'background-blend-mode': mode }])
+
+export const mixBlendModes: Rule[] = [
+  ...blendModes,
+  'plus-lighter',
+].map(mode => [`mix-blend-${mode}`, { 'mix-blend-mode': mode }])
+
 export const appearances: Rule[] = [
   ['visible', { visibility: 'visible' }],
   ['invisible', { visibility: 'hidden' }],
-  ['backface-visible', { 'backface-visibility': 'visible' }],
-  ['backface-hidden', { 'backface-visibility': 'hidden' }],
-  ...makeGlobalStaticRules('backface', 'backface-visibility'),
 ]
 
 export const cursors: Rule<Theme>[] = [
@@ -122,12 +186,6 @@ export const textTransforms: Rule[] = [
 export const fontStyles: Rule[] = [
   ['italic', { 'font-style': 'italic' }],
   ['not-italic', { 'font-style': 'normal' }],
-  ['font-italic', { 'font-style': 'italic' }],
-  ['font-not-italic', { 'font-style': 'normal' }],
-  ['oblique', { 'font-style': 'oblique' }],
-  ['not-oblique', { 'font-style': 'normal' }],
-  ['font-oblique', { 'font-style': 'oblique' }],
-  ['font-not-oblique', { 'font-style': 'normal' }],
 ]
 
 export const fontSmoothings: Rule[] = [

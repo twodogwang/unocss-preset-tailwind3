@@ -1,4 +1,5 @@
-import type { Rule } from '@unocss/core'
+import type { CSSObject, Rule } from '@unocss/core'
+import { symbols } from '@unocss/core'
 import { colorResolver, h, isSize } from '../utils'
 
 /**
@@ -33,6 +34,21 @@ export const bgColors: Rule[] = [
     return colorResolver('background-color', 'bg', 'backgroundColor')(...args)
   }, { autocomplete: 'bg-$colors' }],
   [/^bg-opacity-(.+)$/, ([, opacity]) => ({ '--un-bg-opacity': h.bracket.percent.cssvar(opacity) }), { autocomplete: 'bg-opacity-<percent>' }],
+]
+
+export const placeholderColors: Rule[] = [
+  [/^placeholder-(.+)$/, (...args) => {
+    const css = colorResolver('color', 'placeholder', 'textColor')(...args) as CSSObject | undefined
+    if (css) {
+      return Object.assign({
+        [symbols.selector]: (selector: string) => `${selector}::placeholder`,
+      }, css)
+    }
+  }, { autocomplete: 'placeholder-$colors' }],
+  [/^placeholder-opacity-(.+)$/, ([, opacity]) => ({
+    [symbols.selector]: (selector: string) => `${selector}::placeholder`,
+    '--un-placeholder-opacity': h.bracket.percent.cssvar(opacity),
+  }), { autocomplete: 'placeholder-opacity-<percent>' }],
 ]
 
 export const colorScheme: Rule[] = []

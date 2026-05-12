@@ -113,6 +113,63 @@ describe('preset-tailwind3', () => {
     })
   })
 
+  describe('tailwind core leftovers from wind3 audit', () => {
+    it('supports accessibility, isolation, object, blend, and placeholder utilities', async () => {
+      await expectTargets([
+        'sr-only',
+        'not-sr-only',
+        'isolate',
+        'isolation-auto',
+        'object-cover',
+        'object-left-bottom',
+        'bg-blend-multiply',
+        'mix-blend-plus-lighter',
+        'placeholder-black',
+        'placeholder-opacity-50',
+      ])
+    })
+
+    it('rejects Wind3 autocomplete extensions that are not Tailwind 3 utilities', async () => {
+      await expectNonTargets([
+        'auto-rows-0',
+        'auto-cols-24',
+        'backface-hidden',
+        'basis-none',
+        'bg-gradient-to-lb',
+        'border-spacing-none',
+        'box-decoration-inherit',
+        'columns-prose',
+        'columns-24',
+        'col-span-24',
+        'row-span-24',
+        'decoration-initial',
+        'decoration-3',
+        'delay-none',
+        'divide-hidden',
+        'divide-x-none',
+        'duration-none',
+        'ease',
+        'ease-DEFAULT',
+        'font-italic',
+        'font-stretch-normal',
+        'font-synthesis-weight',
+        'gap-none',
+        'indent-lg',
+        'line-clamp-8',
+        'not-oblique',
+        'oblique',
+        'ring-none',
+        'scroll-m-none',
+        'space-x-none',
+        'stroke-cap-round',
+        'stroke-dash-1',
+        'stroke-offset-none',
+        'underline-offset-3',
+        'word-spacing-normal',
+      ])
+    })
+  })
+
   describe('size / width / height / min-* / max-*', () => {
     it('matches official Tailwind 3 dimension utilities', async () => {
       await expectTargets(sizeFixtures.canonical)
@@ -1208,6 +1265,30 @@ describe('preset-tailwind3', () => {
 
     it('rejects non-tailwind background color aliases through the shared fixtures', async () => {
       await expectNonTargets(backgroundColorFixtures.invalid)
+    })
+
+    it('rejects Wind3 default palette aliases and bare color shortcuts', async () => {
+      await expectNonTargets([
+        'bg-red',
+        'bg-red-5',
+        'bg-bluegray',
+        'bg-light',
+        'text-red',
+        'text-red-5',
+        'text-warmgray',
+        'text-dark',
+        'accent-amber',
+        'caret-blue',
+        'fill-green',
+        'stroke-slate',
+        'border-zinc',
+        'divide-neutral',
+        'ring-violet',
+        'outline-rose',
+        'decoration-pink',
+        'placeholder-cyan',
+        'shadow-orange',
+      ])
     })
 
     it('emits the expected background color CSS for semantic cases', async () => {

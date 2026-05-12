@@ -2,7 +2,7 @@ import type { Rule } from '@unocss/core'
 import { h } from '../utils'
 
 export const lineClamps: Rule[] = [
-  [/^line-clamp-([1-9]\d*)$/, ([, v]) => ({
+  [/^line-clamp-([1-6])$/, ([, v]) => ({
     'overflow': 'hidden',
     'display': '-webkit-box',
     '-webkit-box-orient': 'vertical',

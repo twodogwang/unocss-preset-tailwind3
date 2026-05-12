@@ -2,7 +2,7 @@
 
 **Goal:** 把 `flex` 纳入统一 Tailwind 3 rewrite 模板，并补齐 shared fixture、runtime/parity、utility spec、blocklist 治理子集和过程文档。
 
-**Architecture:** 运行时留在 `src/_rules/flex.ts`，默认 `flexBasis` / `flexGrow` / `flexShrink` key 放进 theme，blocklist 在 `src/blocklist.ts` 收口高置信度旧别名。本轮核心是补齐 `grow` / `shrink` 的 arbitrary/theme 语义、补齐 `basis-full` 与 `theme.flexBasis`，并把 `flex-*` 旧别名从 raw 拦截提升为 migration 提示。
+**Architecture:** 运行时留在 `src/_rules/flex.ts`，默认 `flexBasis` / `flexGrow` / `flexShrink` key 放进 theme，blocklist 在 `src/blocklist.ts` 收口高置信度旧别名。本轮核心是补齐 `grow` / `shrink` 的 arbitrary/theme 语义、补齐 `basis-full` 与 `theme.flexBasis`，并仅把 `flex-inline` / `flex-basis-*` 这类单义旧别名从 raw 拦截提升为 migration 提示；`flex-grow` / `flex-shrink` 长写法保留为 Tailwind 官方支持入口。
 
 **Tech Stack:** TypeScript, UnoCSS rules, Vitest, Tailwind CSS 3.4, pnpm
 

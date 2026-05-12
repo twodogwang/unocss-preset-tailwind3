@@ -1,6 +1,7 @@
 import { createGenerator, escapeSelector } from '@unocss/core'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
+import { tailwindUtilitySpecs } from './tailwind-utility-spec'
 
 async function createPrefixedUno() {
   const preset = presetTailwind3({ prefix: 'tw-' })
@@ -30,6 +31,20 @@ async function expectNonTargets(input: string[]) {
 
   expect(Array.from(matched)).toEqual([])
   expect(css).toBe('')
+}
+
+function prefixToken(token: string): string[] {
+  if (token.startsWith('-'))
+    return [`-tw-${token.slice(1)}`, `tw-${token}`]
+  return [`tw-${token}`]
+}
+
+function getPrefixedInvalidTokens() {
+  const tokens = tailwindUtilitySpecs
+    .filter(spec => spec.supportsPrefix)
+    .flatMap(spec => spec.invalid.flatMap(prefixToken))
+
+  return [...new Set(tokens)]
 }
 
 async function createUno() {
@@ -160,5 +175,9 @@ describe('preset-tailwind3 prefix', () => {
       'tw-bg-gradient-shape-r',
       'tw-shape-r',
     ])
+  })
+
+  it('rejects every invalid utility spec token when prefix is enabled', async () => {
+    await expectNonTargets(getPrefixedInvalidTokens())
   })
 })

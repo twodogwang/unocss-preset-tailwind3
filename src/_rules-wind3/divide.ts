@@ -14,7 +14,7 @@ export const divides: Rule[] = [
   [/^divide-opacity-(.+)$/, ([, opacity]) => ({ '--un-divide-opacity': h.bracket.percent(opacity) }), { autocomplete: 'divide-opacity-<percent>' }],
 
   // styles
-  ...borderStyles.map(style => [`divide-${style}`, { 'border-style': style }] as Rule),
+  ...borderStyles.filter(style => style !== 'hidden').map(style => [`divide-${style}`, { 'border-style': style }] as Rule),
 ]
 
 function handlerDivide([, d, s]: string[], { theme }: RuleContext<Theme>): CSSEntries | undefined {

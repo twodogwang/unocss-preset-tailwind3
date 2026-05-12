@@ -15,8 +15,8 @@ function resolveTransitionProperty(prop: string, theme: Theme): string | undefin
 }
 
 function resolveTransitionTiming(value: string | undefined, theme: Theme): string | undefined {
-  if (!value)
-    return theme.easing?.DEFAULT
+  if (!value || value === 'DEFAULT')
+    return
 
   if (value.startsWith('[') && value.endsWith(']'))
     return h.bracket.cssvar(value)
@@ -54,13 +54,21 @@ export const transitions: Rule<Theme>[] = [
   // timings
   [
     /^duration-(.+)$/,
-    ([, d], { theme }) => ({ 'transition-duration': theme.duration?.[d || 'DEFAULT'] ?? h.bracket.cssvar.time(d) }),
+    ([, d], { theme }) => {
+      const value = theme.duration?.[d] ?? h.bracket.cssvar.time(d)
+      if (value)
+        return { 'transition-duration': value }
+    },
     { autocomplete: 'duration-$duration' },
   ],
 
   [
     /^delay-(.+)$/,
-    ([, d], { theme }) => ({ 'transition-delay': theme.duration?.[d || 'DEFAULT'] ?? h.bracket.cssvar.time(d) }),
+    ([, d], { theme }) => {
+      const value = theme.duration?.[d] ?? h.bracket.cssvar.time(d)
+      if (value)
+        return { 'transition-delay': value }
+    },
     { autocomplete: 'delay-$duration' },
   ],
 

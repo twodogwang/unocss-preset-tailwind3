@@ -1,7 +1,7 @@
 import type { Rule, RuleContext } from '@unocss/core'
 import type { Theme } from '../theme'
 import type { CSSColorValue } from '@unocss/rule-utils'
-import { h, makeGlobalStaticRules, parseColor, positionMap } from '../utils'
+import { h, parseColor, positionMap } from '../utils'
 import { colorOpacityToString, colorToString } from '@unocss/rule-utils'
 
 function bgGradientToValue(cssColor: CSSColorValue | undefined) {
@@ -82,7 +82,7 @@ export const backgroundStyles: Rule[] = [
   [/^(to)-(.+)$/, bgGradientColorResolver()],
   [/^(from|via|to)-([\d.]+)%$/, bgGradientPositionResolver()],
   // ignore any center position
-  [/^bg-gradient-to-([rltb]{1,2})$/, ([, d]) => {
+  [/^bg-gradient-to-(t|tr|r|br|b|bl|l|tl)$/, ([, d]) => {
     if (d in positionMap) {
       return {
         '--un-gradient-shape': `to ${positionMap[d]} in oklch`,
@@ -90,12 +90,11 @@ export const backgroundStyles: Rule[] = [
         'background-image': 'linear-gradient(var(--un-gradient))',
       }
     }
-  }, { autocomplete: `bg-gradient-to-(${Object.keys(positionMap).filter(k => k.length <= 2 && Array.from(k).every(c => 'rltb'.includes(c))).join('|')})` }],
+  }, { autocomplete: 'bg-gradient-to-(t|tr|r|br|b|bl|l|tl)' }],
   ['bg-none', { 'background-image': 'none' }],
 
   ['box-decoration-slice', { 'box-decoration-break': 'slice' }],
   ['box-decoration-clone', { 'box-decoration-break': 'clone' }],
-  ...makeGlobalStaticRules('box-decoration', 'box-decoration-break'),
 
   // size
   ['bg-auto', { 'background-size': 'auto' }],

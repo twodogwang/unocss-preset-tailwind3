@@ -56,7 +56,6 @@ export const contentValues = {
 
 export const lineWidth = {
   DEFAULT: '1px',
-  none: '0',
 } satisfies Theme['lineWidth']
 
 export const listStyleImage = {
@@ -70,7 +69,6 @@ export const listStyleType = {
 } satisfies Theme['listStyleType']
 
 export const spacing = {
-  'none': '0',
   'px': '1px',
   '0': '0px',
   '0.5': '0.125rem',
@@ -167,7 +165,6 @@ export const transformOrigin = {
 
 export const duration = {
   DEFAULT: '150ms',
-  none: '0s',
   75: '75ms',
   100: '100ms',
   150: '150ms',
@@ -203,7 +200,6 @@ export const boxShadow = {
 
 export const ringWidth = {
   DEFAULT: '3px',
-  none: '0',
 } satisfies Theme['ringWidth']
 
 export const zIndex = {
