@@ -12,6 +12,24 @@
 - Changes must reach `main` through pull requests only.
 - If work is accidentally committed on `main`, move the commit to a feature branch and restore local `main` before continuing.
 
+## Release Rules
+
+- Do not publish stable releases directly from a feature branch or from local manual commands.
+- Stable releases must reach `main` through a pull request.
+- When preparing a stable release, add or update the required Changeset on the feature branch, then open a PR targeting `main`.
+- Let the repository release workflow create or update the version PR, and let the workflow publish from `main` after the release PR is merged.
+- Do not manually run `changeset publish`, `pnpm release:publish`, or npm publish commands for stable releases unless explicitly instructed to perform an emergency manual publish.
+- Release-managed files such as `package.json`, `CHANGELOG.md`, and consumed `.changeset/*.md` files should be changed by the release workflow or by a dedicated `changeset-release/*` PR, not by ordinary feature work.
+
+## Beta Release Rules
+
+- Do not publish beta releases directly from a feature branch.
+- Beta releases must reach `beta` through a pull request.
+- When preparing a beta release, add or update the required Changeset on the feature branch, then open a PR targeting `beta`.
+- Let the repository release workflow publish beta versions from the `beta` branch after the PR is merged.
+- Do not manually run `changeset publish`, `pnpm release:publish`, or `pnpm release:publish:beta` from a feature branch unless explicitly instructed to perform an emergency manual publish.
+- Release-managed files such as `package.json`, `CHANGELOG.md`, and `.changeset/pre.json` should be changed by the release workflow or by a dedicated `release/*` PR, not by ordinary feature work.
+
 ## Public Documentation Boundaries
 
 - `README.md` is public, end-user facing package documentation.
