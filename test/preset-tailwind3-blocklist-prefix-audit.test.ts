@@ -1,8 +1,13 @@
 import type { BlocklistRule } from '@unocss/core'
 import { createGenerator } from '@unocss/core'
 import { createBlocklist } from '../src/blocklist'
+import {
+  blocklistMigrationDescriptors,
+  getBlocklistMigrationReplacement,
+} from '../src/blocklist-migration'
 import presetTailwind3 from '../src/index'
 import { describe, expect, it } from 'vitest'
+import { blocklistMigrationFixtures } from './fixtures/blocklist-migration'
 
 type PresetOptions = Parameters<typeof presetTailwind3>[0]
 
@@ -1172,24 +1177,28 @@ const allowFixtures: AllowFixture[] = [
 ]
 
 describe('preset-tailwind3 blocklist prefix audit', () => {
-  it('covers every base migration and raw blocklist rule with fixtures', () => {
+  it('covers every base migration descriptor and raw blocklist rule with fixtures', () => {
     const baseRules = createBlocklist()
-    const baseMigrationKeys = new Set(baseRules.filter(Array.isArray).map(fixtureKey))
     const baseRawKeys = new Set(baseRules.filter(rule => !Array.isArray(rule)).map(fixtureKey))
-
-    const migrationFixtureKeys = new Set(migrationFixtures.map(({ matcher }) => ruleKey(matcher)))
     const rawFixtureKeys = new Set(rawFixtures.map(({ matcher }) => ruleKey(matcher)))
+    const uncoveredMigrationDescriptors = blocklistMigrationDescriptors.filter(({ matcher }) => {
+      return !blocklistMigrationFixtures.some((fixture) => {
+        return matcher.test(fixture.input)
+          && getBlocklistMigrationReplacement(fixture.input) === fixture.replacement
+      })
+    })
 
-    expect(migrationFixtureKeys).toEqual(baseMigrationKeys)
+    expect(baseRules.filter(Array.isArray)).toHaveLength(blocklistMigrationDescriptors.length)
+    expect(uncoveredMigrationDescriptors).toEqual([])
     expect(rawFixtureKeys).toEqual(baseRawKeys)
   })
 
   it('blocks every migration fixture in zh-CN with and without prefix', async () => {
-    for (const fixture of migrationFixtures) {
+    for (const fixture of blocklistMigrationFixtures) {
       await expectBlockedMessage(fixture.input, zhMessage(fixture.input, fixture.replacement))
       await expectBlockedMessage(
-        fixture.prefixed,
-        zhMessage(fixture.prefixed, `tw-${fixture.replacement}`),
+        `tw-${fixture.input}`,
+        zhMessage(`tw-${fixture.input}`, `tw-${fixture.replacement}`),
         { prefix: 'tw-' },
       )
     }

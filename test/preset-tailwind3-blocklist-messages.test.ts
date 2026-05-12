@@ -266,10 +266,16 @@ describe('preset-tailwind3 blocklist migration messages', () => {
   })
 
   it('locks filters / backdrop-filters migration hints through the shared fixture subset', async () => {
-    expect(filtersBlocklistMigrationFixtures).toHaveLength(3)
+    expect(filtersBlocklistMigrationFixtures).toHaveLength(9)
     expect(filtersBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
       'filter-blur-sm',
       'filter-drop-shadow',
+      'filter-brightness-50',
+      'filter-contrast-50',
+      'filter-grayscale',
+      'filter-grayscale-0',
+      'filter-saturate-50',
+      'filter-hue-rotate-15',
       'backdrop-op-50',
     ])
 
@@ -567,9 +573,10 @@ describe('preset-tailwind3 blocklist migration messages', () => {
   })
 
   it('locks font migration hints through the shared fixture subset', async () => {
-    expect(fontBlocklistMigrationFixtures).toHaveLength(2)
+    expect(fontBlocklistMigrationFixtures).toHaveLength(3)
     expect(fontBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
       'fw-bold',
+      'fw-650',
       'font-650',
     ])
 
@@ -636,7 +643,7 @@ describe('preset-tailwind3 blocklist migration messages', () => {
   })
 
   it('locks gap inset scroll migration hints through the shared fixture subset', async () => {
-    expect(gapInsetScrollBlocklistMigrationFixtures).toHaveLength(22)
+    expect(gapInsetScrollBlocklistMigrationFixtures).toHaveLength(23)
     expect(gapInsetScrollBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
       'gap4',
       'gapx2',
@@ -644,6 +651,7 @@ describe('preset-tailwind3 blocklist migration messages', () => {
       'gap-row-4',
       'gap-col-4',
       'gap-3px',
+      'gap-x-3px',
       'insetx-4',
       'insety2',
       'inset-r-4',
@@ -668,10 +676,11 @@ describe('preset-tailwind3 blocklist migration messages', () => {
   })
 
   it('locks border spacing space migration hints through the shared fixture subset', async () => {
-    expect(borderSpacingSpaceBlocklistMigrationFixtures).toHaveLength(8)
+    expect(borderSpacingSpaceBlocklistMigrationFixtures).toHaveLength(9)
     expect(borderSpacingSpaceBlocklistMigrationFixtures.map(fixture => fixture.input)).toEqual([
       'borderspacing-2',
       'border-spacing-3px',
+      'border-spacing-y-3px',
       'border-spacingx-2',
       'border-spacingy4',
       'spacex-4',

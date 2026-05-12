@@ -126,6 +126,12 @@ export const transformBlocklistMigrationFixtures = [
 export const filtersBlocklistMigrationFixtures = [
   { input: 'filter-blur-sm', replacement: 'blur-sm' },
   { input: 'filter-drop-shadow', replacement: 'drop-shadow' },
+  { input: 'filter-brightness-50', replacement: 'brightness-50' },
+  { input: 'filter-contrast-50', replacement: 'contrast-50' },
+  { input: 'filter-grayscale', replacement: 'grayscale' },
+  { input: 'filter-grayscale-0', replacement: 'grayscale-0' },
+  { input: 'filter-saturate-50', replacement: 'saturate-50' },
+  { input: 'filter-hue-rotate-15', replacement: 'hue-rotate-15' },
   { input: 'backdrop-op-50', replacement: 'backdrop-opacity-50' },
 ] as const
 
@@ -219,6 +225,7 @@ export const caretBlocklistMigrationFixtures = [
 
 export const fontBlocklistMigrationFixtures = [
   { input: 'fw-bold', replacement: 'font-bold' },
+  { input: 'fw-650', replacement: 'font-[650]' },
   { input: 'font-650', replacement: 'font-[650]' },
 ] as const
 
@@ -265,6 +272,7 @@ export const gapInsetScrollBlocklistMigrationFixtures = [
   { input: 'gap-row-4', replacement: 'gap-y-4' },
   { input: 'gap-col-4', replacement: 'gap-x-4' },
   { input: 'gap-3px', replacement: 'gap-[3px]' },
+  { input: 'gap-x-3px', replacement: 'gap-x-[3px]' },
   { input: 'insetx-4', replacement: 'inset-x-4' },
   { input: 'insety2', replacement: 'inset-y-2' },
   { input: 'inset-r-4', replacement: 'right-4' },
@@ -286,6 +294,7 @@ export const gapInsetScrollBlocklistMigrationFixtures = [
 export const borderSpacingSpaceBlocklistMigrationFixtures = [
   { input: 'borderspacing-2', replacement: 'border-spacing-2' },
   { input: 'border-spacing-3px', replacement: 'border-spacing-[3px]' },
+  { input: 'border-spacing-y-3px', replacement: 'border-spacing-y-[3px]' },
   { input: 'border-spacingx-2', replacement: 'border-spacing-x-2' },
   { input: 'border-spacingy4', replacement: 'border-spacing-y-4' },
   { input: 'spacex-4', replacement: 'space-x-4' },
@@ -303,10 +312,18 @@ export const transitionBlocklistMigrationFixtures = [
 
 export const blocklistMigrationFixtures = [
   { input: 'c-#fff', replacement: 'text-[#fff]' },
+  { input: 'from-#fff', replacement: 'from-[#fff]' },
+  { input: 'ring-#fff', replacement: 'ring-[#fff]' },
+  { input: 'border-#fff', replacement: 'border-[#fff]' },
+  { input: 'border-1px', replacement: 'border-[1px]' },
+  { input: 'outline-offset-1px', replacement: 'outline-offset-[1px]' },
+  { input: 'rounded-3px', replacement: 'rounded-[3px]' },
   ...textBlocklistMigrationFixtures,
   ...textIndentBlocklistMigrationFixtures,
   ...aspectRatioBlocklistMigrationFixtures,
   ...sizeBlocklistMigrationFixtures,
+  ...displayBlocklistMigrationFixtures,
+  ...overflowBlocklistMigrationFixtures,
   ...textWrapOverflowTransformBlocklistMigrationFixtures,
   ...columnsBlocklistMigrationFixtures,
   ...flexBlocklistMigrationFixtures,
@@ -336,6 +353,9 @@ export const blocklistMigrationFixtures = [
   ...caretBlocklistMigrationFixtures,
   { input: 'b-2', replacement: 'border-2' },
   { input: 'b-red-500', replacement: 'border-red-500' },
+  { input: 'b-#fff', replacement: 'border-[#fff]' },
+  { input: 'b-1px', replacement: 'border-[1px]' },
+  { input: 'b-solid', replacement: 'border-solid' },
   { input: 'rd-md', replacement: 'rounded-md' },
   { input: 'op50', replacement: 'opacity-50' },
   { input: 'border-op50', replacement: 'border-opacity-50' },
