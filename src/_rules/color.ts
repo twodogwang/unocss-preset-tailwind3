@@ -1,4 +1,4 @@
-import type { Rule } from '@unocss/core'
+import type { CSSObject, Rule } from '@unocss/core'
 import { symbols } from '@unocss/core'
 import { colorResolver, h, isSize } from '../utils'
 
@@ -38,12 +38,11 @@ export const bgColors: Rule[] = [
 
 export const placeholderColors: Rule[] = [
   [/^placeholder-(.+)$/, (...args) => {
-    const css = colorResolver('color', 'placeholder', 'textColor')(...args)
+    const css = colorResolver('color', 'placeholder', 'textColor')(...args) as CSSObject | undefined
     if (css) {
-      return {
+      return Object.assign({
         [symbols.selector]: (selector: string) => `${selector}::placeholder`,
-        ...css,
-      }
+      }, css)
     }
   }, { autocomplete: 'placeholder-$colors' }],
   [/^placeholder-opacity-(.+)$/, ([, opacity]) => ({
