@@ -1,8 +1,5 @@
 // based on the colors from Tailwind CSS
 // https://github.com/tailwindlabs/tailwindcss/blob/master/src/public/colors.js
-//
-// and Windi CSS
-// https://github.com/windicss/windicss/blob/main/src/config/colors.ts
 
 import type { Theme } from './types'
 
@@ -299,72 +296,4 @@ export const colors = {
     900: '#1c1917',
     950: '#0c0a09',
   },
-  light: {
-    50: '#fdfdfd',
-    100: '#fcfcfc',
-    200: '#fafafa',
-    300: '#f8f9fa',
-    400: '#f6f6f6',
-    500: '#f2f2f2',
-    600: '#f1f3f5',
-    700: '#e9ecef',
-    800: '#dee2e6',
-    900: '#dde1e3',
-    950: '#d8dcdf',
-  },
-  dark: {
-    50: '#4a4a4a',
-    100: '#3c3c3c',
-    200: '#323232',
-    300: '#2d2d2d',
-    400: '#222222',
-    500: '#1f1f1f',
-    600: '#1c1c1e',
-    700: '#1b1b1b',
-    800: '#181818',
-    900: '#0f0f0f',
-    950: '#080808',
-  },
-  get lightblue() {
-    return this.sky
-  },
-  get lightBlue() {
-    return this.sky
-  },
-  get warmgray() {
-    return this.stone
-  },
-  get warmGray() {
-    return this.stone
-  },
-  get truegray() {
-    return this.neutral
-  },
-  get trueGray() {
-    return this.neutral
-  },
-  get coolgray() {
-    return this.gray
-  },
-  get coolGray() {
-    return this.gray
-  },
-  get bluegray() {
-    return this.slate
-  },
-  get blueGray() {
-    return this.slate
-  },
 } satisfies Theme['colors']
-
-// assign default color, and color shortcuts
-Object.values(colors as Required<Theme>['colors']).forEach((color) => {
-  if (typeof color !== 'string' && color !== undefined) {
-    color.DEFAULT = color.DEFAULT || color[400] as string
-    Object.keys(color).forEach((key) => {
-      const short = +key / 100
-      if (short === Math.round(short))
-        color[short] = color[key]
-    })
-  }
-})

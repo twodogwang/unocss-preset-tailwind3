@@ -373,15 +373,12 @@ const legacyDiffAuditSpecs: LegacyDiffAuditSpec[] = [
   {
     specId: 'border-width',
     ignored: [
-      'border-10px',
-      'border-x-10px',
       'borderx',
     ],
   },
   {
     specId: 'border-radius',
     ignored: [
-      'rounded-10px',
       'roundedt-lg',
       'rounded-lt-lg',
       'rounded-rt-lg',
@@ -487,8 +484,6 @@ const legacyDiffAuditSpecs: LegacyDiffAuditSpec[] = [
   {
     specId: 'outline',
     ignored: [
-      'outline-3px',
-      'outline-offset-3px',
       'outline-offset-none',
       'outline-hidden',
       'outline-initial',

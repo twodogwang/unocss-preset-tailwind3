@@ -1,3 +1,9 @@
+import { createGenerator } from '@unocss/core'
+import { createAutocomplete } from '@unocss/autocomplete'
+import { presetWind3 } from '@unocss/preset-wind3'
+
+import { tailwindUtilitySpecs } from '../../test/tailwind-utility-spec.ts'
+
 const bareHexUtilities = [
   'text',
   'bg',
@@ -90,6 +96,10 @@ function candidate(id, family, utility, token, expectedReplacement, source) {
   }
 }
 
+function utilityFromToken(token) {
+  return token.split('-')[0]
+}
+
 function unique(candidates) {
   const seen = new Set()
   return candidates.filter((item) => {
@@ -162,5 +172,62 @@ export function generateAuditCandidates() {
     ))
   }
 
+  for (const spec of tailwindUtilitySpecs) {
+    for (const token of spec.canonical) {
+      candidates.push(candidate(
+        `spec:canonical:${spec.id}:${token}`,
+        spec.id,
+        spec.id,
+        token,
+        undefined,
+        'spec:canonical',
+      ))
+    }
+
+    for (const token of spec.invalid) {
+      candidates.push(candidate(
+        `spec:invalid:${spec.id}:${token}`,
+        spec.id,
+        spec.id,
+        token,
+        undefined,
+        'spec:invalid',
+      ))
+    }
+  }
+
   return unique(candidates)
+}
+
+export async function generateWind3AutocompleteCandidates(options = {}) {
+  const uno = await createGenerator({
+    presets: [presetWind3(options.presetOptions ?? {})],
+    ...(options.unoConfig ?? {}),
+  })
+  const autocomplete = createAutocomplete(uno, { throwErrors: false })
+  const tokens = [...await autocomplete.enumerate()]
+    .filter(token => !token.endsWith(':'))
+    .filter(token => !token.includes(':'))
+    .filter(token => !token.endsWith('-'))
+    .filter(token => !token.includes('$'))
+    .filter(token => !token.includes('<'))
+
+  return unique(tokens.map(token => candidate(
+    `wind3:autocomplete:${token}`,
+    utilityFromToken(token),
+    utilityFromToken(token),
+    token,
+    undefined,
+    'wind3:autocomplete',
+  )))
+}
+
+export async function generateFullAuditCandidates(options = {}) {
+  if (options.includeWind3Autocomplete === false)
+    return generateAuditCandidates()
+
+  return unique([
+    ...generateAuditCandidates(),
+    ...await generateWind3AutocompleteCandidates(options.wind3Autocomplete ?? {}),
+  ])
 }

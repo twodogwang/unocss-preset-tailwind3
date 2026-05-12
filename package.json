@@ -64,6 +64,7 @@
     "@changesets/cli": "^2.29.7",
     "@types/node": "^24.5.2",
     "@unocss/autocomplete": "^66.6.0",
+    "@unocss/preset-wind3": "^66.6.0",
     "oxlint": "^1.60.0",
     "oxlint-tsgolint": "^0.20.0",
     "postcss": "^8.5.6",

@@ -8,7 +8,9 @@ export const columns: Rule<Theme>[] = [
       return { columns: theme.columns[v] }
     }
 
-    return { columns: h.bracket.numberWithUnit.number.cssvar(v) }
+    const value = h.bracket.cssvar(v)
+    if (value != null)
+      return { columns: value }
   }, { autocomplete: ['columns-<num>', 'columns-$columns'] }],
   ['columns-auto', { columns: 'auto' }],
 

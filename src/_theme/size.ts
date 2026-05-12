@@ -21,6 +21,9 @@ export const baseSize = {
   '7xl': '80rem',
   'prose': '65ch',
 }
+const columnBaseSize = Object.fromEntries(
+  Object.entries(baseSize).filter(([key]) => key !== 'prose'),
+) as Omit<typeof baseSize, 'prose'>
 
 export const width = {
   auto: 'auto',
@@ -127,7 +130,7 @@ export const columns = {
   12: '12',
   '3xs': '16rem',
   '2xs': '18rem',
-  ...baseSize,
+  ...columnBaseSize,
 } satisfies Theme['columns']
 
 export const flexBasis = {

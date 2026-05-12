@@ -6,10 +6,11 @@ import process from 'node:process'
 import { runAudit } from './tailwind-uno-audit/classifier.mjs'
 
 const importantClassifications = [
+  'broken-tailwind',
+  'leaked-wind3-extension',
   'missing-migration',
-  'tailwind-only',
-  'uno-only',
   'invalid-migration',
+  'current-only',
 ]
 
 function titleFor(classification) {

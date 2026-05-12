@@ -7,24 +7,8 @@ export const svgUtilities: Rule<Theme>[] = [
   [/^fill-(.+)$/, colorResolver('fill', 'fill', 'backgroundColor'), { autocomplete: 'fill-$colors' }],
   ['fill-none', { fill: 'none' }],
 
-  // stroke dash
-  [/^stroke-dash-(.+)$/, ([, s]) => ({ 'stroke-dasharray': h.bracket.cssvar.number(s) }), { autocomplete: 'stroke-dash-<num>' }],
-  [/^stroke-offset-(.+)$/, ([, s], { theme }) => ({ 'stroke-dashoffset': theme.lineWidth?.[s] ?? h.bracket.cssvar.px.numberWithUnit(s) }), { autocomplete: 'stroke-offset-$lineWidth' }],
-
   // stroke colors
   [/^stroke-(.+)$/, handleColorOrWidth, { autocomplete: ['stroke-$lineWidth', 'stroke-$colors'] }],
-
-  // line cap
-  ['stroke-cap-square', { 'stroke-linecap': 'square' }],
-  ['stroke-cap-round', { 'stroke-linecap': 'round' }],
-  ['stroke-cap-auto', { 'stroke-linecap': 'butt' }],
-
-  // line join
-  ['stroke-join-arcs', { 'stroke-linejoin': 'arcs' }],
-  ['stroke-join-bevel', { 'stroke-linejoin': 'bevel' }],
-  ['stroke-join-clip', { 'stroke-linejoin': 'miter-clip' }],
-  ['stroke-join-round', { 'stroke-linejoin': 'round' }],
-  ['stroke-join-auto', { 'stroke-linejoin': 'miter' }],
 
   // none
   ['stroke-none', { stroke: 'none' }],

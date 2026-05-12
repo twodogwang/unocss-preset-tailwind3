@@ -46,7 +46,11 @@ export const grids: Rule<Theme>[] = [
     if (s === 'full')
       return { [`grid-${rowCol(c)}`]: '1/-1' }
 
-    const value = h.bracket.number(s)
+    const value = /^[1-9]$|^1[0-2]$/.test(s)
+      ? s
+      : s.startsWith('[')
+        ? h.bracket.number(s)
+        : undefined
     if (value != null)
       return { [`grid-${rowCol(c)}`]: `span ${value}/span ${value}` }
   }, { autocomplete: '(row|col)-span-<num>' }],
@@ -72,7 +76,7 @@ export const grids: Rule<Theme>[] = [
 
   // auto rows/cols
   [/^auto-(rows|cols)-(.+)$/, ([, c, v], { theme }) => {
-    const value = gridAutoTheme(theme, c)?.[v] ?? h.bracket.cssvar.auto.rem(v)
+    const value = gridAutoTheme(theme, c)?.[v] ?? h.bracket.cssvar(v)
     if (value != null)
       return { [`grid-auto-${rowCol(c)}`]: value }
   }, { autocomplete: 'auto-(rows|cols)-<num>' }],
