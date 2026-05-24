@@ -8,9 +8,6 @@
   "prConcurrentLimit": 2,
   "branchConcurrentLimit": 2,
   "rangeStrategy": "replace",
-  "schedule": [
-    "* 0-5 * * *"
-  ],
   "labels": [
     "dependencies"
   ],
